@@ -1,0 +1,22 @@
+{
+    "name": "dragonee/php-silverplate",
+    "description": "A minimal stack for creating static HTML/Markdown websites.",
+    "keywords": ["silverplate", "static", "markdown", "html", "website"],
+    "homepage": "https://github.com/dragonee/php-silverplate",
+    "license": "MIT",
+
+    "require": {
+        "dflydev/markdown": "1.0.*"
+    },
+
+    "suggest": {
+        "dragonee/silverplate-form": "Add a contact form to the site."
+    },
+
+    "autoload": {
+        "files": [
+            "lib/block.php",
+            "lib/block_functions.php"
+        ]
+    }
+}
