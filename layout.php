@@ -32,6 +32,7 @@ use Silverplate\App;
         <script>window.jQuery || document.write('<script src="<?php echo App::path('js/vendor/jquery-1.9.1.min.js') ?>"><\/script>')</script>
         <script src="<?php echo App::path('js/plugins.js') ?>"></script>
         <script src="<?php echo App::path('js/main.js') ?>"></script>
+        <script src="http://accept-cookie.cdn.lambdadelta.pl/jquery.accept-cookie.js"></script>
 
         <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
         <script>
