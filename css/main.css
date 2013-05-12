@@ -1,5 +1,5 @@
 /*
- * HTML5 Boilerplate
+ * HTML5 Boilerplte
  *
  * What follows is the result of much research on cross-browser styling.
  * Credit left inline and big thanks to Nicolas Gallagher, Jonathan Neal,
@@ -94,19 +94,152 @@ textarea {
    ========================================================================== */
 
 
+html, body {
+    height: 100%;
+}
+
+section {
+    min-height: 100%;
+    position: relative;
+    overflow:hidden;
+    font-family: 'Merriweather Sans', sans-serif;
+}
+
+h1, h2, h3 {
+    font-family: 'Roboto Slab', serif;
+}
+
+a.button {
+    color: #fff;
+    display: block;
+    position: absolute;
+    background-color: rgba(0,0,0,0.1);
+    border-radius: 4px;
+    bottom: 2em;
+    left: 50%;
+    margin-left: -100px;
+    width: 200px;
+    text-align: center;
+    border: none;
+    padding: 0.5em 1em;
+
+    transition: 0.2s all ease-in-out;
+    text-decoration: none;
+}
+
+a.button:hover {
+    background-color: rgba(0,0,0,0.3);
+}
+
+#intro {
+    background-color: rgb(75, 0, 0);
+    
+}
+
+#intro h1 {
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    left:50%;
+    margin-left: -350px;
+    top: 50%;
+    margin-top: -240px;
+}
+
+#schedule {
+    background-color: rgb(121, 48, 20);
+    color: rgb(202, 177, 138);
+    
+}
+
+#schedule .sorting {
+   color: rgb(165, 137, 115);
+   font-size: 0.9em;
+   margin-bottom: 2em;
+}
+
+#schedule .sorting a {
+    color: rgb(165, 137, 115);
+    border-radius: 4px;
+    display: inline-block;
+    border: 1px solid rgba(255,255,255,0.1);
+    padding: 2px 6px;
+    text-decoration: none;
+}
+
+#schedule .sorting a:hover, #schedule .sorting a:active, #schedule .sorting .active {
+    background-color: rgba(0,0,0,0.1);
+
+}
 
 
+#schedule ul {
+list-style-type: none;
+margin: 0;
+padding: 0;
+}
+
+#schedule .grid {
+    margin-top: 4em;
+    margin-bottom: 6em;
+}
+
+#schedule li p, #schedule .legend p {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+#schedule li {
+    padding: 0.5em 0;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+}
 
 
+.legend {
+    font-weight: bold;
+    padding: 0.5em 0;
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+}
+
+#schedule h2 {
+    font-size: 3em;
+    margin-bottom: 0;
+}
+
+#schedule header .date {
+    text-align: right;
+    margin-top: 0;
+}
 
 
+.ul {
+    background-color: rgb(69, 95, 64);
+}
+
+.pl {
+    background-color: rgb(133, 52, 52);
+}
 
 
+.um {
+    background-color: #555;
+}
 
 
+.wsinf {
+    background-color: rgb(77, 67, 67);
+}
+
+.kol {
+    background-color: rgb(77, 67, 67);
+}
 
 
-
+#schedule li p.date, #schedule .legend .date {
+    width:80px;
+    padding-left: 20px;
+}
 
 
 /* ==========================================================================

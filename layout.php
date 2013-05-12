@@ -11,12 +11,15 @@ use Silverplate\App;
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
         <title><?php echo get('title', 'Default Title') ?></title>
-        <meta name="description" content="">
+        <meta name="description" content="<?php echo get('description') ?>">
         <meta name="viewport" content="width=device-width">
 
         <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
 
         <link rel="stylesheet" href="<?php echo App::path('css/normalize.css') ?>">
+        <link rel="stylesheet" href="<?php echo App::path('css/font-awesome.min.css') ?>">
+        <link rel="stylesheet" href="<?php echo App::path('css/720_grid.css') ?>" type="text/css" media="screen and (min-width: 720px)">
+        <link href='http://fonts.googleapis.com/css?family=Merriweather+Sans:400,700|Roboto+Slab:700&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
         <link rel="stylesheet" href="<?php echo App::path('css/main.css') ?>">
         <script src="<?php echo App::path('js/vendor/modernizr-2.6.2.min.js') ?>"></script>
     </head>
@@ -25,8 +28,8 @@ use Silverplate\App;
         <?php echo $content ?>
         
         <!-- Part of the layout file. Feel free to change the lines below -->
-        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
-        <script>window.jQuery || document.write('<script src="<?php echo App::path('js/vendor/jquery-1.8.3.min.js') ?>"><\/script>')</script>
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+        <script>window.jQuery || document.write('<script src="<?php echo App::path('js/vendor/jquery-1.9.1.min.js') ?>"><\/script>')</script>
         <script src="<?php echo App::path('js/plugins.js') ?>"></script>
         <script src="<?php echo App::path('js/main.js') ?>"></script>
 
