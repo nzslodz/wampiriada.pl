@@ -2,10 +2,43 @@
 <?php meta('title', 'Wampiriada w Łodzi') ?>
 <?php meta('description', 'Oficjalna strona akcji honorowego krwiodawstwa Wampiriada w Łodzi, organizowanej przez NZS Regionu Łódzkiego. Tutaj dowiesz się, jak wziąć w niej udział.') ?>
 
+<?php
+
+$data = (array) json_decode(file_get_contents('data.json'));
+
+extract($data);
+
+$overall = $zero_minus + $zero_plus + $a_plus + $b_plus + $ab_plus + $ab_minus + $b_minus + $a_minus + $unknown;
+
+?>
+
 <section id="intro">
     <div class="grid">
-        <div class="row">
-            <h1><img src="<?php echo App::path('img/wampir-logo.png') ?>" alt="Wampiriada - studenckie honorowe krwiodawstwo"></h1>
+        <div class="row center">
+                <h1><img src="<?php echo App::path('img/wampir-logo.png') ?>" alt="Wampiriada - studenckie honorowe krwiodawstwo"></h1>
+        </div>
+
+        <div class="row"> 
+            <div class="slot-0-1 overall <?php if($overall > 1000): ?>smallfont<?php endif; ?>">
+                <div class="big"><?php echo $overall ?></div> 
+                <div class="small">osób oddało już krew, co daje</div>
+
+                <div class="note"><?php echo $overall * 0.45 ?></div>
+                <div class="foot">litrów krwi</div>
+            </div>
+            <div class="slot-2-3-4-5">
+                <div id="magicalchart" class="row" style="height: 460px"
+                    data-zero-minus="<?php echo $zero_minus ?>"
+            data-zero-plus="<?php echo $zero_plus ?>"
+            data-a-minus="<?php echo $a_minus ?>"
+            data-a-plus="<?php echo $a_plus ?>"
+            data-b-minus="<?php echo $b_minus ?>"
+            data-b-plus="<?php echo $b_plus ?>"
+            data-ab-plus="<?php echo $ab_plus ?>"
+            data-ab-minus="<?php echo $ab_minus ?>"   
+            data-unknown="<?php echo $unknown ?>"
+        ></div>
+            </div>
         </div>
     </div>
     
