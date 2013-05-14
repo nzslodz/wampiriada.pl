@@ -10,6 +10,20 @@ extract($data);
 
 $overall = $zero_minus + $zero_plus + $a_plus + $b_plus + $ab_plus + $ab_minus + $b_minus + $a_minus + $unknown;
 
+function oddalo($num) {
+    $mod_100 = $num % 100;
+    $mod_10 = $num % 10;
+    if($mod_100 > 10 && $mod_100 < 20) {
+        return 'osób oddało';
+    }
+
+    if($mod_10 > 1 && $mod_10 < 5) {
+        return 'osoby oddały';
+    }
+
+    return 'osób oddało';
+}
+
 ?>
 
 <section id="intro">
@@ -21,7 +35,7 @@ $overall = $zero_minus + $zero_plus + $a_plus + $b_plus + $ab_plus + $ab_minus +
         <div class="row"> 
             <div class="slot-0-1 overall <?php if($overall > 1000): ?>smallfont<?php endif; ?>">
                 <div class="big"><?php echo $overall ?></div> 
-                <div class="small">osób oddało już krew, co daje</div>
+                <div class="small"><?php echo oddalo($overall) ?> już krew, co daje</div>
 
                 <div class="note"><?php echo $overall * 0.45 ?></div>
                 <div class="foot">litrów krwi</div>
