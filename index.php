@@ -4,11 +4,12 @@
 
 <?php
 
-$data = (array) json_decode(file_get_contents('data.json'));
+include __DIR__ . '/lib/wamp.php'; 
+
+$wamp = new \Wamp();
+$data = $wamp->getData();
 
 extract($data);
-
-$overall = $zero_minus + $zero_plus + $a_plus + $b_plus + $ab_plus + $ab_minus + $b_minus + $a_minus + $unknown;
 
 function oddalo($num) {
     $mod_100 = $num % 100;
