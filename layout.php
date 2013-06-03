@@ -16,6 +16,8 @@ use Silverplate\App;
 
         <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
 
+        <meta name="og:image" content="<?php echo App::path('img/wampir-logo-2.png') ?>">
+
         <link rel="stylesheet" href="<?php echo App::path('css/normalize.css') ?>">
         <link rel="stylesheet" href="<?php echo App::path('css/font-awesome.min.css') ?>">
         <link rel="stylesheet" href="<?php echo App::path('css/720_grid.css') ?>" type="text/css" media="screen and (min-width: 720px)">
