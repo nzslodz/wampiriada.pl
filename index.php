@@ -33,6 +33,22 @@ function oddalo($num) {
                 <h1><img src="<?php echo App::path('img/wampir-logo.png') ?>" alt="Wampiriada - studenckie honorowe krwiodawstwo"></h1>
         </div>
 
+        <div class="row mobile">
+            <div class="slot-0-1-2-3">
+                <h3>Nowość: aplikacja mobilna</h3>
+                <p>Pobierz aplikację mobilną Wampiriady na system Android i&nbsp;otrzymuj informacje o bieżących akcjach i&nbsp;osobach, które potrzebują krwi.</p>
+                <a href="https://play.google.com/store/apps/details?id=pl.makimo.wampiriada">
+                  <img alt="Pobierz z Google Play"
+                         src="https://developer.android.com/images/brand/pl_generic_rgb_wo_60.png" />
+                         </a>
+            </div>
+            <div class="slot-4-5">
+                <img class="like-h3" src="<?php echo App::path('img/wampiriada-market.png'); ?>" alt="Kod QR aplikacji mobilnej Wampiriady" >
+            </div>
+
+            <div class="clearfix"></div>
+        </div>
+
         <div class="row"> 
             <div class="slot-0-1 overall <?php if($overall > 1000): ?>smallfont<?php endif; ?>">
                 <div class="big"><?php echo $overall ?></div> 
@@ -155,7 +171,13 @@ function oddalo($num) {
                 </li>
                 <li class="row ul">
                     <p class="slot-0 date">04.06</p>
-                    <p class="slot-1-2-3 place ul" data-sort="UŁ">UŁ: Centrum WFiS, ul. Styrska 20/24</p>
+                    <p class="slot-1-2-3 place ul" data-sort="UŁ">UŁ: Centrum WFiS <small>ul. Styrska 20/24</small></p>
+                    <p class="slot-4 time">10 - 16</p>
+                    <p class="slot-5 marrow"><i class="icon-ok"></i> szpik</p>
+                </li>
+                <li class="row um">
+                    <p class="slot-0 date">06.06</p>
+                    <p class="slot-1-2-3 place um" data-sort="UM">UMed: Plac Hallera <small>pl. Hallera 1</small></p>
                     <p class="slot-4 time">10 - 16</p>
                     <p class="slot-5 marrow"><i class="icon-ok"></i> szpik</p>
                 </li>
