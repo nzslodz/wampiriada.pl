@@ -403,6 +403,16 @@ background-image: -webkit-gradient(
     padding-left: 0.5em;
 }
 
+.thanks {
+    font-size: 1.2em;
+}
+
+.itsbig {
+    font-size: 3em;
+    margin: 0;
+    text-align: center;
+}
+
 /* ==========================================================================
    Helper classes
    ========================================================================== */

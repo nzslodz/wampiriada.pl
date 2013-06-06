@@ -49,10 +49,14 @@ function oddalo($num) {
             <div class="clearfix"></div>
         </div>
 
-        <div class="row"> 
+        <header class="row">
+            <h2>Wyniki 22 edycji Wampiriady</h2>
+            <p class="date">05.2013 r. - 06.2013 r.</p>
+        </header>
+        <div class="row">
             <div class="slot-0-1 overall <?php if($overall > 1000): ?>smallfont<?php endif; ?>">
                 <div class="big"><?php echo $overall ?></div> 
-                <div class="small"><?php echo oddalo($overall) ?> już krew, co daje</div>
+                <div class="small"><?php echo oddalo($overall) ?> krew</div>
 
                 <div class="note"><?php echo $overall * 0.45 ?></div>
                 <div class="foot">litrów krwi</div>
@@ -71,11 +75,19 @@ function oddalo($num) {
         ></div>
             </div>
         </div>
+    <div class="row thanks">
+        <p>Wampiriada zakończona! Wedle naszych informacji, udało się zebrać aż <?php echo $overall * 0.45 ?> litrów krwi, czyli <strong>dokładnie tyle samo, ile na poprzedniej</strong> wiosennej Wampiriadzie. Co do jednej osoby! Czekamy jeszcze na oficjalne potwierdzenie z Regionalnego Centrum Krwiodawstwa, ale już teraz chcemy przekazać te słowa:</p>
+        <p class="itsbig">Dziękujemy serdecznie,</p>
+        <p class="center">ponieważ bez Was by się to nie udało.</p>
+        <p>Zapraszamy na jesienną Wampiriadę, która odbędzie się w listopadzie, oraz do pobierania naszej aplikacji na Androida. Oficjalne wyniki akcji pojawią się tutaj niebawem.</p>
     </div>
+    </div>
+
     
-    <a class="button" href="#schedule"><i class="icon-arrow-down"></i> Znajdź swoją uczelnię</a>
+    <a class="button" href="#who"><i class="icon-arrow-down"></i> Kto za tym stoi?</a>
 </section>
 
+<!--
 <section id="schedule">
     <div class="grid">
         <div class="row">
@@ -185,9 +197,10 @@ function oddalo($num) {
 
         </div>
     </div>
-    
+
     <a class="button" href="#dontforget"><i class="icon-arrow-down"></i> Czas na fun</a>
 </section>
+
 <section id="dontforget">
     <div class="grid">
             <header>
@@ -235,6 +248,7 @@ function oddalo($num) {
     </div>
     <a class="button" href="#who"><i class="icon-arrow-down"></i> Kto za tym stoi?</a>
 </section>
+-->
 <section id="who">
     <div class="grid">
             <header>
