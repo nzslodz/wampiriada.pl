@@ -76,7 +76,7 @@ function oddalo($num) {
             </div>
         </div>
     <div class="row thanks">
-        <p>Wampiriada zakończona! Wedle naszych informacji, udało się zebrać aż <?php echo $overall * 0.45 ?> litrów krwi, czyli <strong>dokładnie tyle samo, ile na poprzedniej</strong> wiosennej Wampiriadzie. Co do jednej osoby! Czekamy jeszcze na oficjalne potwierdzenie z Regionalnego Centrum Krwiodawstwa, ale już teraz chcemy przekazać te słowa:</p>
+        <p>Wampiriada zakończona! Wedle oficjalnych informacji z Regionalnego Centrum Krwiodawstwa, udało się zebrać aż <?php echo $overall * 0.45 ?> litrów krwi, czyli <strong>o 11.7 litra więcej niż na ostatniej</strong> wiosennej Wampiriadzie.</p>
         <p class="itsbig">Dziękujemy serdecznie,</p>
         <p class="center">ponieważ bez Was by się to nie udało.</p>
         <p>Zapraszamy na jesienną Wampiriadę, która odbędzie się w listopadzie, oraz do pobierania naszej aplikacji na Androida. Oficjalne wyniki akcji pojawią się tutaj niebawem.</p>
