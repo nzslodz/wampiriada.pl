@@ -79,7 +79,7 @@ function oddalo($num) {
         <p>Wampiriada zakończona! Wedle oficjalnych informacji z Regionalnego Centrum Krwiodawstwa, udało się zebrać aż <?php echo $overall * 0.45 ?> litrów krwi, czyli <strong>o 11.7 litra więcej niż na ostatniej</strong> wiosennej Wampiriadzie.</p>
         <p class="itsbig">Dziękujemy serdecznie,</p>
         <p class="center">ponieważ bez Was by się to nie udało.</p>
-        <p>Zapraszamy na jesienną Wampiriadę, która odbędzie się w listopadzie, oraz do pobierania naszej aplikacji na Androida. Oficjalne wyniki akcji pojawią się tutaj niebawem.</p>
+        <p>Zapraszamy na jesienną Wampiriadę, która odbędzie się w listopadzie, oraz do pobierania naszej aplikacji na Androida.</p>
     </div>
     </div>
 
@@ -274,7 +274,10 @@ function oddalo($num) {
                 <h2>Partnerzy</h2>
                 <p>Serdecznie dziękujemy naszym partnerom za możliwość przeprowadzenia akcji Wampiriada w Łodzi.</p>
             </header>
-            
+           
+            <div style="height: 530px">
+            </div>
+
             <div class="row">
                 <img src="<?php echo App::path('img/logotypyweb.png') ?>" alt="Logotypy naszych partnerów">
             </div>
