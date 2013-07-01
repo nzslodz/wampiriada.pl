@@ -50,7 +50,7 @@ function oddalo($num) {
         </div>
 
         <header class="row">
-            <h2>Wyniki 22 edycji Wampiriady</h2>
+            <h2>Wyniki 22. edycji Wampiriady</h2>
             <p class="date">05.2013 r. - 06.2013 r.</p>
         </header>
         <div class="row">
