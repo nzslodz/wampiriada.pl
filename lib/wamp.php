@@ -17,7 +17,7 @@ class Wamp {
         $this->results = $this->pdo->query('SELECT overall, zero_plus, zero_minus, a_plus, a_minus, b_plus, b_minus, ab_plus, ab_minus, unknown FROM overall_results where year = "2013" and edition_type = "1"')->fetch(PDO::FETCH_ASSOC);
         $this->actions = $this->pdo->query("SELECT 
                 action_days.created_at as day, action_days.start as start, action_days.end as end, action_days.marrow as marrow, 
-                place.name as place, school.short_name as school_short, school.name as school 
+                places.name as place, schools.short_name as school_short, schools.name as school 
             FROM action_days 
                 JOIN places on action_days.place_id = places.id 
                 JOIN schools on places.school_id = schools.id 
