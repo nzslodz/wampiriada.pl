@@ -49,7 +49,7 @@ function oddalo($num) {
             <div class="clearfix"></div>
         </div>
 
-        <header class="row">
+        <!--<header class="row">
             <h2>Wyniki 22. edycji Wampiriady</h2>
             <p class="date">05.2013 r. - 06.2013 r.</p>
         </header>
@@ -81,7 +81,7 @@ function oddalo($num) {
         <p class="center">ponieważ bez Was by się to nie udało.</p>
         <p>Zapraszamy na jesienną Wampiriadę, która odbędzie się w listopadzie, oraz do pobierania naszej aplikacji na Androida.</p>
     </div>
-    </div>
+    </div>-->
 
     
     <a class="button" href="#schedule"><i class="icon-arrow-down"></i> Terminy akcji</a>
@@ -91,7 +91,7 @@ function oddalo($num) {
     <div class="grid">
         <div class="row">
             <header>
-                <h2>Terminy 22 akcji Wampiriady</h2>
+                <h2>Terminy 23. akcji Wampiriady</h2>
                 <p class="date">05.2013 r. - 06.2013 r.</p>
             </header>
 
