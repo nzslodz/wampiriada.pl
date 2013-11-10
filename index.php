@@ -92,7 +92,7 @@ function oddalo($num) {
         <div class="row">
             <header>
                 <h2>Terminy 23. akcji Wampiriady</h2>
-                <p class="date">05.2013 r. - 06.2013 r.</p>
+                <p class="date">11.2013 r. - 12.2013 r.</p>
             </header>
 
             <div class="sorting">
