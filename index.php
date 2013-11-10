@@ -35,7 +35,7 @@ function oddalo($num) {
 
         <div class="row mobile">
             <div class="slot-0-1-2-3">
-                <h3>Nowość: aplikacja mobilna</h3>
+                <h3>Aplikacja mobilna Wampiriady</h3>
                 <p>Pobierz aplikację mobilną Wampiriady na system Android i&nbsp;otrzymuj informacje o bieżących akcjach i&nbsp;osobach, które potrzebują krwi.</p>
                 <a href="https://play.google.com/store/apps/details?id=pl.makimo.wampiriada">
                   <img alt="Pobierz z Google Play"
