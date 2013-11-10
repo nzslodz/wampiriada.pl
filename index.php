@@ -6,7 +6,7 @@
 
 include __DIR__ . '/lib/wamp.php'; 
 
-$wamp = new \Wamp();
+$wamp = new \Wamp(23);
 $data = $wamp->getData();
 
 extract($data);
@@ -84,10 +84,9 @@ function oddalo($num) {
     </div>
 
     
-    <a class="button" href="#who"><i class="icon-arrow-down"></i> Kto za tym stoi?</a>
+    <a class="button" href="#schedule"><i class="icon-arrow-down"></i> Terminy akcji</a>
 </section>
 
-<!--
 <section id="schedule">
     <div class="grid">
         <div class="row">
@@ -109,98 +108,24 @@ function oddalo($num) {
                     <p class="slot-5 marrow">Szpik</p>
                 </div>
             <ul class="isotope">
-                <li class="row pl">
-                    <p class="slot-0 date">13.05</p>
-                    <p class="slot-1-2-3 place pl" data-sort="PŁ">PŁ: VIII Dom Studenta</p>
-                    <p class="slot-4 time">10 - 16</p>
-                    <p class="slot-5 marrow"></p>
+                <?php foreach($wamp->getActions() as $action): ?>
+                <li class="row pl <?php echo $wamp->getClass($action->school_short) ?>">
+                    <p class="slot-0 date"><?php echo $action->day ?></p>
+                    <p class="slot-1-2-3 place pl" data-sort="<?php echo $action->school_short ?>"><?php echo $action->place ?></p>
+                    <p class="slot-4 time"><?php echo $action->start ?> - <?php echo $action->end ?></p>
+                    <p class="slot-5 marrow"><?php if($action->marrow): ?><i class="icon-ok"></i> szpik<?php endif; ?></p>
                 </li>
-                <li class="row um">
-                    <p class="slot-0 date">14.05</p>
-                    <p class="slot-1-2-3 place um" data-sort="UM">UMed: Centrum Dydaktyczne <small>ul. Pomorska 251</small></p>
-                    <p class="slot-4 time">10 - 16</p>
-                    <p class="slot-5 marrow"><i class="icon-ok"></i> szpik</p>
-                </li>
-                <li class="row ul">
-                    <p class="slot-0 date">15.05</p>
-                    <p class="slot-1-2-3 place ul" data-sort="UŁ">UŁ: Wydział Zarządzania</p>
-                    <p class="slot-4 time">10 - 16</p>
-                    <p class="slot-5 marrow"><i class="icon-ok"></i> szpik</p>
-                </li>
-                <li class="row pl">
-                    <p class="slot-0 date">17.05</p>
-                    <p class="slot-1-2-3 place pl" data-sort="PŁ">PŁ: Centrum Językowe</p>
-                    <p class="slot-4 time">10 - 16</p>
-                    <p class="slot-5 marrow"><i class="icon-ok"></i> szpik</p>
-                </li>
-                <li class="row wsinf">
-                    <p class="slot-0 date">18.05</p>
-                    <p class="slot-1-2-3 place wsinf" data-sort="WSINF">WSINFiU: Ośrodek Angelica <small>ul. Rzgowska 17a</small></p>
-                    <p class="slot-4 time">10 - 14</p>
-                    <p class="slot-5 marrow"></p>
-                </li>
-                <li class="row um">
-                    <p class="slot-0 date">20.05</p>
-                    <p class="slot-1-2-3 place um" data-sort="UM">UMed: Centrum Dydaktyczne <small>ul. Pomorska 251</small></p>
-                    <p class="slot-4 time">10 - 16</p>
-                    <p class="slot-5 marrow"><i class="icon-ok"></i> szpik</p>
-                </li>
-                <li class="row pl">
-                    <p class="slot-0 date">21.05</p>
-                    <p class="slot-1-2-3 place pl" data-sort="PŁ">PŁ: Wydział BiNoŻ</p>
-                    <p class="slot-4 time">10 - 16</p>
-                    <p class="slot-5 marrow"><i class="icon-ok"></i> szpik</p>
-                </li>
-                <li class="row ul">
-                    <p class="slot-0 date">22.05</p>
-                    <p class="slot-1-2-3 place ul" data-sort="UŁ">UŁ: Wydział Prawa i Administracji</p>
-                    <p class="slot-4 time">10 - 16</p>
-                    <p class="slot-5 marrow"></p>
-                </li>
-                <li class="row kol">
-                    <p class="slot-0 date">26.05</p>
-                    <p class="slot-1-2-3 place kol" data-sort="kol">Koluszki: Kino Odeon 3D <small>ul. 3-go Maja 2</small></p>
-                    <p class="slot-4 time">10 - 16</p>
-                    <p class="slot-5 marrow"><i class="icon-ok"></i> szpik</p>
-                </li>
-                <li class="row pl">
-                    <p class="slot-0 date">28.05</p>
-                    <p class="slot-1-2-3 place pl" data-sort="PŁ">PŁ: Centrum Językowe</p>
-                    <p class="slot-4 time">10 - 16</p>
-                    <p class="slot-5 marrow"><i class="icon-ok"></i> szpik</p>
-                </li>
-                <li class="row ul">
-                    <p class="slot-0 date">29.05</p>
-                    <p class="slot-1-2-3 place ul" data-sort="UŁ">UŁ: Wydział Filologiczny</p>
-                    <p class="slot-4 time">10 - 16</p>
-                    <p class="slot-5 marrow"><i class="icon-ok"></i> szpik</p>
-                </li>
-                <li class="row ul">
-                    <p class="slot-0 date">03.06</p>
-                    <p class="slot-1-2-3 place ul" data-sort="UŁ">UŁ: Wydział Ekonomiczno-Socjologiczny</p>
-                    <p class="slot-4 time">10 - 16</p>
-                    <p class="slot-5 marrow"><i class="icon-ok"></i> szpik</p>
-                </li>
-                <li class="row ul">
-                    <p class="slot-0 date">04.06</p>
-                    <p class="slot-1-2-3 place ul" data-sort="UŁ">UŁ: Centrum WFiS <small>ul. Styrska 20/24</small></p>
-                    <p class="slot-4 time">10 - 16</p>
-                    <p class="slot-5 marrow"><i class="icon-ok"></i> szpik</p>
-                </li>
-                <li class="row um">
-                    <p class="slot-0 date">06.06</p>
-                    <p class="slot-1-2-3 place um" data-sort="UM">UMed: Plac Hallera <small>pl. Hallera 1</small></p>
-                    <p class="slot-4 time">10 - 16</p>
-                    <p class="slot-5 marrow"><i class="icon-ok"></i> szpik</p>
-                </li>
+                <?php endforeach; ?>
             </ul>
 
         </div>
     </div>
 
-    <a class="button" href="#dontforget"><i class="icon-arrow-down"></i> Czas na fun</a>
+    <!--<a class="button" href="#dontforget"><i class="icon-arrow-down"></i> Czas na fun</a>-->
+    <a class="button" href="#who"><i class="icon-arrow-down"></i> Kto za tym stoi?</a>
 </section>
 
+<!--
 <section id="dontforget">
     <div class="grid">
             <header>
