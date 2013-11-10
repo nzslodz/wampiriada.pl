@@ -22,7 +22,7 @@ class Wamp {
                 JOIN places on action_days.place_id = places.id 
                 JOIN schools on places.school_id = schools.id 
                 JOIN editions on action_days.edition_id = editions.id 
-            WHERE edtions.number = $edition
+            WHERE editions.number = $edition
             ORDER BY action_days.created_at")->fetch(PDO::FETCH_ASSOC);
     }
 
