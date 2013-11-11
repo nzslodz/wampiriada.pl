@@ -142,7 +142,6 @@ function oddalo($num) {
                         <li>batonik i napój energetyczny;</li>
                         <li>koszulkę Wampira;</li>
                         <li>nieopisaną satysfakcję z niesienia pomocy innym :)</li>
-                        <li>oraz zaproszenie na WAMPIRPARTY.</li>
                     </ul>
                 </div>
                 <div class="slot-3-4-5">
