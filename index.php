@@ -134,7 +134,7 @@ function oddalo($num) {
 
             <div class="row">
                 <div class="slot-0-1-2">
-                    <p class="center"><img src="<?php echo App::path('img/wampir.png') ?>" alt=""></p>
+                    <!--<p class="center"><img src="<?php echo App::path('img/wampir.png') ?>" alt=""></p>-->
                     <h3>Gifty</h3>
                     <p>W zamian za oddanie krwi otrzymasz:</p>
                     <ul>
