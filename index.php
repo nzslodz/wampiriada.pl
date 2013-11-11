@@ -121,11 +121,10 @@ function oddalo($num) {
         </div>
     </div>
 
-    <!--<a class="button" href="#dontforget"><i class="icon-arrow-down"></i> Czas na fun</a>-->
-    <a class="button" href="#who"><i class="icon-arrow-down"></i> Kto za tym stoi?</a>
+    <a class="button" href="#dontforget"><i class="icon-arrow-down"></i> Czas na fun</a>
+    <!--<a class="button" href="#who"><i class="icon-arrow-down"></i> Kto za tym stoi?</a>-->
 </section>
 
-<!--
 <section id="dontforget">
     <div class="grid">
             <header>
@@ -142,38 +141,38 @@ function oddalo($num) {
                         <li>osiem czekolad;</li>
                         <li>batonik i napój energetyczny;</li>
                         <li>koszulkę Wampira;</li>
-                        <li>zniżkę na pizzę Fiero;</li>
+                        <li>nieopisaną satysfakcję z niesienia pomocy innym :)</li>
                         <li>oraz zaproszenie na WAMPIRPARTY.</li>
                     </ul>
-                </div>
-                <div class="slot-3-4-5">
-                    <p class="lordis center"><img src="<?php echo App::path('img/lordis.png') ?>" alt="Logo Lordi's Club"></p>
-                    <h3>Impreza</h3>
-                    <p>Już 30 maja w Lordi's Club przy ul. Piotrkowskiej 102 rozlegną się dźwięki WAMPIRPARTY, imprezy kierowanej do wszystkich honorowych krwiodawców, którzy oddali swoją krew podczas tej edycji Wampiriady. Przyjdź i weź ze sobą znajomych.</p>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="slot-0-1-2">
-                    <h3>Polub nas na Facebooku,</h3>
-                    <p>a weźmiesz udział w losowaniu nagród takich jak karnety do Fitfabric Fitness Club, kursów językowych Profilingua, czy darmowych kuponów na pizzę w pizzerii Fiero. Losowanie odbywa się po każdej akcji Wampiriady!</p>
-                    <p>Nasz fanpage: <a href="https://www.facebook.com/NZSRegionuLodzkiego">NZS Regionu Łódzkiego</a>.</p>
                 </div>
                 <div class="slot-3-4-5">
                     <h3>Pozostań w kontakcie</h3>
                     <p>Najświeższe informacje o naszych projektach możesz zdobyć tutaj:</p>
                     <ul>
-                        <li><a href="https://www.facebook.com/NZSRegionuLodzkiego">NZS Regionu Łódzkiego</a></li>
+                        <li><a href="https://nzs.lodz.pl">NZS Regionu Łódzkiego</a></li>
+                        <li><a href="https://wampiriada.pl">Strona Wampiriady</a></li>
                         <li><a href="https://www.facebook.com/wampiriada.nzs.rl">Wampiriada NZS RŁ</a></li>
-                        <li><a href="https://www.facebook.com/events/108792442658412/">Oficjalny event 22 edycji Wampiriady</a></li>
-                        <li><a href="https://twitter.com/nzslodz">Nasz Twitter</a></li>
+                        <li><a href="https://www.facebook.com/events/767672216583546/">Oficjalny event 23. edycji Wampiriady</a></li>
                     </ul>
                 </div>
+                <!--<div class="slot-3-4-5">
+                    <p class="lordis center"><img src="<?php echo App::path('img/lordis.png') ?>" alt="Logo Lordi's Club"></p>
+                    <h3>Impreza</h3>
+                    <p>Już 30 maja w Lordi's Club przy ul. Piotrkowskiej 102 rozlegną się dźwięki WAMPIRPARTY, imprezy kierowanej do wszystkich honorowych krwiodawców, którzy oddali swoją krew podczas tej edycji Wampiriady. Przyjdź i weź ze sobą znajomych.</p>
+                </div>-->
+            </div>
+
+            <div class="row">
+                <!--<div class="slot-0-1-2">
+                    <h3>Polub nas na Facebooku,</h3>
+                    <p>a weźmiesz udział w losowaniu nagród takich jak karnety do Fitfabric Fitness Club, kursów językowych Profilingua, czy darmowych kuponów na pizzę w pizzerii Fiero. Losowanie odbywa się po każdej akcji Wampiriady!</p>
+                    <p>Nasz fanpage: <a href="https://www.facebook.com/NZSRegionuLodzkiego">NZS Regionu Łódzkiego</a>.</p>
+                </div>-->
             </div>
     </div>
     <a class="button" href="#who"><i class="icon-arrow-down"></i> Kto za tym stoi?</a>
 </section>
--->
+
 <section id="who">
     <div class="grid">
             <header>
