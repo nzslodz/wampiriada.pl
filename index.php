@@ -49,8 +49,8 @@ function oddalo($num) {
             <div class="clearfix"></div>
         </div>
 
-        <!--<header class="row">
-            <h2>Wyniki 22. edycji Wampiriady</h2>
+        <header class="row">
+            <h2>Wyniki 23. edycji Wampiriady</h2>
             <p class="date">05.2013 r. - 06.2013 r.</p>
         </header>
         <div class="row">
@@ -75,7 +75,7 @@ function oddalo($num) {
         ></div>
             </div>
         </div>
-    <div class="row thanks">
+    <!--<div class="row thanks">
         <p>Wampiriada zakończona! Wedle oficjalnych informacji z Regionalnego Centrum Krwiodawstwa, udało się zebrać aż <?php echo $overall * 0.45 ?> litrów krwi, czyli <strong>o 11.7 litra więcej niż na ostatniej</strong> wiosennej Wampiriadzie.</p>
         <p class="itsbig">Dziękujemy serdecznie,</p>
         <p class="center">ponieważ bez Was by się to nie udało.</p>
