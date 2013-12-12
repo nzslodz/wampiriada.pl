@@ -33,21 +33,6 @@ function oddalo($num) {
                 <h1><img src="<?php echo App::path('img/wampir-logo.png') ?>" alt="Wampiriada - studenckie honorowe krwiodawstwo"></h1>
         </div>
 
-        <div class="row mobile">
-            <div class="slot-0-1-2-3">
-                <h3>Aplikacja mobilna Wampiriady</h3>
-                <p>Pobierz aplikację mobilną Wampiriady na system Android i&nbsp;otrzymuj informacje o bieżących akcjach i&nbsp;osobach, które potrzebują krwi.</p>
-                <a href="https://play.google.com/store/apps/details?id=pl.makimo.wampiriada">
-                  <img alt="Pobierz z Google Play"
-                         src="https://developer.android.com/images/brand/pl_generic_rgb_wo_60.png" />
-                         </a>
-            </div>
-            <div class="slot-4-5">
-                <img class="like-h3" src="<?php echo App::path('img/wampiriada-market.png'); ?>" alt="Kod QR aplikacji mobilnej Wampiriady" >
-            </div>
-
-            <div class="clearfix"></div>
-        </div>
 
         <header class="row">
             <h2>Wyniki 23. edycji Wampiriady</h2>
@@ -82,6 +67,21 @@ function oddalo($num) {
         <p>Zapraszamy na jesienną Wampiriadę, która odbędzie się w listopadzie, oraz do pobierania naszej aplikacji na Androida.</p>
     </div>
     </div>-->
+        <div class="row mobile">
+            <div class="slot-0-1-2-3">
+                <h3>Aplikacja mobilna Wampiriady</h3>
+                <p>Pobierz aplikację mobilną Wampiriady na system Android i&nbsp;otrzymuj informacje o bieżących akcjach i&nbsp;osobach, które potrzebują krwi.</p>
+                <a href="https://play.google.com/store/apps/details?id=pl.makimo.wampiriada">
+                  <img alt="Pobierz z Google Play"
+                         src="https://developer.android.com/images/brand/pl_generic_rgb_wo_60.png" />
+                         </a>
+            </div>
+            <div class="slot-4-5">
+                <img class="like-h3" src="<?php echo App::path('img/wampiriada-market.png'); ?>" alt="Kod QR aplikacji mobilnej Wampiriady" >
+            </div>
+
+            <div class="clearfix"></div>
+        </div>
 
     
     <a class="button" href="#schedule"><i class="icon-arrow-down"></i> Terminy akcji</a>
