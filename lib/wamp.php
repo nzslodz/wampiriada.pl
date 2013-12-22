@@ -17,7 +17,7 @@ class Wamp {
     }
 
     protected function getYear($edition) {
-        return (int) ($edition / 2) + 1992;
+        return (int) ($edition / 2) + 2002;
     }
 
     public function __construct($edition) {
