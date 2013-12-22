@@ -12,10 +12,18 @@ class Wamp {
         'Pozostałe' => 'other',
     );
 
+    protected function getEditionType($edition) {
+        return $edition % 2 + 1;
+    }
+
+    protected function getYear($edition) {
+        return (int) ($edition / 2) + 1992;
+    }
+
     public function __construct($edition) {
         $this->pdo = include __DIR__ . '/db.php';
-        // XXX: fix this thing
-        $this->results = $this->pdo->query('SELECT overall, zero_plus, zero_minus, a_plus, a_minus, b_plus, b_minus, ab_plus, ab_minus, unknown FROM overall_results where year = "2013" and edition_type = "2"')->fetch(PDO::FETCH_ASSOC);
+
+        $this->results = $this->pdo->query("SELECT overall, zero_plus, zero_minus, a_plus, a_minus, b_plus, b_minus, ab_plus, ab_minus, unknown FROM overall_results where year = {$this->getYear($edition)} and edition_type = {$this->getEditionType($edition)}")->fetch(PDO::FETCH_ASSOC);
         $this->actions = $this->pdo->query("SELECT 
                 action_days.created_at as day, action_days.start as start, action_days.end as end, action_days.marrow as marrow, 
                 places.name as place, schools.short_name as school_short, schools.name as school 
