@@ -35,7 +35,7 @@ function oddalo($num) {
 
 
         <header class="row">
-			<h1>Hello world!!!</h1>
+			<h1>Witaj świecie!</h1>
             <h2>Wyniki 23. edycji Wampiriady</h2>
             <p class="date">11.2013 r. - 12.2013 r.</p>
         </header>
