@@ -130,7 +130,7 @@ function oddalo($num) {
     <div class="grid">
             <header>
                 <h2>To nie wszystko!</h2>
-                <p>Zobacz, co jeszcze dla Ciebie przygotowaliśmy.</p>
+                <p>Zobacz, czego nie przygotowaliśmy.</p>
             </header>
 
             <div class="row">
