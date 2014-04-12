@@ -35,10 +35,7 @@ function oddalo($num) {
 
 
         <header class="row">
-
-			<h1>Witajcie gunwiarze!</h1>
-
-            <h2>Wyniki 23. edycji Wampiriady - hellol</h2>
+            <h2>Wyniki 23. edycji Wampiriady</h2>
             <p class="date">11.2013 r. - 12.2013 r.</p>
         </header>
         <div class="row">
@@ -132,7 +129,7 @@ function oddalo($num) {
     <div class="grid">
             <header>
                 <h2>To nie wszystko!</h2>
-                <p>Zobacz, czego nie przygotowaliśmy.</p>
+                <p>Zobacz, co jeszcze dla Ciebie przygotowaliśmy.</p>
             </header>
 
             <div class="row">
