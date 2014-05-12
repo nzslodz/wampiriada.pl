@@ -148,10 +148,10 @@ function oddalo($num) {
                     <h3>Pozostań w kontakcie</h3>
                     <p>Najświeższe informacje o naszych projektach możesz zdobyć tutaj:</p>
                     <ul>
-                        <li><a href="https://nzs.lodz.pl">NZS Regionu Łódzkiego</a></li>
-                        <li><a href="https://wampiriada.pl">Strona Wampiriady</a></li>
-                        <li><a href="https://www.facebook.com/wampiriada.nzs.rl">Wampiriada NZS RŁ</a></li>
-                        <li><a href="https://www.facebook.com/events/767672216583546/">Oficjalny event 23. edycji Wampiriady</a></li>
+                        <li><a href="http://nzs.lodz.pl">NZS Regionu Łódzkiego</a></li>
+                        <li><a href="http://wampiriada.pl">Strona Wampiriady</a></li>
+                        <li><a href="http://www.facebook.com/wampiriada.nzs.rl">Wampiriada NZS RŁ</a></li>
+                        <li><a href="http://www.facebook.com/events/767672216583546/">Oficjalny event 23. edycji Wampiriady</a></li>
                     </ul>
                 </div>
                 <!--<div class="slot-3-4-5">
