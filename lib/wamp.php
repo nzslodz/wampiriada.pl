@@ -9,6 +9,7 @@ class Wamp {
         'UMed' => 'um',
         'WSInfiU' => 'wsinf',
         'AHE' => 'ahe',
+        'AMuz' => 'amuz',
         'Pozostałe' => 'other',
     );
 

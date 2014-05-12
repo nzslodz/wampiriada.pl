@@ -6,10 +6,10 @@
 
 include __DIR__ . '/lib/wamp.php'; 
 
-$wamp = new \Wamp(23);
+$wamp = new \Wamp(24);
 $data = $wamp->getData();
 
-extract($data);
+//extract($data);
 
 function oddalo($num) {
     $mod_100 = $num % 100;
@@ -33,7 +33,7 @@ function oddalo($num) {
                 <h1><img src="<?php echo App::path('img/wampir-logo.png') ?>" alt="Wampiriada - studenckie honorowe krwiodawstwo"></h1>
         </div>
 
-
+        <!--
         <header class="row">
             <h2>Wyniki 23. edycji Wampiriady</h2>
             <p class="date">11.2013 r. - 12.2013 r.</p>
@@ -60,7 +60,7 @@ function oddalo($num) {
         ></div>
             </div>
         </div>
-    <!--<div class="row thanks">
+    <div class="row thanks">
         <p>Wampiriada zakończona! Wedle oficjalnych informacji z Regionalnego Centrum Krwiodawstwa, udało się zebrać aż <?php echo $overall * 0.45 ?> litrów krwi, czyli <strong>o <?php echo $wamp->getDifference() * 0.45 ?> litra więcej niż na ostatniej</strong> jesiennej Wampiriadzie.</p>
         <p class="itsbig">Dziękujemy serdecznie,</p>
         <p class="center">ponieważ wspólnie udało się nam osiągnąć coś wielkiego.</p>
@@ -91,8 +91,8 @@ function oddalo($num) {
     <div class="grid">
         <div class="row">
             <header>
-                <h2>Terminy 23. akcji Wampiriady</h2>
-                <p class="date">11.2013 r. - 12.2013 r.</p>
+                <h2>Terminy 24. akcji Wampiriady</h2>
+                <p class="date">05.2014 r. - 06.2014 r.</p>
             </header>
 
             <div class="sorting">
@@ -198,10 +198,10 @@ function oddalo($num) {
                 <p>Serdecznie dziękujemy naszym partnerom za możliwość przeprowadzenia akcji Wampiriada w Łodzi.</p>
             </header>
            
-            <div style="height: 530px">
+            <div style="height: 600px">
             </div>
 
-            <div class="row">
+            <div class="row" style="max-width: 720px">
                 <img src="<?php echo App::path('img/logotypyweb.png') ?>" alt="Logotypy naszych partnerów">
             </div>
     </div>
