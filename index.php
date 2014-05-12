@@ -67,7 +67,7 @@ function oddalo($num) {
         <p>Zapraszamy na wiosenną Wampiriadę, która odbędzie się w maju 2014 r., oraz do pobierania naszej aplikacji na Androida.</p>
     </div>
     </div>-->
-        <div class="row mobile">
+        <!--<div class="row mobile">
             <div class="slot-0-1-2-3">
                 <h3>Aplikacja mobilna Wampiriady</h3>
                 <p>Pobierz aplikację mobilną Wampiriady na system Android i&nbsp;otrzymuj informacje o bieżących akcjach i&nbsp;osobach, które potrzebują krwi.</p>
@@ -81,7 +81,7 @@ function oddalo($num) {
             </div>
 
             <div class="clearfix"></div>
-        </div>
+        </div>-->
 
     
     <a class="button" href="#schedule"><i class="icon-arrow-down"></i> Terminy akcji</a>
