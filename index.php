@@ -35,7 +35,7 @@ function oddalo($num) {
 
         <header class="row">
             <h2>Wyniki 24. edycji Wampiriady</h2>
-            <p class="date">05.2013 r. - 06.2013 r.</p>
+            <p class="date">05.2014 r. - 06.2014 r.</p>
         </header>
         <div class="row">
             <div class="slot-0-1 overall <?php if($overall > 1000): ?>smallfont<?php endif; ?>">
