@@ -33,10 +33,9 @@ function oddalo($num) {
                 <h1><img src="<?php echo App::path('img/wampir-logo.png') ?>" alt="Wampiriada - studenckie honorowe krwiodawstwo"></h1>
         </div>
 
-        <!--
         <header class="row">
-            <h2>Wyniki 23. edycji Wampiriady</h2>
-            <p class="date">11.2013 r. - 12.2013 r.</p>
+            <h2>Wyniki 24. edycji Wampiriady</h2>
+            <p class="date">05.2013 r. - 06.2013 r.</p>
         </header>
         <div class="row">
             <div class="slot-0-1 overall <?php if($overall > 1000): ?>smallfont<?php endif; ?>">
@@ -60,13 +59,15 @@ function oddalo($num) {
         ></div>
             </div>
         </div>
+    <!--    
     <div class="row thanks">
         <p>Wampiriada zakończona! Wedle oficjalnych informacji z Regionalnego Centrum Krwiodawstwa, udało się zebrać aż <?php echo $overall * 0.45 ?> litrów krwi, czyli <strong>o <?php echo $wamp->getDifference() * 0.45 ?> litra więcej niż na ostatniej</strong> jesiennej Wampiriadzie.</p>
         <p class="itsbig">Dziękujemy serdecznie,</p>
         <p class="center">ponieważ wspólnie udało się nam osiągnąć coś wielkiego.</p>
         <p>Zapraszamy na wiosenną Wampiriadę, która odbędzie się w maju 2014 r., oraz do pobierania naszej aplikacji na Androida.</p>
     </div>
-    </div>-->
+    </div>
+    -->
         <!--<div class="row mobile">
             <div class="slot-0-1-2-3">
                 <h3>Aplikacja mobilna Wampiriady</h3>
