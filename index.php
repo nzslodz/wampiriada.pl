@@ -9,7 +9,7 @@ include __DIR__ . '/lib/wamp.php';
 $wamp = new \Wamp(24);
 $data = $wamp->getData();
 
-//extract($data);
+extract($data);
 
 function oddalo($num) {
     $mod_100 = $num % 100;
