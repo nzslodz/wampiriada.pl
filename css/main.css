@@ -137,6 +137,10 @@ a.button:hover {
 }
 
 #intro .grid {
+   padding-bottom: 3em;
+}
+
+#intro .grid2 {
    padding-bottom: 6em;
 }
 
@@ -415,6 +419,23 @@ background-image: -webkit-gradient(
 
 .row img {
     max-width: 100%;
+}
+
+.movie {
+    background: black;
+
+    padding: 40px 0;
+}
+
+.movie h2 {
+    color: #333;
+    margin: 0 0 40px;
+    text-align: center;
+}
+
+.movie .box {
+    margin: 0 auto;
+    width: 853px;
 }
 
 /* ==========================================================================

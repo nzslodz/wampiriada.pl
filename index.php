@@ -32,9 +32,15 @@ function oddalo($num) {
         <div class="row center">
                 <h1><img src="<?php echo App::path('img/wampir-logo.png') ?>" alt="Wampiriada - studenckie honorowe krwiodawstwo"></h1>
 
-                <iframe width="700" height="394" src="//www.youtube.com/embed/KkjbiwbjUFY" frameborder="0" allowfullscreen></iframe>
         </div>
-
+    </div>
+    <div class="movie">
+        <h2>Poznaj Wampira</h2>
+        <div class="box">
+                <iframe width="853" height="480" src="//www.youtube.com/embed/KkjbiwbjUFY" frameborder="0" allowfullscreen></iframe>
+        </div>
+    </div>
+    <div class="grid grid2">
         <header class="row">
             <h2>Wyniki 24. edycji Wampiriady</h2>
             <p class="date">05.2014 r. - 06.2014 r.</p>
