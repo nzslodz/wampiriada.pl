@@ -147,7 +147,7 @@ function oddalo($num) {
                 </div>
                 <div class="slot-3-4-5">
                     <h3>Konkurs dla Krwiodawców</h3>
-                    <p>Oddaj krew i weź udział w losowaniu nagród takich jak karnety do Fitfabric Fitness Club, karnetów do Teatru Nowego, kursów językowych Szuster, czy darmowych kuponów na pizzę w pizzerii Fiero. Losowanie odbywa się po każdej akcji Wampiriady!</p>
+                    <p><strong>Oddaj krew, polub nasz fanpage na Facebooku</strong> i weź udział w losowaniu nagród takich jak karnety do Fitfabric Fitness Club, karnetów do Teatru Nowego, kursów językowych Szuster, czy darmowych kuponów na pizzę w pizzerii Fiero. Losowanie odbywa się po każdej akcji Wampiriady!</p>
                     <p>Nasz fanpage: <a href="http://wampiriada.pl/facebook-nzs?campaign=wampiriada">NZS Regionu Łódzkiego</a>.</p>
                 </div>
             </div>
