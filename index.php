@@ -31,6 +31,8 @@ function oddalo($num) {
     <div class="grid">
         <div class="row center">
                 <h1><img src="<?php echo App::path('img/wampir-logo.png') ?>" alt="Wampiriada - studenckie honorowe krwiodawstwo"></h1>
+
+                <iframe width="700" height="394" src="//www.youtube.com/embed/KkjbiwbjUFY" frameborder="0" allowfullscreen></iframe>
         </div>
 
         <header class="row">
