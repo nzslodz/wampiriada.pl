@@ -32,11 +32,17 @@ function oddalo($num) {
         <div class="row center">
                 <h1><img src="<?php echo App::path('img/wampir-logo.png') ?>" alt="Wampiriada - studenckie honorowe krwiodawstwo"></h1>
         </div>
-
-        
+    </div>
+    <div class="movie">
+        <h2>Poznaj Wampira</h2>
+        <div class="box">
+                <iframe width="853" height="480" src="//www.youtube.com/embed/KkjbiwbjUFY" frameborder="0" allowfullscreen></iframe>
+        </div>
+    </div>
+    <div class="grid grid2">
         <header class="row">
-            <h2>Wyniki 23. edycji Wampiriady</h2>
-            <p class="date">11.2013 r. - 12.2013 r.</p>
+            <h2>Wyniki 24. edycji Wampiriady</h2>
+            <p class="date">05.2014 r. - 06.2014 r.</p>
         </header>
         <div class="row">
             <div class="slot-0-1 overall <?php if($overall > 1000): ?>smallfont<?php endif; ?>">
@@ -60,6 +66,7 @@ function oddalo($num) {
         ></div>
             </div>
         </div>
+    <!--    
     <div class="row thanks">
         <p>Wampiriada zakończona! Wedle oficjalnych informacji z Regionalnego Centrum Krwiodawstwa, udało się zebrać aż <?php echo $overall * 0.45 ?> litrów krwi, czyli <strong>o <?php echo $wamp->getDifference() * 0.45 ?> litra więcej niż na ostatniej</strong> jesiennej Wampiriadzie.</p>
         <p class="itsbig">Dziękujemy serdecznie,</p>
@@ -67,6 +74,7 @@ function oddalo($num) {
         <p>Zapraszamy na wiosenną Wampiriadę, która odbędzie się w maju 2014 r., oraz do pobierania naszej aplikacji na Androida.</p>
     </div>
     </div>
+    -->
         <!--<div class="row mobile">
             <div class="slot-0-1-2-3">
                 <h3>Aplikacja mobilna Wampiriady</h3>
@@ -134,13 +142,23 @@ function oddalo($num) {
 
             <div class="row">
                 <div class="slot-0-1-2">
-                    <!--<p class="center"><img src="<?php echo App::path('img/wampir.png') ?>" alt=""></p>-->
+                    <p class="center"><img src="<?php echo App::path('img/wampir.png') ?>" alt=""></p>
+                </div>
+                <div class="slot-3-4-5">
+                    <h3>Konkurs dla Krwiodawców</h3>
+                    <p><strong>Oddaj krew, polub <a href="http://wampiriada.pl/facebook-nzs?campaign=wampiriada">nasz fanpage na Facebooku</a> i udostępnij <a href="http://wampiriada.pl/plakat?campaign=wampiriada">plakat Wampiriady</a> na swojej tablicy</strong>, a następnie weź udział w losowaniu karnetów do Fitfabric Fitness Club, karnetów do Teatru Nowego, kursów językowych Szuster, czy darmowych kuponów na pizzę w pizzerii Fiero. Losowanie odbywa się po każdej akcji Wampiriady!</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="slot-0-1-2">
                     <h3>Gifty</h3>
                     <p>W zamian za oddanie krwi otrzymasz:</p>
                     <ul>
                         <li>osiem czekolad;</li>
                         <li>batonik i napój energetyczny;</li>
                         <li>koszulkę Wampira;</li>
+                        <li>studenckie zniżki;</li>
+                        <li>darmową godzinę w Project Salsa;</li>
                         <li>nieopisaną satysfakcję z niesienia pomocy innym :)</li>
                     </ul>
                 </div>
@@ -150,23 +168,10 @@ function oddalo($num) {
                     <ul>
                         <li><a href="http://nzs.lodz.pl">NZS Regionu Łódzkiego</a></li>
                         <li><a href="http://wampiriada.pl">Strona Wampiriady</a></li>
-                        <li><a href="http://www.facebook.com/wampiriada.nzs.rl">Wampiriada NZS RŁ</a></li>
+                        <li><a href="http://wampiriada.pl/facebook?campaign=wampiriada">Wampiriada NZS RŁ</a></li>
                         <li><a href="https://www.facebook.com/events/300383016794542/">Oficjalny event 24. edycji Wampiriady</a></li>
                     </ul>
                 </div>
-                <!--<div class="slot-3-4-5">
-                    <p class="lordis center"><img src="<?php echo App::path('img/lordis.png') ?>" alt="Logo Lordi's Club"></p>
-                    <h3>Impreza</h3>
-                    <p>Już 30 maja w Lordi's Club przy ul. Piotrkowskiej 102 rozlegną się dźwięki WAMPIRPARTY, imprezy kierowanej do wszystkich honorowych krwiodawców, którzy oddali swoją krew podczas tej edycji Wampiriady. Przyjdź i weź ze sobą znajomych.</p>
-                </div>-->
-            </div>
-
-            <div class="row">
-                <!--<div class="slot-0-1-2">
-                    <h3>Polub nas na Facebooku,</h3>
-                    <p>a weźmiesz udział w losowaniu nagród takich jak karnety do Fitfabric Fitness Club, kursów językowych Profilingua, czy darmowych kuponów na pizzę w pizzerii Fiero. Losowanie odbywa się po każdej akcji Wampiriady!</p>
-                    <p>Nasz fanpage: <a href="https://www.facebook.com/NZSRegionuLodzkiego">NZS Regionu Łódzkiego</a>.</p>
-                </div>-->
             </div>
     </div>
     <a class="button" href="#who"><i class="icon-arrow-down"></i> Kto za tym stoi?</a>
