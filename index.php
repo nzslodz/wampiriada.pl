@@ -31,7 +31,6 @@ function oddalo($num) {
     <div class="grid">
         <div class="row center">
                 <h1><img src="<?php echo App::path('img/wampir-logo.png') ?>" alt="Wampiriada - studenckie honorowe krwiodawstwo"></h1>
-
         </div>
     </div>
     <div class="movie">
