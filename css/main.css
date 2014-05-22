@@ -353,12 +353,13 @@ h3 {
 
 #who .row, #partners .row {
     position: absolute;
-    top: 50%;
-    margin-top: -80px;
+	top: 200px;
+    /*top: 50%;
+    margin-top: -80px;*/
 }
 
 #partners .row {
-    margin-top: -200px;
+    /*margin-top: -200px;*/
 }
 
 #partners a.button {
@@ -438,6 +439,9 @@ background-image: -webkit-gradient(
     width: 853px;
 }
 
+.mojrow {
+	width:700px;
+}
 /* ==========================================================================
    Helper classes
    ========================================================================== */

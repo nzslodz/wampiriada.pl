@@ -197,6 +197,7 @@ function oddalo($num) {
 
     <a class="button" href="#partners"><i class="icon-arrow-down"></i> Nasi partnerzy</a>
 </section>
+
 <section id="partners">
     <div class="grid">
             <header>
@@ -204,11 +205,56 @@ function oddalo($num) {
                 <p>Serdecznie dziękujemy naszym partnerom za możliwość przeprowadzenia akcji Wampiriada w Łodzi.</p>
             </header>
            
-            <div style="height: 600px">
-            </div>
+            <div style="height: 1900px"></div>
 
-            <div class="row" style="max-width: 720px">
-                <img src="<?php echo App::path('img/logotypyweb.png') ?>" alt="Logotypy naszych partnerów">
+            <div class="row mojrow">
+				<div style="">
+					<a href="http://www.uml.lodz.pl/" target="_blank"><img src="<?php echo App::path('img/partnerzy/01.jpg') ?>" /></a>
+					<a href="http://www.lodzkie.pl/" target="_blank"><img src="<?php echo App::path('img/partnerzy/02.jpg') ?>" /></a>
+					<a href="http://www.uml.lodz.pl/" target="_blank"><img src="<?php echo App::path('img/partnerzy/03.jpg') ?>" /></a>
+					<a href="http://www.lodzkie.pl/" target="_blank"><img src="<?php echo App::path('img/partnerzy/04.jpg') ?>" /></a>
+				</div>
+				<div style="">
+					<a href="http://www.pzu.pl/" target="_blank"><img src="<?php echo App::path('img/partnerzy/05.jpg') ?>" /></a>
+					<a href="http://www.fitfabric.pl/" target="_blank"><img src="<?php echo App::path('img/partnerzy/06.jpg') ?>" /></a>
+				</div>
+				<div style="">
+					<a href="http://www.uni.lodz.pl/" target="_blank"><img src="<?php echo App::path('img/partnerzy/07.jpg') ?>" /></a>
+					<a href="http://www.amuz.lodz.pl/" target="_blank"><img src="<?php echo App::path('img/partnerzy/12.jpg') ?>" /></a>
+					<a href="http://www.p.lodz.pl/" target="_blank"><img src="<?php echo App::path('img/partnerzy/08.jpg') ?>" /></a>
+				</div>
+				<div style="">
+					<a href="http://wsinf.edu.pl/" target="_blank"><img src="<?php echo App::path('img/partnerzy/13.jpg') ?>" /></a>
+					<a href="http://www.umed.pl/" target="_blank"><img src="<?php echo App::path('img/partnerzy/09.jpg') ?>" /></a>
+					<a href="http://www.csk.lodz.pl/" target="_blank"><img src="<?php echo App::path('img/partnerzy/10.jpg') ?>" /></a>
+				</div>
+				<div style="">
+					<a href="http://fieropizza.pl/" target="_blank"><img src="<?php echo App::path('img/partnerzy/14.jpg') ?>" /></a>
+					<a href="http://www.charlie.pl/" target="_blank"><img src="<?php echo App::path('img/partnerzy/16.jpg') ?>" /></a>
+					<a href="http://www.nowy.pl/" target="_blank"><img src="<?php echo App::path('img/partnerzy/15.jpg') ?>" /></a>
+				</div>
+				<div>
+					<a href="http://www.studium.com.pl/" target="_blank"><img src="<?php echo App::path('img/partnerzy/18.jpg') ?>" /></a>
+					<a href="http://projectsalsa.pl/" target="_blank"><img src="<?php echo App::path('img/partnerzy/17.jpg') ?>" /></a>
+					<a href="http://makimo.pl/" target="_blank"><img src="<?php echo App::path('img/partnerzy/19.jpg') ?>" /></a>
+				</div>
+				<div style="">
+					<a href="http://www.tvp.pl/lodz" target="_blank"><img src="<?php echo App::path('img/partnerzy/20.jpg') ?>" /></a>
+					<a href="http://www.eska.pl/" target="_blank"><img src="<?php echo App::path('img/partnerzy/21.jpg') ?>" /></a>
+					<a href="http://www.parada.fm/" target="_blank"><img src="<?php echo App::path('img/partnerzy/22.jpg') ?>" /></a>
+				</div>
+				<div>
+					<a href="http://www.zak.lodz.pl/" target="_blank"><img src="<?php echo App::path('img/partnerzy/23.jpg') ?>" /></a>
+					<a href="http://radioul.uni.lodz.pl/" target="_blank"><img src="<?php echo App::path('img/partnerzy/24.jpg') ?>" /></a>
+				</div>
+				<div style="">
+					<a href="http://www.plasterlodzki.pl/" target="_blank"><img src="<?php echo App::path('img/partnerzy/25.jpg') ?>" /></a>
+					<a href="http://www.infosgroup.pl/infostudent/" target="_blank"><img src="<?php echo App::path('img/partnerzy/26.jpg') ?>" /></a>
+					<a href="http://www.dlastudenta.pl/" target="_blank"><img src="<?php echo App::path('img/partnerzy/27.jpg') ?>" /></a>
+					<a href="http://www.studentnews.pl/" target="_blank"><img src="<?php echo App::path('img/partnerzy/28.jpg') ?>" /></a>
+					<a href="http://student.lodz.pl/" target="_blank"><img src="<?php echo App::path('img/partnerzy/29.jpg') ?>" /></a>
+				</div>
+                <!--<img src="<?php echo App::path('img/logotypyweb.png') ?>" alt="Logotypy naszych partnerów">-->
             </div>
     </div>
     <a class="button" href="#intro"><i class="icon-arrow-up"></i> Powrót na górę</a>
