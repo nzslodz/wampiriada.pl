@@ -9,7 +9,7 @@ include __DIR__ . '/lib/wamp.php';
 $wamp = new \Wamp(24);
 $data = $wamp->getData();
 
-//extract($data);
+extract($data);
 
 function oddalo($num) {
     $mod_100 = $num % 100;
@@ -33,7 +33,7 @@ function oddalo($num) {
                 <h1><img src="<?php echo App::path('img/wampir-logo.png') ?>" alt="Wampiriada - studenckie honorowe krwiodawstwo"></h1>
         </div>
 
-        <!--
+        
         <header class="row">
             <h2>Wyniki 23. edycji Wampiriady</h2>
             <p class="date">11.2013 r. - 12.2013 r.</p>
@@ -66,7 +66,7 @@ function oddalo($num) {
         <p class="center">ponieważ wspólnie udało się nam osiągnąć coś wielkiego.</p>
         <p>Zapraszamy na wiosenną Wampiriadę, która odbędzie się w maju 2014 r., oraz do pobierania naszej aplikacji na Androida.</p>
     </div>
-    </div>-->
+    </div>
         <!--<div class="row mobile">
             <div class="slot-0-1-2-3">
                 <h3>Aplikacja mobilna Wampiriady</h3>
