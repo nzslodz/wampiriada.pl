@@ -24,6 +24,7 @@ use Silverplate\App;
         <link href='http://fonts.googleapis.com/css?family=Merriweather+Sans:400,700|Roboto+Slab:700&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
         <link rel="stylesheet" href="<?php echo App::path('css/main.css') ?>?r=2">
         <script src="<?php echo App::path('js/vendor/modernizr-2.6.2.min.js') ?>"></script>
+	
     </head>
     <body class="<?php echo $type ?> <?php echo get('classes') ?>">
         <!-- PHP Silverplate content -->
@@ -33,6 +34,12 @@ use Silverplate\App;
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
         <script>window.jQuery || document.write('<script src="<?php echo App::path('js/vendor/jquery-1.9.1.min.js') ?>"><\/script>')</script>
         <script src="<?php echo App::path('js/plugins.js') ?>"></script>
+		
+		<!--skrypty z map google-->
+		<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script>
+		<script type="text/javascript" src="gmaps-master/gmaps.js"></script>
+		
+		
         <script src="<?php echo App::path('js/main.js') ?>"></script>
         <script src="http://accept-cookie.cdn.lambdadelta.pl/jquery.accept-cookie.js"></script>
 

@@ -1,10 +1,12 @@
 $(function() {
     $('a.button').click(function() {
-        $.scrollTo($($(this).attr('href')), 500);
+        $.scrollTo($($(this).attr('href')), 500);//przewijanie do nastepnej sekcji
         
         return false;
     })
 
+	
+	//sortowanie tabelki
     $('.isotope').isotope({
         getSortData: {
             name: function($elem) {
@@ -27,6 +29,8 @@ $(function() {
         return false;
     })
 
+	
+	//wykres na stronie
 var chart = new CanvasJS.Chart("magicalchart", {
     backgroundColor: 'rgb(75, 0, 0)',
     axisX: {
@@ -59,7 +63,58 @@ var chart = new CanvasJS.Chart("magicalchart", {
       }
       ]
     });
+chart.render();//renderuje wykres
 
-chart.render();
 
+//script z map google (example: markers)
+var map;
+    $(document).ready(function(){
+      map = new GMaps({
+        el: '#map',
+        lat: 51.7731179,
+        lng: 19.4805926,
+		zoom: 12,
+      });
+	  
+	  $('.isotope li').each(function() {
+		var me = $(this)
+		
+		me.click(function() {
+			map.removeMarkers()
+			map.addMarker
+			({
+				lat: me.data('lat'),
+				lng: me.data('lng'),
+				title: 'Lima',
+			})
+		})
+	  })
+	  
+      /*map.addMarker({
+        lat: -12.043333,
+        lng: -77.03,
+        title: 'Lima',
+        details: {
+          database_id: 42,
+          author: 'HPNeo'
+        },
+        click: function(e){
+          if(console.log)
+            console.log(e);
+          alert('You clicked in this marker');
+        },
+        mouseover: function(e){
+          if(console.log)
+            console.log(e);
+        }
+      });
+      map.addMarker({
+        lat: -12.042,
+        lng: -77.028333,
+        title: 'Marker with InfoWindow',
+        infoWindow: {
+          content: '<p>HTML Content</p>'
+        }
+      });*/
+    });
 })

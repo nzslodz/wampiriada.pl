@@ -117,7 +117,7 @@ function oddalo($num) {
                 </div>
             <ul class="isotope">
                 <?php foreach($wamp->getActions() as $action): ?>
-                <li class="row <?php echo $wamp->getClass($action->school_short) ?>">
+                <li class="row <?php echo $wamp->getClass($action->school_short) ?>" data-lat="<?php echo $action->lat ?>" data-lng="<?php echo $action->lng ?>">
                     <p class="slot-0 date"><?php echo date('d.m', strtotime($action->day)) ?></p>
                     <p class="slot-1-2-3 place <?php echo $wamp->getClass($action->school_short) ?>" data-sort="<?php echo $action->school_short ?>"><?php echo $action->place ?></p>
                     <p class="slot-4 time"><?php echo date('H', strtotime($action->start)) ?> - <?php echo date('H', strtotime($action->end)) ?></p>
@@ -125,7 +125,8 @@ function oddalo($num) {
                 </li>
                 <?php endforeach; ?>
             </ul>
-
+			
+			<div id="map"></div>
         </div>
     </div>
 
