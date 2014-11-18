@@ -21,7 +21,7 @@ use Silverplate\App;
         <link rel="stylesheet" href="<?php echo App::path('css/normalize.css') ?>">
         <link rel="stylesheet" href="<?php echo App::path('css/font-awesome.min.css') ?>">
         <link rel="stylesheet" href="<?php echo App::path('css/720_grid.css') ?>" type="text/css" media="screen and (min-width: 720px)">
-        <link href='http://fonts.googleapis.com/css?family=Merriweather+Sans:400,700|Roboto+Slab:700&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+        <link href='http://fonts.googleapis.com/css?family=Alegreya+Sans:100,300,400,700&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
         <link rel="stylesheet" href="<?php echo App::path('css/main.css') ?>?r=2">
         <script src="<?php echo App::path('js/vendor/modernizr-2.6.2.min.js') ?>"></script>
 	

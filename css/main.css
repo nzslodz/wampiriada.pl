@@ -447,6 +447,42 @@ background-image: -webkit-gradient(
 .mojrow {
 	width:700px;
 }
+
+html, body {
+    background: #952726;
+    font-family: "Alegraya Sans", sans-serif;
+    
+    color: #fff;
+}
+
+#teaser h1 {
+    font-size: 25em;
+    margin: 0;
+
+    text-align: center;
+
+    font-weight: 100;
+}
+
+#teaser h1 a {
+    color: #fff;
+
+
+    text-decoration: none;
+}
+
+#teaser .footnote {
+    position: absolute;
+    bottom: 40px;
+    margin: auto;
+    
+    left: 50%;
+
+    margin-left: -100px;
+    width: 200px;
+    text-align: center;
+}
+
 /* ==========================================================================
    Helper classes
    ========================================================================== */
