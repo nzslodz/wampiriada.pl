@@ -2,8 +2,7 @@
 <?php meta('title', 'Wampiriada w Łodzi') ?>
 <?php meta('description', 'Oficjalna strona akcji honorowego krwiodawstwa Wampiriada w Łodzi, organizowanej przez NZS Regionu Łódzkiego. Tutaj dowiesz się, jak wziąć w niej udział.') ?>
 
-<?php
-
+<?php /*
 include __DIR__ . '/lib/wamp.php'; 
 
 $wamp = new \Wamp(24);
@@ -25,7 +24,7 @@ function oddalo($num) {
     return 'osób oddało';
 }
 
-?>
+*/ ?>
 
 <section id="teaser">
     <h1><a href="https://www.facebook.com/wampiriada.nzs.rl">25.</a></h1>
