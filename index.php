@@ -27,6 +27,6 @@ function oddalo($num) {
 */ ?>
 
 <section id="teaser">
-    <h1><a href="https://www.facebook.com/wampiriada.nzs.rl">25.</a></h1>
+    <h1><a href="https://www.facebook.com/wampiriada.nzs.rl">26.</a></h1>
     <p class="footnote">Zapraszamy niebawem.</p>
 </section>
