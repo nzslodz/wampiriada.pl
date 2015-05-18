@@ -1,5 +1,7 @@
 <?php namespace Silverplate;
 
+use \Michelf\Markdown;
+
 require 'vendor/autoload.php';
 
 class Http404 extends \Exception {
@@ -119,11 +121,9 @@ class App {
     }
 
     public function renderMD($pathname) {
-        $parser = new \dflydev\markdown\MarkdownParser;
-
         $contents = $this->parseMDMeta(file_get_contents($pathname));
 
-        return $parser->transformMarkdown(str_replace('path://', App::path(), $contents));
+        return Markdown::defaultTransform(str_replace('path://', App::path(), $contents));
     }
 
     public function renderLayout($content, $extension) {
