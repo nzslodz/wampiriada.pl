@@ -16,6 +16,8 @@
     "tests"
   ],
   "dependencies": {
-    "bootstrap": "~3.3.4"
+    "bootstrap": "~3.3.4",
+    "gmaps": "~0.4.18",
+    "handlebars": "~3.0.3"
   }
 }

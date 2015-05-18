@@ -63,11 +63,11 @@ var chart = new CanvasJS.Chart("magicalchart", {
       }
       ]
     });
-chart.render();//renderuje wykres
+    chart.render();//renderuje wykres
 
 
-//script z map google (example: markers)
-var map;
+    //script z map google (example: markers)
+    var map;
     $(document).ready(function(){
       map = new GMaps({
         el: '#map',
@@ -81,40 +81,15 @@ var map;
 		
 		me.click(function() {
 			map.removeMarkers()
-			map.addMarker
-			({
+			map.addMarker ({
 				lat: me.data('lat'),
 				lng: me.data('lng'),
-				title: 'Lima',
+				title: me.find('.place').text(),
+                infoWindow: {
+                    content: me.find('.place').text(),
+                },
 			})
 		})
 	  })
-	  
-      /*map.addMarker({
-        lat: -12.043333,
-        lng: -77.03,
-        title: 'Lima',
-        details: {
-          database_id: 42,
-          author: 'HPNeo'
-        },
-        click: function(e){
-          if(console.log)
-            console.log(e);
-          alert('You clicked in this marker');
-        },
-        mouseover: function(e){
-          if(console.log)
-            console.log(e);
-        }
-      });
-      map.addMarker({
-        lat: -12.042,
-        lng: -77.028333,
-        title: 'Marker with InfoWindow',
-        infoWindow: {
-          content: '<p>HTML Content</p>'
-        }
-      });*/
     });
 })

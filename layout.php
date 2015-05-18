@@ -37,7 +37,7 @@ use Silverplate\App;
 		
 		<!--skrypty z map google-->
 		<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script>
-		<script type="text/javascript" src="gmaps-master/gmaps.js"></script>
+		<script type="text/javascript" src="bower_components/gmaps/gmaps.min.js"></script>
 		
 		
         <script src="<?php echo App::path('js/main.js') ?>"></script>
