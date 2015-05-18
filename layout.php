@@ -24,7 +24,6 @@ use Silverplate\App;
         <link href='http://fonts.googleapis.com/css?family=Alegreya+Sans:100,300,400,700&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
         <link rel="stylesheet" href="<?php echo App::path('css/main.css') ?>?r=2">
         <script src="<?php echo App::path('js/vendor/modernizr-2.6.2.min.js') ?>"></script>
-	
     </head>
     <body class="<?php echo $type ?> <?php echo get('classes') ?>">
         <!-- PHP Silverplate content -->
@@ -37,7 +36,8 @@ use Silverplate\App;
 		
 		<!--skrypty z map google-->
 		<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script>
-		<script type="text/javascript" src="bower_components/gmaps/gmaps.min.js"></script>
+		<script type="text/javascript" src="<?php echo App::path('bower_components/gmaps/gmaps.min.js') ?>"></script>
+        <script type="text/javascript" src="<?php echo App::path('bower_components/handlebars/handlebars.min.js') ?>"></script>
 		
 		
         <script src="<?php echo App::path('js/main.js') ?>"></script>

@@ -1,17 +1,15 @@
-<?php namespace Silverplate; ?>
-<?php meta('title', 'Wampiriada w Łodzi') ?>
-<?php meta('description', 'Oficjalna strona akcji honorowego krwiodawstwa Wampiriada w Łodzi, organizowanej przez NZS Regionu Łódzkiego. Tutaj dowiesz się, jak wziąć w niej udział.') ?>
+<?php namespace Silverplate; 
 
-<?php
+use NZS\Wampiriada\Controller;
 
-include __DIR__ . '/lib/wamp.php'; 
+meta('title', 'Wampiriada w Łodzi');
+meta('description', 'Oficjalna strona akcji honorowego krwiodawstwa Wampiriada w Łodzi, organizowanej przez NZS Regionu Łódzkiego. Tutaj dowiesz się, jak wziąć w niej udział.');
 
-date_default_timezone_set("Europe/Warsaw");
+$controller = new Controller;
 
-$wamp = new \Wamp(24);
-$data = $wamp->getData();
+$repository = $controller->getEdition(24);
 
-extract($data);
+$results = $repository->getResults();
 
 function oddalo($num) {
     $mod_100 = $num % 100;
@@ -47,30 +45,30 @@ function oddalo($num) {
             <p class="date">05.2014 r. - 06.2014 r.</p>
         </header>
         <div class="row">
-            <div class="slot-0-1 overall <?php if($overall > 1000): ?>smallfont<?php endif; ?>">
-                <div class="big"><?php echo $overall ?></div> 
-                <div class="small"><?php echo oddalo($overall) ?> krew</div>
+            <div class="slot-0-1 overall <?php if($results->overall > 1000): ?>smallfont<?php endif; ?>">
+                <div class="big"><?php echo $results->overall ?></div> 
+                <div class="small"><?php echo oddalo($results->overall) ?> krew</div>
 
-                <div class="note"><?php echo $overall * 0.45 ?></div>
+                <div class="note"><?php echo $results->overall * 0.45 ?></div>
                 <div class="foot">litrów krwi</div>
             </div>
             <div class="slot-2-3-4-5">
                 <div id="magicalchart" class="row" style="height: 460px"
-                    data-zero-minus="<?php echo $zero_minus ?>"
-            data-zero-plus="<?php echo $zero_plus ?>"
-            data-a-minus="<?php echo $a_minus ?>"
-            data-a-plus="<?php echo $a_plus ?>"
-            data-b-minus="<?php echo $b_minus ?>"
-            data-b-plus="<?php echo $b_plus ?>"
-            data-ab-plus="<?php echo $ab_plus ?>"
-            data-ab-minus="<?php echo $ab_minus ?>"   
-            data-unknown="<?php echo $unknown ?>"
+                    data-zero-minus="<?php echo $results->zero_minus ?>"
+            data-zero-plus="<?php echo $results->zero_plus ?>"
+            data-a-minus="<?php echo $results->a_minus ?>"
+            data-a-plus="<?php echo $results->a_plus ?>"
+            data-b-minus="<?php echo $results->b_minus ?>"
+            data-b-plus="<?php echo $results->b_plus ?>"
+            data-ab-plus="<?php echo $results->ab_plus ?>"
+            data-ab-minus="<?php echo $results->ab_minus ?>"   
+            data-unknown="<?php echo $results->unknown ?>"
         ></div>
             </div>
         </div>
     <!--    
     <div class="row thanks">
-        <p>Wampiriada zakończona! Wedle oficjalnych informacji z Regionalnego Centrum Krwiodawstwa, udało się zebrać aż <?php echo $overall * 0.45 ?> litrów krwi, czyli <strong>o <?php echo $wamp->getDifference() * 0.45 ?> litra więcej niż na ostatniej</strong> jesiennej Wampiriadzie.</p>
+        <p>Wampiriada zakończona! Wedle oficjalnych informacji z Regionalnego Centrum Krwiodawstwa, udało się zebrać aż <?php echo $results->overall * 0.45 ?> litrów krwi, czyli <strong>o <?php echo $repository->getOverallDifference($controller->getEdition($repository->getEdition() - 2)) * 0.45 ?> litra więcej niż na ostatniej</strong> jesiennej Wampiriadzie.</p>
         <p class="itsbig">Dziękujemy serdecznie,</p>
         <p class="center">ponieważ wspólnie udało się nam osiągnąć coś wielkiego.</p>
         <p>Zapraszamy na wiosenną Wampiriadę, która odbędzie się w maju 2014 r., oraz do pobierania naszej aplikacji na Androida.</p>
@@ -118,10 +116,10 @@ function oddalo($num) {
                     <p class="slot-5 marrow">Szpik</p>
                 </div>
             <ul class="isotope">
-                <?php foreach($wamp->getActions() as $action): ?>
-                <li class="row <?php echo $wamp->getClass($action->school_short) ?>" data-lat="<?php echo $action->lat ?>" data-lng="<?php echo $action->lng ?>">
+                <?php foreach($repository->getActions() as $action): ?>
+                <li class="row <?php echo $controller->getClass($action->school_short) ?>" data-lat="<?php echo $action->lat ?>" data-lng="<?php echo $action->lng ?>">
                     <p class="slot-0 date"><?php echo date('d.m', strtotime($action->day)) ?></p>
-                    <p class="slot-1-2-3 place <?php echo $wamp->getClass($action->school_short) ?>" data-sort="<?php echo $action->school_short ?>"><?php echo $action->place ?></p>
+                    <p class="slot-1-2-3 place <?php echo $controller->getClass($action->school_short) ?>" data-sort="<?php echo $action->school_short ?>" data-address="<?php echo $action->address ?>"><?php echo $action->place ?></p>
                     <p class="slot-4 time"><?php echo date('H', strtotime($action->start)) ?> - <?php echo date('H', strtotime($action->end)) ?></p>
                     <p class="slot-5 marrow"><?php if($action->marrow): ?><i class="icon-ok"></i> szpik<?php endif; ?></p>
                 </li>
@@ -261,3 +259,9 @@ function oddalo($num) {
     </div>
     <a class="button" href="#intro"><i class="icon-arrow-up"></i> Powrót na górę</a>
 </section>
+
+<script id="map-item-template" type="text/x-handlebars-template">
+    <p class="action-date"><strong>{{day}} ({{time}})</strong></p>
+    <h3>{{title}}</h3>
+    <p class="school-address">{{address}}</p>
+</script>

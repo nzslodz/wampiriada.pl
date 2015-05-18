@@ -5,6 +5,8 @@ $(function() {
         return false;
     })
 
+    var source = $('#map-item-template').html()
+    var template = Handlebars.compile(source)
 	
 	//sortowanie tabelki
     $('.isotope').isotope({
@@ -74,6 +76,12 @@ var chart = new CanvasJS.Chart("magicalchart", {
         lat: 51.7731179,
         lng: 19.4805926,
 		zoom: 12,
+        disableDefaultUI: true,
+        scrollwheel: false,
+        navigationControl: false,
+        mapTypeControl: false,
+        scaleControl: false,
+        draggable: false,
       });
 	  
 	  $('.isotope li').each(function() {
@@ -81,12 +89,21 @@ var chart = new CanvasJS.Chart("magicalchart", {
 		
 		me.click(function() {
 			map.removeMarkers()
-			map.addMarker ({
+            
+            var title = me.find('.place').text()
+            var address = me.find('.place').data('address')
+
+			marker = map.addMarker ({
 				lat: me.data('lat'),
 				lng: me.data('lng'),
 				title: me.find('.place').text(),
                 infoWindow: {
-                    content: me.find('.place').text(),
+                    content: template({
+                        title: title,
+                        address: address,
+                        day: me.find('.date').text(),
+                        time: me.find('.time').text(),
+                    }),
                 },
 			})
 		})

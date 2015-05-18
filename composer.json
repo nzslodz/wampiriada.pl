@@ -6,7 +6,9 @@
     "license": "MIT",
 
     "require": {
-        "michelf/php-markdown": "*"
+        "michelf/php-markdown": "*",
+        "illuminate/database": "*"
+
     },
 
     "suggest": {
@@ -17,6 +19,10 @@
         "files": [
             "lib/block.php",
             "lib/block_functions.php"
-        ]
+        ],
+
+        "psr-4": {
+            "NZS\\Wampiriada\\": "src/"
+        }
     }
 }
