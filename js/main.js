@@ -93,7 +93,7 @@ var chart = new CanvasJS.Chart("magicalchart", {
             var title = me.find('.place').text()
             var address = me.find('.place').data('address')
 
-			marker = map.addMarker ({
+			map.addMarker ({
 				lat: me.data('lat'),
 				lng: me.data('lng'),
 				title: me.find('.place').text(),
@@ -105,7 +105,9 @@ var chart = new CanvasJS.Chart("magicalchart", {
                         time: me.find('.time').text(),
                     }),
                 },
-			})
+			});
+
+            (map.markers[0].infoWindow).open(map.map,map.markers[0]);
 		})
 	  })
     });

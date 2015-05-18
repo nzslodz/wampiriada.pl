@@ -18,11 +18,10 @@ use Silverplate\App;
 
         <meta name="og:image" content="<?php echo App::path('img/wampir-logo-2.png') ?>">
 
-        <link rel="stylesheet" href="<?php echo App::path('css/normalize.css') ?>">
         <link rel="stylesheet" href="<?php echo App::path('css/font-awesome.min.css') ?>">
-        <link rel="stylesheet" href="<?php echo App::path('css/720_grid.css') ?>" type="text/css" media="screen and (min-width: 720px)">
+        <link rel="stylesheet" href="<?php echo App::path('bower_components/bootstrap/dist/css/bootstrap.min.css') ?>" ?>
         <link href='http://fonts.googleapis.com/css?family=Alegreya+Sans:100,300,400,700&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
-        <link rel="stylesheet" href="<?php echo App::path('css/main.css') ?>?r=2">
+        <link rel="stylesheet" href="<?php echo App::path('css/main.css') ?>?r=3">
         <script src="<?php echo App::path('js/vendor/modernizr-2.6.2.min.js') ?>"></script>
     </head>
     <body class="<?php echo $type ?> <?php echo get('classes') ?>">
