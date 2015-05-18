@@ -1,0 +1,21 @@
+{
+  "name": "wampiriada",
+  "version": "0.1",
+  "authors": [
+    "Michał Moroz <michalmoroz@gmail.com>"
+  ],
+  "description": "website for wampiriada.pl",
+  "main": "app.php",
+  "license": "MIT",
+  "homepage": "http://wampiriada.pl",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "~3.3.4"
+  }
+}
