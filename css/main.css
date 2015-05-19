@@ -426,3 +426,12 @@ section {
     padding-top: 44vw;
 }
 
+.accept-cookie-message  {
+    border-radius: 0 !important;
+    height: auto !important;
+    color: #666;
+    border-top:0 !important;
+    border-left:0 !important;
+    border-right:0 !important;
+    position: static !important;
+}
