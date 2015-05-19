@@ -266,7 +266,7 @@ function oddalo($num) {
                 <li><a href="https://facebook.com/NZSRegionuLodzkiego">facebook.com/&shy;NZSRegionuLodzkiego</a></li>
                 <li><a href="http://nzs.lodz.pl">nzs.lodz.pl - organizator</a></li>
                 <li><a href="https://twitter.com/nzslodz">@nzslodz - nasz twitter</a></li>
-                <li><a href="mailto:nzs@nzs.lodz.pl">Masz pytanie? Napisz na nzs@nzs.lodz.pl</a></li>
+                <li><a href="mailto:nzs@nzs.lodz.pl">Masz pytanie? Napisz na: nzs@nzs.lodz.pl</a></li>
                 </nav>
             </div>
         </div>
