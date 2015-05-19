@@ -72,7 +72,7 @@ function oddalo($num) {
                     <p class="col-xs-2 date">Dzień</p>
                     <p class="col-xs-5 place" data-sort="PŁ">Miejsce trwania akcji</p>
                     <p class="col-xs-2 time">Czas akcji</p>
-                    <p class="col-xs-2 marrow">Szpik</p>
+                    <p class="col-xs-2 marrow text-center">Szpik</p>
                 </div>
             <ul class="isotope">
 
