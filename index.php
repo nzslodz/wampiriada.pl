@@ -127,13 +127,13 @@ function oddalo($num) {
                 </ul>    
                 <p>warto wstrzymać się z uczestnictwem w akcji Wampiriady. Wybierz jedną z akcji w późniejszym terminie, albo zgłoś się do Regionalnego Centrum Kriodawstwa i Krwiolecznictwa w dogodnym dla Ciebie momencie.</p>
                 <p>Twoja krew stanowi niezwykle cenny surowiec, którego nie da się wytworzyć syntetycznie. To dlatego oddawanie krwi jest takie ważne!</p>
-                <p>Dowiedz się więcej na stronach <a href="http://krwiodawstwo.pl/26/jak-zostac-krwiodawca">RCKiK w Łodzi</a>.</p>
+                <p>Dowiedz się więcej na stronie <a href="http://krwiodawstwo.pl/26/jak-zostac-krwiodawca">RCKiK w Łodzi</a>.</p>
             </div>
             <div class="col-md-4 col-xs-12">
                 <h3>Szpik</h3>
 
                 <p>Otrzymujesz także niepowtarzalną okazję zapisania się do bazy dawców szpiku. Wystarczy tylko, że wypełnisz formularz rejestracyjny na akcji Wampiriady i nic więcej nie musisz robić! Podczas badań pielęgniarka pobierze dodatkową próbkę krwi do badań, ale to żaden problem, skoro i tak oddajesz 450ml :)</p>
-                <p>Po zapisaniu do bazy dawców szpiku otrzymujesz możliwość uratowania życia osoby chorej na białaczkę lub inne choroby krwi, ale tylko wtedy, kiedy jesteście zgodni genetycznie ze sobą. Zdarza się to bardzo rzadko - część dawców nigdy nie będzie oddawać szpiku innej osobie. Dlatego tak ważne jest, żeby jak najwięcej osób było w bazie dawców.</p>
+                <p>Po zapisaniu do bazy dawców szpiku otrzymujesz możliwość uratowania życia osoby chorej na białaczkę lub inne choroby krwi, ale tylko wtedy, kiedy jesteście zgodni ze sobą genetycznie. Zdarza się to bardzo rzadko - część dawców nigdy nie będzie oddawać szpiku innej osobie. Dlatego tak ważne jest, żeby jak najwięcej osób było w bazie dawców.</p>
                 <p>Pamiętaj, zapisanie się do bazy szpiku jest niezobowiązujące. Decyzję o oddaniu szpiku podejmiesz dopiero wtedy, kiedy znajdzie się biorca pasujący do Ciebie.</p>
                 <p>Dowiedz się więcej na stronie <a href="http://www.cskis.umed.pl/szpik/podstawowe-informacje/">Centralnego Szpitala Klinicznego Instytutu Stomatologii w Łodzi</a>.</p>
             </div>
@@ -194,7 +194,7 @@ function oddalo($num) {
 
 <section class="second-background">
     <div class="przyjacielwampira">
-        <a href=""><img src="img/layout/przyjacielwampira.png" alt="Zostań przyjacielem Wampira"></a>
+        <a href="https://www.facebook.com/wampiriada.nzs.rl"><img src="img/layout/przyjacielwampira.png" alt="Zostań przyjacielem Wampira"></a>
     </div>
 </section>
 
@@ -219,6 +219,7 @@ function oddalo($num) {
                         <li>batonik i napój energetyczny;</li>
                         <li><a href="https://www.facebook.com/wampiriada.nzs.rl/photos/a.119841281459933.20746.110146435762751/765979013512820/?type=1&theater">koszulkę Wampira</a>;</li>
                         <li>studenckie zniżki;</li>
+                        <li>możliwość wzięcia udziału w wampiriadowym konkursie;</li>
                         <li>nieopisaną satysfakcję z niesienia pomocy innym :)</li>
                     </ul>
             </div>
@@ -246,7 +247,7 @@ function oddalo($num) {
             </div>
             <div class="col-md-12">
             <p>Za wygraną w konkursie otrzymasz nagrody w postaci kursów językowych Szuster, kuponów na pizzę Fiero, gadżetow Uniwersytetu Łódzkiego, Politechniki Łódzkiej, Regionalnego Centrum Krwiodawstwa i wiele innych.</p>
-            <p>Więcej o konkursach na stronie <a href="">oficjalnego eventu 26. edycji Wampiriady</a>.</p>
+            <p>Więcej o konkursach na stronie <a href="https://www.facebook.com/events/959790614053679/">oficjalnego eventu 26. edycji Wampiriady</a>.</p>
             </div>
             </div>
 
@@ -260,11 +261,12 @@ function oddalo($num) {
                 <nav>
 
 
-                <a href="">oficjalny event 26. edycji Wampiriady</a>
-                <a href="">facebook.com/&shy;wampiriada.nzs.rl</a>
-                <a href="">facebook.com/&shy;NZSRegionuLodzkiego</a>
-                <a href="">nzs.lodz.pl - organizator</a>
-                <a href="">@nzslodz - nasz twitter</a>
+                <a href="https://www.facebook.com/events/959790614053679/">oficjalny event 26. edycji Wampiriady</a>
+                <a href="https://facebook.com/wampiriada.nzs.rl">facebook.com/&shy;wampiriada.nzs.rl</a>
+                <a href="https://facebook.com/NZSRegionuLodzkiego">facebook.com/&shy;NZSRegionuLodzkiego</a>
+                <a href="http://nzs.lodz.pl">nzs.lodz.pl - organizator</a>
+                <a href="https://twitter.com/nzslodz">@nzslodz - nasz twitter</a>
+                <a href="mailto:nzs@nzs.lodz.pl">Masz pytanie? Napisz na nzs@nzs.lodz.pl</a>
                 </nav>
             </div>
         </div>
