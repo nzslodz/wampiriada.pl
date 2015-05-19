@@ -71,8 +71,8 @@ function oddalo($num) {
                 <div class="row legend">
                     <p class="col-xs-2 date">Dzień</p>
                     <p class="col-xs-5 place" data-sort="PŁ">Miejsce trwania akcji</p>
-                    <p class="col-xs-3 time">Czas akcji</p>
-                    <p class="col-xs-1 marrow">Szpik</p>
+                    <p class="col-xs-2 time">Czas akcji</p>
+                    <p class="col-xs-2 marrow">Szpik</p>
                 </div>
             <ul class="isotope">
 
@@ -80,8 +80,8 @@ function oddalo($num) {
                 <li class="row <?php echo $controller->getClass($action->school_short) ?>" data-lat="<?php echo $action->lat ?>" data-lng="<?php echo $action->lng ?>">
                     <p class="col-xs-2 date"><span><?php echo date('d/m', strtotime($action->day)) ?></span></p>
                     <p class="col-xs-5 place <?php echo $controller->getClass($action->school_short) ?>" data-sort="<?php echo $action->school_short ?>" data-address="<?php echo $action->address ?>"><?php echo $action->place ?></p>
-                    <p class="col-xs-3 time"><?php echo date('H', strtotime($action->start)) ?> - <?php echo date('H', strtotime($action->end)) ?></p>
-                    <p class="col-xs-1 marrow text-center"><?php if($action->marrow): ?><i class="fa fa-check"></i><?php endif; ?></p>
+                    <p class="col-xs-2 time"><?php echo date('H', strtotime($action->start)) ?> - <?php echo date('H', strtotime($action->end)) ?></p>
+                    <p class="col-xs-2 marrow text-center"><?php if($action->marrow): ?><i class="fa fa-check"></i><?php endif; ?></p>
                 </li>
                 <?php endforeach; ?>
             </ul>
