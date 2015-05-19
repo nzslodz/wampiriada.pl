@@ -297,18 +297,27 @@ function oddalo($num) {
         <div class="row">
             <div class="col-xs-12">
                 <div class="clearfix">
-                        <h2>Organizatorzy</h2>
+                        <h2>Organizator</h2>
                         <p>Zajrzyj na nasze strony, jeśli podoba Ci się nasza akcja.</p>
                 </div>
             </div>
         </div>
 
-            <div class="row">
-                <div class="col-xs-6 col-md-4 col-md-push-2">
+            <div class="row top-27">
+                <div class="col-xs-push-3 col-xs-6 col-md-4 col-md-push-4">
                     <a href="http://nzs.lodz.pl"><img src="<?php echo App::path('img/nzs.png') ?>" alt="Niezależne Zrzeszenie Studentów Regionu Łódzkiego"></a>
                 </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 text-center cooperation">
+                    <p>Przy współpracy z:</p>
+                </div>
+
                 <div class="col-xs-6 col-md-4 col-md-push-2">
                     <a href="http://krwiodawstwo.pl"><img src="<?php echo App::path('img/rck.png') ?>" alt="Regionalne Centrum Krwiodawstwa i Krwiolecznictwa w Łodzi"></a>
+                </div>
+                <div class="col-xs-6 col-md-4 col-md-push-2">
+                    <a href="http://www.cskis.umed.pl/szpik/"><img src="<?php echo App::path('img/csk.png') ?>" alt="Centralny Szpital Kliniczny Instytut Stomatologii Uniwersytetu Medycznego w Łodzi"></a>
                 </div>
             </div>
     </div>
