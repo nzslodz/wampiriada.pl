@@ -215,11 +215,11 @@ h3 {
 }
 
 #dontforget a {
-   color: rgb(92, 163, 220);
+   color: rgb(33, 103, 192);
 }
 
 #dontforget a:hover, #dontforget a:active {
-    color: rgb(76, 134, 181);
+    color: rgb(28, 88, 163);
 }
 
 .ul .date span {
@@ -530,7 +530,7 @@ section {
 }
 
 .bigga nav a {
-    font-size: 2.1em;
+    font-size: 1.7em;
     font-weight: 100;
     display: block;
 }
@@ -556,4 +556,7 @@ section {
 
 #who .col-xs-6, #who .col-md-4 {
     text-align: center;
+}
+
+.bigga nav a {
 }
