@@ -38,7 +38,7 @@ $(function() {
 	
 	//wykres na stronie
 var chart = new CanvasJS.Chart("magicalchart", {
-    backgroundColor: 'rgb(75, 0, 0)',
+    backgroundColor: '#5b1510',
     axisX: {
         gridThickness: 0,
         tickThickness: 0,

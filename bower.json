@@ -21,6 +21,7 @@
     "handlebars": "~3.0.3",
     "isotope": "~2.2.0",
     "jquery.scrollTo": "~2.1.0",
-    "responsive-bootstrap-toolkit": "https://github.com/maciej-gurban/responsive-bootstrap-toolkit.git#~2.5.0"
+    "responsive-bootstrap-toolkit": "https://github.com/maciej-gurban/responsive-bootstrap-toolkit.git#~2.5.0",
+    "font-awesome": "~4.3.0"
   }
 }

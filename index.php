@@ -97,17 +97,61 @@ function oddalo($num) {
     </div>
 
     </div>
-    <a class="button" href="#dontforget"><i class="icon-arrow-down"></i> Czas na fun</a>
-    <!--<a class="button" href="#who"><i class="icon-arrow-down"></i> Kto za tym stoi?</a>-->
+</section>
+
+<section class="description">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="clearfix">
+                    <header>
+                        <h2>Co trzeba wiedzieć?</h2>
+                        <p class="date">Oddawaj krew i zapisz się do bazy dawców szpiku!</p>
+                    </header>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-md-4 col-md-push-4">
+                <img class="fancyphoto" src="<?php echo App::path('img/oddaj.jpg') ?>" alt="Pół litra oddajesz, Wampirem się stajesz">
+            </div>
+            <div class="col-md-4 col-md-pull-4 col-xs-12">
+                <h3>Krew</h3>
+                <p>Przed oddaniem krwi koniecznie zjedz lekkie śniadanie i napij się pół litra wody. Przyśpieszy to proces oddawania krwi i sprawi, że po oddaniu będziesz czuć się dobrze.</p>
+                <p>Pamiętaj o zabraniu dokumentu tożsamości.</p>
+                <p>Jeśli:</p>
+                <ul>
+                    <li>chorujesz,</li>
+                    <li>jesteś do 48 godzin po spożyciu alhokolu,</li>
+                    <li>lub bierzesz leki,</li>
+                </ul>    
+                <p>warto wstrzymać się z uczestnictwem w akcji Wampiriady. Wybierz jedną z akcji w późniejszym terminie, albo zgłoś się do Regionalnego Centrum Kriodawstwa i Krwiolecznictwa w dogodnym dla Ciebie momencie.</p>
+                <p>Twoja krew stanowi niezwykle cenny surowiec, którego nie da się wytworzyć syntetycznie. To dlatego oddawanie krwi jest takie ważne!</p>
+                <p>Dowiedz się więcej na stronach <a href="http://krwiodawstwo.pl/26/jak-zostac-krwiodawca">RCKiK w Łodzi</a>.</p>
+            </div>
+            <div class="col-md-4 col-xs-12">
+                <h3>Szpik</h3>
+
+                <p>Otrzymujesz także niepowtarzalną okazję zapisania się do bazy dawców szpiku. Wystarczy tylko, że wypełnisz formularz rejestracyjny na akcji Wampiriady i nic więcej nie musisz robić! Podczas badań pielęgniarka pobierze dodatkową próbkę krwi do badań, ale to żaden problem, skoro i tak oddajesz 450ml :)</p>
+                <p>Po zapisaniu do bazy dawców szpiku otrzymujesz możliwość uratowania życia osoby chorej na białaczkę lub inne choroby krwi, ale tylko wtedy, kiedy jesteście zgodni genetycznie ze sobą. Zdarza się to bardzo rzadko - część dawców nigdy nie będzie oddawać szpiku innej osobie. Dlatego tak ważne jest, żeby jak najwięcej osób było w bazie dawców.</p>
+                <p>Pamiętaj, zapisanie się do bazy szpiku jest niezobowiązujące. Decyzję o oddaniu szpiku podejmiesz dopiero wtedy, kiedy znajdzie się biorca pasujący do Ciebie.</p>
+                <p>Dowiedz się więcej na stronie <a href="http://www.cskis.umed.pl/szpik/podstawowe-informacje/">Centralnego Szpitala Klinicznego Instytutu Stomatologii w Łodzi</a>.</p>
+            </div>
+        </div>
+    </div>
 </section>
 
 <section id="results">
     <div class="container">
     <div class="row">
-        <header class="col-xs-12">
-            <h2>Wyniki 24. edycji Wampiriady</h2>
-            <p class="date">05.2014 r. - 06.2014 r.</p>
-        </header>
+        <div class="col-xs-12">
+            <div class="clearfix">
+                <header>
+                    <h2>Wyniki 24. edycji Wampiriady</h2>
+                    <p class="date">05.2014 r. - 06.2014 r.</p>
+                </header>
+            </div>
+        </div>
     </div>
 
     <div class="row">
@@ -144,90 +188,132 @@ function oddalo($num) {
     -->
     </div>
     </div>
+</section>
 
-    <div class="container">
-    <div class="row mobile">
-        <div class="col-xs-8">
-            <h3>Aplikacja mobilna Wampiriady</h3>
-            <p>Pobierz aplikację mobilną Wampiriady na system Android i&nbsp;otrzymuj informacje o bieżących akcjach i&nbsp;osobach, które potrzebują krwi.</p>
-            <a href="https://play.google.com/store/apps/details?id=pl.makimo.wampiriada">
-                <img alt="Pobierz z Google Play" src="https://developer.android.com/images/brand/pl_generic_rgb_wo_60.png" />
-            </a>
-        </div>
-        <div class="col-xs-4">
-            <img class="like-h3" src="<?php echo App::path('img/wampiriada-market.png'); ?>" alt="Kod QR aplikacji mobilnej Wampiriady" >
-        </div>
+<div class="secondary">
+
+<section class="second-background">
+    <div class="przyjacielwampira">
+        <a href=""><img src="img/layout/przyjacielwampira.png" alt="Zostań przyjacielem Wampira"></a>
     </div>
-    </div>
-    
-    <a class="button" href="#schedule"><i class="icon-arrow-down"></i> Terminy akcji</a>
 </section>
 
 <section id="dontforget">
-    <div class="grid">
-            <header>
-                <h2>To nie wszystko!</h2>
-                <p>Zobacz, co jeszcze dla Ciebie przygotowaliśmy.</p>
-            </header>
-
-            <div class="row">
-                <div class="slot-0-1-2">
-                    <p class="center"><img src="<?php echo App::path('img/wampir.png') ?>" alt=""></p>
-                </div>
-                <div class="slot-3-4-5">
-                    <h3>Konkurs dla Krwiodawców</h3>
-                    <p><strong>Oddaj krew, polub <a href="http://wampiriada.pl/facebook-nzs?campaign=wampiriada">nasz fanpage na Facebooku</a> i udostępnij <a href="http://wampiriada.pl/plakat?campaign=wampiriada">plakat Wampiriady</a> na swojej tablicy</strong>, a następnie weź udział w losowaniu karnetów do Fitfabric Fitness Club, karnetów do Teatru Nowego, kursów językowych Szuster, czy darmowych kuponów na pizzę w pizzerii Fiero. Losowanie odbywa się po każdej akcji Wampiriady!</p>
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="clearfix">
+                        <h2>To nie wszystko!</h2>
+                        <p>Zobacz, co jeszcze dla Ciebie przygotowaliśmy.</p>
                 </div>
             </div>
-            <div class="row">
-                <div class="slot-0-1-2">
-                    <h3>Gifty</h3>
+
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                    <h3>Gifty dla oddających</h3>
+                    <div class="icon"><i class="fa fa-gift"></i></div>
                     <p>W zamian za oddanie krwi otrzymasz:</p>
                     <ul>
                         <li>osiem czekolad;</li>
                         <li>batonik i napój energetyczny;</li>
-                        <li>koszulkę Wampira;</li>
+                        <li><a href="https://www.facebook.com/wampiriada.nzs.rl/photos/a.119841281459933.20746.110146435762751/765979013512820/?type=1&theater">koszulkę Wampira</a>;</li>
                         <li>studenckie zniżki;</li>
-                        <li>darmową godzinę w Project Salsa;</li>
                         <li>nieopisaną satysfakcję z niesienia pomocy innym :)</li>
                     </ul>
-                </div>
-                <div class="slot-3-4-5">
-                    <h3>Pozostań w kontakcie</h3>
-                    <p>Najświeższe informacje o naszych projektach możesz zdobyć tutaj:</p>
-                    <ul>
-                        <li><a href="http://nzs.lodz.pl">NZS Regionu Łódzkiego</a></li>
-                        <li><a href="http://wampiriada.pl">Strona Wampiriady</a></li>
-                        <li><a href="http://wampiriada.pl/facebook?campaign=wampiriada">Wampiriada NZS RŁ</a></li>
-                        <li><a href="https://www.facebook.com/events/300383016794542/">Oficjalny event 24. edycji Wampiriady</a></li>
-                    </ul>
-                </div>
             </div>
+            <div class="col-md-8">
+            <div class="row contest">
+            <div class="col-md-6">
+                <h3>Konkurs dla Krwiodawców</h3>
+                <div class="icon"><i class="fa fa-tint"></i></div>
+                <ol>
+                    <li>oddaj krew,</li>
+                    <li>polub <a href="http://wampiriada.pl/facebook-nzs?campaign=wampiriada">NZSRegionuŁódzkiego na Facebooku</a>,</li>
+                    <li>udostępnij publicznie <a href="http://wampiriada.pl/plakat?campaign=wampiriada">plakat Wampiriady</a> na swojej tablicy z hasztagiem <a href="https://www.facebook.com/hashtag/przyjacielwampira">#przyjacielWAMPIRA</a>,</li>
+                </ol>
+            </div>
+            <div class="col-md-6">
+                <h3>Selfie z Wampirem</h3>
+                <div class="icon"><i class="fa fa-camera"></i></div>
+
+                <ol>
+                    <li>zrób sobie selfie z Wampirem;</li>
+                    <li>polub <a href="http://wampiriada.pl/facebook-nzs?campaign=wampiriada">NZSRegionuŁódzkiego na Facebooku</a>,</li>
+                    <li>opublikuj selfie na stronie <a href="http://www.facebook.com/wampiriada.nzs.rl">Wampiriady Niezależnego Zrzeszenia Studentów Regionu Łódzkiego</a> z dopiskiem <strong>#przyjacielWAMPIRA</strong>,</li>
+                </ol>
+
+            </div>
+            <div class="col-md-12">
+            <p>Za wygraną w konkursie otrzymasz nagrody w postaci kursów językowych Szuster, kuponów na pizzę Fiero, gadżetow Uniwersytetu Łódzkiego, Politechniki Łódzkiej, Regionalnego Centrum Krwiodawstwa i wiele innych.</p>
+            <p>Więcej o konkursach na stronie <a href="">oficjalnego eventu 26. edycji Wampiriady</a>.</p>
+            </div>
+            </div>
+
+
+            </div>
+        </div>
+    <div class="row padding-top">
+        <div class="col-md-8">
+            <div class="bigga">
+                <h3>Kontakt</h3>
+                <nav>
+
+
+                <a href="">oficjalny event 26. edycji Wampiriady</a>
+                <a href="">facebook.com/&shy;wampiriada.nzs.rl</a>
+                <a href="">facebook.com/&shy;NZSRegionuLodzkiego</a>
+                <a href="">nzs.lodz.pl - organizator</a>
+                <a href="">@nzslodz - nasz twitter</a>
+                </nav>
+            </div>
+        </div>
+        <div class="col-md-4">
+                <div class="row mobile">
+                    <div class="col-xs-8 col-md-12">
+                        <h3>Aplikacja mobilna Wampiriady</h3>
+                        <p>Pobierz aplikację mobilną Wampiriady na system Android i&nbsp;otrzymuj informacje o bieżących akcjach Wampiriady.</p>
+                        <p class="appstore">
+                        <a href="https://play.google.com/store/apps/details?id=pl.makimo.wampiriada">
+                            <img alt="Pobierz z Google Play" src="https://developer.android.com/images/brand/pl_generic_rgb_wo_60.png" />
+                        </a>
+                        </p>
+                    </div>
+                    <div class="col-xs-4 col-md-12">
+                        <p>
+                            <img class="like-h3" src="<?php echo App::path('img/wampiriada-market.png'); ?>" alt="Kod QR aplikacji mobilnej Wampiriady" >
+                        </p>
+                    </div>
+                </div>
+        </div>
     </div>
-    <a class="button" href="#who"><i class="icon-arrow-down"></i> Kto za tym stoi?</a>
+    </div>
 </section>
 
 <section id="who">
-    <div class="grid">
-            <header>
-                <h2>Organizatorzy</h2>
-                <p>Zajrzyj na nasze strony, jeśli podoba Ci się nasza akcja.</p>
-            </header>
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="clearfix">
+                        <h2>Organizatorzy</h2>
+                        <p>Zajrzyj na nasze strony, jeśli podoba Ci się nasza akcja.</p>
+                </div>
+            </div>
+        </div>
 
             <div class="row">
-            <div class="slot-0-1-2">
-                <a href="http://nzs.lodz.pl"><img src="<?php echo App::path('img/nzs.png') ?>" alt="Niezależne Zrzeszenie Studentów Regionu Łódzkiego"></a>
-            </div>
-            <div class="slot-3-4-5">
-                <a href="http://krwiodawstwo.pl"><img src="<?php echo App::path('img/rck.png') ?>" alt="Regionalne Centrum Krwiodawstwa i Krwiolecznictwa w Łodzi"></a>
-            </div>
+                <div class="col-xs-6 col-md-4 col-md-push-2">
+                    <a href="http://nzs.lodz.pl"><img src="<?php echo App::path('img/nzs.png') ?>" alt="Niezależne Zrzeszenie Studentów Regionu Łódzkiego"></a>
+                </div>
+                <div class="col-xs-6 col-md-4 col-md-push-2">
+                    <a href="http://krwiodawstwo.pl"><img src="<?php echo App::path('img/rck.png') ?>" alt="Regionalne Centrum Krwiodawstwa i Krwiolecznictwa w Łodzi"></a>
+                </div>
             </div>
     </div>
 
-    <a class="button" href="#partners"><i class="icon-arrow-down"></i> Nasi partnerzy</a>
 </section>
 
-<section id="partners">
+<!--<section id="partners">
     <div class="grid">
             <header>
                 <h2>Partnerzy</h2>
@@ -283,11 +369,11 @@ function oddalo($num) {
 					<a href="http://www.studentnews.pl/" target="_blank"><img src="<?php echo App::path('img/partnerzy/28.jpg') ?>" /></a>
 					<a href="http://student.lodz.pl/" target="_blank"><img src="<?php echo App::path('img/partnerzy/29.jpg') ?>" /></a>
 				</div>
-                <!--<img src="<?php echo App::path('img/logotypyweb.png') ?>" alt="Logotypy naszych partnerów">-->
             </div>
     </div>
     <a class="button" href="#intro"><i class="icon-arrow-up"></i> Powrót na górę</a>
-</section>
+</section>-->
+</div>
 
 <script id="map-item-template" type="text/x-handlebars-template">
     <p class="action-date"><strong>{{day}} ({{time}})</strong></p>

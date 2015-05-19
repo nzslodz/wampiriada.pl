@@ -18,7 +18,7 @@ use Silverplate\App;
 
         <meta name="og:image" content="<?php echo App::path('img/wampir-logo-2.png') ?>">
 
-        <link rel="stylesheet" href="<?php echo App::path('css/font-awesome.min.css') ?>">
+        <link rel="stylesheet" href="<?php echo App::path('bower_components/font-awesome/css/font-awesome.min.css') ?>">
         <link rel="stylesheet" href="<?php echo App::path('bower_components/bootstrap/dist/css/bootstrap.min.css') ?>" ?>
         <link href='http://fonts.googleapis.com/css?family=Alegreya+Sans:100,300,400,700&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
         <link rel="stylesheet" href="<?php echo App::path('css/main.css') ?>?r=3">

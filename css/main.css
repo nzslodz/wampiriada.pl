@@ -2,12 +2,11 @@
 html, body {
     height: 100%;
     background-color: #5b1510;
+    font-size: 1.025em;
 }
 
 section {
-    min-height: 100%;
     position: relative;
-    overflow:hidden;
 }
 
 h1, h2, h3 {
@@ -95,7 +94,7 @@ a.button:hover {
 #schedule {
     margin-top: -10vw;
     
-    color: #e8dce7;
+    color: #e8e0e0;
 }
 
 #schedule .sorting {
@@ -123,7 +122,6 @@ a.button:hover {
 }
 
 #dontforget .row {
-    font-size: 0.9em;
 }
 
 #dontforget .row h3 {
@@ -207,17 +205,21 @@ h3 {
 
 
 #dontforget {
-    background-color: rgb(15, 131, 185);
-    color: rgb(167, 231, 252);
+    background: white;
+    color: #444;
 
+    margin-top: -10vw;
+    position: relative;
+
+    z-index: 8;
 }
 
 #dontforget a {
-   color: rgb(167, 231, 252);
+   color: rgb(92, 163, 220);
 }
 
 #dontforget a:hover, #dontforget a:active {
-    color: rgb(224, 247, 255);
+    color: rgb(76, 134, 181);
 }
 
 .ul .date span {
@@ -254,24 +256,12 @@ h3 {
 }
 
 #who {
-    background-color: #ccc;
+    background-color: #fff;
+
+    color: #444;
 
 }
 
-#who, #partners {
-    text-align: center;
-}
-
-#who .row, #partners .row {
-    position: absolute;
-	top: 200px;
-    /*top: 50%;
-    margin-top: -80px;*/
-}
-
-#partners .row {
-    /*margin-top: -200px;*/
-}
 
 #partners a.button {
     color: #222;
@@ -281,12 +271,17 @@ h3 {
     margin-top: 1.8em;
 }
 
+.appstore {
+    margin: 1.8em 0;
+}
+
 .mobile {
     padding-bottom: 1.8em;
-    margin: 2em 0;
 
     border-radius: 8px;
-
+    
+    color: #fff;
+    
     -webkit-box-shadow: inset 0px 1px 0px 0px rgba(255,255,255, 0.3), 0px 1px 0 0 rgba(0,0,0,0.3);
 box-shadow: inset 0px 1px 0px 0px rgba(255,255,255, 0.3), 0px 1px 0 0 rgba(0,0,0,0.3);
 
@@ -304,6 +299,10 @@ background-image: -webkit-gradient(
     color-stop(0.51, rgb(143,19,19)),
     color-stop(0.76, rgb(143,7,7))
 );
+}
+
+.secondary .mobile h3 {
+    color: #fff;
 }
 
 .mobile .slot-0-1-2-3 {
@@ -417,13 +416,14 @@ section header {
 }
 
 section {
-    padding-bottom: 100px;
+    padding-bottom: 40px;
 }
 
 #intro {
     background: #5b1510 url('../img/layout/karta2-top.jpg') top center no-repeat;
     background-size: contain;
-    padding-top: 44vw;
+    padding-top: 50vw;
+    min-height:0;
 }
 
 .accept-cookie-message  {
@@ -434,4 +434,126 @@ section {
     border-left:0 !important;
     border-right:0 !important;
     position: static !important;
+}
+
+.fancyphoto {
+    border: 9px solid white;
+    -webkit-transform: rotate(-1deg);
+    -moz-transform: rotate(-1deg);
+    -ms-transform: rotate(-1deg);
+    -o-transform: rotate(-1deg);
+    transform: rotate(-1deg);
+}
+
+.description {
+    background-color: rgba(0,0,0,0.2);
+}
+
+.description a {
+    color: rgb(255, 142, 64);
+}
+
+.description a:hover, .description a:active {
+    color: rgb(255, 186, 133);
+}
+
+.second-background {
+    background: #fff url('../img/layout/karta2-bottom.jpg') top center no-repeat;
+    background-size: contain;
+    
+    padding-bottom: 15vw;
+    min-height:0;
+    z-index:5;
+    position: relative;
+}
+
+.second-background img {
+    max-width: 100%;
+}
+
+.second-background .przyjacielwampira {
+    position: relative;
+    z-index: 2;
+    top: -20px;
+}
+
+#results {
+    color: #e8e0e0;
+}
+
+.secondary {
+    background: white;
+}
+
+
+.secondary h1, .secondary h2, .secondary h3 {
+    color: #cc0000;
+}
+
+@media only screen and (min-width : 768px) {
+    .mobile {
+        text-align: center;
+    }
+}
+
+@media only screen and (max-width: 767px) {
+    .overall, #results header, #results header .date {
+        text-align: center;
+    }
+}
+
+.icon {
+    font-size: 3em;
+    text-align: center;
+
+    width: 80px;
+    margin: auto;
+    height: 80px;
+    border: 1px solid #000;
+    padding:7px;
+
+    border-radius: 40px;
+    margin: 10px auto;
+}
+
+.contest {
+    background-color: #fafafa;
+    box-shadow: 0 2px 3px rgba(0,0,0,0.3);
+    padding: 0px 0 12px;
+}
+
+.padding-top {
+    margin-top: 40px;
+}
+
+.bigga h3 {
+}
+
+.bigga nav a {
+    font-size: 2.1em;
+    font-weight: 100;
+    display: block;
+}
+
+#dontforget h3 {
+    border-left: 30px solid #cc0000;
+    padding-left: 10px;
+}
+
+#dontforget .mobile h3 {
+    border-left: 0;
+    padding-left: 0;
+}
+
+.bigga nav {
+    margin: 1em 0;
+}
+
+
+#who {
+    background-color: #f7f7f7;
+}
+
+#who .col-xs-6, #who .col-md-4 {
+    text-align: center;
 }
