@@ -230,8 +230,8 @@ function oddalo($num) {
                 <div class="icon"><i class="fa fa-tint"></i></div>
                 <ol>
                     <li>oddaj krew,</li>
-                    <li>polub <a href="http://wampiriada.pl/facebook-nzs?campaign=wampiriada">NZSRegionuŁódzkiego na Facebooku</a>,</li>
-                    <li>udostępnij publicznie <a href="http://wampiriada.pl/plakat?campaign=wampiriada">plakat Wampiriady</a> na swojej tablicy z hasztagiem <a href="https://www.facebook.com/hashtag/przyjacielwampira">#przyjacielWAMPIRA</a>,</li>
+                    <li>polub <a href="https://facebook.com/NZSRegionuLodzkiego">NZSRegionuŁódzkiego na Facebooku</a>,</li>
+                    <li>udostępnij publicznie <a href="https://www.facebook.com/NZSRegionuLodzkiego/photos/a.165034606884513.46602.150737411647566/842944849093482/?type=1&theater">plakat Wampiriady</a> na swojej tablicy z hasztagiem <a href="https://www.facebook.com/hashtag/przyjacielwampira">#przyjacielWAMPIRA</a>,</li>
                 </ol>
             </div>
             <div class="col-md-6">
@@ -240,8 +240,8 @@ function oddalo($num) {
 
                 <ol>
                     <li>zrób sobie selfie z Wampirem;</li>
-                    <li>polub <a href="http://wampiriada.pl/facebook-nzs?campaign=wampiriada">NZSRegionuŁódzkiego na Facebooku</a>,</li>
-                    <li>opublikuj selfie na stronie <a href="http://www.facebook.com/wampiriada.nzs.rl">Wampiriady Niezależnego Zrzeszenia Studentów Regionu Łódzkiego</a> z dopiskiem <strong>#przyjacielWAMPIRA</strong>,</li>
+                    <li>polub <a href="https://facebook.com/NZSRegionuLodzkiego">NZSRegionuŁódzkiego na Facebooku</a>,</li>
+                    <li>opublikuj selfie na stronie <a href="http://www.facebook.com/wampiriada.nzs.rl">Wampiriady Niezależnego Zrzeszenia Studentów Regionu Łódzkiego</a> z dopiskiem <a href="https://www.facebook.com/hashtag/przyjacielwampira">#przyjacielWAMPIRA</a>,</li>
                 </ol>
 
             </div>
