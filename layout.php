@@ -36,8 +36,11 @@ use Silverplate\App;
 		<!--skrypty z map google-->
 		<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script>
 		<script type="text/javascript" src="<?php echo App::path('bower_components/gmaps/gmaps.min.js') ?>"></script>
+        <script type="text/javascript" src="<?php echo App::path('bower_components/isotope/dist/isotope.pkgd.min.js') ?>"></script>
+        <script type="text/javascript" src="<?php echo App::path('bower_components/jquery.scrollTo/jquery.scrollTo.min.js') ?>"></script>
         <script type="text/javascript" src="<?php echo App::path('bower_components/handlebars/handlebars.min.js') ?>"></script>
-		
+        <script type="text/javascript" src="<?php echo App::path('js/vendor/canvasjs/canvasjs.min.js') ?>"></script>
+        <script type="text/javascript" src="<?php echo App::path('bower_components/responsive-bootstrap-toolkit/dist/bootstrap-toolkit.min.js') ?>"></script>
 		
         <script src="<?php echo App::path('js/main.js') ?>"></script>
         <script src="http://accept-cookie.cdn.lambdadelta.pl/jquery.accept-cookie.js"></script>

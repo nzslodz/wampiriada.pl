@@ -28,43 +28,110 @@ function oddalo($num) {
 ?>
 
 <section id="intro">
-    <div class="grid">
-        <div class="row center">
-                <h1><img src="<?php echo App::path('img/wampir-logo.png') ?>" alt="Wampiriada - studenckie honorowe krwiodawstwo"></h1>
+    <div class="container-fluid sr-only">
+    <div class="row invisible">
+        <div class="col-xs-12">
+            <h1>Wampiriada - studenckie honorowe krwiodawstwo</h1>
         </div>
     </div>
-    <div class="movie">
-        <h2>Poznaj Wampira</h2>
-        <div class="box">
+    <!--
+    <div class="row">
+        <div class="col-xs-12 movie">
+            <h2>Poznaj Wampira</h2>
+            <div class="box">
                 <iframe width="853" height="480" src="//www.youtube.com/embed/KkjbiwbjUFY" frameborder="0" allowfullscreen></iframe>
+            </div>
         </div>
     </div>
-    <div class="grid grid2">
-        <header class="row">
+    -->
+    </div>
+</section>
+
+
+<section id="schedule">
+<div class="container">
+   <div class="row">
+        <div class="col-xs-12">
+            <div class="clearfix">
+                <header>
+                    <h2>Terminy 24. akcji Wampiriady</h2>
+                    <p class="date">05.2014 r. - 06.2014 r.</p>
+                </header>
+            </div>
+
+            <div class="sorting">
+                <span>Sortowanie:</span>
+                <a href="#" class="active" data-option-value="original-order"><i class="icon-time"></i> Chronologiczne</a>
+                <a href="#" data-option-value="name"><i class="icon-map-marker"></i> Po uczelniach</a>
+            </div>
+        </div>
+    </div>
+   <div class="row nopadding">
+        <div class="col-md-7 nopadding">
+                <div class="row legend">
+                    <p class="col-xs-2 date">Dzień</p>
+                    <p class="col-xs-5 place" data-sort="PŁ">Miejsce trwania akcji</p>
+                    <p class="col-xs-2 time">Czas akcji</p>
+                    <p class="col-xs-2 marrow">Szpik</p>
+                </div>
+            <ul class="isotope">
+
+                <?php foreach($repository->getActions() as $action): ?>
+                <li class="row <?php echo $controller->getClass($action->school_short) ?>" data-lat="<?php echo $action->lat ?>" data-lng="<?php echo $action->lng ?>">
+                    <p class="col-xs-2 date"><span><?php echo date('d/m', strtotime($action->day)) ?></span></p>
+                    <p class="col-xs-5 place <?php echo $controller->getClass($action->school_short) ?>" data-sort="<?php echo $action->school_short ?>" data-address="<?php echo $action->address ?>"><?php echo $action->place ?></p>
+                    <p class="col-xs-2 time"><?php echo date('H', strtotime($action->start)) ?> - <?php echo date('H', strtotime($action->end)) ?></p>
+                    <p class="col-xs-2 marrow"><?php if($action->marrow): ?><i class="icon-ok"></i> szpik<?php endif; ?></p>
+                </li>
+                <?php endforeach; ?>
+            </ul>
+        </div>
+        <div class="col-md-5 nopadding">
+            <div class="row legend">
+                <p class="col-xs-12 text-center">
+                Zaznacz jedno z miejsc, aby zobaczyć je na mapie.
+                </p>
+            </div>
+			<div id="map"></div>
+        </div>
+    </div>
+
+    </div>
+    <a class="button" href="#dontforget"><i class="icon-arrow-down"></i> Czas na fun</a>
+    <!--<a class="button" href="#who"><i class="icon-arrow-down"></i> Kto za tym stoi?</a>-->
+</section>
+
+<section id="results">
+    <div class="container">
+    <div class="row">
+        <header class="col-xs-12">
             <h2>Wyniki 24. edycji Wampiriady</h2>
             <p class="date">05.2014 r. - 06.2014 r.</p>
         </header>
-        <div class="row">
-            <div class="slot-0-1 overall <?php if($results->overall > 1000): ?>smallfont<?php endif; ?>">
+    </div>
+
+    <div class="row">
+        <div class="col-md-4">
+            <div class="overall <?php if($results->overall > 1000): ?>smallfont<?php endif; ?>">
                 <div class="big"><?php echo $results->overall ?></div> 
                 <div class="small"><?php echo oddalo($results->overall) ?> krew</div>
 
                 <div class="note"><?php echo $results->overall * 0.45 ?></div>
                 <div class="foot">litrów krwi</div>
             </div>
-            <div class="slot-2-3-4-5">
+        </div>
+        <div class="col-md-8">
                 <div id="magicalchart" class="row" style="height: 460px"
                     data-zero-minus="<?php echo $results->zero_minus ?>"
-            data-zero-plus="<?php echo $results->zero_plus ?>"
-            data-a-minus="<?php echo $results->a_minus ?>"
-            data-a-plus="<?php echo $results->a_plus ?>"
-            data-b-minus="<?php echo $results->b_minus ?>"
-            data-b-plus="<?php echo $results->b_plus ?>"
-            data-ab-plus="<?php echo $results->ab_plus ?>"
-            data-ab-minus="<?php echo $results->ab_minus ?>"   
-            data-unknown="<?php echo $results->unknown ?>"
-        ></div>
-            </div>
+                    data-zero-plus="<?php echo $results->zero_plus ?>"
+                    data-a-minus="<?php echo $results->a_minus ?>"
+                    data-a-plus="<?php echo $results->a_plus ?>"
+                    data-b-minus="<?php echo $results->b_minus ?>"
+                    data-b-plus="<?php echo $results->b_plus ?>"
+                    data-ab-plus="<?php echo $results->ab_plus ?>"
+                    data-ab-minus="<?php echo $results->ab_minus ?>"   
+                    data-unknown="<?php echo $results->unknown ?>"
+                ></div>
         </div>
     <!--    
     <div class="row thanks">
@@ -75,63 +142,25 @@ function oddalo($num) {
     </div>
     </div>
     -->
-        <!--<div class="row mobile">
-            <div class="slot-0-1-2-3">
-                <h3>Aplikacja mobilna Wampiriady</h3>
-                <p>Pobierz aplikację mobilną Wampiriady na system Android i&nbsp;otrzymuj informacje o bieżących akcjach i&nbsp;osobach, które potrzebują krwi.</p>
-                <a href="https://play.google.com/store/apps/details?id=pl.makimo.wampiriada">
-                  <img alt="Pobierz z Google Play"
-                         src="https://developer.android.com/images/brand/pl_generic_rgb_wo_60.png" />
-                         </a>
-            </div>
-            <div class="slot-4-5">
-                <img class="like-h3" src="<?php echo App::path('img/wampiriada-market.png'); ?>" alt="Kod QR aplikacji mobilnej Wampiriady" >
-            </div>
-
-            <div class="clearfix"></div>
-        </div>-->
-
-    
-    <a class="button" href="#schedule"><i class="icon-arrow-down"></i> Terminy akcji</a>
-</section>
-
-<section id="schedule">
-    <div class="grid">
-        <div class="row">
-            <header>
-                <h2>Terminy 24. akcji Wampiriady</h2>
-                <p class="date">05.2014 r. - 06.2014 r.</p>
-            </header>
-
-            <div class="sorting">
-                <span>Sortowanie:</span>
-                <a href="#" class="active" data-option-value="original-order"><i class="icon-time"></i> Chronologiczne</a>
-                <a href="#" data-option-value="name"><i class="icon-map-marker"></i> Po uczelniach</a>
-            </div>
-
-                <div class="row legend">
-                    <p class="slot-0 date">Dzień</p>
-                    <p class="slot-1-2-3 place" data-sort="PŁ">Miejsce trwania akcji</p>
-                    <p class="slot-4 time">Czas akcji</p>
-                    <p class="slot-5 marrow">Szpik</p>
-                </div>
-            <ul class="isotope">
-                <?php foreach($repository->getActions() as $action): ?>
-                <li class="row <?php echo $controller->getClass($action->school_short) ?>" data-lat="<?php echo $action->lat ?>" data-lng="<?php echo $action->lng ?>">
-                    <p class="slot-0 date"><?php echo date('d.m', strtotime($action->day)) ?></p>
-                    <p class="slot-1-2-3 place <?php echo $controller->getClass($action->school_short) ?>" data-sort="<?php echo $action->school_short ?>" data-address="<?php echo $action->address ?>"><?php echo $action->place ?></p>
-                    <p class="slot-4 time"><?php echo date('H', strtotime($action->start)) ?> - <?php echo date('H', strtotime($action->end)) ?></p>
-                    <p class="slot-5 marrow"><?php if($action->marrow): ?><i class="icon-ok"></i> szpik<?php endif; ?></p>
-                </li>
-                <?php endforeach; ?>
-            </ul>
-			
-			<div id="map"></div>
-        </div>
+    </div>
     </div>
 
-    <a class="button" href="#dontforget"><i class="icon-arrow-down"></i> Czas na fun</a>
-    <!--<a class="button" href="#who"><i class="icon-arrow-down"></i> Kto za tym stoi?</a>-->
+    <div class="container">
+    <div class="row mobile">
+        <div class="col-xs-8">
+            <h3>Aplikacja mobilna Wampiriady</h3>
+            <p>Pobierz aplikację mobilną Wampiriady na system Android i&nbsp;otrzymuj informacje o bieżących akcjach i&nbsp;osobach, które potrzebują krwi.</p>
+            <a href="https://play.google.com/store/apps/details?id=pl.makimo.wampiriada">
+                <img alt="Pobierz z Google Play" src="https://developer.android.com/images/brand/pl_generic_rgb_wo_60.png" />
+            </a>
+        </div>
+        <div class="col-xs-4">
+            <img class="like-h3" src="<?php echo App::path('img/wampiriada-market.png'); ?>" alt="Kod QR aplikacji mobilnej Wampiriady" >
+        </div>
+    </div>
+    </div>
+    
+    <a class="button" href="#schedule"><i class="icon-arrow-down"></i> Terminy akcji</a>
 </section>
 
 <section id="dontforget">

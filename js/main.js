@@ -11,10 +11,14 @@ $(function() {
 	//sortowanie tabelki
     $('.isotope').isotope({
         getSortData: {
-            name: function($elem) {
-                return $elem.find('p.place').data('sort')
+            name: function(elem) {
+                return $(elem).find('p.place').data('sort')
             }
         }
+    })
+
+    $(window).resize(function() {
+        $('.isotope').isotope('reloadItems').isotope()
     })
 
     $('.sorting a').click(function() {
@@ -73,9 +77,9 @@ var chart = new CanvasJS.Chart("magicalchart", {
     $(document).ready(function(){
       map = new GMaps({
         el: '#map',
-        lat: 51.7731179,
-        lng: 19.4805926,
-		zoom: 12,
+        lat: 51.770,
+        lng: 19.459,
+		zoom: 13,
         disableDefaultUI: true,
         scrollwheel: false,
         navigationControl: false,
@@ -84,11 +88,16 @@ var chart = new CanvasJS.Chart("magicalchart", {
         draggable: false,
       });
 	  
-	  $('.isotope li').each(function() {
+      var items = $('.isotope li')
+
+	  items.each(function() {
 		var me = $(this)
-		
+
 		me.click(function() {
+            items.removeClass('active')
 			map.removeMarkers()
+            
+            me.addClass('active')
             
             var title = me.find('.place').text()
             var address = me.find('.place').data('address')
@@ -106,8 +115,12 @@ var chart = new CanvasJS.Chart("magicalchart", {
                     }),
                 },
 			});
+            
+            if(ResponsiveBootstrapToolkit.is('<md')) {
+                $.scrollTo($('#map'), 500)
+            }
 
-            (map.markers[0].infoWindow).open(map.map,map.markers[0]);
+            map.markers[0].infoWindow.open(map.map,map.markers[0]);
 		})
 	  })
     });

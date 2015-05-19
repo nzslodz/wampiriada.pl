@@ -9,7 +9,7 @@ update places set lat = "51.754692", lng = "19.452726" where name = "Wydział Bi
 update places set lat = "51.7752035", lng = "19.5045822" where name = "Centrum Dydaktyczne UMed";
 update places set lat = "51.7681431", lng = "19.4369655" where name = "Plac Hallera";
 update places set lat = "51.775397", lng = "19.492095" where name = "Biblioteka UMed";
-update places set lat = "51.7489999", lng = "51.7489999" where name = "Stołówka PŁ";
+update places set lat = "51.7489999", lng = "19.4495" where name = "Stołówka PŁ";
 update places set lat = "51.7756558", lng = "19.4874598" where name = "Wydział Zarządzania UŁ";
 update places set lat = "51.77757", lng = "19.482429" where name = "Wydział Prawa i Administracji UŁ";
 update places set lat = "51.7624552", lng = "19.4545907" where name = "Wydział Filologiczny UŁ";

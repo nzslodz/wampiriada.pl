@@ -1,6 +1,7 @@
 
 html, body {
     height: 100%;
+    background-color: #5b1510;
 }
 
 section {
@@ -35,21 +36,8 @@ a.button:hover {
 }
 
 #intro {
-    background-color: rgb(75, 0, 0);
    color: #fff;
-}
-
-#intro .grid {
-   padding-bottom: 3em;
-}
-
-#intro .grid2 {
-   padding-bottom: 6em;
-}
-
-#intro h1 {
-    margin: 0;
-    padding: 2em 0;
+   min-height: 0;
 }
 
 #map {
@@ -104,21 +92,20 @@ a.button:hover {
 
 }
 
-
 #schedule {
-    background-color: rgb(15, 70, 57);
-    color: rgb(202, 177, 138);
+    margin-top: -10vw;
     
+    color: #e8dce7;
 }
 
 #schedule .sorting {
-   color: rgb(165, 137, 115);
+   color: rgb(202, 156, 128);
    font-size: 0.9em;
    margin-bottom: 2em;
 }
 
 #schedule .sorting a {
-    color: rgb(165, 137, 115);
+    color: rgb(202, 156, 128);
     border-radius: 4px;
     display: inline-block;
     border: 1px solid rgba(255,255,255,0.1);
@@ -126,9 +113,13 @@ a.button:hover {
     text-decoration: none;
 }
 
-#schedule .sorting a:hover, #schedule .sorting a:active, #schedule .sorting .active {
+#schedule .sorting a:hover, #schedule .sorting a:active {
     background-color: rgba(0,0,0,0.1);
+    color: #e1c1b2;
 
+}
+#schedule .sorting .active {
+    background-color: rgba(0,0,0,0.1);
 }
 
 #dontforget .row {
@@ -163,6 +154,8 @@ padding: 0;
     margin-bottom: 6em;
 }
 
+
+
 #schedule li p, #schedule .legend p {
     margin-top: 0;
     margin-bottom: 0;
@@ -173,6 +166,15 @@ padding: 0;
     padding: 0.5em 0;
     border-top: 1px solid rgba(255,255,255,0.1);
     border-bottom: 1px solid rgba(0,0,0,0.1);
+}
+
+#schedule li:hover, li:active {
+    background-color: rgba(0,0,0,0.1);
+    color: #fff;
+}
+#schedule li.active {
+    background-color: rgba(0,0,0,0.1);
+    color: #fff;
 }
 
 
@@ -218,26 +220,27 @@ h3 {
     color: rgb(224, 247, 255);
 }
 
-.ul {
-    background-color: rgb(121, 117, 18);
+.ul .date span {
+    border-bottom: 5px solid #c2812c;
 }
 
-.pl {
-    background-color: rgb(18, 109, 117);
-}
-
-
-.um {
-    background-color: rgb(75, 114, 38);
+.pl .date span {
+    border-bottom: 5px solid #b72b2a;
 }
 
 
-.wsinf, .amuz {
-    background-color: rgb(28, 107, 18);
+.um .date span {
+    border-bottom: 5px solid #71953d;
 }
 
-.kol {
-    background-color: rgb(28, 107, 18);
+
+.wsinf .date span, .amuz .date span {
+    border-bottom: 5px solid #c14d8f;
+}
+
+.kol .date span {
+    border-bottom: 5px solid rgb(28, 107, 18);
+    font-weight: 400;
 }
 
 
@@ -352,7 +355,6 @@ background-image: -webkit-gradient(
 }
 
 html, body {
-    background: #952726;
     font-family: "Alegreya Sans", sans-serif;
     
     color: #fff;
@@ -386,8 +388,41 @@ html, body {
     text-align: center;
 }
 
+/* new styles */
 
 .gm-style {
     font-family: "Alegreya Sans" !important;
     color: #333;
 }
+
+.gm-style h3 {
+    margin-top: 0;
+}
+
+.isotope .row {
+    width: 100%;
+}
+
+
+.nopadding, .nopadding .row {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+}
+
+section header {
+    text-align: right;
+    float: left;
+}
+
+section {
+    padding-bottom: 100px;
+}
+
+#intro {
+    background: #5b1510 url('../img/layout/karta2-top.jpg') top center no-repeat;
+    background-size: contain;
+    padding-top: 44vw;
+}
+
