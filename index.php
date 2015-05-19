@@ -54,8 +54,8 @@ function oddalo($num) {
         <div class="col-xs-12">
             <div class="clearfix">
                 <header>
-                    <h2>Terminy 24. akcji Wampiriady</h2>
-                    <p class="date">05.2014 r. - 06.2014 r.</p>
+                    <h2>Terminy 26. akcji Wampiriady</h2>
+                    <p class="date">05.2015 r. - 06.2015 r.</p>
                 </header>
             </div>
 
@@ -147,8 +147,8 @@ function oddalo($num) {
         <div class="col-xs-12">
             <div class="clearfix">
                 <header>
-                    <h2>Wyniki 24. edycji Wampiriady</h2>
-                    <p class="date">05.2014 r. - 06.2014 r.</p>
+                    <h2>Wyniki 26. edycji Wampiriady</h2>
+                    <p class="date">05.2015 r. - 06.2015 r.</p>
                 </header>
             </div>
         </div>
