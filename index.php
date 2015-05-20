@@ -301,7 +301,7 @@ function oddalo($num) {
             <div class="col-xs-12">
                 <div class="clearfix">
                         <h2>Organizator</h2>
-                        <p>Zajrzyj na nasze strony, jeśli podoba Ci się nasza akcja.</p>
+                        <p>Zajrzyj na naszą stronę, jeśli podoba Ci się to, co robimy.</p>
                 </div>
             </div>
         </div>
