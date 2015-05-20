@@ -141,6 +141,7 @@ function oddalo($num) {
     </div>
 </section>
 
+<?php /*
 <section id="results">
     <div class="container">
     <div class="row">
@@ -189,6 +190,8 @@ function oddalo($num) {
     </div>
     </div>
 </section>
+
+*/ ?>
 
 <div class="secondary">
 
