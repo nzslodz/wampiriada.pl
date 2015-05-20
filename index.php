@@ -7,7 +7,7 @@ meta('description', 'Oficjalna strona akcji honorowego krwiodawstwa Wampiriada w
 
 $controller = new Controller;
 
-$repository = $controller->getEdition(24);
+$repository = $controller->getEdition(26);
 
 $results = $repository->getResults();
 
