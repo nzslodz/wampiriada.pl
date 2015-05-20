@@ -37,7 +37,9 @@ $(function() {
 
 	
 	//wykres na stronie
-var chart = new CanvasJS.Chart("magicalchart", {
+
+    $('#results').each(function() {
+    var chart = new CanvasJS.Chart("magicalchart", {
     backgroundColor: '#5b1510',
     axisX: {
         gridThickness: 0,
@@ -71,6 +73,7 @@ var chart = new CanvasJS.Chart("magicalchart", {
     });
     chart.render();//renderuje wykres
 
+    })
 
     //script z map google (example: markers)
     var map;
