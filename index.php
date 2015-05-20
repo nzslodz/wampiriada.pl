@@ -9,7 +9,7 @@ $controller = new Controller;
 
 $repository = $controller->getEdition(26);
 
-$results = $repository->getResults();
+//$results = $repository->getResults();
 
 function oddalo($num) {
     $mod_100 = $num % 100;
