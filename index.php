@@ -1,6 +1,7 @@
 <?php namespace Silverplate; 
 
 use NZS\Wampiriada\Controller;
+use NZS\Wampiriada\ObjectDoesNotExist;
 
 meta('title', 'Wampiriada w Łodzi');
 meta('description', 'Oficjalna strona akcji honorowego krwiodawstwa Wampiriada w Łodzi, organizowanej przez NZS Regionu Łódzkiego. Tutaj dowiesz się, jak wziąć w niej udział.');
@@ -9,7 +10,13 @@ $controller = new Controller;
 
 $repository = $controller->getEdition(26);
 
-//$results = $repository->getResults();
+$display_results = true;
+
+try {
+    $results = $repository->getResults();
+} catch(ObjectDoesNotExist $e) {
+    $display_results = false;
+}
 
 function oddalo($num) {
     $mod_100 = $num % 100;
@@ -99,7 +106,7 @@ function oddalo($num) {
     </div>
 </section>
 
-<section class="description">
+<section class="description <?php if($display_results): ?>with-results<?php endif; ?>">
     <div class="container">
         <div class="row">
             <div class="col-xs-12">
@@ -141,7 +148,7 @@ function oddalo($num) {
     </div>
 </section>
 
-<?php /*
+<?php if($display_results): ?>
 <section id="results">
     <div class="container">
     <div class="row">
@@ -190,8 +197,7 @@ function oddalo($num) {
     </div>
     </div>
 </section>
-
-*/ ?>
+<?php endif; ?>
 
 <div class="secondary">
 

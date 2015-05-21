@@ -445,8 +445,8 @@ section {
     transform: rotate(-1deg);
 }
 
-.description {
-    /*background-color: rgba(0,0,0,0.2);*/
+.description.with-results {
+    background-color: rgba(0,0,0,0.2);
 }
 
 .description a {
