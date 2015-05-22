@@ -21,7 +21,7 @@ use Silverplate\App;
         <link rel="stylesheet" href="<?php echo App::path('bower_components/font-awesome/css/font-awesome.min.css') ?>">
         <link rel="stylesheet" href="<?php echo App::path('bower_components/bootstrap/dist/css/bootstrap.min.css') ?>" ?>
         <link href='http://fonts.googleapis.com/css?family=Alegreya+Sans:100,300,400,700&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
-        <link rel="stylesheet" href="<?php echo App::path('css/main.css') ?>?r=3">
+        <link rel="stylesheet" href="<?php echo App::path('css/main.css') ?>?r=4">
         <script src="<?php echo App::path('js/vendor/modernizr-2.6.2.min.js') ?>"></script>
     </head>
     <body class="<?php echo $type ?> <?php echo get('classes') ?>">
