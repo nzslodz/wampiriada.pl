@@ -274,7 +274,7 @@ function oddalo($num) {
                 <li><a href="https://facebook.com/wampiriada.nzs.rl">facebook.com/&shy;wampiriada.nzs.rl</a></li>
                 <li><a href="https://facebook.com/NZSRegionuLodzkiego">facebook.com/&shy;NZSRegionuLodzkiego</a></li>
                 <li><a href="http://nzs.lodz.pl">nzs.lodz.pl - organizator</a></li>
-                <li><a href="https://twitter.com/nzslodz">@nzslodz - nasz twitter</a></li>
+                <li><a href="https://twitter.com/nzslodz/with_replies">@nzslodz - nasz twitter</a></li>
                 <li><a href="mailto:nzs@nzs.lodz.pl">Masz pytanie? Napisz do nas: nzs@nzs.lodz.pl</a></li>
                 </nav>
             </div>
@@ -333,66 +333,191 @@ function oddalo($num) {
 
 </section>
 
-<!--<section id="partners">
-    <div class="grid">
-            <header>
-                <h2>Partnerzy</h2>
-                <p>Serdecznie dziękujemy naszym partnerom za możliwość przeprowadzenia akcji Wampiriada w Łodzi.</p>
-            </header>
-           
-            <div style="height: 1900px"></div>
+<?php
 
-            <div class="row mojrow">
-				<div style="">
-					<a href="http://www.uml.lodz.pl/" target="_blank"><img src="<?php echo App::path('img/partnerzy/01.jpg') ?>" /></a>
-					<a href="http://www.lodzkie.pl/" target="_blank"><img src="<?php echo App::path('img/partnerzy/02.jpg') ?>" /></a>
-					<a href="http://www.uml.lodz.pl/" target="_blank"><img src="<?php echo App::path('img/partnerzy/03.jpg') ?>" /></a>
-					<a href="http://www.lodzkie.pl/" target="_blank"><img src="<?php echo App::path('img/partnerzy/04.jpg') ?>" /></a>
-				</div>
-				<div style="">
-					<a href="http://www.pzu.pl/" target="_blank"><img src="<?php echo App::path('img/partnerzy/05.jpg') ?>" /></a>
-					<a href="http://www.fitfabric.pl/" target="_blank"><img src="<?php echo App::path('img/partnerzy/06.jpg') ?>" /></a>
-				</div>
-				<div style="">
-					<a href="http://www.uni.lodz.pl/" target="_blank"><img src="<?php echo App::path('img/partnerzy/07.jpg') ?>" /></a>
-					<a href="http://www.amuz.lodz.pl/" target="_blank"><img src="<?php echo App::path('img/partnerzy/12.jpg') ?>" /></a>
-					<a href="http://www.p.lodz.pl/" target="_blank"><img src="<?php echo App::path('img/partnerzy/08.jpg') ?>" /></a>
-				</div>
-				<div style="">
-					<a href="http://wsinf.edu.pl/" target="_blank"><img src="<?php echo App::path('img/partnerzy/13.jpg') ?>" /></a>
-					<a href="http://www.umed.pl/" target="_blank"><img src="<?php echo App::path('img/partnerzy/09.jpg') ?>" /></a>
-					<a href="http://www.csk.lodz.pl/" target="_blank"><img src="<?php echo App::path('img/partnerzy/10.jpg') ?>" /></a>
-				</div>
-				<div style="">
-					<a href="http://fieropizza.pl/" target="_blank"><img src="<?php echo App::path('img/partnerzy/14.jpg') ?>" /></a>
-					<a href="http://www.charlie.pl/" target="_blank"><img src="<?php echo App::path('img/partnerzy/16.jpg') ?>" /></a>
-					<a href="http://www.nowy.pl/" target="_blank"><img src="<?php echo App::path('img/partnerzy/15.jpg') ?>" /></a>
-				</div>
-				<div>
-					<a href="http://www.studium.com.pl/" target="_blank"><img src="<?php echo App::path('img/partnerzy/18.jpg') ?>" /></a>
-					<a href="http://projectsalsa.pl/" target="_blank"><img src="<?php echo App::path('img/partnerzy/17.jpg') ?>" /></a>
-					<a href="http://makimo.pl/" target="_blank"><img src="<?php echo App::path('img/partnerzy/19.jpg') ?>" /></a>
-				</div>
-				<div style="">
-					<a href="http://www.tvp.pl/lodz" target="_blank"><img src="<?php echo App::path('img/partnerzy/20.jpg') ?>" /></a>
-					<a href="http://www.eska.pl/" target="_blank"><img src="<?php echo App::path('img/partnerzy/21.jpg') ?>" /></a>
-					<a href="http://www.parada.fm/" target="_blank"><img src="<?php echo App::path('img/partnerzy/22.jpg') ?>" /></a>
-				</div>
-				<div>
-					<a href="http://www.zak.lodz.pl/" target="_blank"><img src="<?php echo App::path('img/partnerzy/23.jpg') ?>" /></a>
-					<a href="http://radioul.uni.lodz.pl/" target="_blank"><img src="<?php echo App::path('img/partnerzy/24.jpg') ?>" /></a>
-				</div>
-				<div style="">
-					<a href="http://www.plasterlodzki.pl/" target="_blank"><img src="<?php echo App::path('img/partnerzy/25.jpg') ?>" /></a>
-					<a href="http://www.infosgroup.pl/infostudent/" target="_blank"><img src="<?php echo App::path('img/partnerzy/26.jpg') ?>" /></a>
-					<a href="http://www.dlastudenta.pl/" target="_blank"><img src="<?php echo App::path('img/partnerzy/27.jpg') ?>" /></a>
-					<a href="http://www.studentnews.pl/" target="_blank"><img src="<?php echo App::path('img/partnerzy/28.jpg') ?>" /></a>
-					<a href="http://student.lodz.pl/" target="_blank"><img src="<?php echo App::path('img/partnerzy/29.jpg') ?>" /></a>
-				</div>
+$partners = [
+    'uml-main' => [
+        'title' => 'Urząd Miasta Łodzi',
+        'link' => 'http://uml.lodz.pl',
+        'image' => 'img/partnerzy/01.jpg',
+    ],
+    'wl-main' => [
+        'title' => 'Urząd Wojewódzki w Łodzi',
+        'link' => 'http://lodzkie.pl',
+        'image' => 'img/partnerzy/02.jpg',
+    ],
+    'uml-zdrowie' => [
+        'title' => 'Wydział Zdrowia Urzędu Miasta Łodzi',
+        'link' => 'http://uml.lodz.pl',
+        'image' => 'img/partnerzy/03.jpg',
+    ],
+    'wl-lodzkie' => [
+        'title' => 'Promuje Łódzkie',
+        'link' => 'http://lodzkie.pl',
+        'image' => 'img/partnerzy/04.jpg',
+    ],
+    'pzu' => [
+        'title' => 'Grupa PZU',
+        'link' => 'http://pzu.pl',
+        'image' => 'img/partnerzy/05.jpg',
+    ],
+    'fitfabric' => [
+        'title' => 'FitFabric',
+        'link' => 'http://fitfabric.pl',
+        'image' => 'img/partnerzy/06.jpg',
+    ],
+
+    'ul' => [
+        'title' => 'Uniwersytet Łódzki',
+        'link' => 'http://uni.p.lodz.pl',
+        'image' => 'img/partnerzy/07.jpg',
+    ],
+    'pl' => [
+        'title' => 'Politechnika Łódzka',
+        'link' => 'http://p.lodz.pl',
+        'image' => 'img/partnerzy/08.jpg',
+    ],
+    'um' => [
+        'title' => 'Uniwersytet Medyczny w Łodzi',
+        'link' => 'http://umed.pl',
+        'image' => 'img/partnerzy/09.jpg',
+    ],
+    'wsiu' => [
+        'title' => 'Wyższa Szkoła Informatyki i Umiejętności w Łodzi',
+        'link' => 'http://wsinf.edu.pl',
+        'image' => 'img/partnerzy/13.jpg',
+    ],
+    'szuster' => [
+        'title' => 'Szkoła Języków Obcych Szuster',
+        'link' => 'http://www.studium.com.pl',
+        'image' => 'img/partnerzy/18.jpg',
+    ],
+    'fiero' => [
+        'title' => 'Pizzeria Fiero!',
+        'link' => 'http://fieropizza.pl',
+        'image' => 'img/partnerzy/14.jpg',
+    ],
+    'makimo' => [
+        'title' => 'Makimo Sp. z o.o.',
+        'link' => 'http://makimo.pl',
+        'image' => 'img/partnerzy/19.jpg',
+    ],
+    'happylodz' => [
+        'title' => 'HappyLodz',
+        'link' => 'https://www.facebook.com/HappyLodz',
+        'image' => 'img/partnerzy/happylodz.png',
+    ],
+
+    'plaster' => [
+        'title' => 'Plaster Łódzki',
+        'link' => 'http://plasterlodzki.pl',
+        'image' => 'img/partnerzy/25.jpg',
+    ],
+    
+    'dlastudenta' => [
+        'title' => 'dlastudenta.pl',
+        'link' => 'http://dlastudenta.pl',
+        'image' => 'img/partnerzy/27.jpg',
+    ],
+
+    'infostudent' => [
+        'title' => 'InfoStudent',
+        'link' => 'http://www.infosgroup.pl/infostudent/',
+        'image' => 'img/partnerzy/26.jpg',
+    ],
+
+    'studentnews' => [
+        'title' => 'studentnews.pl',
+        'link' => 'http://studentnews.pl',
+        'image' => 'img/partnerzy/28.jpg',
+    ],
+
+    'zak' => [
+        'title' => 'Studenckie Radio Żak',
+        'link' => 'http://www.zak.lodz.pl',
+        'image' => 'img/partnerzy/23.jpg',
+    ],
+
+    'studentlodz' => [
+        'title' => 'Portal student.lodz.pl',
+        'link' => 'http://student.lodz.pl',
+        'image' => 'img/partnerzy/29.jpg',
+    ],
+    
+    'eska' => [
+        'title' => 'Radio Eska',
+        'link' => 'http://eska.pl',
+        'image' => 'img/partnerzy/21.jpg',
+    ],
+];
+
+$structure = [
+    [ 'uml-main', 'wl-main', 'uml-zdrowie', 'wl-lodzkie', ],
+    [ 'ul', 'pl', 'um', 'wsiu', ],
+    [ 'pzu', 'szuster', 'fiero', 'makimo' ],
+    [ 'happylodz', 'eska', 'plaster', 'dlastudenta'],
+    [ 'infostudent', 'zak', 'studentnews', 'studentlodz'],
+];
+
+$unknown = [
+    'title' => 'Does not Exist: Key <strong>%s</strong> in partner store.',
+];
+
+?>
+
+<section id="partners">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="clearfix">
+                    <h2>Partnerzy</h2>
+                    <p>Serdecznie dziękujemy naszym partnerom za możliwość przeprowadzenia akcji Wampiriada w Łodzi.</p>
+                </div>
             </div>
+
+        </div>
+
+        <div class="row">
+            <div class="logo-container col-xs-12">
+                <?php foreach ($structure as $row):
+                    $count = count($row); 
+                ?>
+                    <div class="flex-row row-<?php $count ?>">
+                        <?php foreach($row as $key):
+                           
+                                if(isset($partners[$key])) {
+                                    $item = $partners[$key];
+                                } else {
+                                    $item = $unknown;
+                                }
+
+                            $title = str_replace('%s', $key, $item['title']);
+
+                        ?>
+
+                        <div class="flex-item">
+                            <?php if(isset($item['link'])): ?>
+                                <a href="<?php echo $item['link'] ?>" target="_blank">
+                            <?php endif; ?>
+                            <?php if(isset($item['image'])): ?>
+                                <p class="image"><img src="<?php echo $item['image'] ?>" alt="<?php echo $title ?>">
+                            <?php else: ?>
+                                <p class="noimage"><?php echo $title ?></p>
+                            <?php endif; ?>
+                            <?php if(isset($item['link'])): ?>
+                                </a>
+                            <?php endif; ?>
+                        </div>
+
+                        <?php endforeach; ?>
+                    </div>
+                <?php endforeach; ?>
+            </div>
+        </div>
     </div>
-    <a class="button" href="#intro"><i class="icon-arrow-up"></i> Powrót na górę</a>
-</section>-->
+    
+    <a class="button" href="#intro"><i class="fa fa-arrow-up"></i> Powrót na górę</a>
+</section>
 </div>
 
 <script id="map-item-template" type="text/x-handlebars-template">
