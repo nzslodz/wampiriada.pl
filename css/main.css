@@ -588,6 +588,11 @@ section {
     -webkit-justify-content: space-between;
     -moz-justify-content: space-between;
     justify-content: space-between;
+
+    -ms-align-items: center;
+    -webkit-align-items: center;
+    -moz-align-items: center;
+    align-items: center;
 }
 
 .flex-item {
