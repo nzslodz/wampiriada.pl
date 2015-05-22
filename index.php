@@ -265,19 +265,9 @@ function oddalo($num) {
         </div>
     <div class="row padding-top">
         <div class="col-md-8">
-            <div class="bigga">
-                <h3>Kontakt</h3>
-                <nav>
+            <div  data-width="500" class="fb-page" data-href="https://www.facebook.com/wampiriada.nzs.rl" data-hide-cover="false" data-show-facepile="true" data-show-posts="true"><div class="fb-xfbml-parse-ignore"><blockquote cite="https://www.facebook.com/wampiriada.nzs.rl"><a href="https://www.facebook.com/wampiriada.nzs.rl">Wampiriada NZS RŁ</a></blockquote></div></div>
 
-                <ul>
-                <li><a href="https://www.facebook.com/events/959790614053679/">oficjalny event 26. edycji Wampiriady</a></li>
-                <li><a href="https://facebook.com/wampiriada.nzs.rl">facebook.com/&shy;wampiriada.nzs.rl</a></li>
-                <li><a href="https://facebook.com/NZSRegionuLodzkiego">facebook.com/&shy;NZSRegionuLodzkiego</a></li>
-                <li><a href="http://nzs.lodz.pl">nzs.lodz.pl - organizator</a></li>
-                <li><a href="https://twitter.com/nzslodz/with_replies">@nzslodz - nasz twitter</a></li>
-                <li><a href="mailto:nzs@nzs.lodz.pl">Masz pytanie? Napisz do nas: nzs@nzs.lodz.pl</a></li>
-                </nav>
-            </div>
+            
         </div>
         <div class="col-md-4">
                 <div class="row mobile">
@@ -298,6 +288,30 @@ function oddalo($num) {
                 </div>
         </div>
     </div>
+    </div>
+</section>
+
+<section class="contact">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 ">
+            <div class="bigga">
+                
+                
+                <h3>Kontakt i przydatne linki</h3>
+                <nav>
+
+                <ul>
+                <li><a href="https://www.facebook.com/events/959790614053679/">oficjalny event 26. edycji Wampiriady</a></li>
+                <li><a href="https://facebook.com/wampiriada.nzs.rl">facebook.com/&shy;wampiriada.nzs.rl</a></li>
+                <li><a href="https://facebook.com/NZSRegionuLodzkiego">facebook.com/&shy;NZSRegionuLodzkiego</a></li>
+                <li><a href="http://nzs.lodz.pl">nzs.lodz.pl - organizator</a></li>
+                <li><a href="https://twitter.com/nzslodz/with_replies">@nzslodz - nasz twitter</a></li>
+                <li><a href="mailto:nzs@nzs.lodz.pl">Masz pytanie? Napisz do nas: nzs@nzs.lodz.pl</a></li>
+                </nav>
+                </div>
+            </div>
+        </div>
     </div>
 </section>
 

@@ -534,6 +534,16 @@ section {
     font-size: 1.7em;
     font-weight: 300;
     display: block;
+
+}
+
+.bigga {
+    text-align: center;
+}
+
+.bigga ul {
+    padding:0;
+    list-style-type: none;
 }
 
 #dontforget h3 {
@@ -602,3 +612,7 @@ section {
     -webkit-flex: 1 1 0;
     flex: 1 1 0;
 }
+
+.fb-page {
+    margin-bottom: 30px;
+} 

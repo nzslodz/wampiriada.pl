@@ -25,6 +25,15 @@ use Silverplate\App;
         <script src="<?php echo App::path('js/vendor/modernizr-2.6.2.min.js') ?>"></script>
     </head>
     <body class="<?php echo $type ?> <?php echo get('classes') ?>">
+        
+ <div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/pl_PL/sdk.js#xfbml=1&version=v2.3&appId=214270901970539";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>       
         <!-- PHP Silverplate content -->
         <?php echo $content ?>
         
