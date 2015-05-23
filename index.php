@@ -291,6 +291,7 @@ function oddalo($num) {
     </div>
 </section>
 
+<?php if($repository->getGalleryActions()->count()): ?>
 <section class="gallery">
     <div class="container">
         <div class="row">
@@ -316,6 +317,7 @@ function oddalo($num) {
         <?php endforeach; ?>
     </div>
 </section>
+<?php endif; ?>
 
 <section class="contact">
     <div class="container">
