@@ -291,14 +291,47 @@ function oddalo($num) {
     </div>
 </section>
 
+<?php if($repository->getGalleryActions()->count()): ?>
+<section class="gallery">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="clearfix">
+                    <h2>Galeria</h2>
+                    <p>Zobacz, co się działo na akcjach Wampiriady!</p>
+                </div>
+            </div>
+        </div>
+
+        <?php foreach($repository->getGalleryActions() as $index => $action): ?>
+        <div class="row">
+            <div class="col-md-8 col-md-push-<?php echo ($index % 2) ? 0 : 4 ?> gallery-image-container">
+                <a href="<?php echo $action->gallery_link ?>"><img class="gallery-image" src="<?php echo App::path($action->gallery_image) ?>" alt="<?php echo $action->place ?>"></a>
+            </div>
+            <div class="col-md-4 col-md-pull-<?php echo ($index % 2) ? 0 : 8 ?> gallery-image-description">
+                <h3><?php echo date('d/m', strtotime($action->day)) ?></h3>
+                <p class="place"><?php echo $action->place ?></p>
+                <p><?php echo $action->school ?>, <?php echo $action->address ?></p>
+            </div>
+        </div>
+        <?php endforeach; ?>
+    </div>
+</section>
+<?php endif; ?>
+
 <section class="contact">
     <div class="container">
         <div class="row">
+            <div class="col-xs-12">
+                <div class="clearfix">
+                    <h2>Kontakt i przydatne linki</h2>
+                    <p>Chcesz wiedzieć więcej? Zajrzyj tutaj:</p>
+                </div>
+            </div>
+        </div>
+        <div class="row">
             <div class="col-xs-12 ">
             <div class="bigga">
-                
-                
-                <h3>Kontakt i przydatne linki</h3>
                 <nav>
 
                 <ul>
