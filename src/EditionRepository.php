@@ -51,6 +51,12 @@ class EditionRepository {
         return $this->actions;
     }
 
+    public function getGalleryActions() {
+        return $this->getActions()->filter(function($item) {
+            return (bool) $item->gallery_link && (bool) $item->gallery_image;
+        });
+    }
+
     public function getOverall() {
         return $this->getResults()->overall;
     }

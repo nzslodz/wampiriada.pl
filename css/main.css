@@ -615,4 +615,37 @@ section {
 
 .fb-page {
     margin-bottom: 30px;
-} 
+}
+
+.col-md-push-4 .gallery-image {
+    border: 9px solid white;
+    -webkit-transform: rotate(-2deg);
+    -moz-transform: rotate(-2deg);
+    -ms-transform: rotate(-2deg);
+    -o-transform: rotate(-2deg);
+    transform: rotate(-2deg);
+}
+
+.col-md-push-0 .gallery-image {
+    border: 9px solid white;
+    -webkit-transform: rotate(2deg);
+    -moz-transform: rotate(2deg);
+    -ms-transform: rotate(2deg);
+    -o-transform: rotate(2deg);
+    transform: rotate(2deg);
+}
+
+.gallery {
+    background-color: #5b1510;
+
+   color: #fff; 
+}
+
+.gallery h1, .gallery h2, .gallery h3 {
+    color: #fff;
+}
+
+.gallery .row {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
