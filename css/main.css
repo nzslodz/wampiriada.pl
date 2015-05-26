@@ -611,6 +611,7 @@ section {
     -ms-flex: 1 1 auto;
     -webkit-flex: 1 1 0;
     flex: 1 1 0;
+    max-width: 25%;
 }
 
 .fb-page {
