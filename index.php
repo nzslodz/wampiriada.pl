@@ -529,7 +529,7 @@ $unknown = [
                 <?php foreach ($structure as $row):
                     $count = count($row); 
                 ?>
-                    <div class="flex-row row-<?php $count ?>">
+                    <div class="flex-row row-<?php echo $count ?>">
                         <?php foreach($row as $key):
                            
                                 if(isset($partners[$key])) {
