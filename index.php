@@ -416,7 +416,7 @@ $partners = [
 
     'ul' => [
         'title' => 'Uniwersytet Łódzki',
-        'link' => 'http://uni.p.lodz.pl',
+        'link' => 'http://uni.lodz.pl',
         'image' => 'img/partnerzy/07.jpg',
     ],
     'pl' => [
