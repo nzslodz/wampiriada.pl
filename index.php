@@ -336,9 +336,9 @@ function oddalo($num) {
 
                 <ul>
                 <li><a href="https://www.facebook.com/events/959790614053679/">oficjalny event 26. edycji Wampiriady</a></li>
-                <li><a href="https://facebook.com/wampiriada.nzs.rl">facebook.com/&shy;wampiriada.nzs.rl</a></li>
+                <li><a href="http://nzs.lodz.pl">Organizator - NZS Regionu Łódzkiego</a></li>
                 <li><a href="https://facebook.com/NZSRegionuLodzkiego">facebook.com/&shy;NZSRegionuLodzkiego</a></li>
-                <li><a href="http://nzs.lodz.pl">nzs.lodz.pl - organizator</a></li>
+                <li><a href="https://facebook.com/wampiriada.nzs.rl">facebook.com/&shy;wampiriada.nzs.rl</a></li>
                 <li><a href="https://twitter.com/nzslodz/with_replies">@nzslodz - nasz twitter</a></li>
                 <li><a href="mailto:nzs@nzs.lodz.pl">Masz pytanie? Napisz do nas: nzs@nzs.lodz.pl</a></li>
                 </nav>
