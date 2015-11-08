@@ -650,3 +650,15 @@ section {
     margin-top: 20px;
     margin-bottom: 20px;
 }
+
+#coming-soon header {
+    float: none;
+    text-align: center;
+    font-size: 2em;
+}
+
+@media screen and (max-width: 767px) {
+    #coming-soon header {
+        font-size: 1em;
+    }
+}

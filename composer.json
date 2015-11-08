@@ -7,7 +7,8 @@
 
     "require": {
         "michelf/php-markdown": "*",
-        "illuminate/database": "*"
+        "illuminate/database": "*",
+        "netzmacht/html": "dev-master"
 
     },
 

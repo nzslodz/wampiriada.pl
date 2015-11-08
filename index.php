@@ -10,12 +10,21 @@ $controller = new Controller;
 
 $repository = $controller->getEdition(26);
 
+$event_redirect = $repository->getRedirect("facebook-event");
+
 $display_results = true;
+$display_actions = true;
 
 try {
     $results = $repository->getResults();
 } catch(ObjectDoesNotExist $e) {
     $display_results = false;
+}
+
+try {
+    $actions = $repository->getActions();
+} catch(ObjectDoesNotExist $e) {
+    $display_actions = false;
 }
 
 function oddalo($num) {
@@ -54,14 +63,14 @@ function oddalo($num) {
     </div>
 </section>
 
-
+<?php if($display_actions): ?>
 <section id="schedule">
 <div class="container">
    <div class="row">
         <div class="col-xs-12">
             <div class="clearfix">
                 <header>
-                    <h2>Terminy 26. akcji Wampiriady</h2>
+                    <h2>Terminy <?php echo $repository->getEdition() ?>. edycji Wampiriady</h2>
                     <p class="date">05.2015 r. - 06.2015 r.</p>
                 </header>
             </div>
@@ -83,7 +92,7 @@ function oddalo($num) {
                 </div>
             <ul class="isotope">
 
-                <?php foreach($repository->getActions() as $action): ?>
+                <?php foreach($actions as $action): ?>
                 <li class="row <?php echo $controller->getClass($action->school_short) ?>" data-lat="<?php echo $action->lat ?>" data-lng="<?php echo $action->lng ?>">
                     <p class="col-xs-2 date"><span><?php echo date('d/m', strtotime($action->day)) ?></span></p>
                     <p class="col-xs-5 place <?php echo $controller->getClass($action->school_short) ?>" data-sort="<?php echo $action->school_short ?>" data-address="<?php echo $action->address ?>"><?php echo $action->place ?></p>
@@ -105,6 +114,22 @@ function oddalo($num) {
 
     </div>
 </section>
+<?php else: ?>
+<section id="coming-soon">
+<div class="container">
+   <div class="row">
+        <div class="col-xs-12">
+            <div class="clearfix">
+                <header>
+                    <h2><?php echo $repository->getEdition() ?>. edycja Wampiriady</h2>
+                    <p class="not-found">Już wkrótce pełny grafik terminów akcji Wampiriady.<br>Zapraszamy niebawem!</p>
+                </header>
+            </div>
+        </div>
+    </div>
+</div>
+</section>
+<?php endif; ?>
 
 <section class="description <?php if($display_results): ?>with-results<?php endif; ?>">
     <div class="container">
@@ -203,7 +228,7 @@ function oddalo($num) {
 
 <section class="second-background">
     <div class="przyjacielwampira">
-        <a href="https://www.facebook.com/wampiriada.nzs.rl"><img src="img/layout/przyjacielwampira.png" alt="Zostań przyjacielem Wampira"></a>
+        <?php echo $repository->getRedirectAsTag('facebook', '<img src="img/layout/przyjacielwampira.png" alt="Zostań przyjacielem Wampira">') ?>
     </div>
 </section>
 
@@ -226,7 +251,7 @@ function oddalo($num) {
                     <ul>
                         <li>osiem czekolad;</li>
                         <li>batonik i napój energetyczny;</li>
-                        <li><a href="https://www.facebook.com/wampiriada.nzs.rl/photos/a.119841281459933.20746.110146435762751/765979013512820/?type=1&theater">koszulkę Wampira</a>;</li>
+                        <li><?php echo $repository->getRedirectAsTag('koszulka', 'koszulkę Wampira') ?>;</li>
                         <li>studenckie zniżki;</li>
                         <li>możliwość wzięcia udziału w wampiriadowym konkursie;</li>
                         <li>nieopisaną satysfakcję z niesienia pomocy innym :)</li>
@@ -239,8 +264,8 @@ function oddalo($num) {
                 <div class="icon"><i class="fa fa-tint"></i></div>
                 <ol>
                     <li>oddaj krew,</li>
-                    <li>polub <a href="https://facebook.com/NZSRegionuLodzkiego">NZSRegionuŁódzkiego na Facebooku</a>,</li>
-                    <li>udostępnij publicznie <a href="https://www.facebook.com/NZSRegionuLodzkiego/photos/a.165034606884513.46602.150737411647566/842944849093482/?type=1&theater">plakat Wampiriady</a> na swojej tablicy z hasztagiem <a href="https://www.facebook.com/hashtag/przyjacielwampira">#przyjacielWAMPIRA</a>,</li>
+                    <li>polub <?php echo $repository->getRedirectAsTag('facebook-nzs', 'NZSRegionuŁódzkiego na Facebooku') ?>,</li>
+                    <li>udostępnij publicznie <?php echo $repository->getRedirectAsTag('plakat', 'plakat Wampiriady') ?> na swojej tablicy z hasztagiem <?php echo $repository->getRedirectAsTag('przyjacielwampira', '#przyjacielWAMPIRA') ?>.</li>
                 </ol>
             </div>
             <div class="col-md-6">
@@ -249,18 +274,17 @@ function oddalo($num) {
 
                 <ol>
                     <li>zrób sobie selfie z Wampirem;</li>
-                    <li>polub <a href="https://facebook.com/NZSRegionuLodzkiego">NZSRegionuŁódzkiego na Facebooku</a>,</li>
-                    <li>opublikuj selfie na stronie <a href="http://www.facebook.com/wampiriada.nzs.rl">Wampiriady Niezależnego Zrzeszenia Studentów Regionu Łódzkiego</a> z dopiskiem <a href="https://www.facebook.com/hashtag/przyjacielwampira">#przyjacielWAMPIRA</a>,</li>
+                    <li>polub <?php echo $repository->getRedirectAsTag('facebook-nzs', 'NZSRegionuŁódzkiego na Facebooku') ?>,</li>
+                    <li>opublikuj selfie na stronie <?php echo $repository->getRedirectAsTag('facebook', 'Wampiriady Niezależnego Zrzeszenia Studentów Regionu Łódzkiego') ?> z dopiskiem <?php echo $repository->getRedirectAsTag('przyjacielwampira', '#przyjacielWAMPIRA') ?>.</li>
                 </ol>
 
             </div>
             <div class="col-md-12">
-            <p>Za wygraną w konkursie otrzymasz nagrody w postaci kursów językowych Szuster, kuponów na pizzę Fiero, gadżetow Uniwersytetu Łódzkiego, Politechniki Łódzkiej, Regionalnego Centrum Krwiodawstwa i wiele innych.</p>
-            <p>Więcej o konkursach na stronie <a href="https://www.facebook.com/events/959790614053679/">oficjalnego eventu 26. edycji Wampiriady</a>.</p>
+            <p>Za wygraną w konkursie otrzymasz nagrody w postaci kuponów na pizzę Fiero, gadżetow Uniwersytetu Łódzkiego, Politechniki Łódzkiej, Regionalnego Centrum Krwiodawstwa i wiele innych.</p>
+
+            <p>Więcej o konkursach na stronie <?php echo $event_redirect->asTag("oficjalnego eventu {$repository->getEdition()}. edycji Wampiriady") ?>.</p>
             </div>
             </div>
-
-
             </div>
         </div>
     <div class="row padding-top">
@@ -335,11 +359,13 @@ function oddalo($num) {
                 <nav>
 
                 <ul>
-                <li><a href="https://www.facebook.com/events/959790614053679/">oficjalny event 26. edycji Wampiriady</a></li>
-                <li><a href="https://facebook.com/wampiriada.nzs.rl">facebook.com/&shy;wampiriada.nzs.rl</a></li>
-                <li><a href="http://nzs.lodz.pl">Organizator - NZS Regionu Łódzkiego</a></li>
-                <li><a href="https://facebook.com/NZSRegionuLodzkiego">facebook.com/&shy;NZSRegionuLodzkiego</a></li>
-                <li><a href="https://twitter.com/nzslodz/with_replies">@nzslodz - nasz twitter</a></li>
+                <?php $event_redirect->open() ?>
+                <li><a href="<?php echo $event_redirect ?>">oficjalny event 26. edycji Wampiriady</a></li>
+                <?php $event_redirect->close() ?>
+                <li><a href="<?php echo $repository->getRedirect('facebook') ?>">facebook.com/&shy;wampiriada.nzs.rl</a></li>
+                <li><a href="<?php echo $repository->getRedirect('nzs') ?>">Organizator - NZS Regionu Łódzkiego</a></li>
+                <li><a href="<?php echo $repository->getRedirect('facebook-nzs') ?>">facebook.com/&shy;NZSRegionuLodzkiego</a></li>
+                <li><a href="<?php echo $repository->getRedirect('twitter-nzs') ?>">@nzslodz - nasz twitter</a></li>
                 <li><a href="mailto:nzs@nzs.lodz.pl">Masz pytanie? Napisz do nas: nzs@nzs.lodz.pl</a></li>
                 </nav>
                 </div>
@@ -361,7 +387,7 @@ function oddalo($num) {
 
             <div class="row top-27">
                 <div class="col-xs-push-3 col-xs-6 col-md-4 col-md-push-4">
-                    <a href="http://nzs.lodz.pl"><img src="<?php echo App::path('img/nzs.png') ?>" alt="Niezależne Zrzeszenie Studentów Regionu Łódzkiego"></a>
+                    <a href="<?php echo $repository->getRedirect('nzs') ?>"><img src="<?php echo App::path('img/nzs.png') ?>" alt="Niezależne Zrzeszenie Studentów Regionu Łódzkiego"></a>
                 </div>
             </div>
             <div class="row">

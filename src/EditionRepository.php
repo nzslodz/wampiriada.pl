@@ -1,7 +1,13 @@
 <?php namespace NZS\Wampiriada;
 
+use Silverplate\App;
+
 class EditionRepository {
-    protected $edition, $result, $actions;
+    protected 
+        $edition, 
+        $result, 
+        $actions,
+        $redirects = array();
 
     public function __construct($edition) {
         $this->edition = $edition;
@@ -44,7 +50,7 @@ class EditionRepository {
             ->orderBy('day')
             ->get();
 
-        if(!$this->actions) {
+        if($this->actions->isEmpty()) {
             throw new ObjectDoesNotExist("There are no actions defined for edition {$this->getEdition()}.");    
         }
 
@@ -63,6 +69,32 @@ class EditionRepository {
 
     public function getOverallDifference(EditionRepository $repository) {
         return $this->getOverall() - $repository->getOverall();
+    }
+
+    public function addRedirect($name, $uri) {
+        $this->redirects[$name] = new Redirect($uri);
+
+        return $this->redirects[$name];
+    }
+
+    public function getRedirectAsTag($name, $contents, array $attrs=array()) {
+        return $this->getRedirect($name)->asTag($contents, $attrs);
+    }
+
+    public function getRedirect($name) {
+        if(isset($this->redirects[$name])) {
+            return $this->redirects[$name];
+        }
+
+        if(file_exists(App::filePath('redirect', $this->getEdition(), "$name.redir"))) {
+            return $this->addRedirect($name, App::path("redirect/{$this->getEdition()}/$name/"));
+        }
+
+        if(file_exists(App::filePath('redirect', "$name.redir"))) {
+            return $this->addRedirect($name, App::path("redirect/$name/"));
+        }
+
+        return new EmptyRedirect();
     }
 }
 

@@ -31,6 +31,13 @@ class App {
         return trim($_GET['p'], '/');
     }
 
+    public static function filePath() {
+        $args = func_get_args();
+        array_unshift($args, __DIR__);
+
+        return join(DIRECTORY_SEPARATOR, $args);
+    }
+
     public static function path($filename='') {
         if(static::$path === null) {
             $protocol = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off') ? 'https' : 'http';
