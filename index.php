@@ -8,7 +8,7 @@ meta('description', 'Oficjalna strona akcji honorowego krwiodawstwa Wampiriada w
 
 $controller = new Controller;
 
-$repository = $controller->getEdition(26);
+$repository = $controller->getEdition(27);
 
 $event_redirect = $repository->getRedirect("facebook-event");
 
