@@ -180,7 +180,7 @@ function oddalo($num) {
         <div class="col-xs-12">
             <div class="clearfix">
                 <header>
-                    <h2>Wyniki 26. edycji Wampiriady</h2>
+                    <h2>Wyniki <?php echo $repository->getEdition() ?>. edycji Wampiriady</h2>
                     <p class="date">05.2015 r. - 06.2015 r.</p>
                 </header>
             </div>
@@ -360,7 +360,7 @@ function oddalo($num) {
 
                 <ul>
                 <?php $event_redirect->open() ?>
-                <li><a href="<?php echo $event_redirect ?>">oficjalny event 26. edycji Wampiriady</a></li>
+                <li><a href="<?php echo $event_redirect ?>">oficjalny event <?php echo $repository->getEdition() ?>. edycji Wampiriady</a></li>
                 <?php $event_redirect->close() ?>
                 <li><a href="<?php echo $repository->getRedirect('facebook') ?>">facebook.com/&shy;wampiriada.nzs.rl</a></li>
                 <li><a href="<?php echo $repository->getRedirect('nzs') ?>">Organizator - NZS Regionu Łódzkiego</a></li>
