@@ -222,6 +222,10 @@ h3 {
     color: rgb(28, 88, 163);
 }
 
+.date span {
+    border-bottom: 5px solid #c14d8f;
+}
+
 .ul .date span {
     border-bottom: 5px solid #c2812c;
 }
@@ -233,11 +237,6 @@ h3 {
 
 .um .date span {
     border-bottom: 5px solid #71953d;
-}
-
-
-.wsinf .date span, .amuz .date span {
-    border-bottom: 5px solid #c14d8f;
 }
 
 .kol .date span {

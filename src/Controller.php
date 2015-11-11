@@ -32,6 +32,7 @@ class Controller {
         'WSInfiU' => 'wsinf',
         'AHE' => 'ahe',
         'AMuz' => 'amuz',
+        'ASP' => 'asp',
         'Pozostałe' => 'other',
     );
 
