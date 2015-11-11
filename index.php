@@ -522,13 +522,32 @@ $partners = [
         'link' => 'http://eska.pl',
         'image' => 'img/partnerzy/21.jpg',
     ],
+
+    'asp' => [
+        'title' => 'Akademia Sztuk Pięknych im. Władysława Strzemińskiego w Łodzi',
+        'link' => 'https://www.asp.lodz.pl',
+        'image' => 'img/partnerzy/asp.jpg',
+    ],
+
+    'teatr-nowy' => [
+        'title' => 'Teatr Nowy im. Kazimierza Dejmka w Łodzi',
+        'link' => 'http://www.nowy.pl',
+        'image' => 'img/partnerzy/nowy.jpg',
+    ],
+
+    'teatr-wielki' => [
+        'title' => 'Teatr Wielki w Łodzi',
+        'link' => 'http://operalodz.com',
+        'image' => 'img/partnerzy/wielki.jpg',
+    ],
+
 ];
 
 $structure = [
     [ 'uml-main', 'wl-main', 'uml-zdrowie', 'wl-lodzkie', ],
-    [ 'ul', 'pl', 'um', 'wsiu', ],
-    [ 'pzu', 'szuster', 'fiero', 'makimo' ],
-    [ 'happylodz', 'eska', 'plaster', 'dlastudenta'],
+    [ 'ul', 'pl', 'um', 'asp', 'wsiu' ],
+    [ 'pzu', 'fiero', 'teatr-wielki', 'teatr-nowy' ],
+    [ 'makimo', 'eska', 'plaster', 'dlastudenta'],
     [ 'infostudent', 'zak', 'studentnews', 'studentlodz'],
 ];
 
