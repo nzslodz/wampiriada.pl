@@ -280,7 +280,7 @@ function oddalo($num) {
 
             </div>
             <div class="col-md-12">
-            <p>Za wygraną w konkursie otrzymasz nagrody w postaci kuponów na pizzę Fiero, gadżetow Uniwersytetu Łódzkiego, Politechniki Łódzkiej, Regionalnego Centrum Krwiodawstwa i wiele innych.</p>
+            <p>Za wygraną w konkursie otrzymasz nagrody w postaci kuponów na pizzę Fiero, biletów teatralnych, gadżetow Uniwersytetu Łódzkiego, Politechniki Łódzkiej, Uniwersytetu Medycznego w Łodzi, Regionalnego Centrum Krwiodawstwa i wiele innych.</p>
 
             <p>Więcej o konkursach na stronie <?php echo $event_redirect->asTag("oficjalnego eventu {$repository->getEdition()}. edycji Wampiriady") ?>.</p>
             </div>
