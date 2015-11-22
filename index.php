@@ -181,7 +181,7 @@ function oddalo($num) {
             <div class="clearfix">
                 <header>
                     <h2>Wyniki <?php echo $repository->getEdition() ?>. edycji Wampiriady</h2>
-                    <p class="date">05.2015 r. - 06.2015 r.</p>
+                    <p class="date">11.2015 r. - 12.2015 r.</p>
                 </header>
             </div>
         </div>
