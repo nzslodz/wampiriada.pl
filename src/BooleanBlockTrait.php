@@ -1,5 +1,17 @@
 <?php namespace NZS\Wampiriada;
 
+/**
+ * Trait describing boolean content blocks.
+ *
+ * In templates, any classes that use this trait can be used as below:
+ *
+ * <?php $redirect->open() ? >
+ *      <a href="<?= $redirect ? >">Hello!</a>
+ * <?php $redirect->otherwise() ? >
+ *      <p class="note">Nothing to show here. Add redirect to display links.</p>
+ * <?php $redirect->close() ? >
+ */
+
 trait BooleanBlockTrait {
     protected 
         $contents = [];
@@ -16,10 +28,10 @@ trait BooleanBlockTrait {
     public function close() {
         array_push($this->contents, ob_get_clean());
         
-        echo $this->isTrue() ? $this->get(0) : $this->get(1);
+        echo $this->isTrue() ? $this->getBlockContents(0) : $this->getBlockContents(1);
     }
 
-    public function get($key) {
+    protected function getBlockContents($key) {
         if(!isset($this->contents[$key])) {
             return '';
         }
