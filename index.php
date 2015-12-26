@@ -22,6 +22,13 @@ try {
 }
 
 try {
+    $last_year_edition = $controller->getEdition($repository->getEdition() - 2);
+    $overall_difference = $repository->getOverallDifference($last_year_edition) * 0.45;
+} catch(ObjectDoesNotExist $e) {
+    $overall_difference = false;
+}
+
+try {
     $actions = $repository->getActions();
 } catch(ObjectDoesNotExist $e) {
     $display_actions = false;
@@ -212,10 +219,15 @@ function oddalo($num) {
         </div>
     <!--    
     <div class="row thanks">
-        <p>Wampiriada zakończona! Wedle oficjalnych informacji z Regionalnego Centrum Krwiodawstwa, udało się zebrać aż <?php echo $results->overall * 0.45 ?> litrów krwi, czyli <strong>o <?php echo $repository->getOverallDifference($controller->getEdition($repository->getEdition() - 2)) * 0.45 ?> litra więcej niż na ostatniej</strong> jesiennej Wampiriadzie.</p>
+        <p>
+            Wampiriada zakończona! Wedle oficjalnych informacji z Regionalnego Centrum Krwiodawstwa, udało się zebrać aż <?php echo $results->overall * 0.45 ?> litrów krwi<?= $overall_difference ? ",": "." ?>
+            <?php if($overall_difference): ?>
+                czyli <strong>o <?php echo $overall_difference ?> litra więcej niż na ostatniej</strong> jesiennej Wampiriadzie.
+            <?php endif; ?>
+        </p>
         <p class="itsbig">Dziękujemy serdecznie,</p>
         <p class="center">ponieważ wspólnie udało się nam osiągnąć coś wielkiego.</p>
-        <p>Zapraszamy na wiosenną Wampiriadę, która odbędzie się w maju 2014 r., oraz do pobierania naszej aplikacji na Androida.</p>
+        <p>Zapraszamy na kolejną Wampiriadę, która odbędzie się w maju 2014 r., oraz do pobierania naszej aplikacji na Androida.</p>
     </div>
     </div>
     -->
