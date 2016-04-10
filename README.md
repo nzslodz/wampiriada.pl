@@ -5,7 +5,9 @@ TODO
  - Create redirect table in order to redirects to work
  - Handle redirects via NZS/core lib
 
+Heavy lifting is made by the nzsregionulodzkiego/wampiriada package.
 
+See `app/Http/Controllers/WampiriadaController.php` to get started.
 
 
 [![Build Status](https://travis-ci.org/laravel/lumen-framework.svg)](https://travis-ci.org/laravel/lumen-framework)
