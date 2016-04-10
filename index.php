@@ -1,7 +1,7 @@
 <?php namespace Silverplate; 
 
 use NZS\Application\Controller;
-use NZS\Wampiriada\ObjectDoesNotExist;
+use NZS\Core\Exceptions\ObjectDoesNotExist;
 
 meta('title', 'Wampiriada w Łodzi');
 meta('description', 'Oficjalna strona akcji honorowego krwiodawstwa Wampiriada w Łodzi, organizowanej przez NZS Regionu Łódzkiego. Tutaj dowiesz się, jak wziąć w niej udział.');

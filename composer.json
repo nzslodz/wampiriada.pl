@@ -16,12 +16,16 @@
         "dragonee/silverplate-form": "Add a contact form to the site."
     },
 
-    "repositories":
-        [{
+    "repositories":[
+        {
             "type": "vcs",
             "url": "ssh://git@dev.nzs.lodz.pl:7999/in/wampiriada.git"
-        }]
-    ,
+        },
+        {
+            "type": "vcs",
+            "url": "ssh://git@dev.nzs.lodz.pl:7999/in/core.git"
+        }
+    ],
 
     "minimum-stability": "dev",
     "autoload": {
