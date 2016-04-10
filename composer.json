@@ -1,14 +1,13 @@
 {
-    "name": "dragonee/php-silverplate",
-    "description": "A minimal stack for creating static HTML/Markdown websites.",
-    "keywords": ["silverplate", "static", "markdown", "html", "website"],
-    "homepage": "https://github.com/dragonee/php-silverplate",
+    "name": "laravel/lumen",
+    "description": "The Laravel Lumen Framework.",
+    "keywords": ["framework", "laravel", "lumen"],
     "license": "MIT",
-
+    "type": "project",
     "require": {
-        "michelf/php-markdown": "*",
-        "vlucas/phpdotenv": "*",
-        "illuminate/database": "*",
+        "php": ">=5.5.9",
+        "laravel/lumen-framework": "5.2.*",
+        "vlucas/phpdotenv": "~2.2",
         "nzsregionulodzkiego/wampiriada": "dev-master"
     },
 
@@ -27,15 +26,23 @@
         }
     ],
 
-    "minimum-stability": "dev",
-    "autoload": {
-        "files": [
-            "lib/block.php",
-            "lib/block_functions.php"
-        ],
+    "require-dev": {
+        "fzaninotto/faker": "~1.4",
+        "phpunit/phpunit": "~4.0"
+    },
 
+    "minimum-stability": "dev",
+
+    "autoload": {
         "psr-4": {
-            "NZS\\Application\\": "src/"
+            "App\\": "app/"
         }
+    },
+
+    "autoload-dev": {
+        "classmap": [
+            "tests/",
+            "database/"
+        ]
     }
 }

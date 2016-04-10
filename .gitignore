@@ -1,5 +1,2 @@
-vendor
-composer.lock
-!js/vendor
-bower_components
+/vendor
 .env
