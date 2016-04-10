@@ -14,7 +14,26 @@ use Silverplate\App;
         <meta name="description" content="<?php echo get('description') ?>">
         <meta name="viewport" content="width=device-width">
 
-        <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+<link rel="apple-touch-icon" sizes="57x57" href="<?= App::path('img/icons/apple-touch-icon-57x57.png') ?>?v=allLWkmAnX">
+<link rel="apple-touch-icon" sizes="60x60" href="<?= App::path('img/icons/apple-touch-icon-60x60.png') ?>?v=allLWkmAnX">
+<link rel="apple-touch-icon" sizes="72x72" href="<?= App::path('img/icons/apple-touch-icon-72x72.png') ?>?v=allLWkmAnX">
+<link rel="apple-touch-icon" sizes="76x76" href="<?= App::path('img/icons/apple-touch-icon-76x76.png') ?>?v=allLWkmAnX">
+<link rel="apple-touch-icon" sizes="114x114" href="<?= App::path('img/icons/apple-touch-icon-114x114.png') ?>?v=allLWkmAnX">
+<link rel="apple-touch-icon" sizes="120x120" href="<?= App::path('img/icons/apple-touch-icon-120x120.png') ?>?v=allLWkmAnX">
+<link rel="apple-touch-icon" sizes="144x144" href="<?= App::path('img/icons/apple-touch-icon-144x144.png') ?>?v=allLWkmAnX">
+<link rel="apple-touch-icon" sizes="152x152" href="<?= App::path('img/icons/apple-touch-icon-152x152.png') ?>?v=allLWkmAnX">
+<link rel="apple-touch-icon" sizes="180x180" href="<?= App::path('img/icons/apple-touch-icon-180x180.png') ?>?v=allLWkmAnX">
+<link rel="icon" type="image/png" href="<?= App::path('img/icons/favicon-32x32.png') ?>?v=allLWkmAnX" sizes="32x32">
+<link rel="icon" type="image/png" href="<?= App::path('img/icons/android-chrome-192x192.png') ?>?v=allLWkmAnX" sizes="192x192">
+<link rel="icon" type="image/png" href="<?= App::path('img/icons/favicon-96x96.png') ?>?v=allLWkmAnX" sizes="96x96">
+<link rel="icon" type="image/png" href="<?= App::path('img/icons/favicon-16x16.png') ?>?v=allLWkmAnX" sizes="16x16">
+<link rel="manifest" href="<?= App::path('img/icons/manifest.json') ?>?v=allLWkmAnX">
+<link rel="mask-icon" href="<?= App::path('img/icons/safari-pinned-tab.svg') ?>?v=allLWkmAnX" color="#cb2b28">
+<link rel="shortcut icon" href="<?= App::path('img/icons/favicon.ico') ?>?v=allLWkmAnX">
+<meta name="msapplication-TileColor" content="#2b5797">
+<meta name="msapplication-TileImage" content="<?= App::path('img/icons/mstile-144x144.png') ?>?v=allLWkmAnX">
+<meta name="msapplication-config" content="<?= App::path('img/icons/browserconfig.xml') ?>?v=allLWkmAnX">
+<meta name="theme-color" content="#ffffff">
 
         <meta name="og:image" content="<?php echo App::path('img/wampir-logo-2.png') ?>">
 

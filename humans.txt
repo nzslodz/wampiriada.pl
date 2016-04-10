@@ -3,11 +3,11 @@
 
 # TEAM
 
-    <name> -- <role> -- <twitter>
+    Michał Moroz -- Main developer -- @dragonee
 
 # THANKS
 
-    <name>
+    Mateusz Dzięcielski
 
 # TECHNOLOGY COLOPHON
 
