@@ -7,8 +7,9 @@
 
     "require": {
         "michelf/php-markdown": "*",
-        "nzsregionulodzkiego/wampiriada": "dev-master",
-        "illuminate/database": "*"
+        "vlucas/phpdotenv": "*",
+        "illuminate/database": "*",
+        "nzsregionulodzkiego/wampiriada": "dev-master"
     },
 
     "suggest": {
