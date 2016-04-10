@@ -7,15 +7,22 @@
 
     "require": {
         "michelf/php-markdown": "*",
-        "illuminate/database": "*",
-        "netzmacht/html": "dev-master"
-
+        "nzsregionulodzkiego/wampiriada": "dev-master",
+        "illuminate/database": "*"
     },
 
     "suggest": {
         "dragonee/silverplate-form": "Add a contact form to the site."
     },
 
+    "repositories":
+        [{
+            "type": "vcs",
+            "url": "ssh://git@dev.nzs.lodz.pl:7999/in/wampiriada.git"
+        }]
+    ,
+
+    "minimum-stability": "dev",
     "autoload": {
         "files": [
             "lib/block.php",
@@ -23,7 +30,7 @@
         ],
 
         "psr-4": {
-            "NZS\\Wampiriada\\": "src/"
+            "NZS\\Application\\": "src/"
         }
     }
 }

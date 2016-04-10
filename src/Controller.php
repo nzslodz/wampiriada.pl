@@ -1,6 +1,7 @@
-<?php namespace NZS\Wampiriada;
+<?php namespace NZS\Application;
 
 use Illuminate\Database\Capsule\Manager as Capsule;
+use NZS\Wampiriada\EditionRepository;
 
 class Controller {
     protected $capsule, $editions = array();

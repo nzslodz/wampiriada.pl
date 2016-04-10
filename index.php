@@ -1,6 +1,6 @@
 <?php namespace Silverplate; 
 
-use NZS\Wampiriada\Controller;
+use NZS\Application\Controller;
 use NZS\Wampiriada\ObjectDoesNotExist;
 
 meta('title', 'Wampiriada w Łodzi');
