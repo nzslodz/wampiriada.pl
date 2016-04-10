@@ -2,3 +2,4 @@ vendor
 composer.lock
 !js/vendor
 bower_components
+.env
