@@ -8,11 +8,7 @@
         "php": ">=5.5.9",
         "laravel/lumen-framework": "5.2.*",
         "vlucas/phpdotenv": "~2.2",
-        "nzsregionulodzkiego/wampiriada": "dev-master"
-    },
-
-    "suggest": {
-        "dragonee/silverplate-form": "Add a contact form to the site."
+        "netzmacht/html": "dev-master"
     },
 
     "repositories":[
@@ -35,7 +31,9 @@
 
     "autoload": {
         "psr-4": {
-            "App\\": "app/"
+            "App\\": "app/",
+            "NZS\\Wampiriada\\": "wampiriada-lib/src/",
+            "NZS\\Core\\": "nzs-lib/src/"
         }
     },
 

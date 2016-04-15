@@ -1,0 +1,26 @@
+{
+    "name": "nzsregionulodzkiego/wampiriada",
+    "description": "A library of data for Wampiriada project",
+    "keywords": ["silverplate", "static", "markdown", "html", "website"],
+    "homepage": "https://github.com/dragonee/php-silverplate",
+    "license": "MIT",
+
+    "require": {
+        "illuminate/database": "*",
+        "nzsregionulodzkiego/core": "dev-master",
+        "netzmacht/html": "dev-master"
+    },
+   
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "ssh://git@dev.nzs.lodz.pl:7999/in/core.git"
+        }
+    ],
+
+    "autoload": {
+        "psr-4": {
+            "NZS\\Wampiriada\\": "src/"
+        }
+    }
+}

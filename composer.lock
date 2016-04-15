@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "840429115b623973af32635db483f7eb",
-    "content-hash": "bfc50aa388fb2dd80b1b2ab53f4ffacc",
+    "hash": "0407277b863926aae741b3197dfcde97",
+    "content-hash": "1d04d574db4efed8ceb95a4305e507bf",
     "packages": [
         {
             "name": "doctrine/inflector",
@@ -453,12 +453,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/database.git",
-                "reference": "defa614221c30730992aff83abd683a13d037f04"
+                "reference": "51bc7761c93be996f57fd9a021082ee75055a8e0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/database/zipball/defa614221c30730992aff83abd683a13d037f04",
-                "reference": "defa614221c30730992aff83abd683a13d037f04",
+                "url": "https://api.github.com/repos/illuminate/database/zipball/51bc7761c93be996f57fd9a021082ee75055a8e0",
+                "reference": "51bc7761c93be996f57fd9a021082ee75055a8e0",
                 "shasum": ""
             },
             "require": {
@@ -505,7 +505,7 @@
                 "orm",
                 "sql"
             ],
-            "time": "2016-04-08 18:22:57"
+            "time": "2016-04-14 13:31:28"
         },
         {
             "name": "illuminate/encryption",
@@ -605,12 +605,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/filesystem.git",
-                "reference": "e197f38660beab95743d9d5565d0f11d956288ea"
+                "reference": "d525dc659f24e943dc1d0fecc713825039ec2f67"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/filesystem/zipball/e197f38660beab95743d9d5565d0f11d956288ea",
-                "reference": "e197f38660beab95743d9d5565d0f11d956288ea",
+                "url": "https://api.github.com/repos/illuminate/filesystem/zipball/d525dc659f24e943dc1d0fecc713825039ec2f67",
+                "reference": "d525dc659f24e943dc1d0fecc713825039ec2f67",
                 "shasum": ""
             },
             "require": {
@@ -647,7 +647,7 @@
             ],
             "description": "The Illuminate Filesystem package.",
             "homepage": "http://laravel.com",
-            "time": "2016-03-21 14:55:26"
+            "time": "2016-04-11 13:54:32"
         },
         {
             "name": "illuminate/hashing",
@@ -699,12 +699,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/http.git",
-                "reference": "6a2566807f2b5f9e9bcea2b25989896dbcc52ae7"
+                "reference": "2dd44ad137f58b6630ef847797b5eb5d3b9f64c1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/http/zipball/6a2566807f2b5f9e9bcea2b25989896dbcc52ae7",
-                "reference": "6a2566807f2b5f9e9bcea2b25989896dbcc52ae7",
+                "url": "https://api.github.com/repos/illuminate/http/zipball/2dd44ad137f58b6630ef847797b5eb5d3b9f64c1",
+                "reference": "2dd44ad137f58b6630ef847797b5eb5d3b9f64c1",
                 "shasum": ""
             },
             "require": {
@@ -737,7 +737,7 @@
             ],
             "description": "The Illuminate Http package.",
             "homepage": "http://laravel.com",
-            "time": "2016-04-09 14:02:37"
+            "time": "2016-04-15 17:18:33"
         },
         {
             "name": "illuminate/pagination",
@@ -939,12 +939,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/support.git",
-                "reference": "ac8d9d5faec44f7a0e43aa535f29b99c83e5d12d"
+                "reference": "c0b3c7e170cb13d5f33413727a5c6bc13f46d4a2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/support/zipball/ac8d9d5faec44f7a0e43aa535f29b99c83e5d12d",
-                "reference": "ac8d9d5faec44f7a0e43aa535f29b99c83e5d12d",
+                "url": "https://api.github.com/repos/illuminate/support/zipball/c0b3c7e170cb13d5f33413727a5c6bc13f46d4a2",
+                "reference": "c0b3c7e170cb13d5f33413727a5c6bc13f46d4a2",
                 "shasum": ""
             },
             "require": {
@@ -987,7 +987,7 @@
             ],
             "description": "The Illuminate Support package.",
             "homepage": "http://laravel.com",
-            "time": "2016-04-05 14:14:01"
+            "time": "2016-04-14 16:06:53"
         },
         {
             "name": "illuminate/translation",
@@ -1221,12 +1221,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Seldaek/monolog.git",
-                "reference": "a7ade9d68f41bf6b01cc6121635c87b4420a5b46"
+                "reference": "04dedae4a81eeb2135eeb10b5323935f879ced0a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Seldaek/monolog/zipball/a7ade9d68f41bf6b01cc6121635c87b4420a5b46",
-                "reference": "a7ade9d68f41bf6b01cc6121635c87b4420a5b46",
+                "url": "https://api.github.com/repos/Seldaek/monolog/zipball/04dedae4a81eeb2135eeb10b5323935f879ced0a",
+                "reference": "04dedae4a81eeb2135eeb10b5323935f879ced0a",
                 "shasum": ""
             },
             "require": {
@@ -1291,7 +1291,7 @@
                 "logging",
                 "psr-3"
             ],
-            "time": "2016-04-10 12:01:10"
+            "time": "2016-04-15 16:52:32"
         },
         {
             "name": "mtdowling/cron-expression",
@@ -1479,70 +1479,6 @@
             "time": "2015-12-20 19:50:12"
         },
         {
-            "name": "nzsregionulodzkiego/core",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "ssh://git@dev.nzs.lodz.pl:7999/in/core.git",
-                "reference": "35b8cca3d82b51700db2c0eae3a8c24d7b7d5b92"
-            },
-            "require": {
-                "illuminate/database": "*"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "NZS\\Core\\": "src/"
-                }
-            },
-            "license": [
-                "MIT"
-            ],
-            "description": "A library of data for Wampiriada project",
-            "homepage": "https://github.com/dragonee/php-silverplate",
-            "keywords": [
-                "html",
-                "markdown",
-                "silverplate",
-                "static",
-                "website"
-            ],
-            "time": "2016-04-10 20:07:51"
-        },
-        {
-            "name": "nzsregionulodzkiego/wampiriada",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "ssh://git@dev.nzs.lodz.pl:7999/in/wampiriada.git",
-                "reference": "394ddaa87b38d686250c5d5f53ed6ab16b496351"
-            },
-            "require": {
-                "illuminate/database": "*",
-                "netzmacht/html": "dev-master",
-                "nzsregionulodzkiego/core": "dev-master"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "NZS\\Wampiriada\\": "src/"
-                }
-            },
-            "license": [
-                "MIT"
-            ],
-            "description": "A library of data for Wampiriada project",
-            "homepage": "https://github.com/dragonee/php-silverplate",
-            "keywords": [
-                "html",
-                "markdown",
-                "silverplate",
-                "static",
-                "website"
-            ],
-            "time": "2016-04-10 22:08:26"
-        },
-        {
             "name": "paragonie/random_compat",
             "version": "v1.x-dev",
             "source": {
@@ -1643,12 +1579,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/console.git",
-                "reference": "6b1175135bc2a74c08a28d89761272de8beed8cd"
+                "reference": "7541c505d2b804cc65a4edf90a6f1cb496523fef"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/console/zipball/6b1175135bc2a74c08a28d89761272de8beed8cd",
-                "reference": "6b1175135bc2a74c08a28d89761272de8beed8cd",
+                "url": "https://api.github.com/repos/symfony/console/zipball/7541c505d2b804cc65a4edf90a6f1cb496523fef",
+                "reference": "7541c505d2b804cc65a4edf90a6f1cb496523fef",
                 "shasum": ""
             },
             "require": {
@@ -1695,7 +1631,7 @@
             ],
             "description": "Symfony Console Component",
             "homepage": "https://symfony.com",
-            "time": "2016-03-16 17:00:50"
+            "time": "2016-04-14 15:30:28"
         },
         {
             "name": "symfony/debug",
@@ -1869,12 +1805,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/http-foundation.git",
-                "reference": "b508c1b4d86581ea2b577f067471333ce6b74221"
+                "reference": "18b24bc32d2495ae79d76e777368786a6536fe31"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/http-foundation/zipball/b508c1b4d86581ea2b577f067471333ce6b74221",
-                "reference": "b508c1b4d86581ea2b577f067471333ce6b74221",
+                "url": "https://api.github.com/repos/symfony/http-foundation/zipball/18b24bc32d2495ae79d76e777368786a6536fe31",
+                "reference": "18b24bc32d2495ae79d76e777368786a6536fe31",
                 "shasum": ""
             },
             "require": {
@@ -1914,7 +1850,7 @@
             ],
             "description": "Symfony HttpFoundation Component",
             "homepage": "https://symfony.com",
-            "time": "2016-04-02 08:04:34"
+            "time": "2016-04-12 18:09:53"
         },
         {
             "name": "symfony/http-kernel",
@@ -1922,12 +1858,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/http-kernel.git",
-                "reference": "f7698089cb78b5f200263da8bd6dd7dfa219c114"
+                "reference": "653ab4b2dced462a3a0f66307e5eb7c9054fcb49"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/http-kernel/zipball/f7698089cb78b5f200263da8bd6dd7dfa219c114",
-                "reference": "f7698089cb78b5f200263da8bd6dd7dfa219c114",
+                "url": "https://api.github.com/repos/symfony/http-kernel/zipball/653ab4b2dced462a3a0f66307e5eb7c9054fcb49",
+                "reference": "653ab4b2dced462a3a0f66307e5eb7c9054fcb49",
                 "shasum": ""
             },
             "require": {
@@ -1996,7 +1932,7 @@
             ],
             "description": "Symfony HttpKernel Component",
             "homepage": "https://symfony.com",
-            "time": "2016-03-30 12:11:33"
+            "time": "2016-04-14 15:30:28"
         },
         {
             "name": "symfony/polyfill-mbstring",
@@ -2171,12 +2107,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/process.git",
-                "reference": "58c8a0217d8d02b902ed9a0f03913d1836db06e8"
+                "reference": "53f9407c0bb1c5a79127db8f7bfe12f0f6f3dcdb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/process/zipball/58c8a0217d8d02b902ed9a0f03913d1836db06e8",
-                "reference": "58c8a0217d8d02b902ed9a0f03913d1836db06e8",
+                "url": "https://api.github.com/repos/symfony/process/zipball/53f9407c0bb1c5a79127db8f7bfe12f0f6f3dcdb",
+                "reference": "53f9407c0bb1c5a79127db8f7bfe12f0f6f3dcdb",
                 "shasum": ""
             },
             "require": {
@@ -2212,7 +2148,7 @@
             ],
             "description": "Symfony Process Component",
             "homepage": "https://symfony.com",
-            "time": "2016-04-02 08:04:34"
+            "time": "2016-04-14 15:30:28"
         },
         {
             "name": "symfony/translation",
@@ -2284,19 +2220,19 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/vlucas/phpdotenv.git",
-                "reference": "11a353b704488944a7477b229d119fe1cfa56f68"
+                "reference": "63f37b9395e8041cd4313129c08ece896d06ca8e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/vlucas/phpdotenv/zipball/11a353b704488944a7477b229d119fe1cfa56f68",
-                "reference": "11a353b704488944a7477b229d119fe1cfa56f68",
+                "url": "https://api.github.com/repos/vlucas/phpdotenv/zipball/63f37b9395e8041cd4313129c08ece896d06ca8e",
+                "reference": "63f37b9395e8041cd4313129c08ece896d06ca8e",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.9"
             },
             "require-dev": {
-                "phpunit/phpunit": "^4.8|^5.0"
+                "phpunit/phpunit": "^4.8 || ^5.0"
             },
             "type": "library",
             "extra": {
@@ -2321,13 +2257,12 @@
                 }
             ],
             "description": "Loads environment variables from `.env` to `getenv()`, `$_ENV` and `$_SERVER` automagically.",
-            "homepage": "http://github.com/vlucas/phpdotenv",
             "keywords": [
                 "dotenv",
                 "env",
                 "environment"
             ],
-            "time": "2016-02-11 08:44:10"
+            "time": "2016-04-15 10:48:49"
         }
     ],
     "packages-dev": [
@@ -2391,12 +2326,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/fzaninotto/Faker.git",
-                "reference": "684eab1624a66a4c37762c747c88a7f8664c65bf"
+                "reference": "1c33e894fbbad6cf65bd42871719cd33227ed6a7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fzaninotto/Faker/zipball/684eab1624a66a4c37762c747c88a7f8664c65bf",
-                "reference": "684eab1624a66a4c37762c747c88a7f8664c65bf",
+                "url": "https://api.github.com/repos/fzaninotto/Faker/zipball/1c33e894fbbad6cf65bd42871719cd33227ed6a7",
+                "reference": "1c33e894fbbad6cf65bd42871719cd33227ed6a7",
                 "shasum": ""
             },
             "require": {
@@ -2433,7 +2368,7 @@
                 "faker",
                 "fixtures"
             ],
-            "time": "2016-04-06 16:46:55"
+            "time": "2016-04-13 06:45:05"
         },
         {
             "name": "phpdocumentor/reflection-docblock",
@@ -2792,12 +2727,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "f9733ae34271bec6a6a6a1d4e9a8dd28f2ac1628"
+                "reference": "496745aeba741e63b7149da3e1f712d441751182"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/f9733ae34271bec6a6a6a1d4e9a8dd28f2ac1628",
-                "reference": "f9733ae34271bec6a6a6a1d4e9a8dd28f2ac1628",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/496745aeba741e63b7149da3e1f712d441751182",
+                "reference": "496745aeba741e63b7149da3e1f712d441751182",
                 "shasum": ""
             },
             "require": {
@@ -2856,7 +2791,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2016-04-07 07:09:31"
+            "time": "2016-04-12 07:25:01"
         },
         {
             "name": "phpunit/phpunit-mock-objects",
@@ -3339,7 +3274,7 @@
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
-        "nzsregionulodzkiego/wampiriada": 20
+        "netzmacht/html": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,

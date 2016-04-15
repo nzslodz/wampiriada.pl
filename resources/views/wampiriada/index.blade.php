@@ -152,7 +152,7 @@ Oficjalna strona akcji honorowego krwiodawstwa Wampiriada w Łodzi, organizowane
                         <p>Pobierz aplikację mobilną Wampiriady na system Android i&nbsp;otrzymuj informacje o bieżących akcjach Wampiriady.</p>
                         <p class="appstore">
                         <a href="https://play.google.com/store/apps/details?id=pl.makimo.wampiriada">
-                            <img alt="Pobierz z Google Play" src="https://developer.android.com/images/brand/pl_generic_rgb_wo_60.png" />
+                            <img alt="Pobierz z Google Play" src="{{ url('img/google-play.png') }}" />
                         </a>
                         </p>
                     </div>

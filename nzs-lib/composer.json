@@ -1,0 +1,17 @@
+{
+    "name": "nzsregionulodzkiego/core",
+    "description": "A library of data for Wampiriada project",
+    "keywords": ["silverplate", "static", "markdown", "html", "website"],
+    "homepage": "https://github.com/dragonee/php-silverplate",
+    "license": "MIT",
+
+    "require": {
+        "illuminate/database": "*"
+    },
+
+    "autoload": {
+        "psr-4": {
+            "NZS\\Core\\": "src/"
+        }
+    }
+}
