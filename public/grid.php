@@ -95,8 +95,16 @@ class TileSequence {
     public function __construct($gridWidth, $gridHeight, $seed) {
         $this->gridWidth = $gridWidth;
         $this->items = range(0, $gridWidth * $gridHeight);
-        shuffle($this->items);
+        $this->shuffleItems($seed);
+
     }
+    private function shuffleItems($seed) {
+        $nextSeed = rand();
+        srand($seed); // Entering deterministic zone
+        shuffle($this->items);
+        srand($nextSeed); // Exiting deterministic zone
+    }
+
     public function next() {
         $idx = array_shift($this->items);
         return array('x' => floor($idx % $this->gridWidth),
