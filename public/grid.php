@@ -88,6 +88,16 @@ class ImageGrid {
                            $this->cellWidth, $this->cellHeight, // dst-size
                            imagesx($tileImage), imagesy($tileImage)); // src size
     }
+    public function randomFill($pictures, $percentage) {
+        $count = $this->gridWidth * $this->gridHeight;
+        $indicesToFill = array_rand(range(0, $count), $count*$percentage);
+        for ($i=0; $i < count($indicesToFill); ++$i) {
+            $x = floor($indicesToFill[$i] % $this->gridWidth);
+            $y = floor($indicesToFill[$i] / $this->gridWidth);
+            $this->addTile($pictures[rand() % count($pictures)],
+                           $x, $y);
+        }
+    }
 
     private function gridX($posX) {
         return $posX * $this->cellWidth;
@@ -138,8 +148,7 @@ class ImageGrid {
 
 $grid = new ImageGrid(imagecreatefrompng("../pics/background.png"),
                       imagecreatefrompng("../pics/overlay.png"),
-                      4, 4);
-
+                      20, 15);
 $avatars = array_map('imagecreatefrompng', [
                         "../pics/av1.png",
                         "../pics/av2.png",
@@ -147,12 +156,7 @@ $avatars = array_map('imagecreatefrompng', [
                         "../pics/av4.png",
                         "../pics/av5.png",
                     ]);
-
-for ($i=0; $i < 12; ++$i) {
-    $grid->addTile($avatars[rand() % count($avatars)],
-                   rand() % $grid->gridWidth,
-                   rand() % $grid->gridHeight);
-}
+$grid->randomFill($avatars, 0.7);
 
 $output = $grid->generate();
 
