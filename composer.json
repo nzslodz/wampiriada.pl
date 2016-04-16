@@ -9,7 +9,8 @@
         "laravel/framework": "5.2.*",
         "netzmacht/html": "dev-master",
         "sammyk/laravel-facebook-sdk": "^3.0",
-        "laravelcollective/html": "5.2.*"
+        "laravelcollective/html": "5.2.*",
+        "phpoffice/phpexcel": "^1.8"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

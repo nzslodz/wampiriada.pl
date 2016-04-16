@@ -3,10 +3,11 @@
 use NZS\Wampiriada\EditionRepository;
 use NZS\Core\Exceptions\ObjectDoesNotExist;
 use App\Libraries\PartnerRow;
+use NZS\Wampiriada\Option;
 
 class WampiriadaController extends Controller {
     public function showIndex() {
-        $edition = 27;
+        $edition = Option::get('wampiriada.edition', 28);
 
         $repository = new EditionRepository($edition);
         
