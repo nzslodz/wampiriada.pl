@@ -4,6 +4,8 @@
 
 
 @section('content')
+    {{ Auth::user()->getFacebookProfileImagePath() }}
+    
     <div class="page-header">
         <h1> Lista krwiodawców</h1>
         <p>Wpisz się aby dostać koszulkę</p>

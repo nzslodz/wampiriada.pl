@@ -15,6 +15,8 @@ use NZS\Wampiriada\Checkin;
 use NZS\Wampiriada\Profile;
 use Carbon\Carbon;
 
+use Storage;
+
 class FacebookController extends Controller {
     public function getLoginPage(LaravelFacebookSdk $fb) {
         Session::forget('fb_user_access_token');
@@ -74,7 +76,39 @@ class FacebookController extends Controller {
 
         Auth::login($user);
 
+        $this->downloadFacebookImage($user);
+
         return redirect('/facebook/checkin');
+    }
+
+    protected function downloadFacebookImage($user) {
+        $ch = curl_init ("https://graph.facebook.com/$user->facebook_user_id/picture?redirect=false&type=large");
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_BINARYTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_HEADER, 0);
+        $rawdata=curl_exec($ch);
+        curl_close ($ch);
+
+        $storage = Storage::disk('local');
+        
+        $json = json_decode($rawdata);
+        if($json->data->is_silhouette) {
+            return;
+        }
+        
+        $ch = curl_init ($json->data->url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_BINARYTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_HEADER, 0);
+        curl_setopt ($ch, CURLOPT_FOLLOWLOCATION, 1); 
+        $rawdata=curl_exec($ch);
+        curl_close ($ch);
+
+        if(!$storage->has('fb-images')) {
+            $storage->makeDirectory('fb-images');
+        }
+
+        $storage->put("fb-images/$user->facebook_user_id.jpg", $rawdata);
     }
 
     /* XXX TODO show first_time only if  */ 

@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use SammyK\LaravelFacebookSdk\SyncableGraphNodeTrait;
+use Storage;
 
 class User extends Authenticatable {
     use SyncableGraphNodeTrait;
@@ -34,4 +35,13 @@ class User extends Authenticatable {
         return "$this->first_name $this->last_name";
     }
 
+    public function getFacebookProfileImagePath() {
+        if(Storage::has("fb-images/$this->facebook_user_id.jpg")) {
+            return storage_path("fb-images/$this->facebook_user_id.jpg");
+        }
+
+        $image_id = $this->facebook_user_id % 32;
+
+        return storage_path("default-images/$image_id.png");
+    }
 }
