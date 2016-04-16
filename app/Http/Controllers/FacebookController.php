@@ -87,7 +87,7 @@ class FacebookController extends Controller {
         return view('facebook.checkin', [
             'sizes' => ShirtSize::orderBy('id')->pluck('name', 'id'),
             'blood_types' => BloodType::orderBy('name')->pluck('name', 'id'),
-            'first_time' => true,
+            'first_time' => !(Checkin::whereUserId(Auth::user()->id)->first()),
             'profile' => $profile,
         ]);
     }
