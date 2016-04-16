@@ -23,7 +23,7 @@ function imagealphamask(&$picture, $mask, $reverse=false) {
         for($y = 0; $y < $ySize; $y++) {
             $pixel = imagecolorsforindex($mask, imagecolorat($mask, $x, $y));
             if ($reverse) {
-                $alpha = 1 - $pixel['alpha'];
+                $alpha = 127 - $pixel['alpha'];
             } else {
                 $alpha = $pixel['alpha'];
             }
@@ -71,7 +71,7 @@ class ImageGrid {
                                                  $this->imageHeight);
         imagealphablending($this->tilesImage, true);
         imagesavealpha($this->tilesImage, true);
-        imagefill($this->tilesImage, 0, 0, 0x6fff0000);
+        imagefill($this->tilesImage, 0, 0, 0x7fff0000);
 
         $this->gridWidth = $gridWidth;
         $this->gridHeight = $gridHeight;
@@ -97,10 +97,23 @@ class ImageGrid {
     }
 
     public function generate() {
-        // join background with avatars
         // prepare masked overlay
+        imagealphamask($this->overlayImage,
+                       $this->tilesImage,
+                       true);
+
+        // join background with avatars (grr)
+        $source = $this->backgroundImage;
+        $dest = $this->tilesImage;
+        imagelayereffect($dest, IMG_EFFECT_OVERLAY);
+        imagecopy($dest, $source,
+                  0, 0, 0, 0, $this->imageWidth, $this->imageHeight);
+
         // cover background with overlay
-        $output = $this->tilesImage;
+        imagelayereffect($dest, IMG_EFFECT_ALPHABLEND);
+        imagecopy($dest, $this->overlayImage,
+                  0, 0, 0, 0, $this->imageWidth, $this->imageHeight);
+        $output = $dest;
         return $output;
     }
 }
@@ -109,7 +122,7 @@ $grid = new ImageGrid(imagecreatefrompng("../pics/background.png"),
                       imagecreatefrompng("../pics/overlay.png"),
                       4, 4);
 
-$avatars = array_map(imagecreatefrompng, [
+$avatars = array_map('imagecreatefrompng', [
                         "../pics/av1.png",
                         "../pics/av2.png",
                         "../pics/av3.png",
