@@ -89,7 +89,7 @@ class ImageGrid {
                            imagesx($tileImage), imagesy($tileImage)); // src size
     }
 
-    public function gridX($posX) {
+    private function gridX($posX) {
         return $posX * $this->cellWidth;
     }
     private function gridY($posY) {
@@ -105,17 +105,35 @@ class ImageGrid {
         // join background with avatars (grr)
         $source = $this->backgroundImage;
         $dest = $this->tilesImage;
-        imagelayereffect($dest, IMG_EFFECT_OVERLAY);
-        imagecopy($dest, $source,
-                  0, 0, 0, 0, $this->imageWidth, $this->imageHeight);
-
-        // cover background with overlay
+        // $this->overlayBlending($dest, $source);
+        $this->sweetBlending($dest, $source);
         imagelayereffect($dest, IMG_EFFECT_ALPHABLEND);
         imagecopy($dest, $this->overlayImage,
                   0, 0, 0, 0, $this->imageWidth, $this->imageHeight);
         $output = $dest;
         return $output;
     }
+    /* Blend src into dst */
+    private function sweetBlending($dst, $src) {
+        $R = "red"; $G = "green"; $B = "blue";
+        for($x = 0; $x < $this->imageWidth; $x++) {
+            for($y = 0; $y < $this->imageHeight; $y++) {
+                $bg = imagecolorsforindex($dst, imagecolorat($dst, $x, $y));
+                $fg = imagecolorsforindex($src, imagecolorat($src, $x, $y));
+                $bg[$R] = $bg[$R] * 0.5 + $fg[$R] * 0.5;
+                $bg[$G] = $bg[$G] * 0.5 + $fg[$G] * 0.5;
+                $bg[$B] = $bg[$B] * 0.5 + $fg[$B] * 0.5;
+                imagesetpixel($dst, $x, $y,
+                              imagecolorallocatealpha($dst, $bg['red'], $bg['green'], $bg['blue'], $bg['alpha']));
+            }
+        }
+    }
+    private function overlayBlending($dst, $src) {
+        imagelayereffect($dst, IMG_EFFECT_OVERLAY);
+        imagecopy($dst, $src,
+                  0, 0, 0, 0, $this->imageWidth, $this->imageHeight);
+    }
+
 }
 
 $grid = new ImageGrid(imagecreatefrompng("../pics/background.png"),
@@ -130,7 +148,7 @@ $avatars = array_map('imagecreatefrompng', [
                         "../pics/av5.png",
                     ]);
 
-for ($i=0; $i < 8; ++$i) {
+for ($i=0; $i < 12; ++$i) {
     $grid->addTile($avatars[rand() % count($avatars)],
                    rand() % $grid->gridWidth,
                    rand() % $grid->gridHeight);
