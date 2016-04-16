@@ -50,4 +50,12 @@ class CheckinRequest extends Request
             'name' => 'string|min:5|required',
         ];
     }
+
+    public function messages() {
+        return [
+            'required' => 'Pole jest wymagane',
+            'exists' => 'Wybierz poprawną opcję',
+            'min' => 'Wartość zbyt krótka (minimum :min znaków)',
+        ];
+    }
 }
