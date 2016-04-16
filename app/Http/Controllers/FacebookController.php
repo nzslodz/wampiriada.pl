@@ -5,6 +5,15 @@ use Facebook\Exceptions\FacebookSDKException;
 use Session;
 use App\User;
 use Auth;
+use App\Http\Requests\CheckinRequest;
+
+use NZS\Wampiriada\ShirtSize;
+use NZS\Wampiriada\BloodType;
+use NZS\Wampiriada\Edition;
+use NZS\Wampiriada\ActionDay;
+use NZS\Wampiriada\Checkin;
+use NZS\Wampiriada\Profile;
+use Carbon\Carbon;
 
 class FacebookController extends Controller {
     public function getLoginPage(LaravelFacebookSdk $fb) {
@@ -68,7 +77,49 @@ class FacebookController extends Controller {
         return redirect('/facebook/checkin');
     }
 
+    /* XXX TODO show first_time only if  */ 
     public function getCheckin(LaravelFacebookSdk $fb) {
-        return view('facebook.checkin');
+        $profile = Profile::whereId(Auth::user()->id)->first();
+        if(!$profile) {
+            $profile = new Profile;
+        }
+
+        return view('facebook.checkin', [
+            'sizes' => ShirtSize::orderBy('id')->pluck('name', 'id'),
+            'blood_types' => BloodType::orderBy('name')->pluck('name', 'id'),
+            'first_time' => true,
+            'profile' => $profile,
+        ]);
+    }
+
+    public function postCheckin(CheckinRequest $request) {
+        $current_action = ActionDay::whereDate('created_at', '=', Carbon::today()->toDateString())->first();
+        if(!$current_action) {
+            return abort(403, "Today the process is not available");
+        }
+
+        $checkin = new Checkin();
+        $checkin->first_time = $request->has('first_time');
+        $checkin->size_id = $request->size;
+        $checkin->blood_type_id = $request->blood_type;
+        $checkin->name = $request->name;
+        $checkin->action_day_id = $current_action->id;
+        $checkin->edition_id = $current_action->edition_id;
+        $checkin->user_id = Auth::user()->id;
+
+        $checkin->save();
+
+        $profile = Profile::whereId(Auth::user()->id)->first();
+        if(!$profile) {
+            $profile = new Profile;
+            $profile->id = Auth::user()->id;
+        }
+
+        $profile->current_name = $request->name;
+        $profile->default_size_id = $request->size;
+        $profile->blood_type_id = $request->blood_type;
+        $profile->save();
+
+        return redirect('/facebook/raffle');
     }
 }

@@ -17,4 +17,8 @@ Route::get('/redirect/{edition_id}/{name}', 'WampiriadaController@getRedirect');
 
 Route::get('/facebook/login', 'FacebookController@getLoginPage');
 Route::get('/facebook/callback', 'FacebookController@getCallback');
-Route::get('/facebook/checkin', 'FacebookController@getCheckin');
+
+Route::group(['before' => 'auth'], function() {
+    Route::get('/facebook/checkin', 'FacebookController@getCheckin');
+    Route::post('/facebook/checkin', 'FacebookController@postCheckin');
+});
