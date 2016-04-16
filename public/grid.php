@@ -40,8 +40,8 @@ function imagealphamask(&$picture, $mask, $reverse=false) {
 function crop_to_aspect($image, $aspect) {
     $width = imagesx($image);
     $height = imagesy($image);
-    $new_width = $height / $aspect;
-    $new_height = $width * $aspect;
+    $new_width = $height * $aspect;
+    $new_height = $width / $aspect;
     if ($new_width < $width) {
         return crop_centered($image, $new_width, $height);
     } else {
