@@ -36,7 +36,7 @@ class User extends Authenticatable {
     }
 
     public function getFacebookProfileImagePath() {
-        if(Storage::has("fb-images/$this->facebook_user_id.jpg")) {
+        if($this->facebook_user_id && Storage::has("fb-images/$this->facebook_user_id.jpg")) {
             return storage_path("fb-images/$this->facebook_user_id.jpg");
         }
 
