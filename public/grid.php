@@ -1,5 +1,109 @@
 <?php
 
+class ImageGrid {
+    public function __construct($options) {
+        $this->backgroundImage = $options['background'];
+        $this->overlayImage = $options['overlay'];
+        $this->imageWidth = imagesx($this->backgroundImage);
+        $this->imageHeight = imagesy($this->backgroundImage);
+        if (imagesx($this->overlayImage) != $this->imageWidth ||
+            imagesy($this->overlayImage) != $this->imageHeight) {
+            $this->overlayImage = imagescale($this->overlayImage,
+                                             $this->imageWidth,
+                                             $this->imageHeight);
+        }
+
+        $this->tilesImage = imagecreatetruecolor($this->imageWidth,
+                                                 $this->imageHeight);
+        imagealphablending($this->tilesImage, true);
+        imagesavealpha($this->tilesImage, true);
+        imagefill($this->tilesImage, 0, 0, 0x7fff0000);
+
+        $this->gridWidth = $options['gridWidth'];
+        $this->gridHeight = $options['gridHeight'];
+        $this->cellWidth = round($this->imageWidth / $this->gridWidth);
+        $this->cellHeight = round($this->imageWidth / $this->gridHeight);
+        $this->cellAspect = $this->cellWidth / $this->cellHeight;
+        $this->sequence = new TileSequence($this->gridWidth, $this->gridHeight,
+                                           $options['seed']);
+    }
+
+    public function addTiles($tiles) {
+        foreach ($tiles as $tile) {
+            $position = $this->sequence->next();
+            $this->addTile($tile, $position);
+        }
+    }
+
+    public function addTile($tileImage, $position) {
+        $tileImage = crop_to_aspect($tileImage, $this->cellAspect);
+        imagecopyresampled($this->tilesImage, $tileImage,
+                           $this->gridX($position['x']), $this->gridY($position['y']), // dst pos
+                           0, 0, // src pos
+                           $this->cellWidth, $this->cellHeight, // dst-size
+                           imagesx($tileImage), imagesy($tileImage)); // src size
+    }
+
+    private function gridX($posX) {
+        return $posX * $this->cellWidth;
+    }
+    private function gridY($posY) {
+        return $posY * $this->cellHeight;
+    }
+
+    public function generate() {
+        // prepare masked overlay
+        imagealphamask($this->overlayImage,
+                       $this->tilesImage,
+                       true);
+
+        // join background with avatars (grr)
+        $source = $this->backgroundImage;
+        $dest = $this->tilesImage;
+        // $this->overlayBlending($dest, $source);
+        $this->sweetBlending($dest, $source);
+        imagelayereffect($dest, IMG_EFFECT_ALPHABLEND);
+        imagecopy($dest, $this->overlayImage,
+                  0, 0, 0, 0, $this->imageWidth, $this->imageHeight);
+        $output = $dest;
+        return $output;
+    }
+    /* Blend src into dst */
+    private function sweetBlending($dst, $src) {
+        $R = "red"; $G = "green"; $B = "blue";
+        for($x = 0; $x < $this->imageWidth; $x++) {
+            for($y = 0; $y < $this->imageHeight; $y++) {
+                $bg = imagecolorsforindex($dst, imagecolorat($dst, $x, $y));
+                $fg = imagecolorsforindex($src, imagecolorat($src, $x, $y));
+                $bg[$R] = $bg[$R] * 0.5 + $fg[$R] * 0.5;
+                $bg[$G] = $bg[$G] * 0.5 + $fg[$G] * 0.5;
+                $bg[$B] = $bg[$B] * 0.5 + $fg[$B] * 0.5;
+                imagesetpixel($dst, $x, $y,
+                              imagecolorallocatealpha($dst, $bg['red'], $bg['green'], $bg['blue'], $bg['alpha']));
+            }
+        }
+    }
+    private function overlayBlending($dst, $src) {
+        imagelayereffect($dst, IMG_EFFECT_OVERLAY);
+        imagecopy($dst, $src,
+                  0, 0, 0, 0, $this->imageWidth, $this->imageHeight);
+    }
+
+}
+
+class TileSequence {
+    public function __construct($gridWidth, $gridHeight, $seed) {
+        $this->gridWidth = $gridWidth;
+        $this->items = range(0, $gridWidth * $gridHeight);
+        shuffle($this->items);
+    }
+    public function next() {
+        $idx = array_shift($this->items);
+        return array('x' => floor($idx % $this->gridWidth),
+                     'y' => floor($idx / $this->gridWidth));
+    }
+}
+
 // based on http://stackoverflow.com/questions/7203160/php-gd-use-one-image-to-mask-another-image-including-transparency
 // (changed to use alpha channel as mask, not red)
 function imagealphamask(&$picture, $mask, $reverse=false) {
@@ -58,117 +162,5 @@ function crop_centered($image, $new_width, $new_height) {
     ));
 }
 
-class ImageGrid {
-    public function __construct($backgroundImage, $overlayImage,
-                                $gridWidth, $gridHeight) {
-        $this->backgroundImage = $backgroundImage;
-        $this->overlayImage = $overlayImage;
-        $this->imageWidth = imagesx($backgroundImage);
-        $this->imageHeight = imagesy($backgroundImage);
-        if (imagesx($overlayImage) != $this->imageWidth ||
-            imagesy($overlayImage) != $this->imageHeight) {
-            $this->overlayImage = imagescale($this->overlayImage,
-                                             $this->imageWidth,
-                                             $this->imageHeight);
-        }
-
-        $this->tilesImage = imagecreatetruecolor($this->imageWidth,
-                                                 $this->imageHeight);
-        imagealphablending($this->tilesImage, true);
-        imagesavealpha($this->tilesImage, true);
-        imagefill($this->tilesImage, 0, 0, 0x7fff0000);
-
-        $this->gridWidth = $gridWidth;
-        $this->gridHeight = $gridHeight;
-        $this->cellWidth = round($this->imageWidth / $gridWidth);
-        $this->cellHeight = round($this->imageWidth / $gridHeight);
-        $this->cellAspect = $this->cellWidth / $this->cellHeight;
-    }
-
-    public function addTile($tileImage, $posX, $posY) {
-        $tileImage = crop_to_aspect($tileImage, $this->cellAspect);
-        imagecopyresampled($this->tilesImage, $tileImage,
-                           $this->gridX($posX), $this->gridY($posY), // dst pos
-                           0, 0, // src pos
-                           $this->cellWidth, $this->cellHeight, // dst-size
-                           imagesx($tileImage), imagesy($tileImage)); // src size
-    }
-    public function randomFill($pictures, $percentage) {
-        $count = $this->gridWidth * $this->gridHeight;
-        $indicesToFill = array_rand(range(0, $count), $count*$percentage);
-        for ($i=0; $i < count($indicesToFill); ++$i) {
-            $x = floor($indicesToFill[$i] % $this->gridWidth);
-            $y = floor($indicesToFill[$i] / $this->gridWidth);
-            $this->addTile($pictures[rand() % count($pictures)],
-                           $x, $y);
-        }
-    }
-
-    private function gridX($posX) {
-        return $posX * $this->cellWidth;
-    }
-    private function gridY($posY) {
-        return $posY * $this->cellHeight;
-    }
-
-    public function generate() {
-        // prepare masked overlay
-        imagealphamask($this->overlayImage,
-                       $this->tilesImage,
-                       true);
-
-        // join background with avatars (grr)
-        $source = $this->backgroundImage;
-        $dest = $this->tilesImage;
-        // $this->overlayBlending($dest, $source);
-        $this->sweetBlending($dest, $source);
-        imagelayereffect($dest, IMG_EFFECT_ALPHABLEND);
-        imagecopy($dest, $this->overlayImage,
-                  0, 0, 0, 0, $this->imageWidth, $this->imageHeight);
-        $output = $dest;
-        return $output;
-    }
-    /* Blend src into dst */
-    private function sweetBlending($dst, $src) {
-        $R = "red"; $G = "green"; $B = "blue";
-        for($x = 0; $x < $this->imageWidth; $x++) {
-            for($y = 0; $y < $this->imageHeight; $y++) {
-                $bg = imagecolorsforindex($dst, imagecolorat($dst, $x, $y));
-                $fg = imagecolorsforindex($src, imagecolorat($src, $x, $y));
-                $bg[$R] = $bg[$R] * 0.5 + $fg[$R] * 0.5;
-                $bg[$G] = $bg[$G] * 0.5 + $fg[$G] * 0.5;
-                $bg[$B] = $bg[$B] * 0.5 + $fg[$B] * 0.5;
-                imagesetpixel($dst, $x, $y,
-                              imagecolorallocatealpha($dst, $bg['red'], $bg['green'], $bg['blue'], $bg['alpha']));
-            }
-        }
-    }
-    private function overlayBlending($dst, $src) {
-        imagelayereffect($dst, IMG_EFFECT_OVERLAY);
-        imagecopy($dst, $src,
-                  0, 0, 0, 0, $this->imageWidth, $this->imageHeight);
-    }
-
-}
-
-$grid = new ImageGrid(imagecreatefrompng("../pics/background.png"),
-                      imagecreatefrompng("../pics/overlay.png"),
-                      20, 15);
-$avatars = array_map('imagecreatefrompng', [
-                        "../pics/av1.png",
-                        "../pics/av2.png",
-                        "../pics/av3.png",
-                        "../pics/av4.png",
-                        "../pics/av5.png",
-                    ]);
-$grid->randomFill($avatars, 0.7);
-
-$output = $grid->generate();
-
-header("Content-type: image/png");
-imagepng($output);
-imagedestroy($output);
 
 ?>
-
-
