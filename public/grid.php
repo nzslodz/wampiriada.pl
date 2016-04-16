@@ -6,26 +6,49 @@ class ImageGrid {
         $this->overlayImage = $options['overlay'];
         $this->imageWidth = imagesx($this->backgroundImage);
         $this->imageHeight = imagesy($this->backgroundImage);
-        if (imagesx($this->overlayImage) != $this->imageWidth ||
-            imagesy($this->overlayImage) != $this->imageHeight) {
-            $this->overlayImage = imagescale($this->overlayImage,
-                                             $this->imageWidth,
-                                             $this->imageHeight);
-        }
-
-        $this->tilesImage = imagecreatetruecolor($this->imageWidth,
-                                                 $this->imageHeight);
-        imagealphablending($this->tilesImage, true);
-        imagesavealpha($this->tilesImage, true);
-        imagefill($this->tilesImage, 0, 0, 0x7fff0000);
+        $this->rescaleOverlay();
+        $this->createTilesImage();
 
         $this->gridWidth = $options['gridWidth'];
         $this->gridHeight = $options['gridHeight'];
         $this->cellWidth = round($this->imageWidth / $this->gridWidth);
         $this->cellHeight = round($this->imageWidth / $this->gridHeight);
         $this->cellAspect = $this->cellWidth / $this->cellHeight;
-        $this->sequence = new TileSequence($this->gridWidth, $this->gridHeight,
-                                           $options['seed']);
+        $this->createSequence($options['seed']);
+    }
+    private function rescaleOverlay() {
+        if (imagesx($this->overlayImage) != $this->imageWidth ||
+            imagesy($this->overlayImage) != $this->imageHeight) {
+                $this->overlayImage = imagescale($this->overlayImage,
+                                                 $this->imageWidth,
+                                                 $this->imageHeight);
+        }
+    }
+    private function createTilesImage() {
+        $this->tilesImage = imagecreatetruecolor($this->imageWidth,
+                                                 $this->imageHeight);
+        imagealphablending($this->tilesImage, true);
+        imagesavealpha($this->tilesImage, true);
+        imagefill($this->tilesImage, 0, 0, 0x7fff0000);
+    }
+    private function createSequence($seed) {
+        $edges = imagecrop($this->backgroundImage, array(
+            'x' => 0, 'y' => 0,
+            'width' => $this->imageWidth,
+            'height' => $this->imageHeight));
+        imagefilter($edges, IMG_FILTER_EDGEDETECT);
+
+        $items = array();
+        for($tx = 0; $tx < $this->gridWidth; $tx++) {
+            for($ty = 0; $ty < $this->gridHeight; $ty++) {
+                $tileValue = $this->getTileValue($edges, $tx, $ty);
+                imagestring($edges, 1,
+                            $this->gridX($tx), $this->gridY($ty),
+                            $tileValue, 0x00ffffff);
+                array_push($items, array("x" => $tx, "y" => $ty, "weight" => $tileValue));
+            }
+        }
+        $this->sequence = new TileSequence($items, $seed);
     }
 
     public function addTiles($tiles) {
@@ -49,6 +72,19 @@ class ImageGrid {
     }
     private function gridY($posY) {
         return $posY * $this->cellHeight;
+    }
+    private function getTileValue($img, $tx, $ty) {
+        $sum = 0;
+        for ($x=$this->gridX($tx); $x<$this->gridX($tx) + $this->cellWidth; ++$x) {
+            if ($x >= imagesx($img)) continue;
+            for ($y=$this->gridY($ty); $y<$this->gridY($ty) + $this->cellHeight; ++$y) {
+                if ($y >= imagesy($img)) continue;
+                $color = imagecolorsforindex($img, imagecolorat($img, $x, $y));
+                $colorValue = abs($color['red']-127) + abs($color['green']-127) + abs($color['blue']-127);
+                $sum += $colorValue;
+            }
+        }
+        return $sum;
     }
 
     public function generate() {
@@ -92,23 +128,40 @@ class ImageGrid {
 }
 
 class TileSequence {
-    public function __construct($gridWidth, $gridHeight, $seed) {
-        $this->gridWidth = $gridWidth;
-        $this->items = range(0, $gridWidth * $gridHeight);
-        $this->shuffleItems($seed);
-
+    public function __construct($tiles, $seed) {
+        $this->tiles = $tiles;
+        $this->shuffleTiles($seed);
     }
-    private function shuffleItems($seed) {
+    private function shuffleTiles($seed) {
+        $medianWeight = $this->getMedianWeight();
+        foreach ($this->tiles as $key => $value) {
+            $this->tiles[$key]['rare'] = ($value['weight'] > $medianWeight);
+        }
         $nextSeed = rand();
         srand($seed); // Entering deterministic zone
-        shuffle($this->items);
+        shuffle($this->tiles);
+        $j = count($this->tiles) - 1;
+        for ($i=0; $i<$j; ++$i) {
+            if ($this->tiles[$i]['rare']) {
+                $k = rand($i+1, $j);
+                $tmp = $this->tiles[$i];
+                $this->tiles[$i] = $this->tiles[$k];
+                $this->tiles[$k] = $tmp;
+                $j -= 1;
+            }
+        }
         srand($nextSeed); // Exiting deterministic zone
     }
 
+    private function getMedianWeight() {
+        usort($this->tiles, function($a, $b) {
+            return $b['weight'] - $a['weight'];
+        });
+        return $this->tiles[floor(count($this->tiles)/2)]['weight'];
+    }
+
     public function next() {
-        $idx = array_shift($this->items);
-        return array('x' => floor($idx % $this->gridWidth),
-                     'y' => floor($idx / $this->gridWidth));
+        return array_shift($this->tiles);
     }
 }
 
