@@ -59,8 +59,6 @@ function crop_centered($image, $new_width, $new_height) {
 }
 
 class ImageGrid {
-    // TODO tiling
-
     public function __construct($backgroundImage, $overlayImage,
                                 $gridWidth, $gridHeight) {
         $this->backgroundImage = $backgroundImage;
@@ -77,8 +75,8 @@ class ImageGrid {
 
         $this->gridWidth = $gridWidth;
         $this->gridHeight = $gridHeight;
-        $this->cellWidth = $this->imageWidth / $gridWidth;
-        $this->cellHeight = $this->imageWidth / $gridHeight;
+        $this->cellWidth = round($this->imageWidth / $gridWidth);
+        $this->cellHeight = round($this->imageWidth / $gridHeight);
         $this->cellAspect = $this->cellWidth / $this->cellHeight;
     }
 
@@ -92,10 +90,10 @@ class ImageGrid {
     }
 
     public function gridX($posX) {
-        return $this->imageWidth * $posX / $this->gridWidth;
+        return $posX * $this->cellWidth;
     }
     private function gridY($posY) {
-        return $this->imageHeight * $posY / $this->gridHeight;
+        return $posY * $this->cellHeight;
     }
 
     public function generate() {
@@ -119,10 +117,11 @@ $avatars = array_map(imagecreatefrompng, [
                         "../pics/av5.png",
                     ]);
 
-$grid->addTile($avatars[0],
-               0, 0);
-$grid->addTile($avatars[2],
-               1, 2);
+for ($i=0; $i < 8; ++$i) {
+    $grid->addTile($avatars[rand() % count($avatars)],
+                   rand() % $grid->gridWidth,
+                   rand() % $grid->gridHeight);
+}
 
 $output = $grid->generate();
 
