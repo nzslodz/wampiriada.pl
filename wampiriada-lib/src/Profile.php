@@ -6,4 +6,6 @@ class Profile extends Model {
     public $timestamps = false;
     
     protected $table = 'wampiriada_profile';
+
+    protected $fillable = ['id'];
 }

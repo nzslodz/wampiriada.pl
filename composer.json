@@ -10,7 +10,8 @@
         "netzmacht/html": "dev-master",
         "sammyk/laravel-facebook-sdk": "^3.0",
         "laravelcollective/html": "5.2.*",
-        "phpoffice/phpexcel": "^1.8"
+        "phpoffice/phpexcel": "^1.8",
+        "doctrine/dbal": "*"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
