@@ -63,9 +63,14 @@ class ImageGrid {
                                 $gridWidth, $gridHeight) {
         $this->backgroundImage = $backgroundImage;
         $this->overlayImage = $overlayImage;
-        // TODO assert or resize overlayImage
         $this->imageWidth = imagesx($backgroundImage);
         $this->imageHeight = imagesy($backgroundImage);
+        if (imagesx($overlayImage) != $this->imageWidth ||
+            imagesy($overlayImage) != $this->imageHeight) {
+            $this->overlayImage = imagescale($this->overlayImage,
+                                             $this->imageWidth,
+                                             $this->imageHeight);
+        }
 
         $this->tilesImage = imagecreatetruecolor($this->imageWidth,
                                                  $this->imageHeight);
