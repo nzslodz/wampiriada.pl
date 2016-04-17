@@ -180,7 +180,7 @@ class FacebookController extends Controller {
         $fb->setDefaultAccessToken($token);
 
         $user_likes_wampiriada = false;
-        $user_likes_wampiriada = false;
+        $user_likes_nzs = false;
 
         try {
             # Wampiriada
