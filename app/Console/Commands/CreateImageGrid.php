@@ -41,7 +41,6 @@ class CreateImageGrid extends Command
     public function handle()
     {
         $localStorage = Storage::disk('local');
-        $publicStorage = Storage::disk('public');
         $props = array(
             'background' => imagecreatefromstring($localStorage->get('image-grid-images/wampir.jpg')),
             'overlay' => imagecreatefromstring($localStorage->get('image-grid-images/overlay.png')),
@@ -50,30 +49,43 @@ class CreateImageGrid extends Command
             'seed' => 123
         );
         $grid = new ImageGrid($props);
+        $grid->addTiles($this->getTilesToDisplay());
+        $outputImage = $grid->generate();
+        $this->upload($outputImage);
+    }
 
+    private function getTilesToDisplay() {
+        $localStorage = Storage::disk('local');
         $avatars = array_map(
             function($name) use ($localStorage) {
                 return imagecreatefromstring($localStorage->get("$name"));
             }, $localStorage->files("default-images/"));
+
         $tiles = array_map(
             function($i) use($avatars) {
                 return $avatars[array_rand($avatars)];
             },
-            range(0, $props['gridWidth'] * $props['gridHeight'] * 0.7));
-        $grid->addTiles($tiles);
-        $outputImage = $grid->generate();
+            range(0, 20*15*0.7));
+        return $tiles;
+    }
 
+    private function upload($outputImage) {
+        // Save to local tempfile. No reasonable way to save to memory
         $outputTempFilename = tempnam(sys_get_temp_dir(), 'output');
         imagepng($outputImage, $outputTempFilename);
 
+        // Upload to storage under a temp name
+        // (Don't overwrite the current one too early)
+        $publicStorage = Storage::disk('public');
         $storageTempFilename = "ImageGrid_tmp.png";
-        $storageFilename = "ImageGrid.png";
-        // upload to storage, then rename;
-        // don't upload until it's uploaded
         $outputTempFile = fopen($outputTempFilename, "rb");
         $publicStorage->put($storageTempFilename, $outputTempFile);
         fclose($outputTempFile);
+
+        // Overwrite the current image
+        $storageFilename = "ImageGrid.png";
         $publicStorage->delete($storageFilename);
         $publicStorage->move($storageTempFilename, $storageFilename);
+
     }
 }
