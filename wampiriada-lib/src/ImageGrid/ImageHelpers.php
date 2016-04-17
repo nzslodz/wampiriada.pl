@@ -64,8 +64,8 @@ class ImageHelpers {
         $width = imagesx($image);
         $height = imagesy($image);
         $bg = imagecreatetruecolor($width, $height);
-        $white = imagecolorallocate($bg, 255, 255, 255);
-        imagefill($bg, 0, 0, $white);
+        $black = imagecolorallocate($bg, 0, 0, 0);
+        imagefill($bg, 0, 0, $black);
         imagecopyresampled(
             $bg, $image,
             0, 0, 0, 0,
