@@ -12,7 +12,7 @@ class ImageGrid {
         $this->gridWidth = $options['gridWidth'];
         $this->gridHeight = $options['gridHeight'];
         $this->cellWidth = round($this->imageWidth / $this->gridWidth);
-        $this->cellHeight = round($this->imageWidth / $this->gridHeight);
+        $this->cellHeight = round($this->imageHeight / $this->gridHeight);
         $this->cellAspect = $this->cellWidth / $this->cellHeight;
         $this->createSequence($options['seed']);
     }
