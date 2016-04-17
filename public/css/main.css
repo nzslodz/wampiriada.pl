@@ -663,24 +663,52 @@ section {
 }
 
 .achievement {
-   display: flex;
-   align-items: center;
-   justify-content: space-between;
-   margin: 1em auto;
-   max-width: 40em;
-   border: 1px solid rgba(255,255,255,0.1);
-   border-radius: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 1em auto;
+    max-width: 40em;
+    border: 1px solid rgba(0,0,0,0.2);
+    border-radius: 25px;
+
+/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#4e100c+0,440a0a+100 */
+background: #4e100c; /* Old browsers */
+background: -moz-linear-gradient(top,  #4e100c 0%, #440a0a 100%); /* FF3.6-15 */
+background: -webkit-linear-gradient(top,  #4e100c 0%,#440a0a 100%); /* Chrome10-25,Safari5.1-6 */
+background: linear-gradient(to bottom,  #4e100c 0%,#440a0a 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4e100c', endColorstr='#440a0a',GradientType=0 ); /* IE6-9 */
+
 }
+
+
+.achievement.locked {
+    color: rgba(150, 150, 150, 0.5);
+}
+
 .achievement-number, .achievement-lock {
    line-height: 1.2;
    font-size: 4em;
    margin-right: 0.4em;
    text-align: center;
+
+
 }
 .achievement-number {
     min-width: 2em;
-} 
+
+    padding-bottom: 11px;
+}
+
+.achievement-lock {
+    position: relative;
+    top: 7px;
+
+}
 
 .imagegrid img {
     width: 100%;
+
+    margin-bottom: 40px;
 }
+
+
