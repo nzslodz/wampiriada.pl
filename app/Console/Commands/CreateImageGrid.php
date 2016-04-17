@@ -45,11 +45,13 @@ class CreateImageGrid extends Command
     {
         $localStorage = Storage::disk('local');
         $props = array(
-            'background' => imagecreatefromstring($localStorage->get('image-grid-images/wampir.jpg')),
+            'background' => imagecreatefromstring($localStorage->get('image-grid-images/wampir-1610.jpg')),
             'overlay' => imagecreatefromstring($localStorage->get('image-grid-images/overlay.png')),
+            'achievementIcon' => imagecreatefromstring($localStorage->get('image-grid-images/crown.png')),
             'gridWidth' => 40, // XXX to be configured
             'gridHeight' => 25, // XXX to be configured
-            'seed' => 123
+            'seed' => 123,
+            'achievementUsers' => [10, 953],
         );
         $grid = new ImageGrid($props);
         $grid->addTiles($this->getTilesToDisplay());

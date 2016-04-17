@@ -4,8 +4,10 @@ class ImageGrid {
     public function __construct($options) {
         $this->backgroundImage = $options['background'];
         $this->overlayImage = $options['overlay'];
+        $this->achievementIconImage = $options['achievementIcon'];
         $this->imageWidth = imagesx($this->backgroundImage);
         $this->imageHeight = imagesy($this->backgroundImage);
+        $this->achievementUsers = $options['achievementUsers'];
         $this->rescaleOverlay();
         $this->createTilesImage();
 
@@ -15,6 +17,8 @@ class ImageGrid {
         $this->cellHeight = round($this->imageHeight / $this->gridHeight);
         $this->cellAspect = $this->cellWidth / $this->cellHeight;
         $this->createSequence($options['seed']);
+        $this->tileCounter = 0;
+        $this->achievementPositions = [];
     }
     private function rescaleOverlay() {
         if (imagesx($this->overlayImage) != $this->imageWidth ||
@@ -66,6 +70,18 @@ class ImageGrid {
                            0, 0, // src pos
                            $this->cellWidth, $this->cellHeight, // dst-size
                            imagesx($tileImage), imagesy($tileImage)); // src size
+        $this->tileCounter += 1;
+        if (in_array($this->tileCounter, $this->achievementUsers)) {
+            $iconWidth = imagesx($this->achievementIconImage);
+            $iconHeight = imagesy($this->achievementIconImage);
+            array_push($this->achievementPositions, [
+                'x' => $this->gridX($position['x']) + $this->cellWidth - $iconWidth,
+                'y' => $this->gridY($position['y']) + $this->cellHeight - $iconHeight,
+                'width' => $iconWidth,
+                'height' => $iconHeight,
+            ]);
+
+        }
     }
 
     private function gridX($posX) {
@@ -103,6 +119,14 @@ class ImageGrid {
         imagelayereffect($dest, IMG_EFFECT_ALPHABLEND);
         imagecopy($dest, $this->overlayImage,
                   0, 0, 0, 0, $this->imageWidth, $this->imageHeight);
+
+        // add achievements!
+        foreach ($this->achievementPositions as $position) {
+            imagecopy($this->tilesImage, $this->achievementIconImage,
+                      $position['x'], $position['y'],
+                      0, 0,
+                      $position['width'], $position['height']);
+        }
         $output = $dest;
         return $output;
     }
