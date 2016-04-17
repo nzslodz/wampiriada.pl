@@ -20,7 +20,8 @@ use Storage;
 class FacebookController extends Controller {
     public function getLoginPage(LaravelFacebookSdk $fb) {
         Session::forget('fb_user_access_token');
-        
+        Auth::logout();
+
         $login_url = $fb->getLoginUrl();
 
         return view('facebook.login', ['login_url' => $login_url]);

@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Middleware\AdminMiddleware;
+
 /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -37,7 +39,7 @@ Route::group(['prefix' => 'admin'], function() {
 	//Route::post('user/reset_password',         'UserController@do_reset_password');
 
 	// XXX TODO add a gate or sth
-	Route::group(array('middleware' => 'auth'), function() {
+	Route::group(array('middleware' => ['auth', AdminMiddleware::class]), function() {
 
 	    //Route::controller('zgloszenia', 'EntryController');
 	    //Route::controller('zgloszenia2', 'Entry2Controller');
