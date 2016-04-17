@@ -19,10 +19,15 @@ Route::get('/redirect/{edition_id}/{name}', 'WampiriadaController@getRedirect');
 
 Route::get('/facebook/login', 'FacebookController@getLoginPage');
 Route::get('/facebook/callback', 'FacebookController@getCallback');
+Route::get('/facebook/callback/{to}', 'FacebookController@getCallback');
 
 //Route::group(['middleware' => 'auth'], function() {
     Route::get('/facebook/checkin', 'FacebookController@getCheckin');
     Route::post('/facebook/checkin', 'FacebookController@postCheckin');
+    Route::get('/facebook/raffle', 'FacebookController@getRaffle');
+    Route::post('/facebook/raffle', 'FacebookController@postRaffle');
+    Route::get('/facebook/finish', 'FacebookController@getFinish');
+    Route::get('/facebook/complete', 'FacebookController@getComplete');
 //});
 
 // mobile controller

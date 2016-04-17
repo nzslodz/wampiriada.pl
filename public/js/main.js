@@ -6,9 +6,12 @@ $(function() {
     })
 
     var source = $('#map-item-template').html()
-    var template = Handlebars.compile(source)
+    
+    if(source) {
+        var template = Handlebars.compile(source)
+	}
 	
-	//sortowanie tabelki
+    //sortowanie tabelki
     $('.isotope').isotope({
         getSortData: {
             name: function(elem) {
@@ -78,6 +81,9 @@ $(function() {
     //script z map google (example: markers)
     var map;
     $(document).ready(function(){
+      if($('#map').length == 0) {
+        return;
+      }
       map = new GMaps({
         el: '#map',
         lat: 51.770,

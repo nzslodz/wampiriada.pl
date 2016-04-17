@@ -6,6 +6,7 @@ use Session;
 use App\User;
 use Auth;
 use App\Http\Requests\CheckinRequest;
+use Illuminate\Http\Request;
 
 use NZS\Wampiriada\ShirtSize;
 use NZS\Wampiriada\BloodType;
@@ -13,6 +14,8 @@ use NZS\Wampiriada\Edition;
 use NZS\Wampiriada\ActionDay;
 use NZS\Wampiriada\Checkin;
 use NZS\Wampiriada\Profile;
+use NZS\Wampiriada\Option;
+use NZS\Wampiriada\EditionRepository;
 use Carbon\Carbon;
 
 use Storage;
@@ -22,12 +25,12 @@ class FacebookController extends Controller {
         Session::forget('fb_user_access_token');
         Auth::logout();
 
-        $login_url = $fb->getLoginUrl();
+        $login_url = $fb->getLoginUrl(['user_likes']);
 
         return view('facebook.login', ['login_url' => $login_url]);
     }
 
-    public function getCallback(LaravelFacebookSdk $fb) {
+    public function getCallback(LaravelFacebookSdk $fb, Request $request) {
         try {
             $token = $fb->getAccessTokenFromRedirect();
         } catch(FacebookSDKException $e) {
@@ -35,7 +38,7 @@ class FacebookController extends Controller {
         }
 
         if(!$token) {
-            $helper = $fb->getRedirectHelper();
+            $helper = $fb->getRedirectLoginHelper();
 
             if(!$helper->getError()) {
                 redirect('/facebook/login')->with('message', 'Logowanie zostało odrzucone.');
@@ -49,7 +52,7 @@ class FacebookController extends Controller {
             );
         }
 
-        if(!$token->isLongLived()) {
+        /*if(!$token->isLongLived()) {
             $oauth_client = $fb->getOAuth2Client();
 
             try {
@@ -57,7 +60,7 @@ class FacebookController extends Controller {
             } catch(FacebookSDKException $e) {
                 dd($e->getMessage());
             }
-        }
+        }*/
 
         $fb->setDefaultAccessToken($token);
 
@@ -78,6 +81,11 @@ class FacebookController extends Controller {
         Auth::login($user);
 
         $this->downloadFacebookImage($user);
+
+        if(Session::get('to') == 'finish') {
+            Session::forget('to');
+            return redirect('/facebook/finish');
+        }
 
         return redirect('/facebook/checkin');
     }
@@ -160,5 +168,92 @@ class FacebookController extends Controller {
         $profile->save();
 
         return redirect('/facebook/raffle');
+    }
+
+    public function getRaffle(LaravelFacebookSdk $fb) {
+        $token = Session::get('fb_user_access_token');
+
+        if(!$token) {
+            abort(403, 'Not authorized');
+        }
+
+        $fb->setDefaultAccessToken($token);
+
+        $user_likes_wampiriada = false;
+        $user_likes_wampiriada = false;
+
+        try {
+            # Wampiriada
+            $wamp_response = $fb->get('/me/likes/110146435762751');
+            # NZS
+            $nzs_response = $fb->get('/me/likes/150737411647566');
+        } catch(FacebookSDKException $e) {
+            dd($e->getMessage());
+        }
+
+        foreach($wamp_response->getGraphEdge() as $graph_node) {
+            if($graph_node['id']) {
+                $user_likes_wampiriada = true;
+            }
+        }
+        
+        foreach($nzs_response->getGraphEdge() as $graph_node) {
+            if($graph_node['id']) {
+                $user_likes_nzs = true;
+            }
+        }
+
+        return view('facebook.raffle', [
+            'user_likes_wampiriada' => $user_likes_wampiriada,
+            'user_likes_nzs' => $user_likes_nzs,
+        ]);
+    }
+
+    public function postRaffle(LaravelFacebookSdk $fb) {
+        $login_url = $fb->getLoginUrl(['user_likes', 'publish_actions']);
+        
+        Session::set('to', 'finish');
+        
+        return redirect($login_url);
+    }
+
+    public function getFinish(LaravelFacebookSdk $fb) {
+        $token = Session::get('fb_user_access_token');
+
+        if(!$token) {
+            abort(403, 'Not authorized');
+        }
+
+        $fb->setDefaultAccessToken($token);
+       
+        $edition_repository = new EditionRepository(Option::get('wampiriada.edition', 28));
+        $redirect = $edition_repository->getRedirect('plakat');
+
+        try {
+            $data = [
+                'link' => $redirect->asUrl(),
+                'message' => 'Test message',
+            ];
+
+            $fb->post("/me/feed", $data);
+        } catch(FacebookSDKException $e) {
+            dd($e->getMessage());
+        }
+
+        $current_action = ActionDay::whereDate('created_at', '=', Carbon::today()->toDateString())->first();
+        $checkin = Checkin::whereActionDayId($current_action->id)->whereUserId(Auth::user()->id)->first();
+
+        if(!$checkin) {
+            abort(403, 'Forbidden');
+        }
+
+        $checkin->qualified_for_raffle = true;
+        $checkin->save();
+
+        return redirect($fb->getRedirectLoginHelper()->getLogoutUrl($token,  url('facebook/complete')));
+    }
+
+    public function getComplete() {
+        return view('facebook.complete');
     }
 }

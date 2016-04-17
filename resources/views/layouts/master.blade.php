@@ -42,13 +42,27 @@
     <body class="@yield('classes')">
         
  <div id="fb-root"></div>
-<script>(function(d, s, id) {
-  var js, fjs = d.getElementsByTagName(s)[0];
-  if (d.getElementById(id)) return;
-  js = d.createElement(s); js.id = id;
-  js.src = "//connect.facebook.net/pl_PL/sdk.js#xfbml=1&version=v2.3&appId=214270901970539";
-  fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));</script>       
+<script>
+window.fbAsyncInit = function() {
+    FB.init({
+      appId      : '830027050436250',
+      xfbml      : true,
+      version    : 'v2.6'
+    });
+    
+    @yield('extrafb')
+  };
+
+  (function(d, s, id){
+     var js, fjs = d.getElementsByTagName(s)[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement(s); js.id = id;
+     js.src = "//connect.facebook.net/en_US/sdk.js";
+     fjs.parentNode.insertBefore(js, fjs);
+   }(document, 'script', 'facebook-jssdk'));
+
+</script> 
+
         @yield('content')
 
         <!-- Part of the layout file. Feel free to change the lines below -->
@@ -68,6 +82,7 @@
         <script src="{{ url('js/main.js') }}"></script>
         <script src="http://accept-cookie.cdn.lambdadelta.pl/jquery.accept-cookie.js"></script>
 
+        @yield('extrajs')
         <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
         <script>
             var _gaq=[['_setAccount','UA-36686663-3'],['_trackPageview']];

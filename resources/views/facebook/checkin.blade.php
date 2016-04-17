@@ -17,7 +17,7 @@
                     {{ $errors->first('name') }}
                 </div>
             </div>
-            <div class="form-group {{ $errors->has('size') ? 'has-error' : '' }}"">
+            <div class="form-group {{ $errors->has('size') ? 'has-error' : '' }}">
                 {{ Form::label('size', 'Rozmiar koszulki', ['class' => 'control-label col-sm-2']) }}
                 <div class="col-sm-6">
                     {{ Form::select('size', $sizes, $profile->default_size_id, ['class' => 'form-control']) }}
