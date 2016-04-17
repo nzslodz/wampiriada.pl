@@ -24,7 +24,7 @@ class WampiriadaController extends Controller {
         }
 
         try {
-            $last_year_edition = new EditionRepository($repository->getEdition() - 2);
+            $last_year_edition = new EditionRepository($repository->getEditionNumber() - 2);
             $overall_difference = $repository->getOverallDifference($last_year_edition) * 0.45;
         } catch(ObjectDoesNotExist $e) {
             $overall_difference = false;

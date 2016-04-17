@@ -134,7 +134,7 @@ Oficjalna strona akcji honorowego krwiodawstwa Wampiriada w Łodzi, organizowane
             <div class="col-md-12">
             <p>Za wygraną w konkursie otrzymasz nagrody w postaci kuponów na pizzę Fiero, biletów teatralnych, gadżetow Uniwersytetu Łódzkiego, Politechniki Łódzkiej, Uniwersytetu Medycznego w Łodzi, Regionalnego Centrum Krwiodawstwa i wiele innych.</p>
 
-            <p>Więcej o konkursach na stronie {!! $event_redirect->asTag("oficjalnego eventu {$repository->getEdition()}. edycji Wampiriady") !!}.</p>
+            <p>Więcej o konkursach na stronie {!! $event_redirect->asTag("oficjalnego eventu {$repository->getEditionNumber()}. edycji Wampiriady") !!}.</p>
             </div>
             </div>
             </div>
@@ -212,7 +212,7 @@ Oficjalna strona akcji honorowego krwiodawstwa Wampiriada w Łodzi, organizowane
 
                 <ul>
                 @if($event_redirect->exists())
-                <li><a href="{{ $event_redirect }}">oficjalny event {{ $repository->getEdition() }}. edycji Wampiriady</a></li>
+                <li><a href="{{ $event_redirect }}">oficjalny event {{ $repository->getEditionNumber() }}. edycji Wampiriady</a></li>
                 @endif
                 <li><a href="{{ $repository->getRedirect('facebook') }}">facebook.com/&shy;wampiriada.nzs.rl</a></li>
                 <li><a href="{{ $repository->getRedirect('nzs') }}">Organizator - NZS Regionu Łódzkiego</a></li>
