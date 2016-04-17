@@ -5,7 +5,7 @@
         <div class="col-xs-12">
             <div class="clearfix">
                 <header>
-                    <h2>Terminy {{ $repository->getEdition() }}. edycji Wampiriady</h2>
+                    <h2>Terminy {{ $repository->getEditionNumber() }}. edycji Wampiriady</h2>
                     <p class="date">11.2015 r. - 12.2015 r.</p>
                 </header>
             </div>
@@ -56,7 +56,7 @@
         <div class="col-xs-12">
             <div class="clearfix">
                 <header>
-                    <h2>{{ $repository->getEdition() }}. edycja Wampiriady</h2>
+                    <h2>{{ $repository->getEditionNumber() }}. edycja Wampiriady</h2>
                     <p class="not-found">Już wkrótce pełny grafik terminów akcji Wampiriady.<br>Zapraszamy niebawem!</p>
                 </header>
             </div>

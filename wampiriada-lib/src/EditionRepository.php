@@ -4,25 +4,34 @@ use NZS\Core\Exceptions\ObjectDoesNotExist;
 
 class EditionRepository {
     protected 
-        $edition, 
+        $edition_number,
+        $edition = null, 
         $result, 
         $actions,
         $redirects = array();
 
     public function __construct($edition) {
-        $this->edition = $edition;
+        $this->edition_number = $edition;
+    }
+
+    public function getEditionNumber() {
+        return $this->edition_number;
     }
 
     public function getEdition() {
+        if(!$this->edition) {
+            $this->edition = Edition::whereNumber($this->edition_number)->first();
+        }
+
         return $this->edition;
     }
 
     public function getEditionType() {
-        return $this->edition % 2 + 1;
+        return $this->edition_number % 2 + 1;
     }
 
     public function getEditionYear() {
-        return (int) ($this->edition / 2) + 2002;
+        return (int) ($this->edition_number / 2) + 2002;
     }
 
     public function getResults() {
@@ -35,7 +44,7 @@ class EditionRepository {
             ->first();
         
         if(!$this->result) {
-            throw new ObjectDoesNotExist("There are no results for edition {$this->getEdition()}.");    
+            throw new ObjectDoesNotExist("There are no results for edition {$this->getEditionNumber()}.");    
         }
 
         return $this->result;
@@ -46,12 +55,12 @@ class EditionRepository {
             return $this->actions;
         }
         
-        $this->actions = Action::where('number', $this->getEdition())
+        $this->actions = Action::where('number', $this->getEditionNumber())
             ->orderBy('day')
             ->get();
 
         if($this->actions->isEmpty()) {
-            throw new ObjectDoesNotExist("There are no actions defined for edition {$this->getEdition()}.");    
+            throw new ObjectDoesNotExist("There are no actions defined for edition {$this->getEditionNumber()}."); 
         }
 
         return $this->actions;
@@ -71,12 +80,6 @@ class EditionRepository {
         return $this->getOverall() - $repository->getOverall();
     }
 
-    public function addRedirect($name, $uri) {
-        $this->redirects[$name] = new Redirect($uri);
-
-        return $this->redirects[$name];
-    }
-
     public function getRedirectAsTag($name, $contents, array $attrs=array()) {
         return $this->getRedirect($name)->asTag($contents, $attrs);
     }
@@ -86,16 +89,17 @@ class EditionRepository {
             return $this->redirects[$name];
         }
 
-        return $this->addRedirect($name, url("redirect/{$this->getEdition()}/$name/"));
+        $this->redirects[$name] = Redirect::whereKey($name)->whereEditionId($this->getEdition()->id)->first();
         
-        /*if(file_exists(App::filePath('redirect', $this->getEdition(), "$name.redir"))) {
+        if(!$this->redirects[$name]) {
+            $this->redirects[$name] = Redirect::whereKey($name)->first();
         }
 
-        if(file_exists(App::filePath('redirect', "$name.redir"))) {
-            return $this->addRedirect($name, url("redirect/$name/"));
-        }*/
+        if(!$this->redirects[$name]) {
+            $this->redirects[$name] = new EmptyRedirect();
+        }
 
-        return new EmptyRedirect();
+        return $this->redirects[$name];
     }
 }
 

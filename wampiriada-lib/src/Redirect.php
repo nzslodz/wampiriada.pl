@@ -2,15 +2,14 @@
 
 use Silverplate\App;
 use Netzmacht\Html\Element;
+use Illuminate\Database\Eloquent\Model as Model;
 
-class Redirect {
+class Redirect extends Model {
     use BooleanBlockTrait;
 
-    protected $url; 
+    public $timestamps = false;
 
-    public function __construct($url) {
-        $this->url = $url;
-    }
+    protected $fillable = ['key', 'url', 'edition_id'];
 
     public function exists() {
         return true;

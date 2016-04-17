@@ -5,7 +5,7 @@
         <div class="col-xs-12">
             <div class="clearfix">
                 <header>
-                    <h2>Wyniki {{ $repository->getEdition() }}. edycji Wampiriady</h2>
+                    <h2>Wyniki {{ $repository->getEditionNumber() }}. edycji Wampiriady</h2>
                     <p class="date">11.2015 r. - 12.2015 r.</p>
                 </header>
             </div>
