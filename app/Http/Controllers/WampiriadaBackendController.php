@@ -4,6 +4,9 @@ use NZS\Core\CollectionAggregator;
 use NZS\Wampiriada\Option;
 use NZS\Wampiriada\Action;
 use NZS\Wampiriada\ActionData;
+use NZS\Wampiriada\Edition;
+use NZS\Wampiriada\ShirtSize;
+use NZS\Wampiriada\Redirect;
 
 use Illuminate\Http\Request;
 
@@ -88,6 +91,48 @@ class WampiriadaBackendController extends Controller {
         $action_data->save();
 
         return redirect('admin/wampiriada/show/' . $action->number);
+    }
+
+    public function getSettings(Request $request, $number) {
+        $edition = Edition::whereNumber($number)->firstOrFail();
+
+        $checkboxes = ShirtSize::get();
+
+        return view('admin.wampiriada.settings', [
+            'edition_number' => $number,
+            'redirect_event' => Redirect::firstOrNew(['key' => 'facebook-event', 'edition_id' => $edition->id]),
+            'redirect_koszulka' => Redirect::firstOrNew(['key' => 'koszulka', 'edition_id' => $edition->id]),
+            'redirect_plakat' => Redirect::firstOrNew(['key' => 'plakat', 'edition_id' => $edition->id]),
+            'checkboxes' => $checkboxes,
+        ]);
+    }
+
+    public function postSettings(Request $request, $number) {
+        $edition = Edition::whereNumber($number)->firstOrFail();
+        
+        $sizes = $request->input('sizes');
+        if(!is_array($sizes)) {
+            $sizes = [];
+        }
+
+        foreach(ShirtSize::get() as $shirt_size) {
+            $shirt_size->active = in_array($shirt_size->id, $sizes);
+            $shirt_size->save();
+        }
+
+        $redirects = [
+            'facebook-event' => 'redirect_event',
+            'koszulka' => 'redirect_koszulka',
+            'plakat' => 'redirect_plakat',
+        ];
+
+        foreach($redirects as $key => $field) {
+            $redirect = Redirect::firstOrNew(['key' => $key, 'edition_id' => $edition->id]);
+            $redirect->url = $request->input($field);
+            $redirect->save();
+        }
+
+        return redirect('admin/wampiriada/show/' . $number)->with('message', 'Zmiany zapisane poprawnie')->with('status', 'success');
     }
 
 	public function postResults(Request $request) {

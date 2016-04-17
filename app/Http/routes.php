@@ -48,6 +48,8 @@ Route::group(['prefix' => 'admin'], function() {
 	    Route::get('wampiriada/edit/{number}', 'WampiriadaBackendController@getEdit');
 	    Route::post('wampiriada/edit/{number}', 'WampiriadaBackendController@postEdit');
 	    Route::post('wampiriada/results', 'WampiriadaBackendController@postResults');
+	    Route::get('wampiriada/settings/{number}', 'WampiriadaBackendController@getSettings');
+	    Route::post('wampiriada/settings/{number}', 'WampiriadaBackendController@postSettings');
 
 	    Route::get('/', function() {
 	    	return View::make('admin.hello');

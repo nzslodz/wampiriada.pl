@@ -6,7 +6,12 @@
 
 @section('content')
     <div class="page-header">
-        <h1>Wyniki {{ $edition }}. edycji Wampiriady</h1>
+        <div class='btn-toolbar pull-right'>
+            <div class='btn-group'>
+                <a href="{{ url('admin/wampiriada/settings/' . $edition) }}" class="btn btn-default"><span class="glyphicon glyphicon-cog"></span> Ustawienia</a>
+            </div>
+        </div>
+        <h2>Wyniki {{ $edition }}. edycji Wampiriady</h2>
     </div>
 
     <table class="table table-striped table-bordered">
