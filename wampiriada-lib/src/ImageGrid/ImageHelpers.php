@@ -59,4 +59,18 @@ class ImageHelpers {
             'height' => $new_height
         ));
     }
+
+    public static function remove_transparency($image) {
+        $width = imagesx($image);
+        $height = imagesy($image);
+        $bg = imagecreatetruecolor($width, $height);
+        $white = imagecolorallocate($bg, 255, 255, 255);
+        imagefill($bg, 0, 0, $white);
+        imagecopyresampled(
+            $bg, $image,
+            0, 0, 0, 0,
+            $width, $height,
+            $width, $height);
+        return $bg;
+    }
 }

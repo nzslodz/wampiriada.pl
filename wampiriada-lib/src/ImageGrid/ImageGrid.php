@@ -65,6 +65,8 @@ class ImageGrid {
 
     public function addTile($tileImage, $position) {
         $tileImage = ImageHelpers::crop_to_aspect($tileImage, $this->cellAspect);
+        $tileImage = ImageHelpers::remove_transparency($tileImage);
+
         imagecopyresampled($this->tilesImage, $tileImage,
                            $this->gridX($position['x']), $this->gridY($position['y']), // dst pos
                            0, 0, // src pos
