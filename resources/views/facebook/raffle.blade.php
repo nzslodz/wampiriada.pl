@@ -53,3 +53,7 @@
     </div>
 
 @stop
+
+@section('fbextra')
+    FB.Event.subscribe('edge.create', function(response) {console.log(response)});
+@stop
