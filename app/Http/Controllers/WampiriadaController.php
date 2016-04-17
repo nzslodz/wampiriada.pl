@@ -77,6 +77,7 @@ class WampiriadaController extends Controller {
             'get_class' => $get_class,
             'actions' => $actions,
             'results' => $results,
+            'achievements' => config('app.achievements'),
             'partners' => $this->getPartners(),
         ]);
     }

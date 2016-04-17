@@ -31,6 +31,45 @@ Oficjalna strona akcji honorowego krwiodawstwa Wampiriada w Łodzi, organizowane
 
 @include('wampiriada.templates.index_action_schedule')
 
+<section class="imagegrid">
+    <div class="image">
+    <img src="{{ url('storage/ImageGrid.jpg') }}">
+    </div>
+
+    <div class="container">
+    <div class="row">
+    <div class="col-xs-12">
+        @foreach($achievements as $number => $achievement)
+            @if(results->overall > $achievement)
+                <div class="achievement">
+                    <div class="row">
+                        <div class="col-xs-3 number">
+                            {{ $number }}
+                        </div>
+                        <div class="col-xs-9 text">
+                            <p>{{ $achievement }}</p>
+                        </div>
+                    </div>
+                </div>
+            @else
+                <div class="achievement hidden">
+                    <div class="row">
+                        <div class="col-xs-3 number">
+                            {{ $number }}
+                        </div>
+                        <div class="col-xs-9 text">
+                            <p>To osiągnięcie zostanie odkryte za {{ $number - $results->overall }} osób.</p>
+                        </div>
+                    </div>
+                </div>
+            @endif    
+        @endforeach
+    </div>
+    </div>
+    </div>
+    
+</section>
+
 
 <section class="description @if($display_results) with-results @endif">
     <div class="container">
