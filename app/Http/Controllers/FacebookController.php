@@ -25,7 +25,7 @@ class FacebookController extends Controller {
         Session::forget('fb_user_access_token');
         Auth::logout();
 
-        $login_url = $fb->getLoginUrl(['user_likes']);
+        $login_url = $fb->getLoginUrl(['user_likes', 'user_friends', 'email']);
 
         return view('facebook.login', ['login_url' => $login_url]);
     }

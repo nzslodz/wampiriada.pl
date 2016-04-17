@@ -212,6 +212,6 @@ return [
 
     'achievements' => [
         10 => 'Wampir obudził się i poczuł się głodny....',
-        953 => '... dlatego najadł się 953 osobami',
+        954 => '... dlatego najadł się 953 osobami',
     ]
 ];
