@@ -86,18 +86,18 @@ class CreateImageGrid extends Command
     private function upload($outputImage) {
         // Save to local tempfile. No reasonable way to save to memory
         $outputTempFilename = tempnam(sys_get_temp_dir(), 'output');
-        imagepng($outputImage, $outputTempFilename);
+        imagejpeg($outputImage, $outputTempFilename);
 
         // Upload to storage under a temp name
         // (Don't overwrite the current one too early)
         $publicStorage = Storage::disk('public');
-        $storageTempFilename = "ImageGrid_tmp.png";
+        $storageTempFilename = "ImageGrid_tmp.jpg";
         $outputTempFile = fopen($outputTempFilename, "rb");
         $publicStorage->put($storageTempFilename, $outputTempFile);
         fclose($outputTempFile);
 
         // Overwrite the current image
-        $storageFilename = "ImageGrid.png";
+        $storageFilename = "ImageGrid.jpg";
         $publicStorage->delete($storageFilename);
         $publicStorage->move($storageTempFilename, $storageFilename);
 
