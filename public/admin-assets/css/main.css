@@ -1,0 +1,44 @@
+.well dl {
+    margin-bottom: 0;
+}
+
+.secondary-action {
+    margin-top: 20px;
+}
+
+.radio {
+    margin-left: 10px;
+}
+
+.from-top {
+    margin-top: 100px;
+}
+
+.input-first {
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+.show-row {
+    margin-bottom: 10px;
+} 
+
+.input-second {
+    margin-bottom: 40px;
+}
+
+.email {
+    padding: 0 1em;
+    overflow: hidden;
+}
+
+#send-form {
+    margin: 4em 0;
+    text-align: center;
+}
+
+@media print {
+    .no-link-printing a[href]:after {
+        content: none !important;
+    }
+}
