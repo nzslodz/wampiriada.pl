@@ -38,19 +38,40 @@ class WampiriadaController extends Controller {
             $actions = [];
         }
 
-        $oddalo = function($num) {
+        $pluralize = function($num, $strings) {
             $mod_100 = $num % 100;
             $mod_10 = $num % 10;
 
-            if($mod_100 > 10 && $mod_100 < 20) {
-                return 'osób oddało';
+            if ($num == 0) {
+                $val = $strings['zero'];
+            } elseif ($num == 1) {
+                $val = $strings['one'];
+            } elseif ($mod_100 > 10 && $mod_100 < 20) {
+                $val = $strings['many'];
+            } elseif ($mod_10 > 1 && $mod_10 < 5) {
+                $val = $strings['few'];
+            } else {
+                $val = $strings['many'];
             }
+            $val = str_replace(':num', $num, $val);
+            return $val;
+        };
 
-            if($mod_10 > 1 && $mod_10 < 5) {
-                return 'osoby oddały';
-            }
-
-            return 'osób oddało';
+        $oddalo = function($num) use ($pluralize) {
+            return $pluralize($num, [
+                'zero' => 'osób oddało',
+                'one' => 'osoba oddała',
+                'few' => 'osoby oddały',
+                'many' => 'osoby oddały',
+            ]);
+        };
+        $odkryte_za = function($num) use ($pluralize) {
+            return $pluralize($num, [
+                'zero' => 'za :num osób',
+                'one' => 'za :num osobę',
+                'few' => 'za :num osoby',
+                'many' => 'za :num osób',
+            ]);
         };
 
         $school_mapping = array(
@@ -76,6 +97,7 @@ class WampiriadaController extends Controller {
             'display_results' => $display_results && false,
             'overall_difference' => $overall_difference,
             'oddalo' => $oddalo,
+            'odkryte_za' => $odkryte_za,
             'get_class' => $get_class,
             'actions' => $actions,
             'results' => $results,
