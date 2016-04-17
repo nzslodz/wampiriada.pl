@@ -119,9 +119,13 @@ class FacebookController extends Controller {
             $profile = new Profile;
         }
 
+        $shirt_sizes = ShirtSize::orderBy('id')->pluck('name', 'id');
+        $shirt_sizes->prepend('---', "");
+        $blood_types = BloodType::orderBy('name')->pluck('name', 'id');
+        $blood_types->prepend('---', "");
         return view('facebook.checkin', [
-            'sizes' => ShirtSize::orderBy('id')->pluck('name', 'id'),
-            'blood_types' => BloodType::orderBy('name')->pluck('name', 'id'),
+            'sizes' => $shirt_sizes,
+            'blood_types' => $blood_types,
             'first_time' => !(Checkin::whereUserId(Auth::user()->id)->first()),
             'profile' => $profile,
         ]);
