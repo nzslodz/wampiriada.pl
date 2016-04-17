@@ -52,7 +52,7 @@ Oficjalna strona akcji honorowego krwiodawstwa Wampiriada w Łodzi, organizowane
                     <div class="achievement-body">
                         To osiągnięcie zostanie odkryte za {{ $number - $numberOfCheckins }} osób.
                     </div>
-                    <div class="achievement-lock">L</div>
+                    <div class="achievement-lock"><i class="fa fa-lock" aria-hidden="true"></i></div>
                 </div>
             @endif
         @endforeach
