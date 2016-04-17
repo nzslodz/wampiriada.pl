@@ -37,35 +37,25 @@ Oficjalna strona akcji honorowego krwiodawstwa Wampiriada w Łodzi, organizowane
     </div>
 
     <div class="container">
-    <div class="row">
-    <div class="col-xs-12">
         @foreach($achievements as $number => $achievement)
             @if($numberOfCheckins >= $number)
                 <div class="achievement">
-                    <div class="row">
-                        <div class="col-xs-3 number">
-                            {{ $number }}
-                        </div>
-                        <div class="col-xs-9 text">
-                            <p>{{ $achievement }}</p>
-                        </div>
+                    <div class="achievement-number">{{ $number }}</div>
+                    <div class="achievement-body">
+                        {{ $achievement }}
                     </div>
+                    <div class="achievement-lock"></div>
                 </div>
             @else
                 <div class="achievement locked">
-                    <div class="row">
-                        <div class="col-xs-3 number">
-                            {{ $number }}
-                        </div>
-                        <div class="col-xs-9 text">
-                            <p>To osiągnięcie zostanie odkryte za {{ $number - $numberOfCheckins }} osób.</p>
-                        </div>
+                    <div class="achievement-number">{{ $number }}</div>
+                    <div class="achievement-body">
+                        To osiągnięcie zostanie odkryte za {{ $number - $numberOfCheckins }} osób.
                     </div>
+                    <div class="achievement-lock">L</div>
                 </div>
             @endif
         @endforeach
-    </div>
-    </div>
     </div>
 
 </section>
