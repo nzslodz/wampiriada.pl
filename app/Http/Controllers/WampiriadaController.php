@@ -72,7 +72,8 @@ class WampiriadaController extends Controller {
             'event_redirect' => $event_redirect,
             'repository' => $repository,
             'display_actions' => $display_actions,
-            'display_results' => $display_results,
+            // XXX
+            'display_results' => $display_results && false,
             'overall_difference' => $overall_difference,
             'oddalo' => $oddalo,
             'get_class' => $get_class,
