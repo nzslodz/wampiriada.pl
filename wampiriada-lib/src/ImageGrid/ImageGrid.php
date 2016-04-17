@@ -1,4 +1,4 @@
-<?php
+<?php namespace NZS\Wampiriada\ImageGrid;
 
 class ImageGrid {
     public function __construct($options) {
@@ -38,6 +38,7 @@ class ImageGrid {
             'height' => $this->imageHeight));
         imagefilter($edges, IMG_FILTER_EDGEDETECT);
 
+        /* compute weights for each tile */
         $items = array();
         for($tx = 0; $tx < $this->gridWidth; $tx++) {
             for($ty = 0; $ty < $this->gridHeight; $ty++) {
@@ -59,7 +60,7 @@ class ImageGrid {
     }
 
     public function addTile($tileImage, $position) {
-        $tileImage = crop_to_aspect($tileImage, $this->cellAspect);
+        $tileImage = ImageHelpers::crop_to_aspect($tileImage, $this->cellAspect);
         imagecopyresampled($this->tilesImage, $tileImage,
                            $this->gridX($position['x']), $this->gridY($position['y']), // dst pos
                            0, 0, // src pos
@@ -73,6 +74,7 @@ class ImageGrid {
     private function gridY($posY) {
         return $posY * $this->cellHeight;
     }
+
     private function getTileValue($img, $tx, $ty) {
         $sum = 0;
         for ($x=$this->gridX($tx); $x<$this->gridX($tx) + $this->cellWidth; ++$x) {
@@ -89,9 +91,9 @@ class ImageGrid {
 
     public function generate() {
         // prepare masked overlay
-        imagealphamask($this->overlayImage,
-                       $this->tilesImage,
-                       true);
+        ImageHelpers::imagealphamask($this->overlayImage,
+                                     $this->tilesImage,
+                                     true);
 
         // join background with avatars (grr)
         $source = $this->backgroundImage;
@@ -104,6 +106,7 @@ class ImageGrid {
         $output = $dest;
         return $output;
     }
+
     /* Blend src into dst */
     private function sweetBlending($dst, $src) {
         $R = "red"; $G = "green"; $B = "blue";
@@ -126,102 +129,3 @@ class ImageGrid {
     }
 
 }
-
-class TileSequence {
-    public function __construct($tiles, $seed) {
-        $this->tiles = $tiles;
-        $this->shuffleTiles($seed);
-    }
-    private function shuffleTiles($seed) {
-        $medianWeight = $this->getMedianWeight();
-        foreach ($this->tiles as $key => $value) {
-            $this->tiles[$key]['rare'] = ($value['weight'] > $medianWeight);
-        }
-        $nextSeed = rand();
-        srand($seed); // Entering deterministic zone
-        shuffle($this->tiles);
-        $j = count($this->tiles) - 1;
-        for ($i=0; $i<$j; ++$i) {
-            if ($this->tiles[$i]['rare']) {
-                $k = rand($i+1, $j);
-                $tmp = $this->tiles[$i];
-                $this->tiles[$i] = $this->tiles[$k];
-                $this->tiles[$k] = $tmp;
-                $j -= 1;
-            }
-        }
-        srand($nextSeed); // Exiting deterministic zone
-    }
-
-    private function getMedianWeight() {
-        usort($this->tiles, function($a, $b) {
-            return $b['weight'] - $a['weight'];
-        });
-        return $this->tiles[floor(count($this->tiles)/2)]['weight'];
-    }
-
-    public function next() {
-        return array_shift($this->tiles);
-    }
-}
-
-// based on http://stackoverflow.com/questions/7203160/php-gd-use-one-image-to-mask-another-image-including-transparency
-// (changed to use alpha channel as mask, not red)
-function imagealphamask(&$picture, $mask, $reverse=false) {
-    // Get sizes and set up new picture
-    $xSize = imagesx($picture);
-    $ySize = imagesy($picture);
-    $newPicture = imagecreatetruecolor($xSize, $ySize);
-    imagesavealpha($newPicture, true);
-    imagefill($newPicture, 0, 0, imagecolorallocatealpha($newPicture, 0, 0, 0, 127));
-
-    // Resize mask if necessary
-    if($xSize != imagesx($mask) || $ySize != imagesy($mask)) {
-        $tempPic = imagecreatetruecolor($xSize, $ySize);
-        imagecopyresampled($tempPic, $mask, 0, 0, 0, 0, $xSize, $ySize, imagesx($mask), imagesy($mask));
-        imagedestroy($mask);
-        $mask = $tempPic;
-    }
-
-    // Perform pixel-based alpha map application
-    for($x = 0; $x < $xSize; $x++) {
-        for($y = 0; $y < $ySize; $y++) {
-            $pixel = imagecolorsforindex($mask, imagecolorat($mask, $x, $y));
-            if ($reverse) {
-                $alpha = 127 - $pixel['alpha'];
-            } else {
-                $alpha = $pixel['alpha'];
-            }
-            $color = imagecolorsforindex($picture, imagecolorat($picture, $x, $y));
-            imagesetpixel($newPicture, $x, $y, imagecolorallocatealpha($newPicture, $color['red'], $color['green'], $color['blue'], $alpha));
-        }
-    }
-
-    // Copy back to original picture
-    imagedestroy($picture);
-    $picture = $newPicture;
-}
-
-function crop_to_aspect($image, $aspect) {
-    $width = imagesx($image);
-    $height = imagesy($image);
-    $new_width = $height * $aspect;
-    $new_height = $width / $aspect;
-    if ($new_width < $width) {
-        return crop_centered($image, $new_width, $height);
-    } else {
-        return crop_centered($image, $width, $new_height);
-    }
-}
-
-function crop_centered($image, $new_width, $new_height) {
-    return imagecrop($image, array(
-        'x' => floor((imagesx($image) - $new_width) / 2),
-        'y' => floor((imagesy($image) - $new_height) / 2),
-        'width' => $new_width,
-        'height' => $new_height
-    ));
-}
-
-
-?>
