@@ -40,7 +40,7 @@ class User extends Authenticatable {
             return "fb-images/$this->facebook_user_id.jpg";
         }
 
-        $image_id = $this->facebook_user_id % 32;
+        $image_id = crc32($this->facebook_user_id . $this->email) % 32;
 
         return "default-images/$image_id.png";
     }

@@ -47,8 +47,8 @@ class CreateImageGrid extends Command
         $props = array(
             'background' => imagecreatefromstring($localStorage->get('image-grid-images/wampir.jpg')),
             'overlay' => imagecreatefromstring($localStorage->get('image-grid-images/overlay.png')),
-            'gridWidth' => 20,
-            'gridHeight' => 15,
+            'gridWidth' => 40, // XXX to be configured
+            'gridHeight' => 25, // XXX to be configured
             'seed' => 123
         );
         $grid = new ImageGrid($props);
@@ -78,7 +78,6 @@ class CreateImageGrid extends Command
         $checkins = Checkin::whereEditionId($editionId)->with('user')->get();
         $images = $checkins->map(function($checkin, $key) use($localStorage) {
             $path = $checkin->user->getFacebookProfileImagePath();
-            var_dump($path);
             return imagecreatefromstring($localStorage->get($path));
         });
         return $images->toArray();
