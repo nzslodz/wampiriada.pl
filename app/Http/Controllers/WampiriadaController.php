@@ -4,13 +4,14 @@ use NZS\Wampiriada\EditionRepository;
 use NZS\Core\Exceptions\ObjectDoesNotExist;
 use App\Libraries\PartnerRow;
 use NZS\Wampiriada\Option;
+use NZS\Wampiriada\Checkin;
 
 class WampiriadaController extends Controller {
     public function showIndex() {
         $edition = Option::get('wampiriada.edition', 28);
 
         $repository = new EditionRepository($edition);
-        
+
         $event_redirect = $repository->getRedirect('facebook-event');
 
         $display_results = true;
@@ -40,7 +41,7 @@ class WampiriadaController extends Controller {
         $oddalo = function($num) {
             $mod_100 = $num % 100;
             $mod_10 = $num % 10;
-            
+
             if($mod_100 > 10 && $mod_100 < 20) {
                 return 'osób oddało';
             }
@@ -62,11 +63,11 @@ class WampiriadaController extends Controller {
             'ASP' => 'asp',
             'Pozostałe' => 'other',
         );
-        
+
         $get_class = function($short_name) use($school_mapping) {
             return $school_mapping[$short_name];
         };
-        
+
         return view('wampiriada.index', [
             'event_redirect' => $event_redirect,
             'repository' => $repository,
@@ -79,6 +80,7 @@ class WampiriadaController extends Controller {
             'results' => $results,
             'achievements' => config('app.achievements'),
             'partners' => $this->getPartners(),
+            'numberOfCheckins' => Checkin::whereEditionId($repository->getEdition()->id)->count(),
         ]);
     }
 
@@ -86,7 +88,7 @@ class WampiriadaController extends Controller {
     public function getRedirect($name, $edition_id=null) {
         return "id: $edition_id, name: $name";
     }
-    
+
     public function getPartners() {
         $partners = [
             'uml-main' => [
@@ -166,7 +168,7 @@ class WampiriadaController extends Controller {
                 'link' => 'http://plasterlodzki.pl',
                 'image' => 'img/partnerzy/25.jpg',
             ],
-            
+
             'dlastudenta' => [
                 'title' => 'dlastudenta.pl',
                 'link' => 'http://dlastudenta.pl',
@@ -196,7 +198,7 @@ class WampiriadaController extends Controller {
                 'link' => 'http://student.lodz.pl',
                 'image' => 'img/partnerzy/29.jpg',
             ],
-            
+
             'eska' => [
                 'title' => 'Radio Eska',
                 'link' => 'http://eska.pl',

@@ -51,7 +51,7 @@ class CreateImageGrid extends Command
             'gridWidth' => 40, // XXX to be configured
             'gridHeight' => 25, // XXX to be configured
             'seed' => 123,
-            'achievementUsers' => [10, 953],
+            'achievementUsers' => array_keys(config('app.achievements')),
         );
         $grid = new ImageGrid($props);
         $grid->addTiles($this->getTilesToDisplay());

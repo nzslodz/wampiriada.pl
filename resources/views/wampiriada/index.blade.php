@@ -40,7 +40,7 @@ Oficjalna strona akcji honorowego krwiodawstwa Wampiriada w Łodzi, organizowane
     <div class="row">
     <div class="col-xs-12">
         @foreach($achievements as $number => $achievement)
-            @if(results->overall > $achievement)
+            @if($numberOfCheckins >= $number)
                 <div class="achievement">
                     <div class="row">
                         <div class="col-xs-3 number">
@@ -52,22 +52,22 @@ Oficjalna strona akcji honorowego krwiodawstwa Wampiriada w Łodzi, organizowane
                     </div>
                 </div>
             @else
-                <div class="achievement hidden">
+                <div class="achievement locked">
                     <div class="row">
                         <div class="col-xs-3 number">
                             {{ $number }}
                         </div>
                         <div class="col-xs-9 text">
-                            <p>To osiągnięcie zostanie odkryte za {{ $number - $results->overall }} osób.</p>
+                            <p>To osiągnięcie zostanie odkryte za {{ $number - $numberOfCheckins }} osób.</p>
                         </div>
                     </div>
                 </div>
-            @endif    
+            @endif
         @endforeach
     </div>
     </div>
     </div>
-    
+
 </section>
 
 
@@ -96,7 +96,7 @@ Oficjalna strona akcji honorowego krwiodawstwa Wampiriada w Łodzi, organizowane
                     <li>chorujesz,</li>
                     <li>jesteś do 48 godzin po spożyciu alhokolu,</li>
                     <li>lub bierzesz leki,</li>
-                </ul>    
+                </ul>
                 <p>warto wstrzymać się z uczestnictwem w akcji Wampiriady. Wybierz jedną z akcji w późniejszym terminie, albo zgłoś się do Regionalnego Centrum Kriodawstwa i Krwiolecznictwa w dogodnym dla Ciebie momencie.</p>
                 <p>Twoja krew stanowi niezwykle cenny surowiec, którego nie da się wytworzyć syntetycznie. To dlatego oddawanie krwi jest takie ważne!</p>
                 <p>Dowiedz się więcej na stronie <a href="http://krwiodawstwo.pl/26/jak-zostac-krwiodawca">RCKiK w Łodzi</a>.</p>
@@ -182,7 +182,7 @@ Oficjalna strona akcji honorowego krwiodawstwa Wampiriada w Łodzi, organizowane
         <div class="col-md-8">
             <div  data-width="500" class="fb-page" data-href="https://www.facebook.com/wampiriada.nzs.rl" data-hide-cover="false" data-show-facepile="true" data-show-posts="true"><div class="fb-xfbml-parse-ignore"><blockquote cite="https://www.facebook.com/wampiriada.nzs.rl"><a href="https://www.facebook.com/wampiriada.nzs.rl">Wampiriada NZS RŁ</a></blockquote></div></div>
 
-            
+
         </div>
         <div class="col-md-4">
                 <div class="row mobile">
@@ -314,7 +314,7 @@ Oficjalna strona akcji honorowego krwiodawstwa Wampiriada w Łodzi, organizowane
                 @foreach ($partners as $row)
                     <div class="flex-row row-{{ $row->getCount() }}">
                         @foreach($row->getPartners() as $item)
-                           
+
                         <div class="flex-item">
                             @if($item->url)
                                 <a href="{{ $item->url }}" target="_blank">
@@ -335,7 +335,7 @@ Oficjalna strona akcji honorowego krwiodawstwa Wampiriada w Łodzi, organizowane
             </div>
         </div>
     </div>
-    
+
     <a class="button" href="#intro"><i class="fa fa-arrow-up"></i> Powrót na górę</a>
 </section>
 </div>
