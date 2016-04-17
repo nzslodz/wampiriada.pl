@@ -43,8 +43,8 @@ class CreateImageGrid extends Command
         $localStorage = Storage::disk('local');
         $publicStorage = Storage::disk('public');
         $props = array(
-            'background' => imagecreatefromstring($localStorage->get('default-images/ImageGrid/wampir.jpg')),
-            'overlay' => imagecreatefromstring($localStorage->get('default-images/ImageGrid/overlay.png')),
+            'background' => imagecreatefromstring($localStorage->get('image-grid-images/wampir.jpg')),
+            'overlay' => imagecreatefromstring($localStorage->get('image-grid-images/overlay.png')),
             'gridWidth' => 20,
             'gridHeight' => 15,
             'seed' => 123
@@ -53,14 +53,8 @@ class CreateImageGrid extends Command
 
         $avatars = array_map(
             function($name) use ($localStorage) {
-                return imagecreatefromstring($localStorage->get($name));
-            }, [
-                "default-images/ImageGrid/av1.png",
-                "default-images/ImageGrid/av2.png",
-                "default-images/ImageGrid/av3.png",
-                "default-images/ImageGrid/av4.png",
-                "default-images/ImageGrid/av5.png",
-            ]);
+                return imagecreatefromstring($localStorage->get("$name"));
+            }, $localStorage->files("default-images/"));
         $tiles = array_map(
             function($i) use($avatars) {
                 return $avatars[array_rand($avatars)];
@@ -79,6 +73,7 @@ class CreateImageGrid extends Command
         $outputTempFile = fopen($outputTempFilename, "rb");
         $publicStorage->put($storageTempFilename, $outputTempFile);
         fclose($outputTempFile);
+        $publicStorage->delete($storageFilename);
         $publicStorage->move($storageTempFilename, $storageFilename);
     }
 }

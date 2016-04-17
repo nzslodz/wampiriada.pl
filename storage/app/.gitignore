@@ -1,5 +1,7 @@
 *
 !public/
 !.gitignore
+!image-grid-images
+!image-grid-images/*
 !default-images
 !default-images/*
