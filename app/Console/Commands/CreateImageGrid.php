@@ -4,6 +4,9 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 use NZS\Wampiriada\ImageGrid\ImageGrid;
+use NZS\Wampiriada\Option;
+use NZS\Wampiriada\Checkin;
+use NZS\Wampiriada\EditionRepository;
 use Storage;
 
 
@@ -54,19 +57,31 @@ class CreateImageGrid extends Command
         $this->upload($outputImage);
     }
 
-    private function getTilesToDisplay() {
+    private function getRandomTilesToDisplay($count) {
         $localStorage = Storage::disk('local');
         $avatars = array_map(
             function($name) use ($localStorage) {
                 return imagecreatefromstring($localStorage->get("$name"));
             }, $localStorage->files("default-images/"));
 
-        $tiles = array_map(
-            function($i) use($avatars) {
-                return $avatars[array_rand($avatars)];
-            },
-            range(0, 20*15*0.7));
+        $tiles = array_map(function($i) use($avatars) {
+            return $avatars[array_rand($avatars)];
+        }, range(0, $count));
         return $tiles;
+    }
+
+    private function getTilesToDisplay() {
+        $localStorage = Storage::disk('local');
+        $editionNumber = Option::get('wampiriada.edition', 28);
+        $repository = new EditionRepository($editionNumber);
+        $editionId = $repository->getEdition()->id;
+        $checkins = Checkin::whereEditionId($editionId)->with('user')->get();
+        $images = $checkins->map(function($checkin, $key) use($localStorage) {
+            $path = $checkin->user->getFacebookProfileImagePath();
+            var_dump($path);
+            return imagecreatefromstring($localStorage->get($path));
+        });
+        return $images->toArray();
     }
 
     private function upload($outputImage) {
