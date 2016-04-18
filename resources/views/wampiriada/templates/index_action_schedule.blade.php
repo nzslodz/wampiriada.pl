@@ -6,7 +6,7 @@
             <div class="clearfix">
                 <header>
                     <h2>Terminy {{ $repository->getEditionNumber() }}. edycji Wampiriady</h2>
-                    <p class="date">11.2015 r. - 12.2015 r.</p>
+                    <p class="date">{{ $repository->getEdition()->getStartDate()->format('m.Y') }} - {{ $repository->getEdition()->getEndDate()->format('m.Y') }} r.</p>
                 </header>
             </div>
 

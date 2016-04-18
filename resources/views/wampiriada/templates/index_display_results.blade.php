@@ -6,7 +6,7 @@
             <div class="clearfix">
                 <header>
                     <h2>Wyniki {{ $repository->getEditionNumber() }}. edycji Wampiriady</h2>
-                    <p class="date">11.2015 r. - 12.2015 r.</p>
+                    <p class="date">{{ $repository->getEdition()->getStartDate()->format('m.Y') }} - {{ $repository->getEdition()->getEndDate()->format('m.Y') }} r.</p>
                 </header>
             </div>
         </div>
@@ -35,20 +35,6 @@
                     data-unknown="{{ $results->unknown }}"
                 ></div>
         </div>
-    <!--    
-    <div class="row thanks">
-        <p>
-            Wampiriada zakończona! Wedle oficjalnych informacji z Regionalnego Centrum Krwiodawstwa, udało się zebrać aż {{ $results->overall * 0.45 }} litrów krwi{{ $overall_difference ? ",": "." }}
-            @if($overall_difference)
-                czyli <strong>o {{ $overall_difference }} litra więcej niż na ostatniej</strong> jesiennej Wampiriadzie.
-            @endif
-        </p>
-        <p class="itsbig">Dziękujemy serdecznie,</p>
-        <p class="center">ponieważ wspólnie udało się nam osiągnąć coś wielkiego.</p>
-        <p>Zapraszamy na kolejną Wampiriadę, która odbędzie się w maju 2014 r., oraz do pobierania naszej aplikacji na Androida.</p>
-    </div>
-    </div>
-    -->
     </div>
     </div>
 </section>
