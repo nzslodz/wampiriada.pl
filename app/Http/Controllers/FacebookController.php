@@ -12,6 +12,7 @@ use NZS\Wampiriada\ShirtSize;
 use NZS\Wampiriada\BloodType;
 use NZS\Wampiriada\Edition;
 use NZS\Wampiriada\ActionDay;
+use NZS\Wampiriada\ActionData;
 use NZS\Wampiriada\Checkin;
 use NZS\Wampiriada\Profile;
 use NZS\Wampiriada\Option;
@@ -145,6 +146,14 @@ class FacebookController extends Controller {
             return abort(403, "Today the process is not available");
         }
 
+        $blood_type = BloodType::findOrFail($request->blood_type);
+
+        // Update ActionData
+        $action_data = ActionData::firstOrNew(['id' => $current_action->id]);
+        $action_data->{$blood_type->key} += 1;
+        $action_data->save();
+
+        // save checkin model
         $checkin = new Checkin();
         $checkin->first_time = $request->has('first_time');
         $checkin->size_id = $request->size;
@@ -156,6 +165,7 @@ class FacebookController extends Controller {
 
         $checkin->save();
 
+        // save profile defaults
         $profile = Profile::whereId(Auth::user()->id)->first();
         if(!$profile) {
             $profile = new Profile;
