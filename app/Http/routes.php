@@ -49,16 +49,17 @@ Route::group(['prefix' => 'admin'], function() {
 	    //Route::controller('zgloszenia', 'EntryController');
 	    //Route::controller('zgloszenia2', 'Entry2Controller');
 	    Route::get('wampiriada', 'WampiriadaBackendController@getIndex');
-	    Route::get('wampiriada/show/{number}', 'WampiriadaBackendController@getShow');
-	    Route::get('wampiriada/edit/{number}', 'WampiriadaBackendController@getEdit');
+	    Route::get('wampiriada/list', ['as' => 'admin-wampiriada-list', 'uses' => 'WampiriadaBackendController@getList']);
+	    Route::get('wampiriada/show/{number}', ['as' => 'admin-wampiriada-show', 'uses' => 'WampiriadaBackendController@getShow']);
+	    Route::get('wampiriada/edit/{number}', ['as' => 'admin-wampiriada-edit', 'uses' =>'WampiriadaBackendController@getEdit']);
 	    Route::post('wampiriada/edit/{number}', 'WampiriadaBackendController@postEdit');
 	    Route::post('wampiriada/results', 'WampiriadaBackendController@postResults');
-	    Route::get('wampiriada/settings/{number}', 'WampiriadaBackendController@getSettings');
+	    Route::get('wampiriada/settings/{number}', ['as' => 'admin-wampiriada-settings', 'uses' => 'WampiriadaBackendController@getSettings']);
 	    Route::post('wampiriada/settings/{number}', 'WampiriadaBackendController@postSettings');
 
-	    Route::get('/', function() {
+	    Route::get('/', ['as' => 'admin-home', function() {
 	    	return View::make('admin.hello');
-	    });
+	    }]);
 
 	});
 });

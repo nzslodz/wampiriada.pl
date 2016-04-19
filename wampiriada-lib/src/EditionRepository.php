@@ -11,7 +11,12 @@ class EditionRepository {
         $redirects = array();
 
     public function __construct($edition) {
-        $this->edition_number = $edition;
+        if($edition instanceof Edition) {
+            $this->edition = $edition;
+            $this->edition_number = $edition->number;
+        } else {
+            $this->edition_number = $edition;
+        }
     }
 
     public function getEditionNumber() {
@@ -74,6 +79,14 @@ class EditionRepository {
 
     public function getOverall() {
         return $this->getResults()->overall;
+    }
+
+    public function safeGetOverall() {
+        try {
+            return $this->getOverall();
+        } catch(ObjectDoesNotExist $e) {
+            return 0;
+        }
     }
 
     public function getOverallDifference(EditionRepository $repository) {

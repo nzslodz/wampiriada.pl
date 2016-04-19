@@ -16,4 +16,12 @@ class Checkin extends Model {
     public function user() {
         return $this->belongsTo(User::class);
     }
+
+    public function blood_type() {
+        return $this->belongsTo(BloodType::class);
+    }
+
+    public function size() {
+        return $this->belongsTo(ShirtSize::class);
+    }
 }

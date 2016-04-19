@@ -74,6 +74,10 @@
             </div>
         </div>
 
+        <div class="container">
+            {!! Breadcrumbs::renderIfExists() !!}
+        </div>
+
         <section class="container" role="main">
             @yield('content')
         </section>
