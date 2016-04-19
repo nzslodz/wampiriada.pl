@@ -9,6 +9,12 @@ class Edition extends Model {
 
     public $timestamps = false;
 
+    public static function current() {
+        $number = Option::get('wampiriada.edition', 28);
+
+        return static::whereNumber($number)->first();
+    }
+
     public function getStartDate() {
         return new Carbon($this->start_date);
     }

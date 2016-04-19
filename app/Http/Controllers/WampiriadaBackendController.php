@@ -117,6 +117,28 @@ class WampiriadaBackendController extends Controller {
         ]);
     }
 
+    public function getNew(Request $request) {
+        $edition = new Edition;
+        
+        $last_edition = Edition::orderBy('number', 'DESC')->first();
+        if($last_edition) {
+            $number = $last_edition->number + 1;
+        } else {
+            $number = 1;
+        }
+
+        $checkboxes = ShirtSize::get();
+        
+        return view('admin.wampiriada.settings', [
+            'edition_number' => $number,
+            'redirect_event' => Redirect::firstOrNew(['key' => 'facebook-event', 'edition_id' => $edition->id]),
+            'redirect_koszulka' => Redirect::firstOrNew(['key' => 'koszulka', 'edition_id' => $edition->id]),
+            'redirect_plakat' => Redirect::firstOrNew(['key' => 'plakat', 'edition_id' => $edition->id]),
+            'checkboxes' => $checkboxes,
+        ]);
+    }
+
+    // XXX - handle new editions
     public function postSettings(Request $request, $number) {
         $edition = Edition::whereNumber($number)->firstOrFail();
         

@@ -50,6 +50,7 @@ Route::group(['prefix' => 'admin'], function() {
 	    //Route::controller('zgloszenia2', 'Entry2Controller');
 	    Route::get('wampiriada', 'WampiriadaBackendController@getIndex');
 	    Route::get('wampiriada/list', ['as' => 'admin-wampiriada-list', 'uses' => 'WampiriadaBackendController@getList']);
+	    Route::get('wampiriada/new', ['as' => 'admin-wampiriada-new', 'uses' => 'WampiriadaBackendController@getNew']);
 	    Route::get('wampiriada/show/{number}', ['as' => 'admin-wampiriada-show', 'uses' => 'WampiriadaBackendController@getShow']);
 	    Route::get('wampiriada/edit/{number}', ['as' => 'admin-wampiriada-edit', 'uses' =>'WampiriadaBackendController@getEdit']);
 	    Route::post('wampiriada/edit/{number}', 'WampiriadaBackendController@postEdit');
