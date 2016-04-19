@@ -12,6 +12,11 @@ Breadcrumbs::register('admin-wampiriada-list', function($breadcrumbs) {
     $breadcrumbs->push('Wampiriada', route('admin-wampiriada-list'));
 });
 
+Breadcrumbs::register('admin-wampiriada-new', function($breadcrumbs) {
+    $breadcrumbs->parent('admin-wampiriada-list');
+    $breadcrumbs->push('Dodaj nową edycję', route('admin-wampiriada-new'));
+});
+
 Breadcrumbs::register('admin-wampiriada-show', function($breadcrumbs, $number) {
     $breadcrumbs->parent('admin-wampiriada-list');
     $breadcrumbs->push($number . '. edycja', route('admin-wampiriada-show', $number));
