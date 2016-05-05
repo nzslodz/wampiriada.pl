@@ -105,7 +105,7 @@ class EditionRepository {
         $this->redirects[$name] = Redirect::whereKey($name)->whereEditionId($this->getEdition()->id)->first();
         
         if(!$this->redirects[$name]) {
-            $this->redirects[$name] = Redirect::whereKey($name)->first();
+            $this->redirects[$name] = Redirect::whereKey($name)->whereNull('edition_id')->first();
         }
 
         if(!$this->redirects[$name]) {
