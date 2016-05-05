@@ -61,6 +61,7 @@ class EditionRepository {
         }
         
         $this->actions = Action::where('number', $this->getEditionNumber())
+            ->whereHidden(false)
             ->orderBy('day')
             ->get();
 
