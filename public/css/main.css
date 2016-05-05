@@ -711,4 +711,6 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4e100c', end
     margin-bottom: 40px;
 }
 
-
+.logo-container img {
+    max-height: 150px;
+}

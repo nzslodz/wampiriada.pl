@@ -163,7 +163,7 @@ class WampiriadaController extends Controller {
             'wsiu' => [
                 'title' => 'Wyższa Szkoła Informatyki i Umiejętności w Łodzi',
                 'link' => 'http://wsinf.edu.pl',
-                'image' => 'img/partnerzy/13.jpg',
+                'image' => 'img/partnerzy/wsiu-nowe.jpg',
             ],
             'szuster' => [
                 'title' => 'Szkoła Języków Obcych Szuster',
@@ -246,14 +246,39 @@ class WampiriadaController extends Controller {
                 'image' => 'img/partnerzy/wielki.jpg',
             ],
 
+            'skybowling' => [
+                'title' => 'Skybowling',
+                'link' => 'http://skybowling.pl/',
+                'image' => 'img/partnerzy/skybowling.jpg',
+            ],
+            
+            'lodz-kreuje' => [
+                'title' => 'Miasto Łódź',
+                'link' => 'http://uml.lodz.pl',
+                'image' => 'img/partnerzy/lodz-kreuje.jpg',
+            ],
+
+            'findout' => [
+                'title' => 'Find Out - Escape Room',
+                'link' => 'http://findout.com.pl/',
+                'image' => 'img/partnerzy/findout.jpg',
+            ],
+
+            'teatr-muzyczny' => [
+                'title' => 'Teatr Muzyczny w Łodzi',
+                'link' => 'http://www.teatr-muzyczny.lodz.pl/',
+                'image' => 'img/partnerzy/teatr_muzyczny.jpg',
+            ],
+
         ];
 
         $structure = [
-            [ 'uml-main', 'wl-main', 'uml-zdrowie', 'wl-lodzkie', ],
-            [ 'ul', 'pl', 'um', 'asp', 'wsiu' ],
-            [ 'pzu', 'fiero', 'teatr-wielki', 'teatr-nowy' ],
-            [ 'makimo', 'eska', 'plaster', 'dlastudenta'],
-            [ 'infostudent', 'zak', 'studentnews', 'studentlodz'],
+            [ 'lodz-kreuje',  'wl-lodzkie', 'wl-main', ],
+            [ 'ul', 'pl', 'um', 'wsiu' ],
+            [ 'pzu', 'fiero', 'skybowling', 'findout',],
+            [ 'teatr-wielki', 'teatr-nowy', 'teatr-muzyczny' ],
+            [ 'makimo', 'eska', 'plaster'],
+            [ 'infostudent', 'zak', 'studentlodz'],
         ];
 
         $unknown = [
