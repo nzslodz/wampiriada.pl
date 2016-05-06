@@ -26,15 +26,18 @@ class FacebookController extends Controller {
         Session::forget('fb_user_access_token');
         Auth::logout();
 
-        $login_url = $fb->getLoginUrl(['user_likes', 'user_friends', 'email']);
+        $login_url = $fb->getLoginUrl();
 
-        return view('facebook.login', ['login_url' => $login_url]);
+        return view('facebook.login', [
+            'login_url' => $login_url
+        ]);
     }
 
     public function getCallback(LaravelFacebookSdk $fb, Request $request) {
         try {
             $token = $fb->getAccessTokenFromRedirect();
         } catch(FacebookSDKException $e) {
+            // XXX TODO
             dd($e->getMessage());
         }
 
@@ -45,6 +48,7 @@ class FacebookController extends Controller {
                 redirect('/facebook/login')->with('message', 'Logowanie zostało odrzucone.');
             }
 
+            // XXX TODO
             dd(
                 $helper->getError(),
                 $helper->getErrorCode(),
@@ -52,16 +56,6 @@ class FacebookController extends Controller {
                 $helper->getErrorDescription()
             );
         }
-
-        /*if(!$token->isLongLived()) {
-            $oauth_client = $fb->getOAuth2Client();
-
-            try {
-                $token = $oauth_client->getLongLivedAccessToken($token);
-            } catch(FacebookSDKException $e) {
-                dd($e->getMessage());
-            }
-        }*/
 
         $fb->setDefaultAccessToken($token);
 
