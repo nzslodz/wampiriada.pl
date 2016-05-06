@@ -14,8 +14,8 @@ use App\Http\Middleware\AdminMiddleware;
 */
 
 Route::get('/', 'WampiriadaController@showIndex');
-Route::get('/redirect/{name}', 'WampiriadaController@getRedirect');
-Route::get('/redirect/{edition_id}/{name}', 'WampiriadaController@getRedirect');
+Route::get('/redirect/{name}', 'WampiriadaController@getRedirectByName');
+Route::get('/redirect/{edition_number}/{name}', 'WampiriadaController@getRedirect');
 
 Route::get('/facebook/login', 'FacebookController@getLoginPage');
 Route::get('/facebook/callback', 'FacebookController@getCallback');

@@ -16,7 +16,11 @@ class Redirect extends Model {
     }
 
     public function asUrl() {
-        return $this->url;
+        if($this->edition_id) {
+            return url("redirect/{$this->edition->number}/$this->key");
+        }
+
+        return url("redirect/$this->key");
     }
 
     public function asTag($contents, array $attrs=array()) {
@@ -31,6 +35,10 @@ class Redirect extends Model {
 
     public function __toString() {
         return $this->asUrl();
+    }
+
+    public function edition() {
+        return $this->belongsTo(Edition::class);
     }
 }
 

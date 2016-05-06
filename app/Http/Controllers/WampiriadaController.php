@@ -5,6 +5,12 @@ use NZS\Core\Exceptions\ObjectDoesNotExist;
 use App\Libraries\PartnerRow;
 use NZS\Wampiriada\Option;
 use NZS\Wampiriada\Checkin;
+use NZS\Wampiriada\Redirect;
+use NZS\Wampiriada\Edition;
+use NZS\Wampiriada\EmailCampaign;
+use NZS\Wampiriada\EmailCampaignResult;
+use Illuminate\Http\Request;
+use App\User;
 
 class WampiriadaController extends Controller {
     public function showIndex() {
@@ -107,9 +113,46 @@ class WampiriadaController extends Controller {
         ]);
     }
 
-    // XXX TODO
-    public function getRedirect($name, $edition_id=null) {
-        return "id: $edition_id, name: $name";
+    protected function saveEmailCampaignInfo(Request $request, Redirect $redirect) {
+        $email_campaign = EmailCampaign::whereKey($request->input('c'))->first();
+        if(!$email_campaign) {
+            return;
+        }
+
+        $user = User::whereMd5email($request->input('m'))->first();
+        if(!$user) {
+            return;
+        }
+        
+        EmailCampaignResult::firstOrCreate([
+            'user_id' => $user->id,
+            'campaign_id' => $email_campaign->id,
+            'redirect_id' => $redirect->id,
+        ]);
+    }
+
+    public function getRedirectByName(Request $request, $name) {
+        return $this->getRedirect($request, null, $name);
+    }
+
+    public function getRedirect(Request $request, $edition_number, $name) {
+        $redirect = null;
+
+        if($edition_number) {
+            $edition = Edition::whereNumber($edition_number)->firstOrFail();
+
+            $redirect = Redirect::whereKey($name)->whereEditionId($edition->id)->where('url', '!=', '')->first();
+        }
+
+        if(!$redirect) {
+            $redirect = Redirect::whereKey($name)->whereNull('edition_id')->firstOrFail();
+        }
+        
+        if($request->input('c') && $request->input('m')) {
+            $this->saveEmailCampaignInfo($request, $redirect);
+        }
+
+        return redirect($redirect->url);
     }
 
     public function getPartners() {
