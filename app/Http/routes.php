@@ -14,21 +14,23 @@ use App\Http\Middleware\AdminMiddleware;
 */
 
 Route::get('/', 'WampiriadaController@showIndex');
-Route::get('/redirect/{name}', 'WampiriadaController@getRedirect');
-Route::get('/redirect/{edition_id}/{name}', 'WampiriadaController@getRedirect');
+Route::get('/redirect/{name}', 'WampiriadaController@getRedirectByName');
+Route::get('/redirect/{edition_number}/{name}', 'WampiriadaController@getRedirect');
 
 Route::get('/facebook/login', 'FacebookController@getLoginPage');
+Route::post('/facebook/login', 'FacebookController@postLoginViaEmailPage');
 Route::get('/facebook/callback', 'FacebookController@getCallback');
 Route::get('/facebook/callback/{to}', 'FacebookController@getCallback');
 
-//Route::group(['middleware' => 'auth'], function() {
+Route::group(['middleware' => 'auth.facebook'], function() {
     Route::get('/facebook/checkin', 'FacebookController@getCheckin');
     Route::post('/facebook/checkin', 'FacebookController@postCheckin');
-    Route::get('/facebook/raffle', 'FacebookController@getRaffle');
-    Route::post('/facebook/raffle', 'FacebookController@postRaffle');
-    Route::get('/facebook/finish', 'FacebookController@getFinish');
+    //Route::get('/facebook/raffle', 'FacebookController@getRaffle');
+    //Route::post('/facebook/raffle', 'FacebookController@postRaffle');
+    //Route::get('/facebook/finish', 'FacebookController@getFinish');
     Route::get('/facebook/complete', 'FacebookController@getComplete');
-//});
+});
+
 
 // mobile controller
 //Route::get('data/overall', 'MobileController@getOverall');
@@ -49,16 +51,18 @@ Route::group(['prefix' => 'admin'], function() {
 	    //Route::controller('zgloszenia', 'EntryController');
 	    //Route::controller('zgloszenia2', 'Entry2Controller');
 	    Route::get('wampiriada', 'WampiriadaBackendController@getIndex');
-	    Route::get('wampiriada/show/{number}', 'WampiriadaBackendController@getShow');
-	    Route::get('wampiriada/edit/{number}', 'WampiriadaBackendController@getEdit');
+	    Route::get('wampiriada/list', ['as' => 'admin-wampiriada-list', 'uses' => 'WampiriadaBackendController@getList']);
+	    Route::get('wampiriada/new', ['as' => 'admin-wampiriada-new', 'uses' => 'WampiriadaBackendController@getNew']);
+	    Route::get('wampiriada/show/{number}', ['as' => 'admin-wampiriada-show', 'uses' => 'WampiriadaBackendController@getShow']);
+	    Route::get('wampiriada/edit/{number}', ['as' => 'admin-wampiriada-edit', 'uses' =>'WampiriadaBackendController@getEdit']);
 	    Route::post('wampiriada/edit/{number}', 'WampiriadaBackendController@postEdit');
 	    Route::post('wampiriada/results', 'WampiriadaBackendController@postResults');
-	    Route::get('wampiriada/settings/{number}', 'WampiriadaBackendController@getSettings');
+	    Route::get('wampiriada/settings/{number}', ['as' => 'admin-wampiriada-settings', 'uses' => 'WampiriadaBackendController@getSettings']);
 	    Route::post('wampiriada/settings/{number}', 'WampiriadaBackendController@postSettings');
 
-	    Route::get('/', function() {
+	    Route::get('/', ['as' => 'admin-home', function() {
 	    	return View::make('admin.hello');
-	    });
+	    }]);
 
 	});
 });

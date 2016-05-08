@@ -6,7 +6,7 @@
             <div class="clearfix">
                 <header>
                     <h2>Terminy {{ $repository->getEditionNumber() }}. edycji Wampiriady</h2>
-                    <p class="date">11.2015 r. - 12.2015 r.</p>
+                    <p class="date">{{ $repository->getEdition()->getStartDate()->format('m.Y') }} - {{ $repository->getEdition()->getEndDate()->format('m.Y') }} r.</p>
                 </header>
             </div>
 
@@ -29,7 +29,7 @@
 
                 @foreach($actions as $action)
                 <li class="row {{ $get_class($action->school_short) }}" data-lat="{{ $action->lat }}" data-lng="{{ $action->lng }}">
-                    <p class="col-xs-2 date">{{ $action->day->format('d/m') }}</span></p>
+                    <p class="col-xs-2 date"><span>{{ $action->day->format('d/m') }}</span></p>
                     <p class="col-xs-5 place {{ $get_class($action->school_short) }}" data-sort="{{ $action->school_short }}" data-address="{{ $action->address }}">{{ $action->place }}</p>
                     <p class="col-xs-2 time">{{ $action->start->format('H') }} - {{ $action->end->format('H') }}</p>
                     <p class="col-xs-2 marrow text-center">@if($action->marrow)<i class="fa fa-check"></i>@endif</p>

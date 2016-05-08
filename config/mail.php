@@ -55,7 +55,7 @@ return [
     |
     */
 
-    'from' => ['address' => null, 'name' => null],
+    'from' => ['address' => 'nzs@nzs.lodz.pl', 'name' => 'NZS Regionu Łódzkiego'],
 
     /*
     |--------------------------------------------------------------------------

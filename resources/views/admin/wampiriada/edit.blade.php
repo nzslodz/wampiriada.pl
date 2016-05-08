@@ -93,5 +93,43 @@
             </div>
         </div>
     {{ Form::close() }}
-    
+   
+    <h3>Osoby, które oddały krew</h3>
+    <table class="table table-striped table-bordered">
+        <thead>
+            <tr>
+                <th>Lp.</th>
+                <th>Imię i nazwisko</th>
+                <td>E-mail</td>
+                <td>Godzina wpisu</td>
+                <td>Rozmiar koszulki</td>
+                <td>Grupa krwi</td>
+                <td>Udział w konkursie</td>
+            </tr>
+        </thead>
+        <tbody>
+            @forelse($checkins as $key => $checkin)
+                <tr>
+                    <th>{{ $key + 1 }}</th>
+                    <th>{{ $checkin->user->getFullName() }}</th>
+                    <td>{{ $checkin->user->email }}</td>
+                    <td>{{ $checkin->created_at->format('H:i:s') }}</td>
+                    @if($checkin->size)
+                    <td>{{ $checkin->size->name }}</td>
+                    @else
+                    <td></td>
+                    @endif
+                    <td>{{ $checkin->blood_type->name }}</td>
+                    <td>{{ $checkin->qualified_for_raffle ? 'TAK': '' }}</td>
+                </tr>
+            @empty
+                <tr class="no-results">
+                    <td colspan="7">
+                        Do tej akcji nikt jeszcze się nie wpisał.
+                    </td>
+                </tr>
+            @endforelse
+        </tbody>
+
+    </table>
 @stop

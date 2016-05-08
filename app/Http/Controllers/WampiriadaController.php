@@ -5,6 +5,12 @@ use NZS\Core\Exceptions\ObjectDoesNotExist;
 use App\Libraries\PartnerRow;
 use NZS\Wampiriada\Option;
 use NZS\Wampiriada\Checkin;
+use NZS\Wampiriada\Redirect;
+use NZS\Wampiriada\Edition;
+use NZS\Wampiriada\EmailCampaign;
+use NZS\Wampiriada\EmailCampaignResult;
+use Illuminate\Http\Request;
+use App\User;
 
 class WampiriadaController extends Controller {
     public function showIndex() {
@@ -107,9 +113,46 @@ class WampiriadaController extends Controller {
         ]);
     }
 
-    // XXX TODO
-    public function getRedirect($name, $edition_id=null) {
-        return "id: $edition_id, name: $name";
+    protected function saveEmailCampaignInfo(Request $request, Redirect $redirect) {
+        $email_campaign = EmailCampaign::whereKey($request->input('c'))->first();
+        if(!$email_campaign) {
+            return;
+        }
+
+        $user = User::whereMd5email($request->input('m'))->first();
+        if(!$user) {
+            return;
+        }
+        
+        EmailCampaignResult::firstOrCreate([
+            'user_id' => $user->id,
+            'campaign_id' => $email_campaign->id,
+            'redirect_id' => $redirect->id,
+        ]);
+    }
+
+    public function getRedirectByName(Request $request, $name) {
+        return $this->getRedirect($request, null, $name);
+    }
+
+    public function getRedirect(Request $request, $edition_number, $name) {
+        $redirect = null;
+
+        if($edition_number) {
+            $edition = Edition::whereNumber($edition_number)->firstOrFail();
+
+            $redirect = Redirect::whereKey($name)->whereEditionId($edition->id)->where('url', '!=', '')->first();
+        }
+
+        if(!$redirect) {
+            $redirect = Redirect::whereKey($name)->whereNull('edition_id')->firstOrFail();
+        }
+        
+        if($request->input('c') && $request->input('m')) {
+            $this->saveEmailCampaignInfo($request, $redirect);
+        }
+
+        return redirect($redirect->url);
     }
 
     public function getPartners() {
@@ -163,7 +206,7 @@ class WampiriadaController extends Controller {
             'wsiu' => [
                 'title' => 'Wyższa Szkoła Informatyki i Umiejętności w Łodzi',
                 'link' => 'http://wsinf.edu.pl',
-                'image' => 'img/partnerzy/13.jpg',
+                'image' => 'img/partnerzy/wsiu-nowe.jpg',
             ],
             'szuster' => [
                 'title' => 'Szkoła Języków Obcych Szuster',
@@ -246,14 +289,39 @@ class WampiriadaController extends Controller {
                 'image' => 'img/partnerzy/wielki.jpg',
             ],
 
+            'skybowling' => [
+                'title' => 'Skybowling',
+                'link' => 'http://skybowling.pl/',
+                'image' => 'img/partnerzy/skybowling.jpg',
+            ],
+            
+            'lodz-kreuje' => [
+                'title' => 'Miasto Łódź',
+                'link' => 'http://uml.lodz.pl',
+                'image' => 'img/partnerzy/lodz-kreuje.jpg',
+            ],
+
+            'findout' => [
+                'title' => 'Find Out - Escape Room',
+                'link' => 'http://findout.com.pl/',
+                'image' => 'img/partnerzy/findout.jpg',
+            ],
+
+            'teatr-muzyczny' => [
+                'title' => 'Teatr Muzyczny w Łodzi',
+                'link' => 'http://www.teatr-muzyczny.lodz.pl/',
+                'image' => 'img/partnerzy/teatr_muzyczny.jpg',
+            ],
+
         ];
 
         $structure = [
-            [ 'uml-main', 'wl-main', 'uml-zdrowie', 'wl-lodzkie', ],
-            [ 'ul', 'pl', 'um', 'asp', 'wsiu' ],
-            [ 'pzu', 'fiero', 'teatr-wielki', 'teatr-nowy' ],
-            [ 'makimo', 'eska', 'plaster', 'dlastudenta'],
-            [ 'infostudent', 'zak', 'studentnews', 'studentlodz'],
+            [ 'lodz-kreuje',  'wl-lodzkie', 'wl-main', ],
+            [ 'ul', 'pl', 'um', 'wsiu' ],
+            [ 'pzu', 'fiero', 'skybowling', 'findout',],
+            [ 'teatr-wielki', 'teatr-nowy', 'teatr-muzyczny' ],
+            [ 'makimo', 'eska', 'plaster'],
+            [ 'infostudent', 'zak', 'studentlodz'],
         ];
 
         $unknown = [

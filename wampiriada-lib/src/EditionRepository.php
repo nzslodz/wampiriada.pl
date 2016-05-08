@@ -11,7 +11,12 @@ class EditionRepository {
         $redirects = array();
 
     public function __construct($edition) {
-        $this->edition_number = $edition;
+        if($edition instanceof Edition) {
+            $this->edition = $edition;
+            $this->edition_number = $edition->number;
+        } else {
+            $this->edition_number = $edition;
+        }
     }
 
     public function getEditionNumber() {
@@ -56,6 +61,7 @@ class EditionRepository {
         }
         
         $this->actions = Action::where('number', $this->getEditionNumber())
+            ->whereHidden(false)
             ->orderBy('day')
             ->get();
 
@@ -76,6 +82,14 @@ class EditionRepository {
         return $this->getResults()->overall;
     }
 
+    public function safeGetOverall() {
+        try {
+            return $this->getOverall();
+        } catch(ObjectDoesNotExist $e) {
+            return 0;
+        }
+    }
+
     public function getOverallDifference(EditionRepository $repository) {
         return $this->getOverall() - $repository->getOverall();
     }
@@ -89,10 +103,10 @@ class EditionRepository {
             return $this->redirects[$name];
         }
 
-        $this->redirects[$name] = Redirect::whereKey($name)->whereEditionId($this->getEdition()->id)->first();
+        $this->redirects[$name] = Redirect::whereKey($name)->whereEditionId($this->getEdition()->id)->where('url', '!=', '')->first();
         
         if(!$this->redirects[$name]) {
-            $this->redirects[$name] = Redirect::whereKey($name)->first();
+            $this->redirects[$name] = Redirect::whereKey($name)->whereNull('edition_id')->first();
         }
 
         if(!$this->redirects[$name]) {
