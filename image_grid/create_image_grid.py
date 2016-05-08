@@ -13,16 +13,18 @@ Options:
     --overlay=OVERLAY           Overlay image path.
     --seed=SEED         Seed the RNG with a specific value.
     --tiles=TILES       Path to the file specifying image paths to tile images [default: -].
-    --output=OUTPUT     Path to the output image.
+    --output=OUTPUT     Path to the output image [default: output.jpg].
 
 Achievements are in the form 20:path_to_image.
 """
-
+import argopen
 from docopt import docopt
 import random
 from PIL import Image
 from image_grid import ImageGrid
 import sys
+import io
+
 
 VERSION="1.0"
 
@@ -45,18 +47,20 @@ if __name__ == '__main__':
     }
 
     grid = ImageGrid(props)
-    
-    if arguments['--tiles'] == '-':
-        f = sys.stdin
-    else:
-        f = open(arguments['--tiles'])
-
+   
     tiles = []
-    for line in f:
-        tiles.append(Image.open(line.strip()))
-
-    f.close()
-
+    with argopen.argopen(arguments['--tiles'], 'r') as f:
+        for line in f:
+            tiles.append(Image.open(line.strip()))
+        
     grid.addTiles(tiles)
-    output = grid.generate()
-    output.save(arguments['--output'])
+    output_image = grid.generate()
+    
+    bytes_io = io.BytesIO()
+    output_image.save(bytes_io, 'JPEG', quality=80)
+
+    bytes_io.seek(0)
+
+    with argopen.argopen(arguments['--output'], 'wb') as o:
+        o.write(bytes_io.read())
+
