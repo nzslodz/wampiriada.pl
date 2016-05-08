@@ -19,15 +19,25 @@ use NZS\Wampiriada\Option;
 use NZS\Wampiriada\EditionRepository;
 use Carbon\Carbon;
 
+use App\Libraries\ErrorMailer;
+use LogicException;
+
 use Storage;
 
 class FacebookController extends Controller {
     public function getLoginPage(LaravelFacebookSdk $fb) {
+        $current_action = ActionDay::whereDate('created_at', '=', Carbon::today()->toDateString())->first();
+        // XXX do this
+        if(!$current_action) {
+            return view('facebook.login_forbidden');
+        }
+
         Session::forget('fb_user_access_token');
         Auth::logout();
 
         $login_url = $fb->getLoginUrl();
 
+        // XXX RESTYLE THIS
         return view('facebook.login', [
             'login_url' => $login_url
         ]);
@@ -37,24 +47,31 @@ class FacebookController extends Controller {
         try {
             $token = $fb->getAccessTokenFromRedirect();
         } catch(FacebookSDKException $e) {
-            // XXX TODO
-            dd($e->getMessage());
+            ErrorMailer::mailException($e);
+
+            return redirect('/facebook/login')
+                ->with('status', 'warning')
+                ->with('message', 'Wystąpił błąd podczas logowania. Spróbuj ponownie.');
         }
 
         if(!$token) {
             $helper = $fb->getRedirectLoginHelper();
 
             if(!$helper->getError()) {
-                redirect('/facebook/login')->with('message', 'Logowanie zostało odrzucone.');
+                return redirect('/facebook/login')
+                    ->with('status', 'warning')
+                    ->with('message', 'Logowanie zostało odrzucone. Prosimy zalogować się ponownie.');
             }
 
-            // XXX TODO
-            dd(
-                $helper->getError(),
-                $helper->getErrorCode(),
-                $helper->getErrorReason(),
-                $helper->getErrorDescription()
-            );
+            ErrorMailer($helper->getError(), [
+                'code' => $helper->getErrorCode(),
+                'reason' => $helper->getErrorReason(),
+                'description' => $helper->getErrorDescription(),
+            ]);
+
+            return redirect('/facebook/login')
+                ->with('status', 'warning')
+                ->with('message', 'Logowanie nie powiodło się. Spróbuj ponownie.');
         }
 
         $fb->setDefaultAccessToken($token);
@@ -64,7 +81,11 @@ class FacebookController extends Controller {
         try {
             $response = $fb->get('/me?fields=email,id,first_name,last_name');
         } catch(FacebookSDKException $e) {
-            dd($e->getMessage());
+            ErrorMailer::mailException($e);
+
+            return redirect('/facebook/login')
+                ->with('status', 'warning')
+                ->with('message', 'Wystąpił błąd podczas pobierania informacji o profilu. Spróbuj ponownie.');
         }
 
         $facebook_user = $response->getGraphUser();
@@ -75,8 +96,10 @@ class FacebookController extends Controller {
 
         Auth::login($user);
 
+        // XXX: queue
         $this->downloadFacebookImage($user);
 
+        // XXX: not needed really
         if(Session::get('to') == 'finish') {
             Session::forget('to');
             return redirect('/facebook/finish');
@@ -115,17 +138,31 @@ class FacebookController extends Controller {
         $storage->put("fb-images/$user->facebook_user_id.jpg", $rawdata);
     }
 
-    /* XXX TODO show first_time only if  */ 
     public function getCheckin(LaravelFacebookSdk $fb) {
         $profile = Profile::whereId(Auth::user()->id)->first();
         if(!$profile) {
             $profile = new Profile;
         }
 
+        $user = Auth::user();
+        $edition_number = Option::get('wampiriada.edition', 28);
+        $edition = Edition::whereNumber($edition_number)->first();
+        if(!$edition) {
+            throw new LogicException("Edition does not exist for number $edition_number"); 
+        }
+
+        $checkin = Checkin::whereUserId($user->id)->whereEditionId($edition->id)->first();
+        if($checkin) {
+            return redirect('/facebook/login')
+                ->with('status', 'warning')
+                ->with('message', 'Nie można oddawać krwi dwa razy w trakcie jednej edycji.');
+        }
+
         $shirt_sizes = ShirtSize::orderBy('id')->pluck('name', 'id');
         $shirt_sizes->prepend('---', "");
         $blood_types = BloodType::orderBy('name')->pluck('name', 'id');
         $blood_types->prepend('---', "");
+
         return view('facebook.checkin', [
             'sizes' => $shirt_sizes,
             'blood_types' => $blood_types,
@@ -138,6 +175,21 @@ class FacebookController extends Controller {
         $current_action = ActionDay::whereDate('created_at', '=', Carbon::today()->toDateString())->first();
         if(!$current_action) {
             return abort(403, "Today the process is not available");
+        }
+
+        $user = Auth::user();
+
+        $edition_number = Option::get('wampiriada.edition', 28);
+        $edition = Edition::whereNumber($edition_number)->first();
+        if(!$edition) {
+            throw new LogicException("Edition does not exist for number $edition_number"); 
+        }
+
+        $checkin = Checkin::whereUserId($user->id)->whereEditionId($edition->id)->first();
+        if($checkin) {
+            return redirect('/facebook/login')
+                ->with('status', 'warning')
+                ->with('message', 'Nie można oddawać krwi dwa razy w trakcie jednej edycji.');
         }
 
         $blood_type = BloodType::findOrFail($request->blood_type);
@@ -171,9 +223,13 @@ class FacebookController extends Controller {
         $profile->blood_type_id = $request->blood_type;
         $profile->save();
 
-        return redirect('/facebook/raffle');
+        // XXX queue email
+        // XXX queue friend processing
+
+        return redirect('/facebook/complete');
     }
 
+    /*
     public function getRaffle(LaravelFacebookSdk $fb) {
         $token = Session::get('fb_user_access_token');
 
@@ -219,9 +275,9 @@ class FacebookController extends Controller {
         Session::set('to', 'finish');
         
         return redirect($login_url);
-    }
+    }*/
 
-    public function getFinish(LaravelFacebookSdk $fb) {
+    /*public function getFinish(LaravelFacebookSdk $fb) {
         $token = Session::get('fb_user_access_token');
 
         if(!$token) {
@@ -244,6 +300,7 @@ class FacebookController extends Controller {
             dd($e->getMessage());
         }
 
+
         $current_action = ActionDay::whereDate('created_at', '=', Carbon::today()->toDateString())->first();
         $checkin = Checkin::whereActionDayId($current_action->id)->whereUserId(Auth::user()->id)->first();
 
@@ -255,7 +312,7 @@ class FacebookController extends Controller {
         $checkin->save();
 
         return redirect($fb->getRedirectLoginHelper()->getLogoutUrl($token,  url('facebook/complete')));
-    }
+    }*/
 
     public function getComplete() {
         return view('facebook.complete');

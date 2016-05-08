@@ -21,19 +21,6 @@ class CheckinRequest extends Request
             return false;
         }
 
-        $edition_number = Option::get('wampiriada.edition', 28);
-        $edition = Edition::whereNumber($edition_number)->first();
-        if(!$edition) {
-            throw new LogicException("Edition does not exist for number $edition_number"); 
-        }
-
-        $user = Auth::user();
-
-        $checkin = Checkin::whereUserId($user->id)->whereEditionId($edition->id)->first();
-        if($checkin) {
-            return false;
-        }
-
         return true;
     }
 
