@@ -42,7 +42,7 @@ Oficjalna strona akcji honorowego krwiodawstwa Wampiriada w Łodzi, organizowane
                 <div class="achievement">
                     <div class="achievement-number">{{ $number }}</div>
                     <div class="achievement-body">
-                        {{ $achievement }}
+                        {{ $achievement['text'] }}
                     </div>
                     <div class="achievement-lock"></div>
                 </div>
