@@ -13,7 +13,7 @@
 
 
 
-<div class="container collapse" id="alternative-form">
+<div class="container @if($errors->isEmpty()) collapse @endif" id="alternative-form">
 	<div class="well well-dark">
 			<h3>Podaj swój e-mail:</h3>
  {{ Form::open(array('class' => 'form-horizontal')) }}
