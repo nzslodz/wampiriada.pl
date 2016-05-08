@@ -18,6 +18,7 @@ Route::get('/redirect/{name}', 'WampiriadaController@getRedirectByName');
 Route::get('/redirect/{edition_number}/{name}', 'WampiriadaController@getRedirect');
 
 Route::get('/facebook/login', 'FacebookController@getLoginPage');
+Route::post('/facebook/login', 'FacebookController@postLoginViaEmailPage');
 Route::get('/facebook/callback', 'FacebookController@getCallback');
 Route::get('/facebook/callback/{to}', 'FacebookController@getCallback');
 

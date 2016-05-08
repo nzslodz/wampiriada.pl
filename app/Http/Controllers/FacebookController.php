@@ -6,6 +6,7 @@ use Session;
 use App\User;
 use Auth;
 use App\Http\Requests\CheckinRequest;
+use App\Http\Requests\EmailLoginRequest;
 use Illuminate\Http\Request;
 
 use NZS\Wampiriada\ShirtSize;
@@ -18,6 +19,9 @@ use NZS\Wampiriada\Profile;
 use NZS\Wampiriada\Option;
 use NZS\Wampiriada\EditionRepository;
 use Carbon\Carbon;
+
+use App\Jobs\DownloadFacebookProfile;
+use App\Jobs\WampiriadaThankYouEmail;
 
 use App\Libraries\ErrorMailer;
 use LogicException;
@@ -41,6 +45,27 @@ class FacebookController extends Controller {
         return view('facebook.login', [
             'login_url' => $login_url
         ]);
+    }
+
+    public function postLoginViaEmailPage(EmailLoginRequest $request) {
+        $user = User::firstOrCreate(['email' => $request->email]);
+
+        $edition_number = Option::get('wampiriada.edition', 28);
+        $edition = Edition::whereNumber($edition_number)->first();
+        if(!$edition) {
+            throw new LogicException("Edition does not exist for number $edition_number"); 
+        }
+
+        $checkin = Checkin::whereUserId($user->id)->whereEditionId($edition->id)->first();
+        if($checkin) {
+            return redirect('/facebook/login')
+                ->with('status', 'warning')
+                ->with('message', 'Nie można oddawać krwi dwa razy w trakcie jednej edycji.');
+        }
+
+        Auth::login($user);
+
+        return redirect('/facebook/checkin');
     }
 
     public function getCallback(LaravelFacebookSdk $fb, Request $request) {
@@ -96,8 +121,7 @@ class FacebookController extends Controller {
 
         Auth::login($user);
 
-        // XXX: queue
-        $this->downloadFacebookImage($user);
+        dispatch(new DownloadFacebookProfile($user));
 
         // XXX: not needed really
         if(Session::get('to') == 'finish') {
@@ -106,36 +130,6 @@ class FacebookController extends Controller {
         }
 
         return redirect('/facebook/checkin');
-    }
-
-    protected function downloadFacebookImage($user) {
-        $ch = curl_init ("https://graph.facebook.com/$user->facebook_user_id/picture?redirect=false&type=large");
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($ch, CURLOPT_BINARYTRANSFER, 1);
-        curl_setopt($ch, CURLOPT_HEADER, 0);
-        $rawdata=curl_exec($ch);
-        curl_close ($ch);
-
-        $storage = Storage::disk('local');
-        
-        $json = json_decode($rawdata);
-        if($json->data->is_silhouette) {
-            return;
-        }
-        
-        $ch = curl_init ($json->data->url);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($ch, CURLOPT_BINARYTRANSFER, 1);
-        curl_setopt($ch, CURLOPT_HEADER, 0);
-        curl_setopt ($ch, CURLOPT_FOLLOWLOCATION, 1); 
-        $rawdata=curl_exec($ch);
-        curl_close ($ch);
-
-        if(!$storage->has('fb-images')) {
-            $storage->makeDirectory('fb-images');
-        }
-
-        $storage->put("fb-images/$user->facebook_user_id.jpg", $rawdata);
     }
 
     public function getCheckin(LaravelFacebookSdk $fb) {
@@ -223,7 +217,8 @@ class FacebookController extends Controller {
         $profile->blood_type_id = $request->blood_type;
         $profile->save();
 
-        // XXX queue email
+        dispatch(new WampiriadaThankYouEmail($edition, $user));
+
         // XXX queue friend processing
 
         return redirect('/facebook/complete');
