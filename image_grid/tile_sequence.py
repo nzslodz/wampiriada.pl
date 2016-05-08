@@ -11,7 +11,10 @@ class TileSequence(object):
         for tile in self.tiles:
             tile['rare'] = (tile['weight'] > medianWeight)
 
-        rng = Random(seed)
+        if seed:
+            rng = Random(seed)
+        else:
+            rng = Random()
         rng.shuffle(self.tiles)
         i = 0
         j = len(self.tiles) - 1

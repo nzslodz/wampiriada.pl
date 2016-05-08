@@ -12,11 +12,15 @@ class ImageGrid(object):
     def __init__(self, options):
         self.backgroundImage = options['background'].convert('RGBA')
         self.overlayImage = options['overlay'].convert('RGBA')
-        self.achievementIconImage = options['achievementIcon'].convert('RGBA')
         self.imageWidth = self.backgroundImage.width
         self.imageHeight = self.backgroundImage.height
         self.imageSize = self.backgroundImage.size
+        
         self.achievementUsers = options['achievementUsers']
+
+        for key, value in self.achievementUsers.iteritems():
+            self.achievementUsers[key] = value.convert('RGBA')
+        
         self.rescaleOverlay()
         self.createTilesImage()
 
@@ -67,11 +71,16 @@ class ImageGrid(object):
 
         self.tileCounter += 1
         if self.tileCounter in self.achievementUsers:
-            iconWidth = self.achievementIconImage.width
-            iconHeight = self.achievementIconImage.height
+            image = self.achievementUsers[self.tileCounter]
+
+            iconWidth = image.width
+            iconHeight = image.height
             self.achievementPositions.append((
-                self.gridX(position['x']) + self.cellWidth - iconWidth,
-                self.gridY(position['y']) + self.cellHeight - iconHeight,
+                (   
+                    self.gridX(position['x']) + self.cellWidth - iconWidth,
+                    self.gridY(position['y']) + self.cellHeight - iconHeight,
+                ),
+                image
             ))
 
     def gridX(self, posX):
@@ -107,7 +116,7 @@ class ImageGrid(object):
         dest = Image.alpha_composite(dest, trimmedOverlay)
 
         # add achievements!
-        for position in self.achievementPositions:
-            dest.paste(self.achievementIconImage, position,
-                       mask=self.achievementIconImage.split()[3])
+        for position, image in self.achievementPositions:
+            dest.paste(image, position, mask=image.split()[3])
+        
         return dest

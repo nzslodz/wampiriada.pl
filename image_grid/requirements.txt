@@ -1,1 +1,2 @@
+docopt
 Pillow~=3.1
