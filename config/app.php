@@ -214,7 +214,7 @@ return [
     ],
 
     'achievements' => [
-        10 => 'Wampir obudził się i poczuł się głodny....',
-        954 => '... dlatego najadł się 953 osobami',
+        10 => [ 'icon' => 'crown.png', 'text' => 'Wampir obudził się i poczuł się głodny....' ],
+        954 => [ 'icon' => 'crown.png', 'text' => '... dlatego najadł się 953 osobami'],
     ]
 ];

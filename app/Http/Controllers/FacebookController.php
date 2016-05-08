@@ -22,6 +22,7 @@ use Carbon\Carbon;
 
 use App\Jobs\DownloadFacebookProfile;
 use App\Jobs\WampiriadaThankYouEmail;
+use App\Jobs\RegenerateTileImage;
 
 use App\Libraries\ErrorMailer;
 use LogicException;
@@ -218,6 +219,8 @@ class FacebookController extends Controller {
         $profile->save();
 
         dispatch(new WampiriadaThankYouEmail($edition, $user));
+        dispatch(new RegenerateTileImage());
+
 
         // XXX queue friend processing
 

@@ -1,6 +1,13 @@
 @extends('layouts.master')
 
 @section('content')
+
+@if(session('message'))
+<div class="alert alert-{{ session('status', 'info') }}" role="alert">
+	{{ session('message') }}
+</div>
+@endif
+
 <div class="container">
     <div class="row">
         <div class="col-xs-12 text-center">
