@@ -117,7 +117,7 @@ class FacebookController extends Controller {
                     ->with('message', 'Logowanie zostało odrzucone. Prosimy zalogować się ponownie.');
             }
 
-            ErrorMailer($helper->getError(), [
+            ErrorMailer::mail($helper->getError(), [
                 'code' => $helper->getErrorCode(),
                 'reason' => $helper->getErrorReason(),
                 'description' => $helper->getErrorDescription(),
