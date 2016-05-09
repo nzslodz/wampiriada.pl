@@ -104,14 +104,25 @@
                 <td>Godzina wpisu</td>
                 <td>Rozmiar koszulki</td>
                 <td>Grupa krwi</td>
-                <td>Udział w konkursie</td>
             </tr>
         </thead>
         <tbody>
             @forelse($checkins as $key => $checkin)
                 <tr>
                     <th>{{ $key + 1 }}</th>
-                    <th>{{ $checkin->user->getFullName() }}</th>
+                    <th>
+
+                        @if($checkin->user->getFullName())
+                            {{ $checkin->user->getFullName() }}
+                        @else
+                            {{ $checkin->name }}
+                        @endif
+
+                        @if($checkin->user->facebook_user_id)
+                            <small><a href="https://facebook.com/{{ $checkin->user->facebook_user_id }}">facebook</a></small>
+                        @endif
+
+                    </th>
                     <td>{{ $checkin->user->email }}</td>
                     <td>{{ $checkin->created_at->format('H:i:s') }}</td>
                     @if($checkin->size)
@@ -120,11 +131,10 @@
                     <td></td>
                     @endif
                     <td>{{ $checkin->blood_type->name }}</td>
-                    <td>{{ $checkin->qualified_for_raffle ? 'TAK': '' }}</td>
                 </tr>
             @empty
                 <tr class="no-results">
-                    <td colspan="7">
+                    <td colspan="6">
                         Do tej akcji nikt jeszcze się nie wpisał.
                     </td>
                 </tr>
