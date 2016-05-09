@@ -3,8 +3,8 @@
 @section('content')
     <div class="container">
         <div class="page-header">
-            <h1> Lista krwiodawców</h1>
-            <p>Wpisz się aby dostać koszulkę</p>
+            <h1>Lista krwiodawców</h1>
+            <p>Prosimy o wypełnienie wszystkich pól poniżej.</p>
         </div>
 
         {{ Form::open(array('url' => '/facebook/checkin', 'class' => 'form-horizontal')) }}
