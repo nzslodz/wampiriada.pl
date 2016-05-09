@@ -1,4 +1,6 @@
+@if(isset($_SERVER['REQUEST_METHOD']) && isset($_SERVER['REQUEST_URI']))
 <h2>{{ $_SERVER['REQUEST_METHOD'] }} {{ $_SERVER['REQUEST_URI'] }}</h2>
+@endif
 <h3>{{ $exception->getMessage() }} (code {{ $exception->getCode() }})</h3>
 
 <p>{{ get_class($exception) }} thrown at {{ $exception->getFile() }}:{{ $exception->getLine() }}</p>
