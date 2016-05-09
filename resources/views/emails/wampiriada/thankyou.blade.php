@@ -3,11 +3,11 @@
 @section('content')
 
  <h3 style="font-size: 24px; letter-spacing: 1px; font-family: Arial, sans-serif; color: #d33 !important; margin-top: 0; margin-left: 0; margin-bottom: 25px; font-weight: normal;">
-Wampir znów grasuje po łódzkich uczelniach – to już 28. raz!
+    
 </h3>
 
 <p style="font-size: 13px; letter-spacing: 1px; font-family: Arial, sans-serif; color: #3D3D3D !important; margin-top: 0; margin-left: 0; margin-bottom: 25px; line-height: 1.4;">
-Mocno wierzymy, że szerzenie wśród młodych ludzi idei honorowego krwiodawstwa jest obowiązkiem każdego - Ciebie, mnie, nas wszystkich. Krew jest niezbędna nie tylko ofiarom wypadków, ale także cierpiącym na różnego rodzaju choroby. Przetaczana podczas transfuzji pozwala ratować ludzkie życie i zdrowie. Wszyscy możemy przyczynić się do wzrostu ilości krwi i zapełnić zapasy życiodajnego płynu na wakacje! Dlatego po raz dwudziesty ósmy organizujemy akcję WAMPIRIADA – studenckie honorowe krwiodawstwo na 4 uczelniach wyższych w Łodzi! Możesz również zarejestrować się w bazie dawców szpiku, oddając niewielką próbkę krwi, aby ocalić kolejne ludzkie życie.
+
 </p>
 
 <p style="font-size: 13px; letter-spacing: 1px; font-family: Arial, sans-serif; color: #3D3D3D !important; margin-top: 0; margin-left: 0; margin-bottom: 25px; line-height: 1.4;">

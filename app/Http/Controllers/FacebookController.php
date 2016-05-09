@@ -75,15 +75,23 @@ class FacebookController extends Controller {
     public function getChuj(){
         $edition = Edition::findOrFail(18);
 
-        $repository = new AwareRedirectRepository(new EditionRepository($edition), Auth::user(), 'initial-response');
-        $repository->registerRedirect('mailing-image', 'http://nzs.lodz.pl/newsletter/wampi28-mailing-official.jpg');
-        $repository->registerRedirect('wampiriada', 'http://wampiriada.pl', false);
+        $user = Auth::user();
 
+        $edition_repository = new EditionRepository($edition);
+
+        $repository = new AwareRedirectRepository($edition_repository, $user, 'initial-response');
+        
+        $repository->registerRedirect('mailing-image', 'http://nzs.lodz.pl/newsletter/wampi28-mailing-official.jpg');
+        $repository->registerRedirect('wampiriada', 'http://wampiriada.pl', false);   
+
+        $has_facebook_photo = $user->facebook_user_id && Storage::disk('local')->exists("fb-images/$user->facebook_user_id.jpg");
 
         return view('emails.wampiriada.thankyou', [
-                'user' => Auth::user(), 
+                'user' => $user, 
                 'edition' => $edition, 
                 'repository' => $repository,
+                'has_facebook_photo' => $has_facebook_photo,
+                'registered_through_facebook' => (bool) $user->facebook_user_id,
             ]
         );
     }
@@ -237,7 +245,7 @@ class FacebookController extends Controller {
         $profile->blood_type_id = $request->blood_type;
         $profile->save();
 
-        dispatch((new WampiriadaThankYouEmail($edition, $user))->delay(3600));
+        dispatch((new WampiriadaThankYouEmail($edition, $user))->delay(7200));
         dispatch(new RegenerateTileImage());
 
 
