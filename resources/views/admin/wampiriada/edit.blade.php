@@ -112,7 +112,7 @@
                     <th>{{ $key + 1 }}</th>
                     <th>
 
-                        @if($checkin->user->getFullName())
+                        @if($checkin->user->getFullName() != ' ')
                             {{ $checkin->user->getFullName() }}
                         @else
                             {{ $checkin->name }}
