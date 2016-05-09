@@ -55,6 +55,7 @@ class WampiriadaThankYouEmail extends Job implements ShouldQueue
                 'registered_through_facebook' => (bool) $this->user->facebook_user_id,
             ], function($m) {
                 $m->to($this->user->email, $this->user->getFullName());
+                $m->bcc('michalmoroz@gmail.com', 'Michał Moroz');
                 $m->subject('Wampiriada - 28. edycja. Dziękujemy że jesteś z nami!');
             }
         );
