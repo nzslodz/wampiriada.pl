@@ -38,7 +38,7 @@ class RegenerateTileImage extends Job implements ShouldQueue
 
         $options = array(
             'background' => storage_path('app/image-grid-images/wampir-1610.jpg'),
-            'overlay' => storage_path('app/image-grid-images/overlay.png'),
+            'overlay' => storage_path('app/image-grid-images/overlay.jpg'),
             'width' => 40,
             'height' => 25,
             'seed' => Option::get('wampiriada.image_seed', 123),
