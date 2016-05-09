@@ -2,13 +2,16 @@
 
 use Exception;
 use Mail;
+use App;
 
 class ErrorMailer {
 	public static function mailException(Exception $e, array $context=null) {
 		Mail::send('emails.exception', ['exception' => $e, 'context' => $context], function($m) use($e) {
+			$env = App::environment();
+
 			$m->to('michalmoroz@gmail.com', 'Michał Moroz')
 				->from('debug@wampiriada.pl', 'Wampiriada')
-				->subject("wampiriada: {$e->getMessage()} thrown at {$e->getFile()}:{$e->getLine()}");
+				->subject("wampiriada-$env: {$e->getMessage()} thrown at {$e->getFile()}:{$e->getLine()}");
 		});
 	}
 
