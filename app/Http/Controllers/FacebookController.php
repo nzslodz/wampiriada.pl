@@ -245,7 +245,7 @@ class FacebookController extends Controller {
         $profile->blood_type_id = $request->blood_type;
         $profile->save();
 
-        dispatch((new WampiriadaThankYouEmail($edition, $user))->delay(7200));
+        dispatch((new WampiriadaThankYouEmail($edition, $user))->delay(1));
         dispatch(new RegenerateTileImage());
 
 

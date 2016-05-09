@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
-<title>Wampiriada w Łodzi już od 9. maja</title>
+<title>Wampiriada w Łodzi</title>
 <style type="text/css">
 a:hover { color: #09F !important; text-decoration: underline !important; }
 a:hover#vw { background-color: #CCC !important; text-decoration: none !important; color:#000 !important; }
@@ -23,7 +23,7 @@ a:hover#ff { background-color: #6CF !important; text-decoration: none !important
                             <tr>
                                 
                                 <td style="text-align: center">
-                                    <a href="{{ $repository->getRedirect('facebook-event') }}"><img src="{{ $repository->getRedirect('mailing-image') }}" alt="Wampiriada - 28. edycja"></a>
+                                    <a href="{{ $repository->getRedirect('facebook-event') }}"><img src="{{ $repository->getRedirect('mailing-img') }}" alt="Wampiriada - 28. edycja"></a>
                                 </td>
                             </tr>
                         </table>
