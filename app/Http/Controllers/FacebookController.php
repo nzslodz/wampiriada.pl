@@ -17,6 +17,7 @@ use NZS\Wampiriada\ActionData;
 use NZS\Wampiriada\Checkin;
 use NZS\Wampiriada\Profile;
 use NZS\Wampiriada\Option;
+use NZS\Wampiriada\FacebookConnection;
 use NZS\Wampiriada\EditionRepository;
 use Carbon\Carbon;
 
@@ -150,6 +151,27 @@ class FacebookController extends Controller {
         Auth::login($user);
 
         dispatch(new DownloadFacebookProfile($user));
+
+        try {
+            $response = $fb->get('/me/friends?fields=id');
+
+            $graphEdge = $response->getGraphEdge();
+
+            while($graphEdge) {
+                foreach($graphEdge as $graphNode) {
+                    $user_id = $graphNode->getField('id');
+
+                    if($target_user = User::whereFacebookUserId($user_id)->first()) {
+                        FacebookConnection::firstOrCreate(['source_id' => $user->id, 'target_id' => $target_user->id]);
+                        FacebookConnection::firstOrCreate(['source_id' => $target_user->id, 'target_id' => $user->id]);
+                    }
+                }
+
+                $graphEdge = $fb->next($graphEdge);
+            }
+        } catch(facebookSDKException $e) {
+            ErrorMailer::mailException($e);
+        }
 
         // XXX: not needed really
         if(Session::get('to') == 'finish') {
