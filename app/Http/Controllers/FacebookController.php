@@ -185,7 +185,7 @@ class FacebookController extends Controller {
         ]);
     }
 
-    public function postCheckin(CheckinRequest $request) {
+    public function postCheckin(CheckinRequest $request, LaravelFacebookSdk $fb) {
         $current_action = ActionDay::whereDate('created_at', '=', Carbon::today()->toDateString())->first();
         if(!$current_action) {
             return abort(403, "Today the process is not available");
@@ -243,7 +243,15 @@ class FacebookController extends Controller {
 
         // XXX queue friend processing
 
-        return redirect('/facebook/complete');
+        $token = Session::get('fb_user_access_token');
+
+        if(!$token) {
+            return redirect('/facebook/complete');
+        }
+
+        $fb->setDefaultAccessToken($token);
+
+        return redirect($fb->getRedirectLoginHelper()->getLogoutUrl($token,  url('facebook/complete')));
     }
 
     /*
