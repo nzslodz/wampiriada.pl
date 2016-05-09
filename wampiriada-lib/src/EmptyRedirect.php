@@ -3,7 +3,9 @@
 use Silverplate\App;
 use Netzmacht\Html\Element;
 
-class EmptyRedirect {
+use App\Contracts\Redirect as RedirectContract;
+
+class EmptyRedirect implements RedirectContract {
     use BooleanBlockTrait;
     
     public function exists() {

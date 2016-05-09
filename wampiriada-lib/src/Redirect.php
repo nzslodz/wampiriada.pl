@@ -4,7 +4,9 @@ use Silverplate\App;
 use Netzmacht\Html\Element;
 use Illuminate\Database\Eloquent\Model as Model;
 
-class Redirect extends Model {
+use App\Contracts\Redirect as RedirectContract;
+
+class Redirect extends Model implements RedirectContract {
     use BooleanBlockTrait;
 
     public $timestamps = false;

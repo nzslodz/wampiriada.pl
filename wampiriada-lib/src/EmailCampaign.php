@@ -3,4 +3,5 @@
 use Illuminate\Database\Eloquent\Model as Model;
 
 class EmailCampaign extends Model {
+	public $fillable = ['key'];
 }

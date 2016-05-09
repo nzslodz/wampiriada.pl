@@ -23,6 +23,10 @@ Route::get('/facebook/callback', 'FacebookController@getCallback');
 Route::get('/facebook/callback/{to}', 'FacebookController@getCallback');
 
 Route::group(['middleware' => 'auth.facebook'], function() {
+	if(App::environment('local')) {
+		Route::get('/facebook/chuj', 'FacebookController@getChuj');
+	}
+	
     Route::get('/facebook/checkin', 'FacebookController@getCheckin');
     Route::post('/facebook/checkin', 'FacebookController@postCheckin');
     //Route::get('/facebook/raffle', 'FacebookController@getRaffle');

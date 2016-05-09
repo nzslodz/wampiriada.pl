@@ -10,12 +10,14 @@ class EditionRepository {
         $actions,
         $redirects = array();
 
-    public function __construct($edition) {
+    public function __construct($edition=null) {
         if($edition instanceof Edition) {
             $this->edition = $edition;
             $this->edition_number = $edition->number;
-        } else {
+        } elseif($edition) {
             $this->edition_number = $edition;
+        } else {
+            $this->edition_number = Option::get('wampiriada.edition', 28);
         }
     }
 
@@ -114,6 +116,26 @@ class EditionRepository {
         }
 
         return $this->redirects[$name];
+    }
+
+    public function registerRedirect($key, $url, $edition_specific=true) {
+        if($edition_specific) {
+            $redirect = Redirect::whereKey($key)->whereEditionId($this->getEdition()->id)->first();
+        } else {
+            $redirect = Redirect::whereKey($key)->whereNull('edition_id')->first();
+        }
+
+        if(!$redirect) {
+            $redirect = Redirect::create([
+                'edition_id' => ($edition_specific) ? $this->getEdition()->id : null,
+                'url' => $url,
+                'key' => $key,
+            ]);
+        }
+
+        $this->redirects[$key] = $redirect;
+
+        return $redirect;
     }
 }
 

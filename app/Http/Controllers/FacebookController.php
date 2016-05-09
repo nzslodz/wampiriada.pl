@@ -24,8 +24,11 @@ use App\Jobs\DownloadFacebookProfile;
 use App\Jobs\WampiriadaThankYouEmail;
 use App\Jobs\RegenerateTileImage;
 
+use NZS\Wampiriada\AwareRedirectRepository;
+
 use App\Libraries\ErrorMailer;
 use LogicException;
+use Mail;
 
 use Storage;
 
@@ -67,6 +70,22 @@ class FacebookController extends Controller {
         Auth::login($user);
 
         return redirect('/facebook/checkin');
+    }
+
+    public function getChuj(){
+        $edition = Edition::findOrFail(18);
+
+        $repository = new AwareRedirectRepository(new EditionRepository($edition), Auth::user(), 'initial-response');
+        $repository->registerRedirect('mailing-image', 'http://nzs.lodz.pl/newsletter/wampi28-mailing-official.jpg');
+        $repository->registerRedirect('wampiriada', 'http://wampiriada.pl', false);
+
+
+        return view('emails.wampiriada.thankyou', [
+                'user' => Auth::user(), 
+                'edition' => $edition, 
+                'repository' => $repository,
+            ]
+        );
     }
 
     public function getCallback(LaravelFacebookSdk $fb, Request $request) {
