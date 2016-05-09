@@ -30,12 +30,12 @@ Oficjalna strona akcji honorowego krwiodawstwa Wampiriada w Łodzi, organizowane
 </section>
 
 @include('wampiriada.templates.index_action_schedule')
-{{--
+
 <section class="imagegrid">
     <div class="image">
     <img src="{{ url('storage/ImageGrid.jpg') }}">
     </div>
-
+{{--
     <div class="container">
         @foreach($achievements as $number => $achievement)
             @if($numberOfCheckins >= $number)
@@ -57,9 +57,9 @@ Oficjalna strona akcji honorowego krwiodawstwa Wampiriada w Łodzi, organizowane
             @endif
         @endforeach
     </div>
-
-</section>
 --}}
+</section>
+
 
 <section class="description @if($display_results) with-results @endif">
     <div class="container">

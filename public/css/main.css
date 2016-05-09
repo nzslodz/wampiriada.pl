@@ -719,3 +719,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4e100c', end
 .well {
     color: #000;
 }
+
+.form-control {
+    font-size: 13px;
+}
