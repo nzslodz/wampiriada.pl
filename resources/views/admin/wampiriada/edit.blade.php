@@ -135,6 +135,7 @@
                 <td>Godzina wpisu</td>
                 <td>Rozmiar koszulki</td>
                 <td>Grupa krwi</td>
+                <td>Pierwszy raz</td>
             </tr>
         </thead>
         <tbody>
@@ -162,10 +163,15 @@
                     <td></td>
                     @endif
                     <td>{{ $checkin->blood_type->name }}</td>
+                    <td>
+                        @if($checkin->first_time)
+                        <span class="glyphicon glyphicon-check"></span>
+                        @endif
+                    </td>
                 </tr>
             @empty
                 <tr class="no-results">
-                    <td colspan="6">
+                    <td colspan="7">
                         Do tej akcji nikt jeszcze się nie wpisał.
                     </td>
                 </tr>
