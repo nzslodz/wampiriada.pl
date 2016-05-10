@@ -9,6 +9,37 @@
         <h1>{{ $action->getShortDescriptionAttribute() }} &mdash; edycja</h1>
     </div>
 
+    <div class="row input-second">
+        <div class="col-md-3">
+            <div class="card">
+            <strong>{{ $data->getOverall() }}</strong>
+            oddało krew
+            </div>
+        </div>
+
+        @if($checkin_count > 0)
+        <div class="col-md-3">
+            <div class="card">
+            <strong>{{ $checkin_count }}</strong>
+            wpisanych na listę
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card @if($first_time_checkin_count_percentage == 0) card-disabled @endif">
+            <strong>{{ $first_time_checkin_count_percentage }}%</strong>
+            osób biorących udział pierwszy raz
+            </div>
+        </div>
+        <div class="col-md-3">
+            
+            <div class="card @if($missing_count == 0) card-disabled @endif">
+            <strong>{{ $missing_count }}</strong>
+            osób brakujących na liście
+            </div>
+        </div>
+        @endif
+    </div>
+
     {{ Form::open(array('url' => 'admin/wampiriada/edit/' . $action->id, 'class' => 'form-horizontal')) }}
         <div class="row">
         <div class="col-md-6">
