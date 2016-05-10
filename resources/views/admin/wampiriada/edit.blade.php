@@ -27,7 +27,7 @@
         <div class="col-md-3">
             <div class="card @if($first_time_checkin_count_percentage == 0) card-disabled @endif">
             <strong>{{ $first_time_checkin_count_percentage }}%</strong>
-            osób biorących udział pierwszy raz
+            {{ $first_time_checkin_count }} osób biorących udział pierwszy raz
             </div>
         </div>
         <div class="col-md-3">
