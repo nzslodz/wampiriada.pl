@@ -173,7 +173,10 @@ class WampiriadaBackendController extends Controller {
         foreach($redirects as $key => $field) {
             $redirect = Redirect::firstOrNew(['key' => $key, 'edition_id' => $edition->id]);
             $redirect->url = $request->input($field);
-            $redirect->save();
+
+            if($redirect->url) {
+                $redirect->save();
+            }
         }
 
         return redirect('admin/wampiriada/show/' . $number)->with('message', 'Zmiany zapisane poprawnie')->with('status', 'success');
