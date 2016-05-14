@@ -24,6 +24,10 @@ class CheckinRequest extends Request
         return true;
     }
 
+    public function sanitizeName($name) {
+        return trim(preg_replace('/\s+/u', ' ', $name));
+    }
+
     /**
      * Get the validation rules that apply to the request.
      *

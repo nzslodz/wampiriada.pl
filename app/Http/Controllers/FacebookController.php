@@ -267,6 +267,11 @@ class FacebookController extends Controller {
         $profile->blood_type_id = $request->blood_type;
         $profile->save();
 
+        if(!$user->first_name && !$user->last_name) {
+            list($user->first_name, $user->last_name) = $profile->getNameAsPair();
+            $user->save();
+        }
+        
         dispatch((new WampiriadaThankYouEmail($edition, $user))->delay(7200));
         dispatch(new RegenerateTileImage());
 
