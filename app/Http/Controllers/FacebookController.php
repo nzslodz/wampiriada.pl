@@ -73,30 +73,6 @@ class FacebookController extends Controller {
         return redirect('/facebook/checkin');
     }
 
-    public function getChuj(){
-        $edition = Edition::findOrFail(18);
-
-        $user = Auth::user();
-
-        $edition_repository = new EditionRepository($edition);
-
-        $repository = new AwareRedirectRepository($edition_repository, $user, 'initial-response');
-        
-        $repository->registerRedirect('mailing-image', 'http://nzs.lodz.pl/newsletter/wampi28-mailing-official.jpg');
-        $repository->registerRedirect('wampiriada', 'http://wampiriada.pl', false);   
-
-        $has_facebook_photo = $user->facebook_user_id && Storage::disk('local')->exists("fb-images/$user->facebook_user_id.jpg");
-
-        return view('emails.wampiriada.thankyou', [
-                'user' => $user, 
-                'edition' => $edition, 
-                'repository' => $repository,
-                'has_facebook_photo' => $has_facebook_photo,
-                'registered_through_facebook' => (bool) $user->facebook_user_id,
-            ]
-        );
-    }
-
     public function getCallback(LaravelFacebookSdk $fb, Request $request) {
         try {
             $token = $fb->getAccessTokenFromRedirect();
@@ -271,12 +247,9 @@ class FacebookController extends Controller {
             list($user->first_name, $user->last_name) = $profile->getNameAsPair();
             $user->save();
         }
-        
+
         dispatch((new WampiriadaThankYouEmail($edition, $user))->delay(7200));
         dispatch(new RegenerateTileImage());
-
-
-        // XXX queue friend processing
 
         $token = Session::get('fb_user_access_token');
 
