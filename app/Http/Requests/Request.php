@@ -11,7 +11,7 @@ abstract class Request extends FormRequest
 
     	$method_name = camel_case("sanitize_$key");
 
-    	if(method_exists($this, camel_case("sanitize_$key")) {
+    	if(method_exists($this, camel_case("sanitize_$key"))) {
     		$value = $this->$method_name($value);
     	}
 
