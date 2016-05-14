@@ -30,6 +30,7 @@ use NZS\Wampiriada\AwareRedirectRepository;
 use App\Libraries\ErrorMailer;
 use LogicException;
 use Mail;
+use DB;
 
 use Storage;
 
@@ -219,34 +220,37 @@ class FacebookController extends Controller {
         $action_data->{$blood_type->key} += 1;
         $action_data->save();
 
-        // save checkin model
-        $checkin = new Checkin();
-        $checkin->first_time = $request->has('first_time');
-        $checkin->size_id = $request->size;
-        $checkin->blood_type_id = $request->blood_type;
-        $checkin->name = $request->name;
-        $checkin->action_day_id = $current_action->id;
-        $checkin->edition_id = $current_action->edition_id;
-        $checkin->user_id = Auth::user()->id;
+        DB::transaction(function() {
+            // save checkin model
+            $checkin = new Checkin();
+            $checkin->first_time = $request->has('first_time');
+            $checkin->size_id = $request->size;
+            $checkin->blood_type_id = $request->blood_type;
+            $checkin->name = $request->name;
+            $checkin->action_day_id = $current_action->id;
+            $checkin->edition_id = $current_action->edition_id;
+            $checkin->user_id = Auth::user()->id;
 
-        $checkin->save();
+            $checkin->save();
 
-        // save profile defaults
-        $profile = Profile::whereId(Auth::user()->id)->first();
-        if(!$profile) {
-            $profile = new Profile;
-            $profile->id = Auth::user()->id;
-        }
+            // save profile defaults
+            $profile = Profile::whereId(Auth::user()->id)->first();
+            if(!$profile) {
+                $profile = new Profile;
+                $profile->id = Auth::user()->id;
+            }
 
-        $profile->current_name = $request->name;
-        $profile->default_size_id = $request->size;
-        $profile->blood_type_id = $request->blood_type;
-        $profile->save();
+            $profile->current_name = $request->name;
+            $profile->default_size_id = $request->size;
+            $profile->blood_type_id = $request->blood_type;
+            $profile->save();
 
-        if(!$user->first_name && !$user->last_name) {
-            list($user->first_name, $user->last_name) = $profile->getNameAsPair();
-            $user->save();
-        }
+            // fix user first_name/last_name
+            if(!$user->first_name && !$user->last_name) {
+                list($user->first_name, $user->last_name) = $profile->getNameAsPair();
+                $user->save();
+            }
+        });
 
         dispatch((new WampiriadaThankYouEmail($edition, $user))->delay(7200));
         dispatch(new RegenerateTileImage());
