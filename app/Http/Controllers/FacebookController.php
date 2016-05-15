@@ -187,8 +187,9 @@ class FacebookController extends Controller {
         return view('facebook.checkin', [
             'sizes' => $shirt_sizes,
             'blood_types' => $blood_types,
-            'first_time' => !(Checkin::whereUserId(Auth::user()->id)->first()),
+            'first_time' => !(Checkin::whereUserId(Auth::user()->id)->exists()),
             'profile' => $profile,
+            'user' => Auth::user(),
         ]);
     }
 
@@ -220,7 +221,7 @@ class FacebookController extends Controller {
         $action_data->{$blood_type->key} += 1;
         $action_data->save();
 
-        DB::transaction(function() {
+        DB::transaction(function() use($request, $current_action, $user) {
             // save checkin model
             $checkin = new Checkin();
             $checkin->first_time = $request->has('first_time');
@@ -245,9 +246,20 @@ class FacebookController extends Controller {
             $profile->blood_type_id = $request->blood_type;
             $profile->save();
 
+            $user_has_changed = false;
+
             // fix user first_name/last_name
             if(!$user->first_name && !$user->last_name) {
                 list($user->first_name, $user->last_name) = $profile->getNameAsPair();
+                $user_has_changed = true;
+            }
+
+            if(!$user->email) {
+                $user->email = $request->email;
+                $user_has_changed = true;
+            }
+
+            if($user_has_changed) {
                 $user->save();
             }
         });

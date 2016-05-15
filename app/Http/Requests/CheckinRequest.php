@@ -28,6 +28,14 @@ class CheckinRequest extends Request
         return trim(preg_replace('/\s+/u', ' ', $name));
     }
 
+    public function extraValidation($validator) {
+        $validator->sometimes('email', 'email|required', function($input) {
+            return empty(Auth::user()->email);
+        });
+
+        return $validator;
+    }
+
     /**
      * Get the validation rules that apply to the request.
      *

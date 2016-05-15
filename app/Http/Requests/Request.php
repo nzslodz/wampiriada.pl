@@ -17,4 +17,18 @@ abstract class Request extends FormRequest
 
     	return $value;
     }
+
+    public function validator($factory) {
+    	$validator = $factory->make(
+            $this->all(), $this->container->call([$this, 'rules']), $this->messages(), $this->attributes()
+        );
+
+    	$validator = $this->extraValidation($validator);
+
+    	return $validator;
+    }
+
+    public function extraValidation($validator) {
+    	return $validator;
+    }
 }
