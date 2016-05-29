@@ -4,10 +4,14 @@ use NZS\Core\CollectionAggregator;
 use NZS\Wampiriada\Option;
 use NZS\Wampiriada\Action;
 use NZS\Wampiriada\ActionData;
+use NZS\Wampiriada\FacebookConncection;
 use NZS\Wampiriada\Edition;
 use NZS\Wampiriada\Checkin;
 use NZS\Wampiriada\ShirtSize;
 use NZS\Wampiriada\Redirect;
+use DB;
+
+use App\User;
 
 use Illuminate\Http\Request;
 
@@ -184,6 +188,71 @@ class WampiriadaBackendController extends Controller {
 
 	public function postResults(Request $request) {
 	    return redirect('admin/wampiriada/edit/' . $request->input('id'));
+    }
+
+    public function postPrize(Request $request) {
+        var_dump($request->all());
+    }
+
+    public function getFacebookConnections(Request $request, $number) {
+        $edition = Edition::whereNumber($number)->firstOrFail();
+
+        $users = [];
+
+        $valid_user_ids = Checkin::whereEditionId($edition->id)->lists('user_id');
+
+        $user_connection_pairs = User::join('checkins', 'users.id', '=', 'checkins.user_id')
+            ->leftJoin('facebook_connections', 'facebook_connections.source_id', '=', 'users.id')
+            ->where('checkins.edition_id', '=', $edition->id)
+            ->select('users.*', 'facebook_connections.target_id', 'checkins.action_day_id')
+            ->get();
+
+        foreach($user_connection_pairs as $user_connection_pair) {
+            if(!isset($users[$user_connection_pair->id])) {
+                $users[$user_connection_pair->id] = $user_connection_pair;
+                $users[$user_connection_pair->id]->facebook_connection_count = 0;
+                $users[$user_connection_pair->id]->facebook_connections = collect([]);
+            }
+
+            // leftJoin allows users with no connections have NULL target_ids
+            if(!$user_connection_pair->target_id) {
+                continue;
+            }
+
+            // connection to a friend that did not participate in the current edition
+            if(!$valid_user_ids->contains($user_connection_pair->target_id)) {
+                continue;
+            }
+
+            $users[$user_connection_pair->id]->facebook_connection_count += 1;
+            $users[$user_connection_pair->id]->facebook_connections->push($user_connection_pair->target_id);
+        }
+
+        $users = collect($users);
+
+        foreach($users as $user) {
+            $present = [];
+            $not_present = [];
+
+            foreach($user->facebook_connections as $id) {
+                $user2 = $users[$id];
+
+                if($user->action_day_id != $user2->action_day_id) {
+                    $not_present[] = $id;
+                } else {
+                    $present[] = $id;
+                }
+            }
+
+            $user->facebook_connections_present_on_action = $present;
+            $user->facebook_connections_not_present_on_action = $not_present;
+
+            $user->score = count($not_present) * 1.2 + count($present);
+        }
+
+        return view('admin.wampiriada.facebook_connections', [
+            'users' => $users->sortByDesc('score'), 
+        ]);
     }
 
 }

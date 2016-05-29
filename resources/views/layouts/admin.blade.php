@@ -10,6 +10,7 @@
             @yield('title')
         </title>
         <meta name="viewport" content="width=device-width">
+        <meta name="csrf-token" content="{{ csrf_token() }}">
 
         <script type="text/javascript">
             function path(url) {
@@ -20,6 +21,8 @@
         <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
 
         {{ HTML::style('bower_components/bootstrap/dist/css/bootstrap.min.css') }}
+        {{ HTML::style('bower_components/font-awesome/css/font-awesome.min.css') }}
+
         {{ HTML::style('admin-assets/css/main.css') }}
     </head>
     <body>

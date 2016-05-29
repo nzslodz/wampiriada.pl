@@ -22,6 +22,8 @@ Route::post('/facebook/login', 'FacebookController@postLoginViaEmailPage');
 Route::get('/facebook/callback', 'FacebookController@getCallback');
 Route::get('/facebook/callback/{to}', 'FacebookController@getCallback');
 
+Route::post('/lol/prize', 'WampiriadaBackendController@postPrize');
+
 Route::group(['middleware' => 'auth.facebook'], function() {
     Route::get('/facebook/checkin', 'FacebookController@getCheckin');
     Route::post('/facebook/checkin', 'FacebookController@postCheckin');
@@ -45,7 +47,6 @@ Route::group(['prefix' => 'admin'], function() {
 	//Route::get( 'user/reset_password/{token}', 'UserController@reset_password');
 	//Route::post('user/reset_password',         'UserController@do_reset_password');
 
-	// XXX TODO add a gate or sth
 	Route::group(array('middleware' => ['auth', AdminMiddleware::class]), function() {
 
 	    //Route::controller('zgloszenia', 'EntryController');
@@ -59,6 +60,7 @@ Route::group(['prefix' => 'admin'], function() {
 	    Route::post('wampiriada/results', 'WampiriadaBackendController@postResults');
 	    Route::get('wampiriada/settings/{number}', ['as' => 'admin-wampiriada-settings', 'uses' => 'WampiriadaBackendController@getSettings']);
 	    Route::post('wampiriada/settings/{number}', 'WampiriadaBackendController@postSettings');
+	    Route::get('wampiriada/connections/{number}', ['as' => 'admin-wampiriada-connections', 'uses' => 'WampiriadaBackendController@getFacebookConnections']);
 
 	    Route::get('/', ['as' => 'admin-home', function() {
 	    	return View::make('admin.hello');

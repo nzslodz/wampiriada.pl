@@ -9,6 +9,7 @@
         <div class='btn-toolbar pull-right'>
             <div class='btn-group'>
                 <a href="{{ url('admin/wampiriada/settings/' . $edition) }}" class="btn btn-default"><span class="glyphicon glyphicon-cog"></span> Ustawienia</a>
+                <a href="{{ url('admin/wampiriada/connections/' . $edition) }}" class="btn btn-default"><i class="fa fa-facebook"></i> Konkurs FB</a>
             </div>
         </div>
         <h2>Wyniki {{ $edition }}. edycji Wampiriady</h2>

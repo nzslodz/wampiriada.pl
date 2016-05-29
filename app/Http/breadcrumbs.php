@@ -34,3 +34,8 @@ Breadcrumbs::register('admin-wampiriada-settings', function($breadcrumbs, $numbe
     $breadcrumbs->parent('admin-wampiriada-show', $number);
     $breadcrumbs->push('Ustawienia', route('admin-wampiriada-settings', $number));
 });
+
+Breadcrumbs::register('admin-wampiriada-connections', function($breadcrumbs, $number) {
+    $breadcrumbs->parent('admin-wampiriada-show', $number);
+    $breadcrumbs->push('Połączenia', route('admin-wampiriada-connections', $number));
+});
