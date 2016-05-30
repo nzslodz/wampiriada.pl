@@ -21,6 +21,8 @@ class CollectionAggregator {
 
         $name = snake_case(substr($name, 3));
 
+        $name = str_replace('a_b_', 'ab_', $name);
+
         return $this->collection->reduce(function($carry, $item) use($name) {
             if(!$item->data) {
                 return $carry;
