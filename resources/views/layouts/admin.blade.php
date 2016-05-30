@@ -61,6 +61,15 @@
                             <li><a href="{{ url('admin/wampiriada/new') }}"><i class="glyphicon glyphicon-plus"></i> Dodaj nową edycję</a></li>
                         </ul>
                     </li>
+
+                    <li class="dropdown">
+                        <a href="{{ url('admin') }}" class="dropdown-toggle" data-toggle="dropdown">
+                            Zarządzanie <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="{{ url('admin/email') }}"><i class="fa fa-envelope"></i> E-maile </a></li>
+                        </ul>
+                    </li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <li class="navbar-text">{{ Auth::user()->username }}</li>
