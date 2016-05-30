@@ -66,6 +66,20 @@ return [
             'engine' => 'InnoDB',
         ],
 
+        'mysql-postfix' => [
+            'driver' => 'mysql',
+            'host' => env('POSTFIX_DB_HOST', 'localhost'),
+            'port' => env('POSTFIX_DB_PORT', '3306'),
+            'database' => env('POSTFIX_DB_DATABASE', 'forge'),
+            'username' => env('POSTFIX_DB_USERNAME', 'forge'),
+            'password' => env('POSTFIX_DB_PASSWORD', ''),
+            'charset' => 'utf8',
+            'collation' => 'utf8_unicode_ci',
+            'prefix' => '',
+            'strict' => false,
+            'engine' => 'InnoDB',
+        ],
+
         'pgsql' => [
             'driver' => 'pgsql',
             'host' => env('DB_HOST', 'localhost'),

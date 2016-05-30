@@ -62,6 +62,11 @@ Route::group(['prefix' => 'admin'], function() {
 	    Route::post('wampiriada/settings/{number}', 'WampiriadaBackendController@postSettings');
 	    Route::get('wampiriada/connections/{number}', ['as' => 'admin-wampiriada-connections', 'uses' => 'WampiriadaBackendController@getFacebookConnections']);
 
+	    Route::get('email', ['as' => 'email-list', 'uses' => 'MailController@getIndex']);
+	    Route::get('email/create', ['as' => 'email-create', 'uses' => 'MailController@getCreate']);
+	   	Route::post('email/create', 'MailController@postCreate');
+
+
 	    Route::get('/', ['as' => 'admin-home', function() {
 	    	return View::make('admin.hello');
 	    }]);
