@@ -24,7 +24,7 @@ class WampiriadaBackendController extends Controller {
 	 */
 	public function getIndex() {
         $edition_number = (int) Option::get('wampiriada.edition', 26);
-    
+
         return redirect('admin/wampiriada/show/' . $edition_number);
 	}
 
@@ -44,7 +44,7 @@ class WampiriadaBackendController extends Controller {
 	 */
 	public function getShow($number) {
         $actions = Action::where('number', $number)->orderBy('day')->get();
-       
+
         $actions_with_data = $actions->filter(function($action) {
             return (bool) $action->data;
         });
@@ -77,8 +77,8 @@ class WampiriadaBackendController extends Controller {
         }
 
         $checkins = Checkin::whereActionDayId($id)->orderBy('created_at')->get();
-        
-        $first_time_checkin_count = $checkins->filter(function($checkin) { 
+
+        $first_time_checkin_count = $checkins->filter(function($checkin) {
             return $checkin->first_time;
         })->count();
 
@@ -113,7 +113,7 @@ class WampiriadaBackendController extends Controller {
         $action_data->zero_plus = $request->input('zero_plus', 0);
         $action_data->zero_minus = $request->input('zero_minus', 0);
         $action_data->unknown = $request->input('unknown', 0);
-   
+
         $action_data->save();
 
         return redirect('admin/wampiriada/show/' . $action->number);
@@ -135,7 +135,7 @@ class WampiriadaBackendController extends Controller {
 
     public function getNew(Request $request) {
         $edition = new Edition;
-        
+
         $last_edition = Edition::orderBy('number', 'DESC')->first();
         if($last_edition) {
             $number = $last_edition->number + 1;
@@ -144,7 +144,7 @@ class WampiriadaBackendController extends Controller {
         }
 
         $checkboxes = ShirtSize::get();
-        
+
         return view('admin.wampiriada.settings', [
             'edition_number' => $number,
             'redirect_event' => Redirect::firstOrNew(['key' => 'facebook-event', 'edition_id' => $edition->id]),
@@ -157,7 +157,7 @@ class WampiriadaBackendController extends Controller {
     // XXX - handle new editions
     public function postSettings(Request $request, $number) {
         $edition = Edition::whereNumber($number)->firstOrFail();
-        
+
         $sizes = $request->input('sizes');
         if(!is_array($sizes)) {
             $sizes = [];
@@ -204,7 +204,7 @@ class WampiriadaBackendController extends Controller {
         $user_connection_pairs = User::join('checkins', 'users.id', '=', 'checkins.user_id')
             ->leftJoin('facebook_connections', 'facebook_connections.source_id', '=', 'users.id')
             ->where('checkins.edition_id', '=', $edition->id)
-            ->select('users.*', 'facebook_connections.target_id', 'checkins.action_day_id')
+            ->select('users.*', 'facebook_connections.target_id', 'checkins.action_day_id', 'checkins.created_at')
             ->get();
 
         foreach($user_connection_pairs as $user_connection_pair) {
@@ -244,6 +244,12 @@ class WampiriadaBackendController extends Controller {
                 }
             }
 
+						$present[] = $user->id;
+
+						usort($present, function($a, $b) use($users) {
+								return $users[$b]->created_at->diffInMinutes($users[$a]->created_at, false);
+						});
+
             $user->facebook_connections_present_on_action = $present;
             $user->facebook_connections_not_present_on_action = $not_present;
 
@@ -251,7 +257,7 @@ class WampiriadaBackendController extends Controller {
         }
 
         return view('admin.wampiriada.facebook_connections', [
-            'users' => $users->sortByDesc('score'), 
+            'users' => $users->sortByDesc('score'),
         ]);
     }
 

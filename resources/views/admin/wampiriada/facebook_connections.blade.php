@@ -14,7 +14,7 @@
             <tr>
                 <th>Osoba</th>
                 <td class="info">Punkty</td>
-                <td>Na akcji z</td>
+                <td>Na akcji</td>
                 <td>Poza akcją z</td>
             </tr>
         </thead>
@@ -35,7 +35,16 @@
                     <small>
                     @if($user->facebook_connections_present_on_action)
                         @foreach($user->facebook_connections_present_on_action as $connection)
-                            <a href="#user-{{ $connection }}"><em>{{ $users[$connection]->getFullName() }}</em></a><br>
+                            {{ $users[$connection]->created_at->format('H:i') }}
+                            @if($users[$connection]->id != $user->id)
+                            <a href="#user-{{ $connection }}">
+                            @endif
+                                <em>{{ $users[$connection]->getFullName() }}</em>
+                            @if($users[$connection]->id != $user->id)
+                            </a>
+                            @endif
+
+                            <br>
                         @endforeach
                     @endif
                     </small>
