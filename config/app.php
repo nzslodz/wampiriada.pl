@@ -158,7 +158,8 @@ return [
         App\Providers\AuthServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
-
+        App\Providers\ActivityServiceProvider::class,
+        Illuminate\Database\MigrationServiceProvider::class,
     ],
 
     /*

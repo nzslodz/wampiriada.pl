@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Eloquent\Model as Model;
 
-class Place extends Eloquent {
+class Place extends Model {
 	protected $table = 'places';
 
     public function actions() {
