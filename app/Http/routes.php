@@ -37,7 +37,7 @@ Route::group(['middleware' => 'auth.facebook'], function() {
 // mobile controller
 //Route::get('data/overall', 'MobileController@getOverall');
 
-// newsletter controller - remove yourself from newsletter, 
+// newsletter controller - remove yourself from newsletter,
 //Route::get('newsletter/remove', 'NewsletterController@getRemove');
 
 Route::group(['prefix' => 'admin'], function() {
@@ -66,6 +66,7 @@ Route::group(['prefix' => 'admin'], function() {
 	    Route::get('email/create', ['as' => 'email-create', 'uses' => 'MailController@getCreate']);
 	   	Route::post('email/create', 'MailController@postCreate');
 
+        Route::get('activity/profile/{user}', ['as' => 'activity-profile', 'uses' => 'ActivityController@getProfile']);
 
 	    Route::get('/', ['as' => 'admin-home', function() {
 	    	return View::make('admin.hello');

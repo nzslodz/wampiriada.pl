@@ -23,7 +23,7 @@
             @forelse($users as $user)
                 <tr id="user-{{ $user->id }}">
                     <th>
-                        {{ $user->getFullName() }}
+                        <a data-card="{{ $user->id }}" href="{{ url('admin/activity/profile/'. $user->id) }}">{{ $user->getFullName() }}</a>
 
                         @if($user->facebook_user_id)
                             <small><a href="https://facebook.com/{{ $user->facebook_user_id }}">facebook</a></small>

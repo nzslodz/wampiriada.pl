@@ -24,6 +24,8 @@
         {{ HTML::style('bower_components/font-awesome/css/font-awesome.min.css') }}
 
         {{ HTML::style('admin-assets/css/main.css') }}
+
+        @yield('extrahead')
     </head>
     <body>
         <nav class="navbar navbar-default" role="navigation">
@@ -37,7 +39,7 @@
                             {{-- @if (Entry2::countNew() > 0)
                                 <span class="badge">{{ Entry2::countNew() }}</span>
                             @endif --}}
-                        
+
                             Kuźnia <b class="caret"></b>
                         </a>
 

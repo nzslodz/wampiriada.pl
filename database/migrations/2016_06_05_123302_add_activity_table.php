@@ -52,7 +52,7 @@ class AddActivityTable extends Migration
 
         $activity_class = new EmailCampaignResultActivityClass();
         foreach(EmailCampaignResult::all() as $result) {
-            $activity = $activity_class->saveActivityInstance($checkin);
+            $activity = $activity_class->saveActivityInstance($result);
             $result->activity_id = $activity->id;
             $result->save();
         }

@@ -31,7 +31,7 @@
             </div>
         </div>
         <div class="col-md-3">
-            
+
             <div class="card @if($missing_count == 0) card-disabled @endif">
             <strong>{{ $missing_count }}</strong>
             osób brakujących na liście
@@ -105,7 +105,7 @@
             </div>
         </div>
         </div>
-        
+
         <div class="row">
         <div class="col-md-6">
             <div class="row">
@@ -124,7 +124,7 @@
             </div>
         </div>
     {{ Form::close() }}
-   
+
     <h3>Osoby, które oddały krew</h3>
     <table class="table table-striped table-bordered">
         <thead>
@@ -144,11 +144,13 @@
                     <th>{{ $key + 1 }}</th>
                     <th>
 
-                        @if($checkin->user->getFullName() != ' ')
-                            {{ $checkin->user->getFullName() }}
-                        @else
-                            {{ $checkin->name }}
-                        @endif
+                        <a data-card="{{ $checkin->user->id }}" href="{{ url('admin/activity/profile/' . $checkin->user->id )}}">
+                            @if($checkin->user->getFullName() != ' ')
+                                {{ $checkin->user->getFullName() }}
+                            @else
+                                {{ $checkin->name }}
+                            @endif
+                        </a>
 
                         @if($checkin->user->facebook_user_id)
                             <small><a href="https://facebook.com/{{ $checkin->user->facebook_user_id }}">facebook</a></small>
