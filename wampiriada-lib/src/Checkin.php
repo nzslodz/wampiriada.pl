@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Eloquent\Model as Model;
 use App\User;
+use NZS\Wampiriada\PrizeForCheckin;
 
 
 class Checkin extends Model {
@@ -23,5 +24,9 @@ class Checkin extends Model {
 
     public function size() {
         return $this->belongsTo(ShirtSize::class);
+    }
+
+    public function prize() {
+        return $this->hasOne(PrizeForCheckin::class);
     }
 }

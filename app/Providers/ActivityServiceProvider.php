@@ -8,6 +8,7 @@ use Illuminate\Database\Migrations\MigrationRepositoryInterface;
 use NZS\Core\ActivityRepository;
 use NZS\Core\DatabaseActivityRepository;
 use NZS\Wampiriada\CheckinActivityClass;
+use NZS\Wampiriada\PrizeForCheckinActivityClass;
 
 class ActivityServiceProvider extends ServiceProvider
 {
@@ -19,7 +20,7 @@ class ActivityServiceProvider extends ServiceProvider
     public function boot()
     {
         $repository = $this->app[ActivityRepository::class];
-        $repository->append($this->app->tagged('activity.classes'));
+        $repository->append($this->app->tagged('activity.model_classes'));
         $repository->registerActivityEvents();
     }
 
@@ -37,6 +38,7 @@ class ActivityServiceProvider extends ServiceProvider
         $this->app->tag([
             CheckinActivityClass::class,
             EmailCampaignResultActivityClass::class,
-        ], 'activity.classes');
+            PrizeForCheckinActivityClass::class,
+        ], 'activity.model_classes');
     }
 }

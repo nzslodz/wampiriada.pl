@@ -1,11 +1,11 @@
 <?php namespace NZS\Wampiriada;
 
-use NZS\Core\ActivityClass;
+use NZS\Core\ModelActivityClass;
 use NZS\Core\Activity;
 use NZS\Core\ActivityContainer;
 use NZS\Core\Contracts\Timeline;
 
-class CheckinActivityClass extends ActivityClass {
+class CheckinActivityClass extends ModelActivityClass {
     public function getModel() {
         return Checkin::class;
     }
@@ -16,11 +16,8 @@ class CheckinActivityClass extends ActivityClass {
         }
     }
 
-    public function loadData(Activity $activity) {
-        $container = new ActivityContainer($activity);
-
-        $container->checkin = Checkin::whereActivityId($activity->id)->first();
-        $container->edition = Edition::whereId($container->checkin->edition_id)->first();
+    public function loadData(ActivityContainer $container) {
+        $container->edition = Edition::whereId($container->object->edition_id)->first();
 
         return $container;
     }

@@ -12,7 +12,7 @@
 @section('content')
     <div class="page-header">
         <h2>{{ $user->getFullName() }}</h2>
-        <p>Zanotowane {{ $activities->count() }} aktywności</p>
+        <p>Zanotowane {{ $timeline_activity_count }} aktywności</p>
     </div>
 
     <div id='timeline-embed' style="width: 100%; height: 600px"></div>

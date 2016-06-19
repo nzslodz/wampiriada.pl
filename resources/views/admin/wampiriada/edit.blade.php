@@ -5,6 +5,17 @@
 @stop
 
 @section('content')
+    @if($errors->has('description'))
+        <div class="alert alert-danger">
+            <strong>Zapisywanie nagrody nie powiodło się:</strong>
+            <ul>
+                @foreach($errors->get('description') as $error)
+                <li>Opis: {{ $error }}</p>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
     <div class="page-header">
         <h1>{{ $action->getShortDescriptionAttribute() }} &mdash; edycja</h1>
     </div>
@@ -136,15 +147,16 @@
                 <td>Rozmiar koszulki</td>
                 <td>Grupa krwi</td>
                 <td>Pierwszy raz</td>
+                <td>Nagroda</td>
             </tr>
         </thead>
-        <tbody>
+        <tbody class="table-middle">
             @forelse($checkins as $key => $checkin)
                 <tr>
                     <th>{{ $key + 1 }}</th>
                     <th>
 
-                        <a data-card="{{ $checkin->user->id }}" href="{{ url('admin/activity/profile/' . $checkin->user->id )}}">
+                        <a data-card="{{ $checkin->user_id }}" href="{{ url('admin/activity/profile/' . $checkin->user_id )}}">
                             @if($checkin->user->getFullName() != ' ')
                                 {{ $checkin->user->getFullName() }}
                             @else
@@ -170,6 +182,34 @@
                         <span class="glyphicon glyphicon-check"></span>
                         @endif
                     </td>
+                    <td>
+                        <button
+                                class="btn btn-sm btn-default @if(!$checkin->prize) visible-on-hover @endif"
+                                data-toggle="modal"
+                                data-target="#prizeModal"
+                                data-id="{{ $checkin->id }}"
+                                @if($checkin->prize)
+                                    data-tooltip
+                                    data-placement="left"
+                                    title="{{ $checkin->prize->description }}"
+                                @endif
+                                @if($checkin->prize && $checkin->prize->claimed_at)
+                                    data-claimed="1"
+                                @endif
+                            >
+                            @if($checkin->prize && $checkin->prize->claimed_at)
+                                <span class="text-success"><i class="fa fa-check"></i> Nagroda</span>
+                            @elseif($checkin->prize)
+                                <i class="fa fa-pencil"></i> Nagroda
+                            @else
+                                <i class="fa fa-plus"></i> Dodaj
+                            @endif
+
+                            @if($checkin->prize)
+                                <span class="hidden" data-description>{{ $checkin->prize->description }}</span>
+                            @endif
+                        </button>
+                    </td>
                 </tr>
             @empty
                 <tr class="no-results">
@@ -181,4 +221,37 @@
         </tbody>
 
     </table>
+
+    <div class="modal fade" id="prizeModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="exampleModalLabel">Opisz nagrodę</h4>
+          </div>
+          <form method="post">
+              {{ csrf_field() }}
+          <div class="modal-body">
+
+              <div class="form-group">
+                <label for="message-description" class="control-label">Nagroda</label>
+                <textarea class="form-control" id="message-description" name="description" rows="4"></textarea>
+              </div>
+              <div class="form-group" data-claimed>
+                  <i class="fa fa-check"></i> Nagroda została odebrana
+              </div>
+              <div class="form-group" data-not-claimed>
+                  <label class="control-label" for="message-claimed"><input type="checkbox" name="claimed" value="1" id="message-claimed"> Nagroda została odebrana</label>
+              </div>
+
+          </div>
+          <div class="modal-footer">
+            <button type="reset" class="btn btn-default" data-dismiss="modal">Zamknij</button>
+            <button type="submit" class="btn btn-primary">Zapisz</button>
+          </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
 @stop

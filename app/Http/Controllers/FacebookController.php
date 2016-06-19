@@ -26,6 +26,7 @@ use App\Jobs\WampiriadaThankYouEmail;
 use App\Jobs\RegenerateTileImage;
 
 use NZS\Wampiriada\AwareRedirectRepository;
+use NZS\Wampiriada\FirstTimeDonatingActivityClass;
 
 use App\Libraries\ErrorMailer;
 use LogicException;
@@ -59,7 +60,7 @@ class FacebookController extends Controller {
         $edition_number = Option::get('wampiriada.edition', 28);
         $edition = Edition::whereNumber($edition_number)->first();
         if(!$edition) {
-            throw new LogicException("Edition does not exist for number $edition_number"); 
+            throw new LogicException("Edition does not exist for number $edition_number");
         }
 
         $checkin = Checkin::whereUserId($user->id)->whereEditionId($edition->id)->first();
@@ -169,7 +170,7 @@ class FacebookController extends Controller {
         $edition_number = Option::get('wampiriada.edition', 28);
         $edition = Edition::whereNumber($edition_number)->first();
         if(!$edition) {
-            throw new LogicException("Edition does not exist for number $edition_number"); 
+            throw new LogicException("Edition does not exist for number $edition_number");
         }
 
         $checkin = Checkin::whereUserId($user->id)->whereEditionId($edition->id)->first();
@@ -204,7 +205,7 @@ class FacebookController extends Controller {
         $edition_number = Option::get('wampiriada.edition', 28);
         $edition = Edition::whereNumber($edition_number)->first();
         if(!$edition) {
-            throw new LogicException("Edition does not exist for number $edition_number"); 
+            throw new LogicException("Edition does not exist for number $edition_number");
         }
 
         $checkin = Checkin::whereUserId($user->id)->whereEditionId($edition->id)->first();
@@ -233,6 +234,11 @@ class FacebookController extends Controller {
             $checkin->user_id = Auth::user()->id;
 
             $checkin->save();
+
+            // create activity object for first-time donation
+            if($checkin->first_time) {
+                FirstTimeDonatingActivityClass::createFromCheckin($checkin);
+            }
 
             // save profile defaults
             $profile = Profile::whereId(Auth::user()->id)->first();
@@ -305,7 +311,7 @@ class FacebookController extends Controller {
                 $user_likes_wampiriada = true;
             }
         }
-        
+
         foreach($nzs_response->getGraphEdge() as $graph_node) {
             if($graph_node['id']) {
                 $user_likes_nzs = true;
@@ -320,9 +326,9 @@ class FacebookController extends Controller {
 
     public function postRaffle(LaravelFacebookSdk $fb) {
         $login_url = $fb->getLoginUrl(['user_likes', 'publish_actions']);
-        
+
         Session::set('to', 'finish');
-        
+
         return redirect($login_url);
     }*/
 
@@ -334,7 +340,7 @@ class FacebookController extends Controller {
         }
 
         $fb->setDefaultAccessToken($token);
-       
+
         $edition_repository = new EditionRepository(Option::get('wampiriada.edition', 28));
         $redirect = $edition_repository->getRedirect('plakat');
 

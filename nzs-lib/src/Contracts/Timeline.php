@@ -2,6 +2,6 @@
 
 use NZS\Core\Activity;
 
-interface Timeline extends NeedsActivityContainer {
+interface Timeline {
     public function convertToTimelineObject();
 }

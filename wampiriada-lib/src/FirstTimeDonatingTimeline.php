@@ -4,9 +4,8 @@ use NZS\Core\ActivityContainer;
 use NZS\Core\Contracts\Timeline;
 use NZS\Core\TimelineTrait;
 
-class CheckinTimeline implements Timeline {
+class FirstTimeDonatingTimeline implements Timeline {
     use TimelineTrait;
-
     protected $container;
 
     public function __construct(ActivityContainer $container) {
@@ -17,13 +16,14 @@ class CheckinTimeline implements Timeline {
         $data = $this->container;
 
         return [
-            'start_date' => $this->convertToTimestampObject($data->object->created_at),
+            'start_date' => $this->convertToTimestampObject($data->activity->created_at),
             'group' => 'Oddanie krwi',
             'unique_id' => $data->activity->id,
             'text' => [
-                'headline' => "{$data->edition->number}. edycja Wampiriady",
-                'text' => "Oddano krew",
+                'headline' => 'Krew oddana po raz pierwszy!',
+                'text' => 'Ta osoba oddała krew po raz pierwszy na akcji Wampiriady',
             ],
         ];
     }
+
 }

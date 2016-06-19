@@ -13,10 +13,13 @@ use NZS\Core\Contracts\Timeline;
 use DB;
 
 use NZS\Core\Activity;
+use NZS\Core\Exceptions\CannotResolveInterface;
 
 use App\User;
+use Storage;
 
 use Illuminate\Http\Request;
+use Illuminate\Contracts\Filesystem\FileNotFoundException;
 
 class ActivityController extends Controller {
     public function getProfile(User $user) {
@@ -24,13 +27,41 @@ class ActivityController extends Controller {
 
         $json = [];
         foreach($activities as $activity) {
-            $json[] = $activity->resolveInterface(Timeline::class)->convertToTimelineObject();
+            try {
+                $json[] = $activity->resolveInterface(Timeline::class)->convertToTimelineObject();
+            } catch(CannotResolveInterface $e) {
+                // object should not be shown in timeline
+            }
         }
 
         return view('admin.activity.profile', [
             'timeline_json' => ['events' => $json],
             'activities' => $activities,
+            'timeline_activity_count' => count($json),
             'user' => $user,
+        ]);
+    }
+
+    public function getProfileCard(User $user) {
+        $activity_count = Activity::whereUserId($user->id)->count();
+
+        if($user->facebook_user_id) {
+            try {
+                $storage = Storage::disk('local');
+                $contents = $storage->get("fb-images/$user->facebook_user_id.jpg");
+
+                $image = "data:image/jpeg;base64,". base64_encode($contents);
+            } catch(FileNotFoundException $e) {
+                $image = null;
+            }
+        } else {
+            $image = null;
+        }
+
+        return view('admin.activity.card', [
+            'user' => $user,
+            'activity_count' => $activity_count,
+            'image' => $image,
         ]);
     }
 

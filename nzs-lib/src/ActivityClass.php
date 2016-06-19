@@ -1,58 +1,67 @@
 <?php namespace NZS\Core;
 
 use LogicException;
+use Carbon\Carbon;
 
 use NZS\Core\Contracts\ActivityClass as ActivityClassContract;
 use NZS\Core\Contracts\NeedsActivityContainer;
+use NZS\Core\Contracts\NeedsActivityClass;
+use NZS\Core\ActivityContainer;
+use NZS\Core\Exceptions\CannotResolveInterface;
+use NZS\Core\ActivityClass;
+use Illuminate\Container\Container;
 
 abstract class ActivityClass implements ActivityClassContract {
     protected $data = null;
-
-    public function registerActivityEvent() {
-        $model_class = $this->getModel();
-
-        $model_class::creating(function($object) {
-            $activity = $this->saveActivityInstance($object);
-
-            $object->activity_id = $activity->id;
-        });
-    }
+    protected $container = null;
 
     public function getData(Activity $activity) {
         if(!$this->data) {
-            $this->data = $this->loadData($activity);
+            $activity_container = new ActivityContainer($activity);
+
+            $this->data = $this->loadData($activity_container);
         }
 
         return $this->data;
+    }
+
+    public function loadData(ActivityContainer $activity_container) {
+        return $activity_container;
+    }
+
+    public function getDependencyContainer() {
+        if($this->container) {
+            return $this->container;
+        }
+
+        $container = new Container;
+        $container->singleton(ActivityContainer::class, function($container) {
+            return $this->getData($container->make(Activity::class));
+        });
+
+        $container->instance(ActivityClass::class, $this);
+
+        $this->container = $container;
+
+        return $this->container;
     }
 
     public function resolveInterface($contract, Activity $activity) {
         $class_or_object = $this->getInterface($contract);
 
         if(is_null($class_or_object)) {
-            throw new LogicException("Cannot resolve interface $contract");
+            throw new CannotResolveInterface("Cannot resolve interface $contract");
         }
 
         if(!is_object($class_or_object)) {
-            $class_or_object = new $class_or_object;
-        }
+            $container = $this->getDependencyContainer();
 
-        if($class_or_object instanceof NeedsActivityContainer) {
-            $class_or_object->setActivityContainer($this->getData($activity));
+            // temporarily bind current activity to container, then resolve interface and unbind the instance
+            $container->instance(Activity::class, $activity);
+            $class_or_object = $container->make($class_or_object);
+            $container->forgetInstance(Activity::class);
         }
 
         return $class_or_object;
-    }
-
-    public function saveActivityInstance($object) {
-        $activity = new Activity();
-        $activity->class_name = get_class($this);
-        $activity->user_id = $object->user_id;
-        if($object->created_at) {
-            $activity->created_at = $object->created_at;
-        }
-        $activity->save();
-
-        return $activity;
     }
 }

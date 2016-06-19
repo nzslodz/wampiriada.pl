@@ -22,8 +22,6 @@ Route::post('/facebook/login', 'FacebookController@postLoginViaEmailPage');
 Route::get('/facebook/callback', 'FacebookController@getCallback');
 Route::get('/facebook/callback/{to}', 'FacebookController@getCallback');
 
-Route::post('/lol/prize', 'WampiriadaBackendController@postPrize');
-
 Route::group(['middleware' => 'auth.facebook'], function() {
     Route::get('/facebook/checkin', 'FacebookController@getCheckin');
     Route::post('/facebook/checkin', 'FacebookController@postCheckin');
@@ -62,11 +60,15 @@ Route::group(['prefix' => 'admin'], function() {
 	    Route::post('wampiriada/settings/{number}', 'WampiriadaBackendController@postSettings');
 	    Route::get('wampiriada/connections/{number}', ['as' => 'admin-wampiriada-connections', 'uses' => 'WampiriadaBackendController@getFacebookConnections']);
 
+        Route::post('wampiriada/prize/{checkin}', 'WampiriadaBackendController@postPrize');
+
 	    Route::get('email', ['as' => 'email-list', 'uses' => 'MailController@getIndex']);
 	    Route::get('email/create', ['as' => 'email-create', 'uses' => 'MailController@getCreate']);
 	   	Route::post('email/create', 'MailController@postCreate');
 
         Route::get('activity/profile/{user}', ['as' => 'activity-profile', 'uses' => 'ActivityController@getProfile']);
+
+        Route::get('activity/card/{user}','ActivityController@getProfileCard');
 
 	    Route::get('/', ['as' => 'admin-home', function() {
 	    	return View::make('admin.hello');

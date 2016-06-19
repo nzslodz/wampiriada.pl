@@ -1,14 +1,19 @@
 <?php namespace NZS\Wampiriada;
 
 use NZS\Core\ActivityContainer;
-use NZS\Core\RequiresActivityContainer;
 use NZS\Core\Contracts\Timeline;
+use NZS\Core\TimelineTrait;
 
 class EmailCampaignResultTimeline implements Timeline {
-    use RequiresActivityContainer;
+    use TimelineTrait;
+    protected $container;
+
+    public function __construct(ActivityContainer $container) {
+        $this->container = $container;
+    }
 
     public function convertToTimelineObject() {
-        $data = $this->getActivityContainer();
+        $data = $this->container;
 
         if(ends_with($data->redirect->url, '.jpg') || ends_with($data->redirect->url, '.png')) {
             $headline = "Przeczytanie e-maila: {$data->email_campaign->name}";
@@ -19,14 +24,7 @@ class EmailCampaignResultTimeline implements Timeline {
         }
 
         return [
-            'start_date' => [
-                'month' => $data->email_campaign_result->created_at->format('m'),
-                'year' => $data->email_campaign_result->created_at->format('Y'),
-                'day' => $data->email_campaign_result->created_at->format('d'),
-                'hour' => $data->email_campaign_result->created_at->format('H'),
-                'minute' => $data->email_campaign_result->created_at->format('i'),
-                'second' => $data->email_campaign_result->created_at->format('s')
-            ],
+            'start_date' => $this->convertToTimestampObject($data->object->created_at),
             'group' => 'Clicktracking',
             'unique_id' => $data->activity->id,
             'text' => [

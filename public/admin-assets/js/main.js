@@ -21,7 +21,7 @@ $(function() {
 
             me.submit()
         })
-        
+
         me.find('[data-processing]').click(function() {
             accept.val('')
             processing.val('yes')
@@ -55,6 +55,60 @@ $(function() {
       $(this).button('loading')
   });
 
+  var modal = $('#prizeModal').on('show.bs.modal', function(e) {
+      var target = $(e.relatedTarget)
+      var description = target.find('[data-description]').text()
+      var claimed = !!target.data('claimed')
+
+      var modal = $(this)
+
+      modal.find('form').attr('action', path('admin/wampiriada/prize/' + target.data('id')))
+      modal.find('[data-claimed], [data-not-claimed]').hide()
+      modal.find('#message-description').val(description)
+      modal.find('[data-claimed]').toggle(claimed)
+      modal.find('[data-not-claimed]').toggle(!claimed)
+  })
+
+
+  $('[data-tooltip]').tooltip()
+
+  $('[data-card]').each(function(){
+      var me = $(this)
+      timeoutfunc = function() {
+          /*setTimeout(function () {
+              if(!$(".popover:hover").length) {
+                  me.popover("hide");
+              }
+          }, 400);*/
+      }
+
+      me.popover({
+          trigger: 'manual',
+          html: true,
+          content: function(){
+              if (me.data('content')) {
+                  return me.data('content')
+              }
+
+              me.data('content', $.ajax({
+                  url: path('admin/activity/card/' + me.data('card')),
+                  dataType: 'html',
+                  async: false
+              }).responseText)
+
+              return me.data('content')
+          },
+          title: me.text(),
+      }).on("mouseenter", function () {
+          me.popover("show");
+          $(".popover").off('mouseleave').on("mouseleave", function () {
+              timeoutfunc()
+          });
+      }).on("mouseleave", function () {
+          timeoutfunc()
+      });
+  })
+
     $('[data-calculate=overall]').each(function() {
         var target = $(this)
         var sources = $('[data-calculate=source]')
@@ -68,7 +122,7 @@ $(function() {
                 if(isNaN(val)) {
                     val = 0
                 }
-                
+
                 sum += val
             })
 

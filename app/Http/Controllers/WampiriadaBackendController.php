@@ -4,16 +4,20 @@ use NZS\Core\CollectionAggregator;
 use NZS\Wampiriada\Option;
 use NZS\Wampiriada\Action;
 use NZS\Wampiriada\ActionData;
+use NZS\Wampiriada\PrizeForCheckin;
 use NZS\Wampiriada\FacebookConncection;
+use NZS\Wampiriada\PrizeForCheckinClaimedActivityClass;
 use NZS\Wampiriada\Edition;
 use NZS\Wampiriada\Checkin;
 use NZS\Wampiriada\ShirtSize;
 use NZS\Wampiriada\Redirect;
 use DB;
+use Carbon\Carbon;
 
 use App\User;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\PrizeForCheckinRequest;
 
 class WampiriadaBackendController extends Controller {
 
@@ -190,9 +194,25 @@ class WampiriadaBackendController extends Controller {
 	    return redirect('admin/wampiriada/edit/' . $request->input('id'));
     }
 
-    public function postPrize(Request $request) {
-        var_dump($request->all());
-    }
+	// todo schedule e-mail to person winning the prize
+	// maybe with ::creating handler
+    public function postPrize(PrizeForCheckinRequest $request, Checkin $checkin) {
+		$prize = PrizeForCheckin::firstOrNew([
+			'checkin_id' => $checkin->id,
+		]);
+
+		$prize->description = $request->description;
+
+		if($request->claimed && !$prize->claimed_at) {
+			$prize->claimed_at = Carbon::now();
+
+			PrizeForCheckinClaimedActivityClass::createFromPrize($prize);
+		}
+
+		$prize->save();
+
+		return redirect()->back();
+	}
 
     public function getFacebookConnections(Request $request, $number) {
         $edition = Edition::whereNumber($number)->firstOrFail();
@@ -244,11 +264,11 @@ class WampiriadaBackendController extends Controller {
                 }
             }
 
-						$present[] = $user->id;
+			$present[] = $user->id;
 
-						usort($present, function($a, $b) use($users) {
-								return $users[$b]->created_at->diffInMinutes($users[$a]->created_at, false);
-						});
+			usort($present, function($a, $b) use($users) {
+					return $users[$b]->created_at->diffInMinutes($users[$a]->created_at, false);
+			});
 
             $user->facebook_connections_present_on_action = $present;
             $user->facebook_connections_not_present_on_action = $not_present;
