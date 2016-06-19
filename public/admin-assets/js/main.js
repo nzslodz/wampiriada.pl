@@ -74,7 +74,7 @@ $(function() {
 
   $('[data-card]').each(function(){
       var me = $(this)
-      timeoutfunc = function() {
+      timeoutfunc = function(me) {
           setTimeout(function () {
               if(!$(".popover:hover").length) {
                   me.popover("hide");
@@ -102,10 +102,10 @@ $(function() {
       }).on("mouseenter", function () {
           me.popover("show");
           $(".popover").off('mouseleave').on("mouseleave", function () {
-              timeoutfunc()
+              timeoutfunc(me)
           });
       }).on("mouseleave", function () {
-          timeoutfunc()
+          timeoutfunc(me)
       });
   })
 
