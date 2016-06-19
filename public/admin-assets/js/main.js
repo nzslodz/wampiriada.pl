@@ -75,11 +75,11 @@ $(function() {
   $('[data-card]').each(function(){
       var me = $(this)
       timeoutfunc = function() {
-          /*setTimeout(function () {
+          setTimeout(function () {
               if(!$(".popover:hover").length) {
                   me.popover("hide");
               }
-          }, 400);*/
+          }, 400);
       }
 
       me.popover({
