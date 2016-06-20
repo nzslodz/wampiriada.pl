@@ -27,7 +27,7 @@ class PrizeController extends Controller {
         $edition_number = (int) Option::get('wampiriada.edition', 26);
 
         return view('admin.prize.list', [
-			'prizes' => PrizeType::sortBy('name')->get(),
+			'prizes' => PrizeType::orderBy('name')->get(),
 		]);
 	}
 
