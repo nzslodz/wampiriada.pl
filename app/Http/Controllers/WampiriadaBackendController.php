@@ -216,6 +216,7 @@ class WampiriadaBackendController extends Controller {
 		return redirect()->back();
 	}
 
+	// XXX rewrite to friend checkins
     public function getFacebookConnections(Request $request, $number) {
         $edition = Edition::whereNumber($number)->firstOrFail();
 

@@ -129,4 +129,21 @@ $(function() {
             target.val(sum)
         })
     })
+
+    $('[data-toggle=checkbox]').click(function() {
+        var me = $(this)
+
+        var r_active = me.find('[data-active]')
+        var r_inactive = me.find('[data-inactive]')
+
+        var state = !r_active.hasClass('hidden')
+
+        $.post(me.data('url'), {
+            active: !state
+        }, function(data) {
+            console.log(data)
+            r_active.toggleClass('hidden', !data.type.active)
+            r_inactive.toggleClass('hidden', data.type.active)
+        })
+    })
 })

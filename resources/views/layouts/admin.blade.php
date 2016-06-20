@@ -70,6 +70,7 @@
                         </a>
                         <ul class="dropdown-menu">
                             <li><a href="{{ url('admin/email') }}"><i class="fa fa-envelope"></i> E-maile </a></li>
+                            <li><a href="{{ url('admin/prize') }}"><i class="fa fa-star-o"></i> Nagrody </a></li>
                         </ul>
                     </li>
                 </ul>
@@ -101,6 +102,15 @@
         </section>
 
         {{ HTML::script('bower_components/jquery/dist/jquery.min.js') }}
+
+        <script type="text/javascript">
+            $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+            });
+        </script>
+
         {{ HTML::script('bower_components/bootstrap/dist/js/bootstrap.min.js') }}
         {{ HTML::script('admin-assets/js/main.js') }}
 

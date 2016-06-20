@@ -62,6 +62,13 @@ Route::group(['prefix' => 'admin'], function() {
 
         Route::post('wampiriada/prize/{checkin}', 'WampiriadaBackendController@postPrize');
 
+        Route::get('prize', ['as' => 'admin-prize-list', 'uses' => 'PrizeController@getIndex']);
+        Route::get('prize/create', ['as' => 'admin-prize-edit', 'uses' => 'PrizeController@getEdit']);
+        Route::post('prize/create', 'PrizeController@postEdit');
+        Route::get('prize/edit/{id}', ['as' => 'admin-prize-edit', 'uses' => 'PrizeController@getEdit']);
+        Route::post('prize/edit/{id}', 'PrizeController@postEdit');
+        Route::post('prize/toggle/{type}', 'PrizeController@postToggle');
+
 	    Route::get('email', ['as' => 'email-list', 'uses' => 'MailController@getIndex']);
 	    Route::get('email/create', ['as' => 'email-create', 'uses' => 'MailController@getCreate']);
 	   	Route::post('email/create', 'MailController@postCreate');

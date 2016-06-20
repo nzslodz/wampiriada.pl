@@ -1,6 +1,7 @@
 <?php
 
 use NZS\Wampiriada\ActionDay;
+use NZS\Wampiriada\PrizeType;
 use NZS\Wampiriada\Edition;
 
 Breadcrumbs::register('admin', function($breadcrumbs) {
@@ -38,4 +39,22 @@ Breadcrumbs::register('admin-wampiriada-settings', function($breadcrumbs, $numbe
 Breadcrumbs::register('admin-wampiriada-connections', function($breadcrumbs, $number) {
     $breadcrumbs->parent('admin-wampiriada-show', $number);
     $breadcrumbs->push('Połączenia', route('admin-wampiriada-connections', $number));
+});
+
+Breadcrumbs::register('admin-prize-list', function($breadcrumbs) {
+    $breadcrumbs->parent('admin');
+    $breadcrumbs->push('Nagrody', route('admin-prize-list'));
+});
+
+Breadcrumbs::register('admin-prize-edit', function($breadcrumbs, $id=null) {
+    $type = PrizeType::find($id);
+
+    if($type) {
+        $name = $type->name;
+    } else {
+        $name = 'Nowa';
+    }
+
+    $breadcrumbs->parent('admin-prize-list');
+    $breadcrumbs->push($name, route('admin-prize-edit', $id));
 });
