@@ -8,6 +8,7 @@ use Illuminate\Database\Migrations\MigrationRepositoryInterface;
 use NZS\Core\ActivityRepository;
 use NZS\Core\DatabaseActivityRepository;
 use NZS\Wampiriada\CheckinActivityClass;
+use NZS\Wampiriada\FriendCheckinActivityClass;
 use NZS\Wampiriada\PrizeForCheckinActivityClass;
 
 class ActivityServiceProvider extends ServiceProvider
@@ -39,6 +40,7 @@ class ActivityServiceProvider extends ServiceProvider
             CheckinActivityClass::class,
             EmailCampaignResultActivityClass::class,
             PrizeForCheckinActivityClass::class,
+            FriendCheckinActivityClass::class,
         ], 'activity.model_classes');
     }
 }

@@ -13,6 +13,7 @@ use NZS\Core\Contracts\Timeline;
 use DB;
 
 use NZS\Core\Activity;
+use NZS\Core\Exceptions\ObjectDoesNotExist;
 use NZS\Core\Exceptions\CannotResolveInterface;
 
 use App\User;

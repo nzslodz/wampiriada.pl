@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use NZS\Core\Contracts\ActivityClass as ActivityClassContract;
 use NZS\Core\Contracts\NeedsActivityContainer;
 use NZS\Core\ActivityContainer;
+use NZS\Core\Exceptions\ObjectDoesNotExist;
 use NZS\Core\Exceptions\CannotResolveInteface;
 
 abstract class ModelActivityClass extends ActivityClass {
@@ -31,6 +32,10 @@ abstract class ModelActivityClass extends ActivityClass {
 
             $activity_container = new ActivityContainer($activity);
             $activity_container->object = $class::where($this->activity_field, '=', $activity->id)->first();
+
+            if(!$activity_container->object) {
+                throw new ObjectDoesNotExist("Object of class $class with $this->activity_field=$activity->id does not exist.");
+            }
 
             $this->data = $this->loadData($activity_container);
         }

@@ -16,7 +16,8 @@ class InsertFirstTimeDonationActivities extends Migration
     public function up()
     {
         foreach(Checkin::whereFirstTime(true)->get() as $checkin) {
-            FirstTimeDonatingActivityClass::createFromCheckin($checkin);
+            $activity_class = new FirstTimeDonatingActivityClass;
+            $activity_class->saveActivityInstance($checkin);
         }
     }
 

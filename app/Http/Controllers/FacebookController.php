@@ -14,6 +14,7 @@ use NZS\Wampiriada\BloodType;
 use NZS\Wampiriada\Edition;
 use NZS\Wampiriada\ActionDay;
 use NZS\Wampiriada\ActionData;
+use NZS\Wampiriada\FriendCheckin;
 use NZS\Wampiriada\Checkin;
 use NZS\Wampiriada\Profile;
 use NZS\Wampiriada\Option;
@@ -239,6 +240,29 @@ class FacebookController extends Controller {
             if($checkin->first_time) {
                 $activity_class = new FirstTimeDonatingActivityClass;
                 $activity_class->saveActivityInstance($checkin);
+            }
+
+            $facebook_connections = FacebookConnection::whereSourceId($user->id)->get();
+
+            foreach($facebook_connections as $connection) {
+                $friend = Checkin::whereEditionId($current_action->edition_id)->whereUserId($connection->target_id)->first();
+                if(!$friend) {
+                    continue;
+                }
+
+                $reverse_connection = FacebookConnection::whereTargetId($connection->source_id)->whereSourceId($connection->target_id)->first();
+
+                $friend_checkin = new FriendCheckin();
+                $friend_checkin->facebook_connection_id = $connection->id;
+                $friend_checkin->checkin_id = $checkin->id;
+                $friend_checkin->friend_checkin_id = $friend->id;
+                $friend_checkin->save();
+
+                $friend_checkin = new FriendCheckin();
+                $friend_checkin->facebook_connection_id = $reverse_connection->id;
+                $friend_checkin->checkin_id = $friend->id;
+                $friend_checkin->friend_checkin_id = $checkin->id;
+                $friend_checkin->save();
             }
 
             // save profile defaults
