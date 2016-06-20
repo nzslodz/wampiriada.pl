@@ -48,7 +48,7 @@ class PrizeController extends Controller {
 
 		$type->save();
 
-		return redirect('admin/prize/edit/'. $type->id)
+		return redirect('admin/prize')
 			->with('status', 'success')
 			->with('message', 'Typ nagrody poprawnie zapisany');
 	}

@@ -45,7 +45,7 @@
                 <div class="col-sm-6 col-sm-offset-2">
                     <div class="checkbox">
                         <label>
-                            {{ Form::checkbox('active', '1', $prize->active, ['class' => '']) }} Nagroda dostępna
+                            {{ Form::checkbox('active', '1', $prize->id ? $prize->active : true, ['class' => '']) }} Nagroda dostępna
                         </label>
                     </div>
                 </div>
