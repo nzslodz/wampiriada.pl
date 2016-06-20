@@ -191,7 +191,7 @@
                                 @if($checkin->prize)
                                     data-tooltip
                                     data-placement="left"
-                                    title="{{ $checkin->prize->description }}"
+                                    title="@foreach($checkin->prize->items as $type) {{ $type->name }} &nbsp; @endforeach"
                                     data-prizes="@foreach($checkin->prize->items as $type) {{ $type->id }} @endforeach"
                                 @endif
                                 @if($checkin->prize && $checkin->prize->claimed_at)
