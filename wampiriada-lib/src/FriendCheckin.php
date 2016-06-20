@@ -6,6 +6,8 @@ use NZS\Wampiriada\FacebookConnection;
 class FriendCheckin extends Model {
     public $timestamps = false;
 
+    protected $fillable = ['facebook_connection_id', 'checkin_id', 'friend_checkin_id'];
+
     public function checkin() {
         return $this->belongsTo(Checkin::class);
     }

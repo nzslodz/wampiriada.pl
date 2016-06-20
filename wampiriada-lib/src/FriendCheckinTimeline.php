@@ -24,7 +24,7 @@ class FriendCheckinTimeline implements Timeline {
 
         return [
             'start_date' => $this->convertToTimestampObject($data->activity->created_at),
-            'group' => 'Oddanie krwi',
+            'group' => 'Znajomi',
             'unique_id' => $data->activity->id,
             'text' => [
                 'headline' => $headline,

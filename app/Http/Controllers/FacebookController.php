@@ -252,17 +252,17 @@ class FacebookController extends Controller {
 
                 $reverse_connection = FacebookConnection::whereTargetId($connection->source_id)->whereSourceId($connection->target_id)->first();
 
-                $friend_checkin = new FriendCheckin();
-                $friend_checkin->facebook_connection_id = $connection->id;
-                $friend_checkin->checkin_id = $checkin->id;
-                $friend_checkin->friend_checkin_id = $friend->id;
-                $friend_checkin->save();
+                FriendCheckin::firstOrCreate([
+                    'facebook_connection_id' => $connection->id,
+                    'checkin_id' => $checkin->id,
+                    'friend_checkin_id' => $friend->id,
+                ]);
 
-                $friend_checkin = new FriendCheckin();
-                $friend_checkin->facebook_connection_id = $reverse_connection->id;
-                $friend_checkin->checkin_id = $friend->id;
-                $friend_checkin->friend_checkin_id = $checkin->id;
-                $friend_checkin->save();
+                FriendCheckin::firstOrCreate([
+                    'facebook_connection_id' => $reverse_connection->id,
+                    'checkin_id' => $friend->id,
+                    'friend_checkin_id' => $checkin->id,
+                ]);
             }
 
             // save profile defaults

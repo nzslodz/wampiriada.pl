@@ -24,6 +24,10 @@ abstract class ModelActivityClass extends ActivityClass {
 
             $object->{$this->activity_field} = $activity->id;
         });
+
+        $model_class::deleting(function($object) {
+            Activity::whereId($object->{$this->activity_field})->delete();
+        });
     }
 
     public function getData(Activity $activity) {
