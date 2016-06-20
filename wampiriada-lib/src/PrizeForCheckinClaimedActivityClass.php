@@ -7,21 +7,22 @@ use NZS\Wampiriada\PrizeForCheckinClaimedTimeline;
 use NZS\Core\Contracts\Timeline;
 use NZS\Core\ActivityContainer;
 
+use NZS\Core\SaveActivityInstanceTrait;
+
 class PrizeForCheckinClaimedActivityClass extends ActivityClass {
+    use SaveActivityInstanceTrait;
+
     public function getInterface($contract) {
         if($contract == Timeline::class) {
             return PrizeForCheckinClaimedTimeline::class;
         }
     }
 
-    public static function createFromPrize(PrizeForCheckin $prize) {
-        $activity = new Activity();
-        $activity->created_at = $prize->claimed_at;
-        $activity->updated_at = $prize->claimed_at;
-        $activity->user_id = $prize->getUser()->id;
-        $activity->class_name = PrizeForCheckinClaimedActivityClass::class;
-        $activity->save();
+    public function getCreatedAt($prize) {
+        return $prize->claimed_at;
+    }
 
-        return $activity;
+    public function getUserId($prize) {
+        return $prize->checkin->user_id;
     }
 }

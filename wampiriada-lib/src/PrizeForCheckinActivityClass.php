@@ -17,4 +17,8 @@ class PrizeForCheckinActivityClass extends ModelActivityClass {
             return PrizeForCheckinTimeline::class;
         }
     }
+
+    public function getUserId($prize) {
+        return $prize->checkin->user_id;
+    }
 }

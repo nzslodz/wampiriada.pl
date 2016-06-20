@@ -6,6 +6,7 @@ use NZS\Wampiriada\Action;
 use NZS\Wampiriada\ActionData;
 use NZS\Wampiriada\PrizeForCheckin;
 use NZS\Wampiriada\FacebookConncection;
+use NZS\Wampiriada\PrizeForCheckinActivityClass;
 use NZS\Wampiriada\PrizeForCheckinClaimedActivityClass;
 use NZS\Wampiriada\Edition;
 use NZS\Wampiriada\Checkin;
@@ -206,7 +207,8 @@ class WampiriadaBackendController extends Controller {
 		if($request->claimed && !$prize->claimed_at) {
 			$prize->claimed_at = Carbon::now();
 
-			PrizeForCheckinClaimedActivityClass::createFromPrize($prize);
+			$activity_class = new PrizeForCheckinClaimedActivityClass;
+			$activity_class->saveActivityInstance($prize);
 		}
 
 		$prize->save();

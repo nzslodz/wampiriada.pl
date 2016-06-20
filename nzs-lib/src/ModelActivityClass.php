@@ -9,7 +9,11 @@ use NZS\Core\ActivityContainer;
 use NZS\Core\Exceptions\CannotResolveInteface;
 
 abstract class ModelActivityClass extends ActivityClass {
+    use SaveActivityInstanceTrait;
+
     protected $data = null;
+
+    protected $activity_field = 'activity_id';
 
     public function registerActivityEvent() {
         $model_class = $this->getModel();
@@ -17,7 +21,7 @@ abstract class ModelActivityClass extends ActivityClass {
         $model_class::creating(function($object) {
             $activity = $this->saveActivityInstance($object);
 
-            $object->activity_id = $activity->id;
+            $object->{$this->activity_field} = $activity->id;
         });
     }
 
@@ -26,34 +30,11 @@ abstract class ModelActivityClass extends ActivityClass {
             $class = $this->getModel();
 
             $activity_container = new ActivityContainer($activity);
-            $activity_container->object = $class::whereActivityId($activity->id)->first();
+            $activity_container->object = $class::where($this->activity_field, '=', $activity->id)->first();
 
             $this->data = $this->loadData($activity_container);
         }
 
         return $this->data;
-    }
-
-    public function saveActivityInstance($object, Carbon $created_at=null) {
-        $activity = new Activity();
-        $activity->class_name = get_class($this);
-
-        if($object->user_id) {
-            $activity->user_id = $object->user_id;
-        } elseif(method_exists($object, 'getUser')) {
-            $activity->user_id = $object->getUser()->id;
-        } else {
-            throw new LogicException("Object passed to saveActivityInstance must have user_id or getUser() method implemented");
-        }
-
-        if($created_at) {
-            $activity->created_at = $created_at;
-        } elseif($object->created_at) {
-            $activity->created_at = $object->created_at;
-        }
-
-        $activity->save();
-
-        return $activity;
     }
 }

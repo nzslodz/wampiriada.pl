@@ -237,7 +237,8 @@ class FacebookController extends Controller {
 
             // create activity object for first-time donation
             if($checkin->first_time) {
-                FirstTimeDonatingActivityClass::createFromCheckin($checkin);
+                $activity_class = new FirstTimeDonatingActivityClass;
+                $activity_class->saveActivityInstance($checkin);
             }
 
             // save profile defaults
