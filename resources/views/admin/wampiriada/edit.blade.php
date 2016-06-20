@@ -232,7 +232,7 @@
               <div class="form-group">
                  <label for="type-id" class="control-label">Nagroda</label>
 
-                 {{ Form::select('type[][id]', $prize_types, null, ['multiple' => 'multiple', 'class' => 'form-control', 'id' => 'type-id']) }}
+                 {{ Form::select('type[][id]', $prize_types, null, ['multiple' => 'multiple', 'class' => 'form-control', 'id' => 'type-id', 'style' => 'width: 100%']) }}
               </div>
               <div class="form-group" data-claimed>
                   <i class="fa fa-check"></i> Nagroda została odebrana

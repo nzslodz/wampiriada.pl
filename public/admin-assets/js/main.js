@@ -73,7 +73,7 @@ $(function() {
   $('#type-id').select2({
     theme: "bootstrap",
     width: null,
-    placeholder: 'Wybierz nagrody',
+    placeholder: 'Wybierz...',
   })
 
   $('[data-tooltip]').tooltip()
