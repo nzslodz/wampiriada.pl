@@ -10,6 +10,7 @@ use NZS\Wampiriada\PrizeForCheckinActivityClass;
 use NZS\Wampiriada\PrizeForCheckinClaimedActivityClass;
 use NZS\Wampiriada\Edition;
 use NZS\Wampiriada\Checkin;
+use NZS\Wampiriada\PrizeType;
 use NZS\Wampiriada\ShirtSize;
 use NZS\Wampiriada\Redirect;
 use DB;
@@ -93,6 +94,7 @@ class WampiriadaBackendController extends Controller {
             'action' => $action,
             'data' => $action_data,
             'checkins' => $checkins,
+			'prize_types' => PrizeType::whereActive(true)->lists('name', 'id'),
             'checkin_count' => $checkins->count(),
             'first_time_checkin_count' => $first_time_checkin_count,
             'first_time_checkin_count_percentage' => $first_time_checkin_count_percentage,
@@ -195,14 +197,10 @@ class WampiriadaBackendController extends Controller {
 	    return redirect('admin/wampiriada/edit/' . $request->input('id'));
     }
 
-	// todo schedule e-mail to person winning the prize
-	// maybe with ::creating handler
     public function postPrize(PrizeForCheckinRequest $request, Checkin $checkin) {
 		$prize = PrizeForCheckin::firstOrNew([
 			'checkin_id' => $checkin->id,
 		]);
-
-		$prize->description = $request->description;
 
 		if($request->claimed && !$prize->claimed_at) {
 			$prize->claimed_at = Carbon::now();
@@ -212,6 +210,8 @@ class WampiriadaBackendController extends Controller {
 		}
 
 		$prize->save();
+
+		$prize->items()->sync($request->input('type.*.id'));
 
 		return redirect()->back();
 	}

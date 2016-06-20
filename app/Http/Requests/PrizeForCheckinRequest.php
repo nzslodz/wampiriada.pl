@@ -28,15 +28,14 @@ class PrizeForCheckinRequest extends Request
     public function rules() {
         return [
             'claimed' => 'boolean',
-            'description' => 'string|min:4|required',
+            'type.*.id' => 'exists:prize_types',
         ];
     }
 
     public function messages() {
         return [
             'required' => 'Pole jest wymagane',
-            'exists' => 'Wybierz poprawną opcję',
-            'min' => 'Wartość zbyt krótka (minimum :min znaków)',
+            'exists' => 'Wybierz poprawny typ nagrody',
         ];
     }
 }

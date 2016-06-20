@@ -192,6 +192,7 @@
                                     data-tooltip
                                     data-placement="left"
                                     title="{{ $checkin->prize->description }}"
+                                    data-prizes="@foreach($checkin->prize->items as $type) {{ $type->id }} @endforeach"
                                 @endif
                                 @if($checkin->prize && $checkin->prize->claimed_at)
                                     data-claimed="1"
@@ -203,10 +204,6 @@
                                 <i class="fa fa-pencil"></i> Nagroda
                             @else
                                 <i class="fa fa-plus"></i> Dodaj
-                            @endif
-
-                            @if($checkin->prize)
-                                <span class="hidden" data-description>{{ $checkin->prize->description }}</span>
                             @endif
                         </button>
                     </td>
@@ -232,10 +229,10 @@
           <form method="post">
               {{ csrf_field() }}
           <div class="modal-body">
-
               <div class="form-group">
-                <label for="message-description" class="control-label">Nagroda</label>
-                <textarea class="form-control" id="message-description" name="description" rows="4"></textarea>
+                 <label for="type-id" class="control-label">Nagroda</label>
+
+                 {{ Form::select('type[][id]', $prize_types, null, ['multiple' => 'multiple', 'class' => 'form-control', 'id' => 'type-id']) }}
               </div>
               <div class="form-group" data-claimed>
                   <i class="fa fa-check"></i> Nagroda została odebrana
@@ -244,8 +241,10 @@
                   <label class="control-label" for="message-claimed"><input type="checkbox" name="claimed" value="1" id="message-claimed"> Nagroda została odebrana</label>
               </div>
 
+
           </div>
           <div class="modal-footer">
+               <p><small>Brakuje nagrody? Przejdź do <a href="{{ url('admin/prize') }}">listy nagród</a>, aby dodać nowe pozycje.</small></p>
             <button type="reset" class="btn btn-default" data-dismiss="modal">Zamknij</button>
             <button type="submit" class="btn btn-primary">Zapisz</button>
           </div>
@@ -254,4 +253,14 @@
       </div>
     </div>
 
+@stop
+
+@section('extrahead')
+    {{ HTML::style('bower_components/select2/dist/css/select2.min.css') }}
+    {{ HTML::style('bower_components/select2-bootstrap-theme/dist/select2-bootstrap.min.css') }}
+
+@stop
+
+@section('script')
+    {{ HTML::script('bower_components/select2/dist/js/select2.min.js') }}
 @stop

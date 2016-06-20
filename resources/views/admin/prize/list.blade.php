@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
 @section('title')
-    Lista edycji Wampiriady
+    Lista typów nagród
 @stop
 
 @section('content')
@@ -11,7 +11,7 @@
                 <a href="{{ url('admin/prize/create') }}" class="btn btn-default"><span class="glyphicon glyphicon-plus"></span> Dodaj nowy typ nagrody</a>
             </div>
         </div>
-        <h2>Lista nagród</h2>
+        <h2>Lista typów nagród</h2>
     </div>
 
     <table class="table table-striped table-bordered">

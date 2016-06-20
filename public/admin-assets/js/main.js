@@ -62,13 +62,19 @@ $(function() {
 
       var modal = $(this)
 
+      modal.find('select').val(String(target.data('prizes')).trim().split(/\s+/)).trigger('change')
       modal.find('form').attr('action', path('admin/wampiriada/prize/' + target.data('id')))
       modal.find('[data-claimed], [data-not-claimed]').hide()
-      modal.find('#message-description').val(description)
       modal.find('[data-claimed]').toggle(claimed)
       modal.find('[data-not-claimed]').toggle(!claimed)
   })
 
+
+  $('#type-id').select2({
+    theme: "bootstrap",
+    width: null,
+    placeholder: 'Wybierz nagrody',
+  })
 
   $('[data-tooltip]').tooltip()
 

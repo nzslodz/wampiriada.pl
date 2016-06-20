@@ -16,13 +16,18 @@ class PrizeForCheckinTimeline implements Timeline {
     public function convertToTimelineObject() {
         $data = $this->container;
 
+        $text = '';
+        foreach($data->object->items as $prize_type) {
+            $text .= "<li>$prize_type->name</li>";
+        }
+
         return [
             'start_date' => $this->convertToTimestampObject($data->activity->created_at),
             'group' => 'Oddanie krwi',
             'unique_id' => $data->activity->id,
             'text' => [
                 'headline' => 'Wygrana w konkursie',
-                'text' => $data->object->description,
+                'text' => "<ol>$text</ol>",
             ],
         ];
     }
