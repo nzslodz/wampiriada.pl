@@ -6,6 +6,7 @@ use NZS\Wampiriada\Action;
 use NZS\Wampiriada\ActionData;
 use NZS\Wampiriada\PrizeForCheckin;
 use NZS\Wampiriada\FacebookConncection;
+use NZS\Wampiriada\FriendCheckinDecorator;
 use NZS\Wampiriada\PrizeForCheckinActivityClass;
 use NZS\Wampiriada\PrizeForCheckinClaimedActivityClass;
 use NZS\Wampiriada\Edition;
@@ -216,71 +217,20 @@ class WampiriadaBackendController extends Controller {
 		return redirect()->back();
 	}
 
-	// XXX rewrite to friend checkins
     public function getFacebookConnections(Request $request, $number) {
         $edition = Edition::whereNumber($number)->firstOrFail();
 
-        $users = [];
-
-        $valid_user_ids = Checkin::whereEditionId($edition->id)->lists('user_id');
-
-        $user_connection_pairs = User::join('checkins', 'users.id', '=', 'checkins.user_id')
-            ->leftJoin('facebook_connections', 'facebook_connections.source_id', '=', 'users.id')
-            ->where('checkins.edition_id', '=', $edition->id)
-            ->select('users.*', 'facebook_connections.target_id', 'checkins.action_day_id', 'checkins.created_at')
-            ->get();
-
-        foreach($user_connection_pairs as $user_connection_pair) {
-            if(!isset($users[$user_connection_pair->id])) {
-                $users[$user_connection_pair->id] = $user_connection_pair;
-                $users[$user_connection_pair->id]->facebook_connection_count = 0;
-                $users[$user_connection_pair->id]->facebook_connections = collect([]);
-            }
-
-            // leftJoin allows users with no connections have NULL target_ids
-            if(!$user_connection_pair->target_id) {
-                continue;
-            }
-
-            // connection to a friend that did not participate in the current edition
-            if(!$valid_user_ids->contains($user_connection_pair->target_id)) {
-                continue;
-            }
-
-            $users[$user_connection_pair->id]->facebook_connection_count += 1;
-            $users[$user_connection_pair->id]->facebook_connections->push($user_connection_pair->target_id);
-        }
-
-        $users = collect($users);
-
-        foreach($users as $user) {
-            $present = [];
-            $not_present = [];
-
-            foreach($user->facebook_connections as $id) {
-                $user2 = $users[$id];
-
-                if($user->action_day_id != $user2->action_day_id) {
-                    $not_present[] = $id;
-                } else {
-                    $present[] = $id;
-                }
-            }
-
-			$present[] = $user->id;
-
-			usort($present, function($a, $b) use($users) {
-					return $users[$b]->created_at->diffInMinutes($users[$a]->created_at, false);
+        $checkins = Checkin::with('user', 'friend_checkins.checkin.user')
+			->whereEditionId($edition->id)
+			->get()
+			->transform(function($checkin) {
+				return new FriendCheckinDecorator($checkin);
 			});
 
-            $user->facebook_connections_present_on_action = $present;
-            $user->facebook_connections_not_present_on_action = $not_present;
-
-            $user->score = count($not_present) * 1.2 + count($present);
-        }
-
         return view('admin.wampiriada.facebook_connections', [
-            'users' => $users->sortByDesc('score'),
+            'connections' => $checkins->sortByDesc(function($decorator) {
+				return $decorator->getScore();
+			}),
         ]);
     }
 

@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Eloquent\Model as Model;
 use App\User;
+use NZS\Wampiriada\FriendCheckin;
 use NZS\Wampiriada\PrizeForCheckin;
 
 
@@ -28,5 +29,9 @@ class Checkin extends Model {
 
     public function prize() {
         return $this->hasOne(PrizeForCheckin::class);
+    }
+
+    public function friend_checkins() {
+        return $this->hasMany(FriendCheckin::class);
     }
 }

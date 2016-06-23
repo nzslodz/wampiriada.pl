@@ -20,42 +20,38 @@
         </thead>
         <tbody>
 
-            @forelse($users as $user)
-                <tr id="user-{{ $user->id }}">
+            @forelse($connections as $connection)
+                <tr id="user-{{ $connection->getUser()->id }}">
                     <th>
-                        <a data-card="{{ $user->id }}" href="{{ url('admin/activity/profile/'. $user->id) }}">{{ $user->getFullName() }}</a>
+                        <a data-card="{{ $connection->getUser()->id }}" href="{{ url('admin/activity/profile/'. $connection->getUser()->id) }}">{{ $connection->getUser()->getFullName() }}</a>
 
-                        @if($user->facebook_user_id)
-                            <small><a href="https://facebook.com/{{ $user->facebook_user_id }}">facebook</a></small>
+                        @if($connection->getUser()->facebook_user_id)
+                            <small><a href="https://facebook.com/{{ $connection->getUser()->facebook_user_id }}">facebook</a></small>
                         @endif
 
                     </th>
-                    <td class="info"><strong>{{ $user->score }}</strong></td>
+                    <td class="info"><strong>{{ $connection->getScore() }}</strong></td>
                     <td>
                     <small>
-                    @if($user->facebook_connections_present_on_action)
-                        @foreach($user->facebook_connections_present_on_action as $connection)
-                            {{ $users[$connection]->created_at->format('H:i') }}
-                            @if($users[$connection]->id != $user->id)
-                            <a href="#user-{{ $connection }}">
+                        @foreach($connection->getFriendCheckinsPresentOnActionIncludingMe() as $friend_checkin)
+                            {{ $friend_checkin->friend_checkin->created_at->format('H:i') }}
+                            @if(!$connection->isSelf($friend_checkin))
+                            <a href="#user-{{ $friend_checkin->friend_checkin->user_id }}">
                             @endif
-                                <em>{{ $users[$connection]->getFullName() }}</em>
-                            @if($users[$connection]->id != $user->id)
+                                <em>{{ $friend_checkin->friend_checkin->user->getFullName() }}</em>
+                            @if(!$connection->isSelf($friend_checkin))
                             </a>
                             @endif
 
                             <br>
                         @endforeach
-                    @endif
                     </small>
                     </td>
                     <td>
                     <small>
-                    @if($user->facebook_connections_not_present_on_action)
-                        @foreach($user->facebook_connections_not_present_on_action as $connection)
-                            <a href="#user-{{ $connection }}"><em>{{ $users[$connection]->getFullName() }}</em></a><br>
+                        @foreach($connection->getFriendCheckinsNotPresentOnAction() as $friend_checkin)
+                            <a href="#user-{{ $friend_checkin->friend_checkin->user_id }}"><em>{{ $friend_checkin->friend_checkin->user->getFullName() }}</em></a><br>
                         @endforeach
-                    @endif
                     </small>
                 </tr>
             @empty
