@@ -47,7 +47,7 @@ class FriendCheckinDecorator {
     }
 
     public function getScore() {
-        return $this->getFriendCheckinsPresentOnAction()->count() + $this->getFriendCheckinsNotPresentOnAction()->count() * 1.2;
+        return 1 + $this->getFriendCheckinsPresentOnAction()->count() + $this->getFriendCheckinsNotPresentOnAction()->count() * 1.2;
     }
 
     public function getCheckin() {
