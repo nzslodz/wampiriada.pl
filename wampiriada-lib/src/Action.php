@@ -9,13 +9,13 @@ class Action extends Model {
     public function getStartAttribute($attr) {
         return Carbon::createFromFormat('H:i:s', $attr);
     }
-    
+
     public function getEndAttribute($attr) {
         return Carbon::createFromFormat('H:i:s', $attr);
     }
 
     public function getShortDescriptionAttribute() {
-        return "{$this->getDate()} {$this->place}"; 
+        return "{$this->getDate()} {$this->place}";
     }
 
    	public function data() {
@@ -26,5 +26,9 @@ class Action extends Model {
         $date = new Carbon($this->day);
 
         return $date->format('d/m');
+    }
+
+    public function checkins() {
+        return $this->hasMany(Checkin::class, 'action_day_id');
     }
 }

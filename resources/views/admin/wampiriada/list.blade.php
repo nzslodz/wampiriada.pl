@@ -19,6 +19,7 @@
             <tr>
                 <th>Edycja</th>
                 <td class="info">Ogółem</td>
+                <td>Nowych</td>
                 <td>Termin</td>
             </tr>
         </thead>
@@ -27,11 +28,13 @@
                 <tr>
                     <th><a href="{{ url('admin/wampiriada/show/' . $edition->number) }}">{{ $edition->name }}</a></th>
                     <td class="info"><strong>{{ $edition->getRepository()->safeGetOverall() }}</strong></td>
+                    <td>{{ $edition->checkins()->whereFirstTime(true)->count() }}</td>
                     <td>{{ $edition->getStartDate()->format('Y-m') }} &mdash; {{ $edition->getEndDate()->format('Y-m') }}</td>
+
                 </tr>
             @empty
             <tr class="no-results">
-                <td colspan="3">
+                <td colspan="4">
                     Aby dodać nową edycję, naciśnij przycisk <strong>Dodaj nową edycję</strong> w prawym górnym rogu.
                 </td>
             </tr>

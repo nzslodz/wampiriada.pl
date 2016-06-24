@@ -51,6 +51,7 @@ class WampiriadaBackendController extends Controller {
 	 */
 	public function getShow($number) {
         $actions = Action::where('number', $number)->orderBy('day')->get();
+		$edition_object = Edition::whereNumber($number)->first();
 
         $actions_with_data = $actions->filter(function($action) {
             return (bool) $action->data;
@@ -62,6 +63,7 @@ class WampiriadaBackendController extends Controller {
 
         return view('admin.wampiriada.show_edition', array(
             'edition' => $number,
+			'edition_object' => $edition_object,
             'actions' => $actions_with_data,
             'choices' => $actions_without_data,
             'summary' => new CollectionAggregator($actions_with_data),

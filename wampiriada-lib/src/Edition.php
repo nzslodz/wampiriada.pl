@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Eloquent\Model as Model;
 use Carbon\Carbon;
+use NZS\Wampiriada\Checkin;
 
 class Edition extends Model {
 	protected $table = 'editions';
@@ -30,4 +31,8 @@ class Edition extends Model {
 
         return $this->repository;
     }
+
+	public function checkins() {
+		return $this->hasMany(Checkin::class);
+	}
 }

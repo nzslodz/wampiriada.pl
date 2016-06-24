@@ -20,6 +20,7 @@
             <tr>
                 <th>Akcja</th>
                 <td class="info">Ogółem</td>
+                <td>Nowych</td>
                 <td>A+</td>
                 <td>A-</td>
                 <td>B+</td>
@@ -36,6 +37,7 @@
                 <tr>
                     <th><a href="{{ url('admin/wampiriada/edit/' . $action->id) }}">{{ $action->short_description }}</a></th>
                     <td class="info"><strong>{{ $action->data->getOverall() }}</strong></td>
+                    <td>{{ $action->checkins()->whereFirstTime(true)->count() }}
                     <td>{{ $action->data->a_plus }}</td>
                     <td>{{ $action->data->a_minus }}</td>
                     <td>{{ $action->data->b_plus }}</td>
@@ -48,7 +50,7 @@
                 </tr>
             @empty
             <tr class="no-results">
-                <td colspan="11">
+                <td colspan="12">
                     Aby dodać nowy wynik, wybierz jedną z akcji poniżej.
                 </td>
             </tr>
@@ -58,6 +60,7 @@
             <tr class="active">
                 <th>Razem</th>
                 <td class="info"><strong>{{ $summary->getOverall() }}</strong></td>
+                <td>{{ $edition_object->checkins()->whereFirstTime(true)->count() }}</td>
                 <td>{{ $summary->getAPlus() }}</td>
                 <td>{{ $summary->getAMinus() }}</td>
                 <td>{{ $summary->getBPlus() }}</td>
@@ -70,7 +73,7 @@
             </tr>
         </tfoot>
     </table>
-    
+
     @if(count($choices) > 0)
         <h2>Dodaj nowe wyniki</h2>
         <div class="row">

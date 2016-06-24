@@ -3,15 +3,13 @@
 use Illuminate\Support\Collection;
 use LogicException;
 
+// XXX update!
 class CollectionAggregator {
     protected
         $collection;
 
     public function __construct(Collection $collection) {
         $this->collection = $collection;
-    }
-
-    protected function reduceNumbers($name) {
     }
 
     public function __call($name, $args) {

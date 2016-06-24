@@ -8,4 +8,8 @@ class ActionDay extends Model {
     public function place() {
         return $this->belongsTo(Place::class, 'place_id');
     }
+
+	public function checkins() {
+		return $this->hasMany(Checkin::class);
+	}
 }
