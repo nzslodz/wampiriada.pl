@@ -1,11 +1,12 @@
 <?php namespace App\Http\Controllers;
 
-use NZS\Core\CollectionAggregator;
 use NZS\Wampiriada\Option;
 use NZS\Wampiriada\Action;
 use NZS\Wampiriada\ActionData;
 use NZS\Wampiriada\PrizeForCheckin;
+use NZS\Wampiriada\PrizeAggregator;
 use NZS\Wampiriada\FacebookConncection;
+use NZS\Wampiriada\ActionDataAggregator;
 use NZS\Wampiriada\FriendCheckinDecorator;
 use NZS\Wampiriada\PrizeForCheckinActivityClass;
 use NZS\Wampiriada\PrizeForCheckinClaimedActivityClass;
@@ -66,7 +67,7 @@ class WampiriadaBackendController extends Controller {
 			'edition_object' => $edition_object,
             'actions' => $actions_with_data,
             'choices' => $actions_without_data,
-            'summary' => new CollectionAggregator($actions_with_data),
+            'summary' => new ActionDataAggregator($actions_with_data),
         ));
 	}
 
@@ -235,5 +236,22 @@ class WampiriadaBackendController extends Controller {
 			}),
         ]);
     }
+
+	public function prizeSummary($number) {
+		$edition = Edition::whereNumber($number)->firstOrFail();
+
+		$prizes = PrizeForCheckin::whereHas('checkin', function($query) use($edition) {
+			$query->where('edition_id', $edition->id);
+		})->get();
+
+		// XXX PrizeAggregator
+		$aggregator = new PrizeAggregator($prizes);
+
+		return view('admin.wampiriada.prize_summary', [
+			'edition' => $edition,
+			'summary' => $aggregator,
+			'prizes' => $prizes,
+		]);
+	}
 
 }

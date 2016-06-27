@@ -18,4 +18,12 @@ class PrizeForCheckin extends Model {
     public function items() {
         return $this->belongsToMany(PrizeType::class, 'checkin_prize_items', 'checkin_prize_id', 'prize_type_id');
     }
+
+    public function getTimeDiffUntilClaimed() {
+        if(!$this->claimed_at) {
+            return false;
+        }
+
+        return $this->claimed_at->diffForHumans($this->created_at);        
+    }
 }

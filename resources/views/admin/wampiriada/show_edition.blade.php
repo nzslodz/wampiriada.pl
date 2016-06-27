@@ -10,6 +10,7 @@
             <div class='btn-group'>
                 <a href="{{ url('admin/wampiriada/settings/' . $edition) }}" class="btn btn-default"><span class="glyphicon glyphicon-cog"></span> Ustawienia</a>
                 <a href="{{ url('admin/wampiriada/connections/' . $edition) }}" class="btn btn-default"><i class="fa fa-facebook"></i> Konkurs FB</a>
+                <a href="{{ url('admin/wampiriada/prize/summary/' . $edition) }}" class="btn btn-default"><i class="fa fa-star-o"></i> Nagrody</a>
             </div>
         </div>
         <h2>Wyniki {{ $edition }}. edycji Wampiriady</h2>
@@ -59,17 +60,17 @@
         <tfoot>
             <tr class="active">
                 <th>Razem</th>
-                <td class="info"><strong>{{ $summary->getOverall() }}</strong></td>
+                <td class="info"><strong>{{ $summary->sumData('overall') }}</strong></td>
                 <td>{{ $edition_object->checkins()->whereFirstTime(true)->count() }}</td>
-                <td>{{ $summary->getAPlus() }}</td>
-                <td>{{ $summary->getAMinus() }}</td>
-                <td>{{ $summary->getBPlus() }}</td>
-                <td>{{ $summary->getBMinus() }}</td>
-                <td>{{ $summary->getABPlus() }}</td>
-                <td>{{ $summary->getABMinus() }}</td>
-                <td>{{ $summary->getZeroPlus() }}</td>
-                <td>{{ $summary->getZeroMinus() }}</td>
-                <td>{{ $summary->getUnknown() }}</td>
+                <td>{{ $summary->sumData('a_plus') }}</td>
+                <td>{{ $summary->sumData('a_minus') }}</td>
+                <td>{{ $summary->sumData('b_plus') }}</td>
+                <td>{{ $summary->sumData('b_minus') }}</td>
+                <td>{{ $summary->sumData('ab_plus') }}</td>
+                <td>{{ $summary->sumData('ab_minus') }}</td>
+                <td>{{ $summary->sumData('zero_plus') }}</td>
+                <td>{{ $summary->sumData('zero_minus') }}</td>
+                <td>{{ $summary->sumData('unknown') }}</td>
             </tr>
         </tfoot>
     </table>
