@@ -12,14 +12,14 @@
         <div class="col-md-4">
             <div class="card">
             <strong>{{ $prizes->count() }}</strong>
-            nagród
+            osób odebrało nagrody
             </div>
         </div>
 
         <div class="col-md-4">
             <div class="card">
             <strong>{{ $summary->countClaimedPrizes() }}</strong>
-            odebranych nagród
+            je odebrało
             </div>
         </div>
         <div class="col-md-4">
@@ -33,8 +33,8 @@
         <thead>
             <tr>
                 <th>Nagroda</th>
-                <td>Zarezerwowanych</td>
                 <td>Odebranych</td>
+                <td>Zarezerwowanych</td>
                 <td>Razem</td>
             </tr>
         </thead>
@@ -42,8 +42,8 @@
             @forelse($summary->getItemsInSet() as $prize_type)
                 <tr>
                     <th>{{ $prize_type->name }}</th>
-                    <td>{{ $prize_type->unclaimed }}</td>
                     <td>{{ $prize_type->claimed }}</td>
+                    <td>{{ $prize_type->unclaimed }}</td>
                     <td>{{ $prize_type->count }}</td>
                 </tr>
             @empty
