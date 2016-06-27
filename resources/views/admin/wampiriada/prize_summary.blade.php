@@ -12,7 +12,7 @@
         <div class="col-md-4">
             <div class="card">
             <strong>{{ $prizes->count() }}</strong>
-            osób odebrało nagrody
+            osób ma przyznane nagrody
             </div>
         </div>
 
@@ -45,6 +45,60 @@
                     <td>{{ $prize_type->claimed }}</td>
                     <td>{{ $prize_type->unclaimed }}</td>
                     <td>{{ $prize_type->count }}</td>
+                </tr>
+            @empty
+            <tr class="no-results">
+                <td colspan="4">
+                    Brak nagród.
+                </td>
+            </tr>
+            @endforelse
+        </tbody>
+    </table>
+
+    <h3>Lista osób z nagrodami</h3>
+    <table class="table table-striped table-bordered">
+        <thead>
+            <tr>
+                <th>L.p.</th>
+                <th>Osoba</th>
+                <td>Co dostała</td>
+                <td>Po jakim czasie odebrano</td>
+                <td>Akcja</td>
+            </tr>
+        </thead>
+        <tbody>
+            @forelse($prizes as $key => $prize)
+                <tr>
+                    <th>{{ $key + 1 }}</th>
+                    <th>
+                        <a data-card="{{ $prize->checkin->user_id }}" href="{{ url('admin/activity/profile/' . $prize->checkin->user_id )}}">
+                            @if($prize->checkin->user->getFullName() != ' ')
+                                {{ $prize->checkin->user->getFullName() }}
+                            @else
+                                {{ $prize->checkin->name }}
+                            @endif
+                        </a>
+
+                        @if($prize->checkin->user->facebook_user_id)
+                            <small><a href="https://facebook.com/{{ $prize->checkin->user->facebook_user_id }}">facebook</a></small>
+                        @endif
+                    </th>
+                    <td>
+                        @foreach($prize->items as $type)
+                            {{ $type->name }}<br>
+                        @endforeach
+                    </td>
+                    <td>
+                        @if($prize->claimed_at)
+                            {{ $prize->getTimeDiffUntilClaimed() }}
+                        @endif
+                    </td>
+                    <td>
+                        <a href="{{ url('admin/wampiriada/edit/' . $prize->checkin->action_day_id) }}">
+                        {{ $prize->checkin->actionDay->created_at->format('d/m') }} {{ $prize->checkin->actionDay->place->name }}
+                        </a>
+                    </td>
                 </tr>
             @empty
             <tr class="no-results">

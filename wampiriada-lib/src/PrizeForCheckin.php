@@ -3,6 +3,7 @@
 use Illuminate\Database\Eloquent\Model as Model;
 use App\User;
 use NZS\Wampiriada\PrizeType;
+use Carbon\Carbon;
 
 class PrizeForCheckin extends Model {
     protected $table = 'checkin_prizes';
@@ -24,6 +25,12 @@ class PrizeForCheckin extends Model {
             return false;
         }
 
-        return $this->claimed_at->diffForHumans($this->created_at);        
+        Carbon::setLocale('pl');
+
+        if($this->claimed_at->diffInSeconds($this->created_at) < 3600) {
+            return 'Tak';
+        }
+
+        return $this->created_at->diffForHumans($this->claimed_at);
     }
 }
