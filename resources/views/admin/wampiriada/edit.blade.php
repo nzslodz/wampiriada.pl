@@ -5,12 +5,16 @@
 @stop
 
 @section('content')
-    @if($errors->has('description'))
+    @if($errors->has())
         <div class="alert alert-danger">
             <strong>Zapisywanie nagrody nie powiodło się:</strong>
             <ul>
-                @foreach($errors->get('description') as $error)
-                <li>Opis: {{ $error }}</p>
+                @foreach($errors->all() as $key => $error)
+                    @if($key == '0')
+                        <li>Żadna nagroda nie została wpisana</li>
+                    @else
+                        <li>{{ $key }}: {{ $error }}</p>
+                    @endif
                 @endforeach
             </ul>
         </div>

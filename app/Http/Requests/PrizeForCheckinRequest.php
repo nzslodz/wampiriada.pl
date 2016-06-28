@@ -28,7 +28,8 @@ class PrizeForCheckinRequest extends Request
     public function rules() {
         return [
             'claimed' => 'boolean',
-            'type.*.id' => 'exists:prize_types',
+            'type.*.id' => 'required|exists:prize_types',
+            'type.0.id' => 'required',
         ];
     }
 
