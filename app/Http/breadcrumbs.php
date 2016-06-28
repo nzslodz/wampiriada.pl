@@ -61,5 +61,5 @@ Breadcrumbs::register('admin-prize-edit', function($breadcrumbs, $id=null) {
 
 Breadcrumbs::register('admin-wampiriada-prize-summary', function($breadcrumbs, $number) {
     $breadcrumbs->parent('admin-wampiriada-show', $number);
-    $breadcrumbs->push('nagrody', route('admin-wampiriada-prize-summary', $number));
+    $breadcrumbs->push('Nagrody', route('admin-wampiriada-prize-summary', $number));
 });
