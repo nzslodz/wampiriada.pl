@@ -248,9 +248,12 @@ class WampiriadaBackendController extends Controller {
 		$aggregator = new PrizeAggregator($prizes);
 
 		return view('admin.wampiriada.prize_summary', [
+			'iterator' => 0,
 			'edition' => $edition,
 			'summary' => $aggregator,
-			'prizes' => $prizes,
+			'prizes' => $prizes->groupBy(function($prize) {
+				return $prize->checkin->action_day_id;
+			}),
 		]);
 	}
 
