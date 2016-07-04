@@ -70,10 +70,12 @@ $(function() {
   })
 
 
-  $('#type-id').select2({
-    theme: "bootstrap",
-    width: null,
-    placeholder: 'Wybierz...',
+  $('#type-id').each(function() {
+      $(this).select2({
+          theme: "bootstrap",
+          width: null,
+          placeholder: 'Wybierz...',
+      })
   })
 
   $('[data-tooltip]').tooltip()

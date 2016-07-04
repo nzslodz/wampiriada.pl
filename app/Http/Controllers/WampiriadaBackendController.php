@@ -234,6 +234,9 @@ class WampiriadaBackendController extends Controller {
             'connections' => $checkins->sortByDesc(function($decorator) {
 				return $decorator->getScore();
 			}),
+			'connections_by_action' => $checkins->groupBy(function($decorator) {
+				return $decorator->getCheckin()->actionDay->created_at->timestamp;
+			}),
         ]);
     }
 
