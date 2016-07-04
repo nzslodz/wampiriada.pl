@@ -129,9 +129,6 @@
 
         var cluster = d3.layout.cluster()
             .size([360, innerRadius])
-            .separation(function(a, b) {
-                return 1;
-            })
             .sort(function(a, b) {
                 return d3.ascending(a.name, b.name)
             })
