@@ -104,12 +104,7 @@
                     'name': '{!! $connection->getUser()->getFullName() !!}',
                     'action_day_id': {{ $connection->getCheckin()->action_day_id }},
                     'friends': [
-                        @foreach($connection->getFriendCheckinsPresentOnAction() as $friend_checkin)
-                            {
-                                'id': {{ $friend_checkin->friend_checkin->user_id }},
-                            },
-                        @endforeach
-                        @foreach($connection->getFriendCheckinsNotPresentOnAction() as $friend_checkin)
+                        @foreach($connection->getFriendCheckins() as $friend_checkin)
                             {
                                 'id': {{ $friend_checkin->friend_checkin->user_id }},
                             },

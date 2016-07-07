@@ -14,6 +14,10 @@ class FriendCheckinDecorator {
         });
     }
 
+    public function getFriendCheckins() {
+        return $this->checkin->friend_checkins;
+    }
+
     protected function getUnsortedFriendCheckinsPresentOnAction() {
         return $this->checkin->friend_checkins->filter(function($friend_checkin) {
             return $friend_checkin->friend_checkin->action_day_id == $this->checkin->action_day_id;
