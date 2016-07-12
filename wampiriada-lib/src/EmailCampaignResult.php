@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Eloquent\Model as Model;
 use App\User;
+use NZS\Core\Redirects\Redirect;
 
 class EmailCampaignResult extends Model {
     public $fillable = ['campaign_id', 'user_id', 'redirect_id'];

@@ -1,12 +1,14 @@
 <?php namespace NZS\Wampiriada;
 
 use NZS\Core\Exceptions\ObjectDoesNotExist;
+use NZS\Core\Redirects\DatabaseRedirectRepository;
+use NZS\Core\Redirects\CompositeRedirectRepository;
 
 class EditionRepository {
-    protected 
+    protected
         $edition_number,
-        $edition = null, 
-        $result, 
+        $edition = null,
+        $result,
         $actions,
         $redirects = array();
 
@@ -49,9 +51,9 @@ class EditionRepository {
         $this->result = OverallResult::where('year', $this->getEditionYear())
             ->where('edition_type', $this->getEditionType())
             ->first();
-        
+
         if(!$this->result) {
-            throw new ObjectDoesNotExist("There are no results for edition {$this->getEditionNumber()}.");    
+            throw new ObjectDoesNotExist("There are no results for edition {$this->getEditionNumber()}.");
         }
 
         return $this->result;
@@ -61,14 +63,14 @@ class EditionRepository {
         if($this->actions) {
             return $this->actions;
         }
-        
+
         $this->actions = Action::where('number', $this->getEditionNumber())
             ->whereHidden(false)
             ->orderBy('day')
             ->get();
 
         if($this->actions->isEmpty()) {
-            throw new ObjectDoesNotExist("There are no actions defined for edition {$this->getEditionNumber()}."); 
+            throw new ObjectDoesNotExist("There are no actions defined for edition {$this->getEditionNumber()}.");
         }
 
         return $this->actions;
@@ -100,42 +102,20 @@ class EditionRepository {
         return $this->getRedirect($name)->asTag($contents, $attrs);
     }
 
+    public function getRedirectRepository() {
+        $database_repository = new DatabaseRedirectRepository;
+        $wampiriada_repository = new WampiriadaRedirectRepository($this);
+
+        return new CompositeRedirectRepository([$wampiriada_repository, $database_repository]);
+    }
+
     public function getRedirect($name) {
-        if(isset($this->redirects[$name])) {
-            return $this->redirects[$name];
-        }
-
-        $this->redirects[$name] = Redirect::whereKey($name)->whereEditionId($this->getEdition()->id)->where('url', '!=', '')->first();
-        
-        if(!$this->redirects[$name]) {
-            $this->redirects[$name] = Redirect::whereKey($name)->whereNull('edition_id')->first();
-        }
-
-        if(!$this->redirects[$name]) {
-            $this->redirects[$name] = new EmptyRedirect();
-        }
-
-        return $this->redirects[$name];
+        return $this->getRedirectRepository()->getRedirect($name);
     }
 
     public function registerRedirect($key, $url, $edition_specific=true) {
-        if($edition_specific) {
-            $redirect = Redirect::whereKey($key)->whereEditionId($this->getEdition()->id)->first();
-        } else {
-            $redirect = Redirect::whereKey($key)->whereNull('edition_id')->first();
-        }
+        $wampiriada_repository = new WampiriadaRedirectRepository($this);
 
-        if(!$redirect) {
-            $redirect = Redirect::create([
-                'edition_id' => ($edition_specific) ? $this->getEdition()->id : null,
-                'url' => $url,
-                'key' => $key,
-            ]);
-        }
-
-        $this->redirects[$key] = $redirect;
-
-        return $redirect;
+        return $wampiriada_repository->registerRedirect($key, $url);
     }
 }
-

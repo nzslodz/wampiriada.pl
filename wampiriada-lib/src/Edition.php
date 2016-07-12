@@ -3,6 +3,8 @@
 use Illuminate\Database\Eloquent\Model as Model;
 use Carbon\Carbon;
 use NZS\Wampiriada\Checkin;
+use NZS\Wampiriada\WampiriadaRedirect;
+use NZS\Core\Redirects\Redirect;
 
 class Edition extends Model {
 	protected $table = 'editions';
@@ -34,5 +36,9 @@ class Edition extends Model {
 
 	public function checkins() {
 		return $this->hasMany(Checkin::class);
+	}
+
+	public function redirects() {
+		return $this->belongsToMany(Redirect::class, 'wampiriada_redirects');
 	}
 }

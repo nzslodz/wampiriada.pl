@@ -2,6 +2,8 @@
 
 use NZS\Wampiriada\EditionRepository;
 use NZS\Core\Exceptions\ObjectDoesNotExist;
+use NZS\Core\Redirects\DatabaseRedirectRepository;
+use NZS\Core\Redirects\CompositeRedirectRepository;
 use App\Libraries\PartnerRow;
 use NZS\Wampiriada\Option;
 use NZS\Wampiriada\Checkin;
@@ -9,7 +11,10 @@ use NZS\Wampiriada\Redirect;
 use NZS\Wampiriada\Edition;
 use NZS\Wampiriada\EmailCampaign;
 use NZS\Wampiriada\EmailCampaignResult;
+use NZS\Wampiriada\WampiriadaRedirectRepository;
 use Illuminate\Http\Request;
+
+use NZS\Wampiriada\AwareRedirectRepository;
 use App\User;
 
 class WampiriadaController extends Controller {
@@ -113,46 +118,34 @@ class WampiriadaController extends Controller {
         ]);
     }
 
-    protected function saveEmailCampaignInfo(Request $request, Redirect $redirect) {
-        $email_campaign = EmailCampaign::whereKey($request->input('c'))->first();
-        if(!$email_campaign) {
-            return;
-        }
-
-        $user = User::whereMd5email($request->input('m'))->first();
-        if(!$user) {
-            return;
-        }
-        
-        EmailCampaignResult::firstOrCreate([
-            'user_id' => $user->id,
-            'campaign_id' => $email_campaign->id,
-            'redirect_id' => $redirect->id,
-        ]);
-    }
-
     public function getRedirectByName(Request $request, $name) {
-        return $this->getRedirect($request, null, $name);
+        $repository = new DatabaseRedirectRepository;
+
+        $redirect_url = $repository->resolveRedirect($name);
+
+        if(!$redirect_url) {
+            error(404);
+        }
+
+        return redirect($redirect_url);
     }
 
     public function getRedirect(Request $request, $edition_number, $name) {
-        $redirect = null;
+        $edition_repository = new EditionRepository( $edition_number);
+        $repository = $edition_repository->getRedirectRepository();
 
-        if($edition_number) {
-            $edition = Edition::whereNumber($edition_number)->firstOrFail();
+        $redirect_url = $repository->resolveRedirect($name);
 
-            $redirect = Redirect::whereKey($name)->whereEditionId($edition->id)->where('url', '!=', '')->first();
+        if(!$redirect_url) {
+            error(404);
         }
 
-        if(!$redirect) {
-            $redirect = Redirect::whereKey($name)->whereNull('edition_id')->firstOrFail();
-        }
-        
-        if($request->input('c') && $request->input('m')) {
-            $this->saveEmailCampaignInfo($request, $redirect);
+        $aware_repository = AwareRedirectRepository::fromRequest($request, $repository);
+        if($aware_repository) {
+            $aware_repository->saveEmailCampaignInfo($name);
         }
 
-        return redirect($redirect->url);
+        return redirect($redirect_url);
     }
 
     public function getPartners() {
@@ -294,7 +287,7 @@ class WampiriadaController extends Controller {
                 'link' => 'http://skybowling.pl/',
                 'image' => 'img/partnerzy/skybowling.jpg',
             ],
-            
+
             'lodz-kreuje' => [
                 'title' => 'Miasto Łódź',
                 'link' => 'http://uml.lodz.pl',
@@ -337,4 +330,3 @@ class WampiriadaController extends Controller {
         return $rows;
     }
 }
-

@@ -1,26 +1,43 @@
 <?php namespace NZS\Wampiriada;
 
 use App\User;
+use NZS\Core\Contracts\RedirectRepository;
+use NZS\Core\Redirects\BaseRedirectRepository;
+use NZS\Wampiriada\EmailCampaign;
+use Purl\Url;
+use Illuminate\Http\Request;
 
-class AwareRedirectRepository {
+class AwareRedirectRepository extends BaseRedirectRepository {
 	protected
 		$repository,
 		$user,
-		$campaign;
+		$campaign,
+		$campaign_key;
 
-	public function __construct(EditionRepository $repository, User $user, $key) {
+	public function __construct(RedirectRepository $repository, User $user, $campaign) {
 		$this->repository = $repository;
 		$this->user = $user;
 
-		$this->key = 'w' . $this->repository->getEditionNumber() . ':' . $key;
+		if($campaign instanceof EmailCampaign) {
+			$this->campaign_key = $campaign->key;
+			$this->campaign = $campaign;
+		} else {
+			$this->campaign_key = $campaign;
+		}
 	}
 
-	public function registerRedirect($key, $url, $edition_specific=true) {
-		return $this->decorate($this->repository->registerRedirect($key, $url, $edition_specific));
-	}
+	public static function fromRequest(Request $request, RedirectRepository $repository) {
+		$email_campaign = EmailCampaign::whereKey($request->input('c'))->first();
+		if(!$email_campaign) {
+			return null;
+		}
 
-	protected function decorate($redirect) {
-		return (new AwareRedirect($redirect))->withCampaign($this->getEmailCampaign())->withUser($this->user);
+		$user = User::whereMd5email($request->input('m'))->first();
+		if(!$user) {
+			return null;
+		}
+
+		return new static($repository, $user, $campaign);
 	}
 
 	public function getEmailCampaign() {
@@ -28,12 +45,47 @@ class AwareRedirectRepository {
 			return $this->campaign;
 		}
 
-		$this->campaign = EmailCampaign::firstOrCreate(['key' => $this->key]);
-	
+		$this->campaign = EmailCampaign::firstOrCreate(['key' => $this->campaign_key]);
+
 		return $this->campaign;
 	}
 
-	public function getRedirect($key) {
-		return $this->decorate($this->repository->getRedirect($key));
+	public function resolveRedirect($name) {
+		$this->repository->resolveRedirect($name);
+	}
+
+	public function exists($name) {
+		$this->repository->exists($name);
+	}
+
+	public function generateUrl($name) {
+		$url = $this->repository->generateUrl($name);
+
+		if(!($url instanceof Url)) {
+			return '';
+		}
+
+		$url->query->set('m', $this->user->md5_email);
+		$url->query->set('c', $this->campaign_key);
+
+		return $url;
+	}
+
+	public function getRedirectObject($name) {
+		return $this->repository->getRedirectObject($name);
+	}
+
+	public function saveEmailCampaignInfo($name) {
+		$redirect = $this->getRedirectObject();
+
+		EmailCampaignResult::firstOrCreate([
+			'user_id' => $user->id,
+			'campaign_id' => $email_campaign->id,
+			'redirect_id' => $redirect->id,
+		]);
+	}
+
+	public function registerRedirect($key, $url, $options=[]) {
+		$this->repository->registerRedirect($key, $url, $options);
 	}
 }
