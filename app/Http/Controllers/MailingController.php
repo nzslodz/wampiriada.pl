@@ -21,6 +21,7 @@ use App\User;
 use Illuminate\Http\Request;
 use App\Http\Requests\PrizeTypeRequest;
 use App\Http\Requests\PrizeForCheckinRequest;
+use NZS\Wampiriada\WampiriadaSummaryMailingComposer;
 use NZS\Wampiriada\WampiriadaThankYouMailingComposer;
 
 use Auth;
@@ -28,6 +29,7 @@ use Auth;
 class MailingController extends Controller {
 	protected $mailings = [
 		'initial-response' => WampiriadaThankYouMailingComposer::class,
+		'after-edition' => WampiriadaSummaryMailingComposer::class,
 	];
 
 	public function getIndex() {
