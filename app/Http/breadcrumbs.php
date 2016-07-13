@@ -63,3 +63,13 @@ Breadcrumbs::register('admin-wampiriada-prize-summary', function($breadcrumbs, $
     $breadcrumbs->parent('admin-wampiriada-show', $number);
     $breadcrumbs->push('Nagrody', route('admin-wampiriada-prize-summary', $number));
 });
+
+Breadcrumbs::register('admin-mailing-list', function($breadcrumbs) {
+    $breadcrumbs->parent('admin');
+    $breadcrumbs->push('Mailingi', route('admin-mailing-list'));
+});
+
+Breadcrumbs::register('admin-mailing-show', function($breadcrumbs, $name) {
+    $breadcrumbs->parent('admin-mailing-list');
+    $breadcrumbs->push($name, route('admin-mailing-show', $name));
+});

@@ -124,7 +124,7 @@ class WampiriadaController extends Controller {
         $redirect_url = $repository->resolveRedirect($name);
 
         if(!$redirect_url) {
-            error(404);
+            abort(404);
         }
 
         return redirect($redirect_url);
@@ -137,7 +137,7 @@ class WampiriadaController extends Controller {
         $redirect_url = $repository->resolveRedirect($name);
 
         if(!$redirect_url) {
-            error(404);
+            abort(404);
         }
 
         $aware_repository = AwareRedirectRepository::fromRequest($request, $repository);

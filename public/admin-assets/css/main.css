@@ -109,3 +109,14 @@ tr:hover .visible-on-hover {
 .user-card {
     min-width: 250px;
 }
+
+.mailing-frame {
+    margin: auto;
+    width: 800px;
+
+    height: 100%;
+    display: block;
+
+    border: 1px solid #f0f0f0;
+    overflow: hidden;
+}

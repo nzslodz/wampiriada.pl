@@ -28,6 +28,7 @@ use App\Jobs\RegenerateTileImage;
 
 use NZS\Wampiriada\AwareRedirectRepository;
 use NZS\Wampiriada\FirstTimeDonatingActivityClass;
+use NZS\Wampiriada\WampiriadaThankYouMailingComposer;
 
 use App\Libraries\ErrorMailer;
 use LogicException;
@@ -295,7 +296,8 @@ class FacebookController extends Controller {
             }
         });
 
-        dispatch((new WampiriadaThankYouEmail($edition, $user))->delay(7200));
+        $composer = new WampiriadaThankYouMailingComposer($edition);
+        dispatch($composer->getJobInstance($user)->delay(7200));
         dispatch(new RegenerateTileImage());
 
         $token = Session::get('fb_user_access_token');
