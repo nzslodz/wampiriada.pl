@@ -37,7 +37,11 @@ class AwareRedirectRepository extends BaseRedirectRepository {
 			return null;
 		}
 
-		return new static($repository, $user, $campaign);
+		if($user->is_staff) {
+			return null;
+		}
+
+		return new static($repository, $user, $email_campaign);
 	}
 
 	public function getEmailCampaign() {
@@ -65,7 +69,7 @@ class AwareRedirectRepository extends BaseRedirectRepository {
 			return '';
 		}
 
-		$url->query->set('m', $this->user->md5_email);
+		$url->query->set('m', $this->user->md5email);
 		$url->query->set('c', $this->campaign_key);
 
 		return $url;
@@ -76,11 +80,11 @@ class AwareRedirectRepository extends BaseRedirectRepository {
 	}
 
 	public function saveEmailCampaignInfo($name) {
-		$redirect = $this->getRedirectObject();
+		$redirect = $this->getRedirectObject($name);
 
 		EmailCampaignResult::firstOrCreate([
-			'user_id' => $user->id,
-			'campaign_id' => $email_campaign->id,
+			'user_id' => $this->user->id,
+			'campaign_id' => $this->campaign->id,
 			'redirect_id' => $redirect->id,
 		]);
 	}
