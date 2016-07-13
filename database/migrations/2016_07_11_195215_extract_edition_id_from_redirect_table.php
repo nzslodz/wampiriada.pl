@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
-use NZS\Wampiriada\Redirect;
+use NZS\Core\Redirects\Redirect;
 use NZS\Wampiriada\WampiriadaRedirect;
 
 class ExtractEditionIdFromRedirectTable extends Migration
