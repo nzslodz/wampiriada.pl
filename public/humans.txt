@@ -7,9 +7,14 @@
 
 # THANKS
 
-    Mateusz Dzięcielski
+    Tomasz Wesołowski -- Developer -- @KosGD
+    Katarzyna Kopera -- Idea Contributor
+    Viktoria Pronevich -- Idea Contributor
+    Marta Buba -- Developer
+    Piotr Łukasiewicz -- Developer
+    Mateusz Dzięcielski -- Contributor
 
 # TECHNOLOGY COLOPHON
 
+    PHP5, Laravel 5
     HTML5, CSS3
-    jQuery, Modernizr, PHP Silverplate
