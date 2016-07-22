@@ -14,7 +14,8 @@ use NZS\Wampiriada\Edition;
 use NZS\Wampiriada\Checkin;
 use NZS\Wampiriada\PrizeType;
 use NZS\Wampiriada\ShirtSize;
-use NZS\Wampiriada\Redirect;
+use NZS\Core\Redirects\Redirect;
+use NZS\Wampiriada\WampiriadaRedirect;
 use DB;
 use Carbon\Carbon;
 
@@ -135,13 +136,28 @@ class WampiriadaBackendController extends Controller {
 
         $checkboxes = ShirtSize::get();
 
-        return view('admin.wampiriada.settings', [
-            'edition_number' => $number,
-            'redirect_event' => Redirect::firstOrNew(['key' => 'facebook-event', 'edition_id' => $edition->id]),
-            'redirect_koszulka' => Redirect::firstOrNew(['key' => 'koszulka', 'edition_id' => $edition->id]),
-            'redirect_plakat' => Redirect::firstOrNew(['key' => 'plakat', 'edition_id' => $edition->id]),
-            'checkboxes' => $checkboxes,
-        ]);
+		$mapping = collect([
+			'redirect_event' => 'facebook-event',
+			'redirect_koszulka' => 'koszulka',
+			'redirect_plakat' => 'plakat',
+		]);
+
+		$mapping->transform(function($redirect_key) use ($edition) {
+			$wampiriada_redirect = WampiriadaRedirect::whereHas('redirect', function($query) use($redirect_key) {
+				$query->where('key', '=', $redirect_key);
+			})->whereEditionId($edition->id)->first();
+
+			if(!$wampiriada_redirect || !$wampiriada_redirect->redirect) {
+				return new Redirect;
+			}
+
+			return $wampiriada_redirect->redirect;
+		});
+
+		$mapping['edition_number'] = $number;
+		$mapping['checkboxes'] = $checkboxes;
+
+        return view('admin.wampiriada.settings', $mapping->all());
     }
 
     public function getNew(Request $request) {
@@ -158,9 +174,9 @@ class WampiriadaBackendController extends Controller {
 
         return view('admin.wampiriada.settings', [
             'edition_number' => $number,
-            'redirect_event' => Redirect::firstOrNew(['key' => 'facebook-event', 'edition_id' => $edition->id]),
-            'redirect_koszulka' => Redirect::firstOrNew(['key' => 'koszulka', 'edition_id' => $edition->id]),
-            'redirect_plakat' => Redirect::firstOrNew(['key' => 'plakat', 'edition_id' => $edition->id]),
+            'redirect_event' => new Redirect,
+            'redirect_koszulka' => new Redirect,
+            'redirect_plakat' => new Redirect,
             'checkboxes' => $checkboxes,
         ]);
     }
@@ -186,12 +202,40 @@ class WampiriadaBackendController extends Controller {
         ];
 
         foreach($redirects as $key => $field) {
-            $redirect = Redirect::firstOrNew(['key' => $key, 'edition_id' => $edition->id]);
-            $redirect->url = $request->input($field);
+			$new_url = trim($request->input($field));
 
-            if($redirect->url) {
-                $redirect->save();
-            }
+			$wampiriada_redirect = WampiriadaRedirect::whereHas('redirect', function($query) use($key) {
+				$query->where('key', '=', $key);
+			})->whereEditionId($edition->id)->first();
+
+			if($wampiriada_redirect) {
+				if(!$new_url) {
+					// will cascade
+					$wampiriada_redirect->redirect->delete();
+					continue;
+				}
+
+				$redirect = $wampiriada_redirect->redirect;
+
+				$redirect->url = $new_url;
+				$redirect->save();
+
+				continue;
+			}
+
+			if(!$new_url) {
+				continue;
+			}
+
+			$redirect = new Redirect;
+			$redirect->key = $key;
+			$redirect->url = $new_url;
+			$redirect->save();
+			
+			$wampiriada_redirect = new WampiriadaRedirect;
+			$wampiriada_redirect->edition_id = $edition->id;
+			$wampiriada_redirect->redirect_id = $redirect->id;
+			$wampiriada_redirect->save();
         }
 
         return redirect('admin/wampiriada/show/' . $number)->with('message', 'Zmiany zapisane poprawnie')->with('status', 'success');

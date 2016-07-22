@@ -13,6 +13,7 @@
         <div class="row">
             <div class="col-md-9">
                 <h3>Linki do stron</h3>
+
                 <div class="form-group">
                     {{ Form::label('redirect_event', 'Event na Facebooku', ['class' => 'control-label col-sm-4']) }}
                     <div class="col-sm-8">
@@ -34,7 +35,7 @@
             </div>
             <div class="col-md-3">
                 <h3>Koszulki</h3>
-                
+
                 @foreach($checkboxes as $checkbox)
                 <div>
                     {{ Form::checkbox("sizes[]", $checkbox->id, $checkbox->active, ['id' => "size_$checkbox->id"]) }}
@@ -43,12 +44,12 @@
                 @endforeach
             </div>
         </div>
-        
+
         <div class="row">
-            <div class="col-md-12">    
+            <div class="col-md-12">
                  {{ Form::submit('Zapisz', ['class' => 'btn btn-default']) }}
             </div>
         </div>
     {{ Form::close() }}
-    
+
 @stop
