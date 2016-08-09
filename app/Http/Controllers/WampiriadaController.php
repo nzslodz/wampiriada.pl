@@ -10,6 +10,7 @@ use NZS\Wampiriada\Checkin;
 use NZS\Wampiriada\Redirect;
 use NZS\Wampiriada\Edition;
 use NZS\Wampiriada\EmailCampaign;
+use NZS\Wampiriada\WampiriadaPoll;
 use NZS\Wampiriada\EmailCampaignResult;
 use NZS\Wampiriada\WampiriadaRedirectRepository;
 use Illuminate\Http\Request;
@@ -17,7 +18,14 @@ use Illuminate\Http\Request;
 use NZS\Wampiriada\AwareRedirectRepository;
 use App\User;
 
+use NZS\Core\Polls\Poll;
+use NZS\Core\Polls\UsesPolls;
+use NZS\Wampiriada\WampiriadaThankYouPollFormRequest;
+
+
 class WampiriadaController extends Controller {
+    use UsesPolls;
+
     public function showIndex() {
         $edition = Option::get('wampiriada.edition', 28);
 
@@ -328,5 +336,25 @@ class WampiriadaController extends Controller {
         }
 
         return $rows;
+    }
+
+    protected function getThankYouMailingPoll($edition_number) {
+        $edition = Edition::whereNumber($edition_number)->firstOrFail();
+
+        return WampiriadaPoll::whereHas('poll', function($query) {
+            $query->whereKey('wampiriada_thank_you_mailing_poll');
+        })->whereEditionId($edition->id)->firstOrFail();
+    }
+
+    protected function getCookieNameForPoll($wampiridada_poll) {
+        return sprintf("poll:%s:%d", $wampiridada_poll->poll->key, $wampiridada_poll->edition->number);
+    }
+
+    public function showThankYouMailingPoll(Request $request) {
+        return $this->showPoll($request, $this->getThankYouMailingPoll(Option::get('wampiriada.edition', 28)));
+    }
+
+    public function saveThankYouMailingPoll(WampiriadaThankYouPollFormRequest $request) {
+        return $this->savePollAnswer($request, $this->getThankYouMailingPoll(Option::get('wampiriada.edition', 28)));
     }
 }
