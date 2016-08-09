@@ -5,6 +5,6 @@ use App\User;
 interface PollFlow {
     public function getAnonymousErrorResponse();
     public function getAlreadyAnsweredErrorResponse();
-    public function getFormResponse(User $user=null);
+    public function getFormResponse();
     public function getSuccessResponse(Answer $answer);
 }

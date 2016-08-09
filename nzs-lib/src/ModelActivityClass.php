@@ -4,15 +4,12 @@ use LogicException;
 use Carbon\Carbon;
 
 use NZS\Core\Contracts\ActivityClass as ActivityClassContract;
-use NZS\Core\Contracts\NeedsActivityContainer;
 use NZS\Core\ActivityContainer;
 use NZS\Core\Exceptions\ObjectDoesNotExist;
 use NZS\Core\Exceptions\CannotResolveInteface;
 
 abstract class ModelActivityClass extends ActivityClass {
     use SaveActivityInstanceTrait;
-
-    protected $data = null;
 
     protected $activity_field = 'activity_id';
 
@@ -31,19 +28,15 @@ abstract class ModelActivityClass extends ActivityClass {
     }
 
     public function getData(Activity $activity) {
-        if(!$this->data) {
-            $class = $this->getModel();
+        $class = $this->getModel();
 
-            $activity_container = new ActivityContainer($activity);
-            $activity_container->object = $class::where($this->activity_field, '=', $activity->id)->first();
+        $activity_container = new ActivityContainer($activity);
+        $activity_container->object = $class::where($this->activity_field, '=', $activity->id)->first();
 
-            if(!$activity_container->object) {
-                throw new ObjectDoesNotExist("Object of class $class with $this->activity_field=$activity->id does not exist.");
-            }
-
-            $this->data = $this->loadData($activity_container);
+        if(!$activity_container->object) {
+            throw new ObjectDoesNotExist("Object of class $class with $this->activity_field=$activity->id does not exist.");
         }
 
-        return $this->data;
+        return $this->loadData($activity_container);
     }
 }

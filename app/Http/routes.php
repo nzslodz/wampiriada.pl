@@ -33,7 +33,6 @@ Route::group(['middleware' => 'auth.facebook'], function() {
     Route::get('/facebook/complete', 'FacebookController@getComplete');
 });
 
-
 // mobile controller
 //Route::get('data/overall', 'MobileController@getOverall');
 
@@ -87,6 +86,8 @@ Route::group(['prefix' => 'admin'], function() {
 	    Route::get('/', ['as' => 'admin-home', function() {
 	    	return View::make('admin.hello');
 	    }]);
+
+        Route::get('/test/example', 'TestController@getTest');
 
 	});
 });
