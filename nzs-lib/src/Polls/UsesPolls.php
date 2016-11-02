@@ -15,6 +15,7 @@ use NZS\Core\Contracts\PollAnswerMailer;
 use Auth;
 use RuntimeException;
 use Cookie;
+use DB;
 
 trait UsesPolls {
     protected function canPollBeAnswered(Request $request, PollProxy $poll_proxy, User $user=null) {
@@ -95,17 +96,19 @@ trait UsesPolls {
 
         $answer->raw_answer = $request->getSanitizedData();
 
-        $answer->save();
+        DB::transaction(function() use($poll, $answer) {
+            $answer->save();
+
+            try {
+                $indexer = $poll->resolveInterface(PollAnswerIndexer::class);
+                $indexer->saveIndexesOn($answer);
+            } catch(CannotResolveInterface $e) {
+            }
+        });
 
         // one year in minutes
         if(!$poll->getPollClass()->allowMultipleResponses()) {
             Cookie::queue($this->getCookieNameForPoll($poll_proxy), 'answered', 525600);
-        }
-
-        try {
-            $indexer = $poll->resolveInterface(PollAnswerIndexer::class);
-            $indexer->saveIndexesOn($answer);
-        } catch(CannotResolveInterface $e) {
         }
 
         try {

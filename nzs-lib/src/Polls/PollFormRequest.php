@@ -16,13 +16,17 @@ abstract class PollFormRequest extends FormRequest implements PollFormRequestCon
         return $value;
     }
 
+    public function getPollFields() {
+        return array_keys($this->rules());
+    }
+
     public function getSanitizedData() {
         return collect($this->all())
-            ->only(array_keys($this->rules()))
+            ->only($this->getPollFields())
             ->transform([$this, 'sanitize']);
     }
 
-    // let the flow class decide whare
+    // let the flow class decide for authorization
     public function authorize() {
         return true;
     }

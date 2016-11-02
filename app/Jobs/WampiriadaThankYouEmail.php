@@ -15,6 +15,7 @@ use Storage;
 
 use NZS\Wampiriada\AwareRedirectRepository;
 use NZS\Wampiriada\EditionRepository;
+use NZS\Core\Mailing\ComposerSender;
 
 class WampiriadaThankYouEmail extends Job implements ShouldQueue
 {
