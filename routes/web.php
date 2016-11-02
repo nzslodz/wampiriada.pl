@@ -92,7 +92,10 @@ Route::group(['prefix' => 'admin'], function() {
 
         Route::get('/test/example', 'TestController@getTest');
 
+
 	});
 });
 
 Route::auth();
+// hack
+Route::get('/logout', 'Auth\LoginController@logout');

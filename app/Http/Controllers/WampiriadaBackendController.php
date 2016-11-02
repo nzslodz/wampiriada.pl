@@ -61,7 +61,7 @@ class WampiriadaBackendController extends Controller {
 
         $actions_without_data = $actions->filter(function($action) {
             return !$action->data;
-        })->lists('short_description', 'id');
+        })->pluck('short_description', 'id');
 
         return view('admin.wampiriada.show_edition', array(
             'edition' => $number,
@@ -231,7 +231,7 @@ class WampiriadaBackendController extends Controller {
 			$redirect->key = $key;
 			$redirect->url = $new_url;
 			$redirect->save();
-			
+
 			$wampiriada_redirect = new WampiriadaRedirect;
 			$wampiriada_redirect->edition_id = $edition->id;
 			$wampiriada_redirect->redirect_id = $redirect->id;

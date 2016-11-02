@@ -6,8 +6,11 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use SammyK\LaravelFacebookSdk\SyncableGraphNodeTrait;
 use Storage;
 
+use Illuminate\Notifications\Notifiable;
+
 class User extends Authenticatable {
     use SyncableGraphNodeTrait;
+    use Notifiable;
 
     /**
      * The attributes that are mass assignable.
