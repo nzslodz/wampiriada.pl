@@ -16,8 +16,11 @@ use App\Http\Middleware\AdminMiddleware;
 Route::get('/', 'WampiriadaController@showIndex');
 Route::get('/redirect/{name}', 'WampiriadaController@getRedirectByName');
 Route::get('/redirect/{edition_number}/{name}', 'WampiriadaController@getRedirect');
+
+/*
 Route::get('/dziekujemy/ankieta', 'WampiriadaController@showThankYouMailingPoll');
 Route::post('/dziekujemy/ankieta', 'WampiriadaController@saveThankYouMailingPoll');
+*/
 
 Route::get('/facebook/login', 'FacebookController@getLoginPage');
 Route::post('/facebook/login', 'FacebookController@postLoginViaEmailPage');
