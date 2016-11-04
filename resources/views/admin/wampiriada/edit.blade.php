@@ -5,7 +5,7 @@
 @stop
 
 @section('content')
-    @if($errors->has())
+    @if($errors->count())
         <div class="alert alert-danger">
             <strong>Zapisywanie nagrody nie powiodło się:</strong>
             <ul>
