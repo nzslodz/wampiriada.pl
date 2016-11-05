@@ -98,7 +98,7 @@
             {!! Breadcrumbs::renderIfExists() !!}
         </div>
 
-        <section class="container" role="main">
+        <section class="container" role="main"  id="application">
             @yield('content')
         </section>
 
@@ -114,6 +114,14 @@
 
         {{ HTML::script('bower_components/bootstrap/dist/js/bootstrap.min.js') }}
         {{ HTML::script('admin-assets/js/main.js') }}
+
+        @section('data')
+            <script type="text/javascript">
+                data = {}
+            </script>
+        @show
+
+        <script type="text/javascript" src="{{ asset(elixir('js/app.js')) }}"></script>
 
         @yield('script')
     </body>

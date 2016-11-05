@@ -44,6 +44,11 @@
                 @endforeach
             </div>
         </div>
+        <div class="row">
+            <div class="container-xs-12">
+                <edition-list></edition-list>
+            </div>
+        </div>
 
         <div class="row">
             <div class="col-md-12">
@@ -52,4 +57,10 @@
         </div>
     {{ Form::close() }}
 
+@stop
+
+@section('data')
+    <script type="text/javascript">
+        actionList = {!! $actions->toJson() !!}
+    </script>
 @stop

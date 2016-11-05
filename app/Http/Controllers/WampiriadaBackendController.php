@@ -156,6 +156,7 @@ class WampiriadaBackendController extends Controller {
 
 		$mapping['edition_number'] = $number;
 		$mapping['checkboxes'] = $checkboxes;
+		$mapping['actions'] = Action::where('number', $number)->orderBy('day')->get();
 
         return view('admin.wampiriada.settings', $mapping->all());
     }
