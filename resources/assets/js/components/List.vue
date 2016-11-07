@@ -3,12 +3,12 @@
         <h3>Lista akcji</h3>
         <div class="form-inline" v-for="(action, index) in actionList">
             <div class="form-group">
-                <label class="control-label">Miejsce</label>
-                <input class="form-control" v-model="actionList[index].place">
+                <label class="control-label" :for="id(index, 'place')">Miejsce</label>
+                <input class="form-control" v-model="actionList[index].place" :id="id(index, 'place')" :name="name(index, 'place')">
             </div>
             <div class="form-group">
-                <label class="control-label">Data</label>
-                <input class="form-control" v-model="actionList[index].day" :id="abc(index)">
+                <label class="control-label" :for="id(index, 'day')">Data</label>
+                <input class="form-control" v-model="actionList[index].day" :id="id(index, 'day')" :name="name(index, 'day')">
             </div>
         </div>
     </section></div>
@@ -33,8 +33,11 @@
             }
         },
         methods: {
-            abc(index) {
-                return "A" + index
+            id(index, field_name) {
+                return "action-" + index + "-" + field_name
+            },
+            name(index, field_name) {
+                return "action[" + index + "][" + field_name + "]"
             }
         }
     }

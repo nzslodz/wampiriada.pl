@@ -112,9 +112,6 @@
             });
         </script>
 
-        {{ HTML::script('bower_components/bootstrap/dist/js/bootstrap.min.js') }}
-        {{ HTML::script('admin-assets/js/main.js') }}
-
         @section('data')
             <script type="text/javascript">
                 data = {}
@@ -123,6 +120,8 @@
 
         <script type="text/javascript" src="{{ asset(elixir('js/app.js')) }}"></script>
 
+        {{ HTML::script('admin-assets/js/main.js') }}
+        
         @yield('script')
     </body>
 </html>
