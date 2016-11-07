@@ -3,6 +3,7 @@
 namespace App\Console;
 
 use Illuminate\Console\Scheduling\Schedule;
+use App\Console\Commands\DispatchWampiriadaMailing;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
 class Kernel extends ConsoleKernel
@@ -16,6 +17,7 @@ class Kernel extends ConsoleKernel
          Commands\ImportExcelData::class,
          Commands\CreateImageGrid::class,
          Commands\RegenerateTileImage::class,
+         Commands\DispatchWampiriadaMailing::class,
     ];
 
     /**
