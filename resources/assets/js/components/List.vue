@@ -1,10 +1,17 @@
 <template>
-    <div class="lol">
-        <h3>Hello</h3>
-        <div v-for="action in actionList">
-            <p>{{ action.day }} omg</p>
+    <div class="a"><section class="actions">
+        <h3>Lista akcji</h3>
+        <div class="form-inline" v-for="(action, index) in actionList">
+            <div class="form-group">
+                <label class="control-label">Miejsce</label>
+                <input class="form-control" v-model="actionList[index].place">
+            </div>
+            <div class="form-group">
+                <label class="control-label">Data</label>
+                <input class="form-control" v-model="actionList[index].day" :id="abc(index)">
+            </div>
         </div>
-    </div>
+    </section></div>
 </template>
 
 <script>
@@ -23,6 +30,11 @@
 
             return {
                 actionList: actionList
+            }
+        },
+        methods: {
+            abc(index) {
+                return "A" + index
             }
         }
     }
