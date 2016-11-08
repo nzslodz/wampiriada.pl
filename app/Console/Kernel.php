@@ -15,7 +15,6 @@ class Kernel extends ConsoleKernel
      */
     protected $commands = [
          Commands\ImportExcelData::class,
-         Commands\CreateImageGrid::class,
          Commands\RegenerateTileImage::class,
          Commands\DispatchWampiriadaMailing::class,
     ];
