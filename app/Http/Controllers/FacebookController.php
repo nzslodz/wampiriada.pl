@@ -415,6 +415,8 @@ class FacebookController extends Controller {
     }*/
 
     public function getComplete() {
-        return view('facebook.complete');
+        return view('facebook.complete', [
+            'hide_email_login_checkout' => Session::get('hide_email_login_checkout', false),
+        ]);
     }
 }
