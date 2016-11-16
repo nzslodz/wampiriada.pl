@@ -8,23 +8,19 @@
 </div>
 @endif
 
-
-
 <div class="container">
     <div class="row">
         <div class="col-xs-12 text-center">
             <h2>Lista odbioru koszulek</h2>
-			@if($is_facebook_login_enabled)
-	            <p><a href="{{ $login_url }}">Zaloguj się z Facebookiem, aby kontynuować</a></p>
-	            <a href="#alternative-form" data-toggle="collapse">Nie posiadam Facebooka</a>
-			@endif
+            <p><a href="{{ $login_url }}">Zaloguj się z Facebookiem, aby kontynuować</a></p>
+            <a href="#alternative-form" data-toggle="collapse">Nie posiadam Facebooka</a>
         </div>
     </div>
 </div>
 
 
 
-<div class="container @if($errors->isEmpty() && $is_facebook_login_enabled) collapse @endif" id="alternative-form">
+<div class="container @if($errors->isEmpty()) collapse @endif" id="alternative-form">
 	<div class="well well-dark">
 			<h3>Podaj swój e-mail:</h3>
  {{ Form::open(array('class' => 'form-horizontal')) }}

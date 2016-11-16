@@ -38,6 +38,10 @@ use DB;
 use Storage;
 
 class FacebookController extends Controller {
+    public function getPrivacyPolicy() {
+        return view('facebook.privacy_policy');
+    }
+
     public function getLoginPage(LaravelFacebookSdk $fb) {
         $current_action = ActionDay::whereDate('created_at', '=', Carbon::today()->toDateString())->first();
         // XXX do this
@@ -46,13 +50,16 @@ class FacebookController extends Controller {
         }
 
         Session::forget('fb_user_access_token');
+        Session::forget('hide_email_login_checkout');
         Auth::logout();
 
         $login_url = $fb->getLoginUrl();
+        $is_facebook_login_enabled = (bool) Option::get('wampiriada.facebook_login', true);
 
         // XXX RESTYLE THIS
         return view('facebook.login', [
-            'login_url' => $login_url
+            'login_url' => $login_url,
+            'is_facebook_login_enabled' => $is_facebook_login_enabled,
         ]);
     }
 
@@ -73,6 +80,8 @@ class FacebookController extends Controller {
         }
 
         Auth::login($user);
+
+        Session::put('hide_email_login_checkout', 1);
 
         return redirect('/facebook/checkin');
     }
@@ -164,11 +173,18 @@ class FacebookController extends Controller {
 
     public function getCheckin(LaravelFacebookSdk $fb) {
         $profile = Profile::whereId(Auth::user()->id)->first();
-        if(!$profile) {
+        $hide_email_login_checkout = Session::get('hide_email_login_checkout', false);
+
+        if(!$profile || $hide_email_login_checkout) {
             $profile = new Profile;
         }
 
         $user = Auth::user();
+        if($hide_email_login_checkout) {
+            $user->first_name = null;
+            $user->last_name = null;
+        }
+
         $edition_number = Option::get('wampiriada.edition', 28);
         $edition = Edition::whereNumber($edition_number)->first();
         if(!$edition) {
@@ -192,6 +208,7 @@ class FacebookController extends Controller {
             'blood_types' => $blood_types,
             'first_time' => !(Checkin::whereUserId(Auth::user()->id)->exists()),
             'profile' => $profile,
+            'hide_email_login_checkout' => $hide_email_login_checkout,
             'user' => Auth::user(),
         ]);
     }
@@ -297,8 +314,9 @@ class FacebookController extends Controller {
         });
 
         $composer = new WampiriadaThankYouMailingComposer($edition);
-        dispatch($composer->getJobInstance($user)->delay(7200));
-        dispatch(new RegenerateTileImage());
+        // XXX: zdispatchować manualnie e-maila jak już wszystko będzie gotowe (taskiem)
+        //dispatch($composer->getJobInstance($user)->delay(7200));
+        //dispatch(new RegenerateTileImage());
 
         $token = Session::get('fb_user_access_token');
 
