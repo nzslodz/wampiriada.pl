@@ -314,6 +314,12 @@ class WampiriadaController extends Controller {
                 'image' => 'img/partnerzy/teatr_muzyczny.jpg',
             ],
 
+            'mlodziwlodzi' => [
+                'title' => 'Młodzi w Łodzi',
+                'link' => 'https://mlodziwlodzi.pl/',
+                'image' => 'img/partnerzy/mlodziwlodzi.jpg',
+            ],
+
         ];
 
         $structure = [
@@ -321,7 +327,7 @@ class WampiriadaController extends Controller {
             [ 'ul', 'pl', 'um', 'wsiu' ],
             [ 'pzu', 'fiero', 'skybowling', 'findout',],
             [ 'teatr-wielki', 'teatr-nowy', 'teatr-muzyczny' ],
-            [ 'makimo', 'eska', 'plaster'],
+            [ 'mlodziwlodzi', 'makimo', 'eska', 'plaster'],
             [ 'infostudent', 'zak', 'studentlodz'],
         ];
 
