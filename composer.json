@@ -31,7 +31,10 @@
             "App\\": "app/",
             "NZS\\Wampiriada\\": "wampiriada-lib/src/",
             "NZS\\Core\\": "nzs-lib/src/"
-        }
+        },
+        "files": [
+            "app/Support/helpers.php"
+        ]
     },
     "autoload-dev": {
         "classmap": [

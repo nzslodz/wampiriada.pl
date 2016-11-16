@@ -118,10 +118,10 @@
             </script>
         @show
 
-        <script type="text/javascript" src="{{ asset(elixir('js/app.js')) }}"></script>
+        <script type="text/javascript" src="{{ asset(elixir_dist('js/app.js')) }}"></script>
 
         {{ HTML::script('admin-assets/js/main.js') }}
-        
+
         @yield('script')
     </body>
 </html>

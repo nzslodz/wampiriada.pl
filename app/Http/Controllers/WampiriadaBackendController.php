@@ -99,7 +99,7 @@ class WampiriadaBackendController extends Controller {
             'action' => $action,
             'data' => $action_data,
             'checkins' => $checkins,
-			'prize_types' => PrizeType::whereActive(true)->lists('name', 'id'),
+			'prize_types' => PrizeType::whereActive(true)->pluck('name', 'id'),
             'checkin_count' => $checkins->count(),
             'first_time_checkin_count' => $first_time_checkin_count,
             'first_time_checkin_count_percentage' => $first_time_checkin_count_percentage,
