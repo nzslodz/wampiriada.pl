@@ -50,7 +50,7 @@
 	<div class="row">
 		<div class="col-xs-12 text-center">
 			<div class="footer">
-				<p>Copyright &copy; 2014 - {{ date('Y') }} <a href="http://nzs.lodz.pl">NZS Regionu Łódzkiego</a>. <a href="{{ url('facebook/privacy_policy') }}">Polityka prywatności</a>.</p>
+				<p>Copyright &copy; 2014 - {{ date('Y') }} <a href="http://nzs.lodz.pl">NZS Regionu Łódzkiego</a>. <a href="{{ url('privacy_policy') }}">Polityka prywatności</a>.</p>
 			</div>
 		</div>
 	</div>

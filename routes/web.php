@@ -26,7 +26,7 @@ Route::get('/facebook/login', 'FacebookController@getLoginPage');
 Route::post('/facebook/login', 'FacebookController@postLoginViaEmailPage');
 Route::get('/facebook/callback', 'FacebookController@getCallback');
 Route::get('/facebook/callback/{to}', 'FacebookController@getCallback');
-Route::get('/facebook/privacy_policy', 'FacebookController@getPrivacyPolicy');
+Route::get('/privacy_policy', 'FacebookController@getPrivacyPolicy');
 
 Route::group(['middleware' => 'auth.facebook'], function() {
     Route::get('/facebook/checkin', 'FacebookController@getCheckin');
