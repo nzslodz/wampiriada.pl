@@ -63,7 +63,19 @@
                     {{ Form::submit('Zapisz', ['class' => 'btn btn-default']) }}
                 </div>
             </div>
+
+
         {{ Form::close() }}
+    </div>
+
+    <div class="container">
+    	<div class="row">
+    		<div class="col-xs-6  col-xs-push-2 ">
+    			<div class="footer">
+    				<p>Copyright &copy; 2014 - {{ date('Y') }} <a href="http://nzs.lodz.pl">NZS Regionu Łódzkiego</a>. <a href="{{ url('facebook/privacy_policy') }}">Polityka prywatności</a>.</p>
+    			</div>
+    		</div>
+    	</div>
     </div>
 
 @stop
