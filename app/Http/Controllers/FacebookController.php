@@ -250,7 +250,7 @@ class FacebookController extends Controller {
             $checkin->name = $request->name;
             $checkin->action_day_id = $current_action->id;
             $checkin->edition_id = $current_action->edition_id;
-            $checkin->user_id = Auth::user()->id;
+            $checkin->user_id = $user->id;
 
             $checkin->save();
 
@@ -284,10 +284,10 @@ class FacebookController extends Controller {
             }
 
             // save profile defaults
-            $profile = Profile::whereId(Auth::user()->id)->first();
+            $profile = Profile::whereId($user->id)->first();
             if(!$profile) {
                 $profile = new Profile;
-                $profile->id = Auth::user()->id;
+                $profile->id = $user->id;
             }
 
             $profile->current_name = $request->name;
