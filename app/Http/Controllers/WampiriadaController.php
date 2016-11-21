@@ -363,4 +363,12 @@ class WampiriadaController extends Controller {
     public function saveThankYouMailingPoll(WampiriadaThankYouPollFormRequest $request) {
         return $this->savePollAnswer($request, $this->getThankYouMailingPoll(Option::get('wampiriada.edition', 28)));
     }
+
+    public function getKrew() {
+        return view('wampiriada.krew');
+    }
+
+    public function getSzpik() {
+        return view('wampiriada.szpik');
+    }
 }
