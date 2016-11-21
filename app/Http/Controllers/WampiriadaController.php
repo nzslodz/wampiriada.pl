@@ -217,7 +217,7 @@ class WampiriadaController extends Controller {
             'fiero' => [
                 'title' => 'Pizzeria Fiero!',
                 'link' => 'http://fieropizza.pl',
-                'image' => 'img/partnerzy/14.jpg',
+                'image' => 'img/partnerzy/fiero.png',
             ],
             'makimo' => [
                 'title' => 'Makimo Sp. z o.o.',
@@ -257,7 +257,7 @@ class WampiriadaController extends Controller {
             'zak' => [
                 'title' => 'Studenckie Radio Żak',
                 'link' => 'http://www.zak.lodz.pl',
-                'image' => 'img/partnerzy/23.jpg',
+                'image' => 'img/partnerzy/zak.png',
             ],
 
             'studentlodz' => [
@@ -287,7 +287,7 @@ class WampiriadaController extends Controller {
             'teatr-wielki' => [
                 'title' => 'Teatr Wielki w Łodzi',
                 'link' => 'http://operalodz.com',
-                'image' => 'img/partnerzy/wielki.jpg',
+                'image' => 'img/partnerzy/teatr-wielki.jpg',
             ],
 
             'skybowling' => [
@@ -320,15 +320,45 @@ class WampiriadaController extends Controller {
                 'image' => 'img/partnerzy/mlodziwlodzi.jpg',
             ],
 
+            'goudaworks' => [
+                'title' => 'Gouda Works',
+                'link' => 'http://www.goudaworks.pl/',
+                'image' => 'img/partnerzy/goudaworks.png',
+            ],
+
+            'zapiekarnia' => [
+                'title' => 'Bistro Zapiekarnia',
+                'link' => 'https://www.facebook.com/zapiekarnia/',
+                'image' => 'img/partnerzy/logo-bistro.png',
+            ],
+
+            'pastago' => [
+                'title' => 'Pasta Go',
+                'link' => 'https://www.facebook.com/pastagoo/',
+                'image' => 'img/partnerzy/pastago.jpg',
+            ],
+
+            'rytm' => [
+                'title' => 'Fitness Klub Rytm',
+                'link' => 'http://www.rytm.pl/',
+                'image' => 'img/partnerzy/rytm.jpg',
+            ],
+
+            'wydarzysie' => [
+                'title' => 'wydarzysie.pl',
+                'link' => 'http://wydarzysie.pl/',
+                'image' => 'img/partnerzy/wydarzysie.png',
+            ],
+
         ];
 
         $structure = [
-            [ 'lodz-kreuje',  'wl-lodzkie', 'wl-main', ],
+            [ 'lodz-kreuje',  'wl-lodzkie', 'wl-main', 'pzu'],
             [ 'ul', 'pl', 'um', 'wsiu' ],
-            [ 'pzu', 'fiero', 'skybowling', 'findout',],
-            [ 'teatr-wielki', 'teatr-nowy', 'teatr-muzyczny' ],
+            [ 'fiero', 'pastago', 'zapiekarnia', 'rytm'],
+            [ 'teatr-wielki', 'teatr-nowy', 'teatr-muzyczny', 'goudaworks' ],
             [ 'mlodziwlodzi', 'makimo', 'eska', 'plaster'],
-            [ 'infostudent', 'zak', 'studentlodz'],
+            [ 'infostudent', 'zak', 'wydarzysie', 'studentlodz'],
         ];
 
         $unknown = [

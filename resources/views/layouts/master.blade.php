@@ -36,11 +36,11 @@
         <link rel="stylesheet" href="{{ url('bower_components/font-awesome/css/font-awesome.min.css') }}">
         <link rel="stylesheet" href="{{ url('bower_components/bootstrap/dist/css/bootstrap.min.css') }}" ?>
         <link href='http://fonts.googleapis.com/css?family=Alegreya+Sans:100,300,400,700&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
-        <link rel="stylesheet" href="{{ url('css/main.css') }}?r=4">
+        <link rel="stylesheet" href="{{ url('css/main.css') }}?r=5">
         <script src="{{ url('js/vendor/modernizr-2.6.2.min.js') }}"></script>
     </head>
     <body class="@yield('classes')">
-        
+
  <div id="fb-root"></div>
 <script>
 window.fbAsyncInit = function() {
@@ -49,7 +49,7 @@ window.fbAsyncInit = function() {
       xfbml      : true,
       version    : 'v2.6'
     });
-    
+
     @yield('extrafb')
   };
 
@@ -61,7 +61,7 @@ window.fbAsyncInit = function() {
      fjs.parentNode.insertBefore(js, fjs);
    }(document, 'script', 'facebook-jssdk'));
 
-</script> 
+</script>
 
         @yield('content')
 
@@ -69,7 +69,7 @@ window.fbAsyncInit = function() {
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
         <script>window.jQuery || document.write('<script src="{{ url('js/vendor/jquery-1.9.1.min.js') }}"><\/script>')</script>
         <script src="{{ url('js/plugins.js') }}"></script>
-		
+
 		<!--skrypty z map google-->
 		<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script>
 		<script type="text/javascript" src="{{ url('bower_components/gmaps/gmaps.min.js') }}"></script>
@@ -79,7 +79,7 @@ window.fbAsyncInit = function() {
         <script type="text/javascript" src="{{ url('bower_components/handlebars/handlebars.min.js') }}"></script>
         <script type="text/javascript" src="{{ url('js/vendor/canvasjs/canvasjs.min.js') }}"></script>
         <script type="text/javascript" src="{{ url('bower_components/responsive-bootstrap-toolkit/dist/bootstrap-toolkit.min.js') }}"></script>
-		
+
         <script src="{{ url('js/main.js') }}"></script>
         <script src="http://accept-cookie.cdn.lambdadelta.pl/jquery.accept-cookie.js"></script>
 
