@@ -86,11 +86,11 @@ class FacebookController extends Controller {
         return redirect('/facebook/checkin');
     }
 
-    public function getCallback(LaravelFacebookSdk $fb, Request $request) {
+    public function getCallback(LaravelFacebookSdk $fb, Request $request, ErrorMailer $error_mailer) {
         try {
             $token = $fb->getAccessTokenFromRedirect();
         } catch(FacebookSDKException $e) {
-            ErrorMailer::mailException($e);
+            $error_mailer->mailException($e);
 
             return redirect('/facebook/login')
                 ->with('status', 'warning')
@@ -106,7 +106,7 @@ class FacebookController extends Controller {
                     ->with('message', 'Logowanie zostało odrzucone. Prosimy zalogować się ponownie.');
             }
 
-            ErrorMailer::mail($helper->getError(), [
+            $error_mailer->mail($helper->getError(), [
                 'code' => $helper->getErrorCode(),
                 'reason' => $helper->getErrorReason(),
                 'description' => $helper->getErrorDescription(),
@@ -124,7 +124,7 @@ class FacebookController extends Controller {
         try {
             $response = $fb->get('/me?fields=email,id,first_name,last_name');
         } catch(FacebookSDKException $e) {
-            ErrorMailer::mailException($e);
+            $error_mailer->mailException($e);
 
             return redirect('/facebook/login')
                 ->with('status', 'warning')
@@ -159,7 +159,7 @@ class FacebookController extends Controller {
                 $graphEdge = $fb->next($graphEdge);
             }
         } catch(facebookSDKException $e) {
-            ErrorMailer::mailException($e);
+            $error_mailer->mailException($e);
         }
 
         // XXX: not needed really
