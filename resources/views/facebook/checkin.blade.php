@@ -9,7 +9,7 @@
 
         {{ Form::open(array('url' => '/facebook/checkin', 'class' => 'form-horizontal')) }}
             <div class="form-group {{ $errors->has('blood_type') ? 'has-error' : '' }}">
-                {{ Form::label('blood_type', 'Rodzaj krwi', ['class' => 'control-label col-sm-2']) }}
+                {{ Form::label('blood_type', 'Grupa krwi', ['class' => 'control-label col-sm-2']) }}
                 <div class="col-sm-6">
                     {{ Form::select('blood_type', $blood_types, $profile->blood_type_id, ['class' => 'form-control']) }}
                 </div>
