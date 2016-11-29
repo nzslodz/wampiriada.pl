@@ -22,7 +22,7 @@ Oficjalna strona akcji honorowego krwiodawstwa Wampiriada w Łodzi, organizowane
 
             <div class="row">
                 <div class="col-xs-12">
-                    <p>Poniżej znajduje się <a download="krewplus.pdf" href="{{ url('materialy/krewplus.pdf') }}">elektroniczna wersja ulotki Krew+</a> informującej o funkcji żelaza w ograniźmie oraz o metodach dbania o właściwy poziom żelaza. Zapraszamy do zapoznania się z nią oraz do kontaktu z nami osobiście, jeśli interesuje Cię ten temat: <a href="mailto:nzs@nzs.lodz.pl">nzs@nzs.lodz.pl</a>.</p>
+                    <p>Poniżej znajduje się <a download="krewplus.pdf" href="{{ url('materialy/krewplus.pdf') }}">elektroniczna wersja ulotki Krew+</a> informującej o funkcji żelaza w organizmie oraz o metodach dbania o właściwy poziom żelaza. Zapraszamy do zapoznania się z nią oraz do kontaktu z nami osobiście, jeśli interesuje Cię ten temat: <a href="mailto:nzs@nzs.lodz.pl">nzs@nzs.lodz.pl</a>.</p>
                 </div>
             </div>
         </div>
