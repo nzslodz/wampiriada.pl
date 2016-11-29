@@ -8,6 +8,12 @@ a:hover { color: #09F !important; text-decoration: underline !important; }
 a:hover#vw { background-color: #CCC !important; text-decoration: none !important; color:#000 !important; }
 a:hover#ff { background-color: #6CF !important; text-decoration: none !important; color:#FFF !important; }
 </style>
+@inject('mailing', 'NZS\Core\Mailing\MailingManager')
+
+@if($mailing->isInPreviewMode())
+    <script type="text/javascript" src="{{ url('bower_components/iframe-resizer/js/iframeResizer.contentWindow.min.js') }}"></script>
+@endif
+
 </head>
 <body marginheight="0" topmargin="0" marginwidth="0" style="margin: 0px; background-color: #FFFFFF;" bgcolor="#FFFFFF" leftmargin="0">
 <!--100% body table-->
@@ -21,13 +27,13 @@ a:hover#ff { background-color: #6CF !important; text-decoration: none !important
                         @section('header')
                         <table cellspacing="0" border="0" cellpadding="0" width="624" style="margin-top: 40px">
                             <tr>
-                                
+
                                 <td style="text-align: center">
                                     <a href="{{ $repository->getRedirect('facebook-event') }}"><img src="{{ $repository->getRedirect('mailing-img') }}" alt="Wampiriada - 28. edycja"></a>
                                 </td>
                             </tr>
                         </table>
-                        
+
                         <table cellspacing="0" border="0" cellpadding="0" width="624" height="25" style="height: 25px;">
                             <tr><td>&nbsp;</td></tr>
                         </table>
@@ -42,12 +48,12 @@ a:hover#ff { background-color: #6CF !important; text-decoration: none !important
                             </tr>
                         </table>
                         <!--/email content-->
-                        
+
                         <!--footer -->
                         @section('footer')
                         <table cellspacing="0" border="0" cellpadding="0" width="624" height="25" style="height: 25px;">
                             <tr><td>&nbsp;</td></tr>
-                        </table>                          
+                        </table>
                         <table cellspacing="0" border="0" cellpadding="0" width="624">
                             <tr><td>
                                 <center><p style="font-size: 12px; letter-spacing: 1px; font-family: Arial, sans-serif; color: #9C9AA0 !important; margin-top: 0; margin-left: 0; margin-bottom: 25px; line-height: 1.4; text-align: center;">
@@ -59,8 +65,8 @@ a:hover#ff { background-color: #6CF !important; text-decoration: none !important
                                 <small><a href="http://backend.wampiriada.pl/newsletter/remove?email={{ urlencode($user->email) }}">Jeśli nie chcesz otrzymywać takich informacji, kliknij tutaj</a></small>
                                 </p></center>
                             </td></tr>
-                        </table>         
-                        @show               
+                        </table>
+                        @show
                         <!--/footer -->
                     </td>
                 </tr>

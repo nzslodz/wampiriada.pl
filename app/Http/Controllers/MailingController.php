@@ -1,6 +1,7 @@
 <?php namespace App\Http\Controllers;
 
 use NZS\Core\CollectionAggregator;
+use NZS\Core\Mailing\MailingManager;
 use NZS\Wampiriada\Option;
 use NZS\Wampiriada\Action;
 use NZS\Wampiriada\ActionData;
@@ -52,6 +53,9 @@ class MailingController extends Controller {
 		$class_name = $this->mailings[$name];
 
 		$composer = $class_name::spawnSampleInstance();
+
+		$mailingManager = app(MailingManager::class);
+		$mailingManager->setInPreviewMode();
 
 		return view($composer->getView(), $composer->getSampleContext(Auth::user()));
 	}

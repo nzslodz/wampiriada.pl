@@ -25,6 +25,6 @@
     "font-awesome": "~4.3.0",
     "select2-bootstrap-theme": "^0.1.0-beta.7",
     "select2": "^4.0.3",
-    "jquery-iframe-auto-height": "^2.0.0"
+    "iframe-resizer": "^3.5.5"
   }
 }

@@ -21,11 +21,10 @@
 @stop
 
 @section('script')
-    <script type="text/javascript" src="{{ url('bower_components/jquery-iframe-auto-height/release/jquery.browser.js') }}"></script>
-    <script type="text/javascript" src="{{ url('bower_components/jquery-iframe-auto-height/dist/jquery-iframe-auto-height.min.js') }}"></script>
+    <script type="text/javascript" src="{{ url('bower_components/iframe-resizer/js/iframeResizer.min.js') }}"></script>
     <script type="text/javascript">
         $(document).ready(function () {
-            $('iframe').iframeAutoHeight();
+            $('iframe').iFrameResize({minHeight: 600});
         });
     </script>
 @stop
