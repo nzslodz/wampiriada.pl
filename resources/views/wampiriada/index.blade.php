@@ -12,6 +12,7 @@ Oficjalna strona akcji honorowego krwiodawstwa Wampiriada w Łodzi, organizowane
 @include('wampiriada.templates.header')
 @include('wampiriada.templates.index_action_schedule')
 
+@if($display_faces)
 <section class="imagegrid">
     <div class="image">
     <img src="{{ url('storage/ImageGrid.jpg') }}">
@@ -40,6 +41,7 @@ Oficjalna strona akcji honorowego krwiodawstwa Wampiriada w Łodzi, organizowane
     </div>
 --}}
 </section>
+@endif
 
 
 <section class="description @if($display_results) with-results @endif">

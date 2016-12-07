@@ -36,6 +36,7 @@ class WampiriadaController extends Controller {
         // XXX TODO
         $display_results = true;
         $display_actions = true;
+        $display_faces = true;
 
         try {
             $results = $repository->getResults();
@@ -114,6 +115,7 @@ class WampiriadaController extends Controller {
             'repository' => $repository,
             'display_actions' => $display_actions,
             'display_results' => $display_results,
+            'display_faces' => $display_faces,
             'overall_difference' => $overall_difference,
             'oddalo' => $oddalo,
             'odkryte_za' => $odkryte_za,

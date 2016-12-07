@@ -36,7 +36,7 @@
         <link rel="stylesheet" href="{{ url('bower_components/font-awesome/css/font-awesome.min.css') }}">
         <link rel="stylesheet" href="{{ url('bower_components/bootstrap/dist/css/bootstrap.min.css') }}" ?>
         <link href='http://fonts.googleapis.com/css?family=Alegreya+Sans:100,300,400,700&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
-        <link rel="stylesheet" href="{{ url('css/main.css') }}?r=5">
+        <link rel="stylesheet" href="{{ url('css/main.css') }}?r=6">
         <script src="{{ url('js/vendor/modernizr-2.6.2.min.js') }}"></script>
     </head>
     <body class="@yield('classes')">

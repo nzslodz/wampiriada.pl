@@ -711,14 +711,11 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4e100c', end
 
 .imagegrid img {
     width: 100%;
-
-    margin-bottom: 40px;
 }
 
 .logo-container img {
     max-height: 150px;
 }
-
 
 .well {
     color: #000;
@@ -726,4 +723,17 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4e100c', end
 
 .form-control {
     font-size: 13px;
+}
+
+
+.imagegrid {
+    padding-bottom :0;
+}
+
+.imagegrid img {
+    margin-bottom: 0;
+}
+
+.imagegrid + section {
+    padding-top: 120px;
 }
