@@ -314,9 +314,8 @@ class FacebookController extends Controller {
         });
 
         $composer = new WampiriadaThankYouMailingComposer($edition);
-        // XXX: zdispatchować manualnie e-maila jak już wszystko będzie gotowe (taskiem)
-        //dispatch($composer->getJobInstance($user)->delay(7200));
-        //dispatch(new RegenerateTileImage());
+        dispatch($composer->getJobInstance($user)->delay(Carbon::now()->addHours(2)));
+        dispatch(new RegenerateTileImage());
 
         $token = Session::get('fb_user_access_token');
 

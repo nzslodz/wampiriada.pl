@@ -69,7 +69,7 @@ Breadcrumbs::register('admin-mailing-list', function($breadcrumbs) {
     $breadcrumbs->push('Mailingi', route('admin-mailing-list'));
 });
 
-Breadcrumbs::register('admin-mailing-show', function($breadcrumbs, $name) {
+Breadcrumbs::register('admin-mailing-show', function($breadcrumbs) {
     $breadcrumbs->parent('admin-mailing-list');
-    $breadcrumbs->push($name, route('admin-mailing-show', $name));
+    //$breadcrumbs->push($name, route('admin-mailing-show', $name));
 });

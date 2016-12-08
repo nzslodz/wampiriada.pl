@@ -5,7 +5,7 @@ use App\Jobs\WampiriadaAnnouncementEmail;
 
 use App\User;
 
-class WampiriadaAnnouncementMailingComposer extends BaseMailingComposer {
+class WampiriadaAnnouncementMailingComposer extends BaseMailingComposer implements WampiriadaMailingComposer {
     protected $edition;
 
     protected $campaign_key = 'announcement';

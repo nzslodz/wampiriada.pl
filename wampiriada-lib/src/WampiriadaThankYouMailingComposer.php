@@ -1,11 +1,13 @@
 <?php namespace NZS\Wampiriada;
 use NZS\Core\Mailing\BaseMailingComposer;
 use NZS\Wampiriada\EditionRepository;
+use NZS\Wampiriada\WampiriadaMailingComposer;
 use App\Jobs\WampiriadaThankYouEmail;
 
 use App\User;
+use Storage;
 
-class WampiriadaThankYouMailingComposer extends BaseMailingComposer {
+class WampiriadaThankYouMailingComposer extends BaseMailingComposer implements WampiriadaMailingComposer {
     protected $edition;
 
     protected $view = 'emails.wampiriada.thankyou';

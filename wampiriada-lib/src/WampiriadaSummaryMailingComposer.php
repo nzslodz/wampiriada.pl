@@ -5,7 +5,7 @@ use App\Jobs\WampiriadaThankYouEmail;
 
 use App\User;
 
-class WampiriadaSummaryMailingComposer extends BaseMailingComposer {
+class WampiriadaSummaryMailingComposer extends BaseMailingComposer implements WampiriadaMailingComposer {
     protected $edition;
 
     protected $view = 'emails.wampiriada.summary';

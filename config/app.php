@@ -1,4 +1,5 @@
 <?php
+use App\Providers\WampiriadaServiceProvider;
 
 return [
 
@@ -160,6 +161,8 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         App\Providers\ActivityServiceProvider::class,
+        App\Providers\MailingServiceProvider::class,
+        App\Providers\WampiriadaServiceProvider::class,
         Illuminate\Database\MigrationServiceProvider::class,
     ],
 

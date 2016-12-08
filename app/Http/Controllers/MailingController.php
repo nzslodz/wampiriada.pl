@@ -2,6 +2,7 @@
 
 use NZS\Core\CollectionAggregator;
 use NZS\Core\Mailing\MailingManager;
+use NZS\Core\Mailing\MailingRepository;
 use NZS\Wampiriada\Option;
 use NZS\Wampiriada\Action;
 use NZS\Wampiriada\ActionData;
@@ -22,21 +23,12 @@ use App\User;
 use Illuminate\Http\Request;
 use App\Http\Requests\PrizeTypeRequest;
 use App\Http\Requests\PrizeForCheckinRequest;
-use NZS\Wampiriada\WampiriadaSummaryMailingComposer;
-use NZS\Wampiriada\WampiriadaThankYouMailingComposer;
-use NZS\Wampiriada\WampiriadaAnnouncementMailingComposer;
 
 use Auth;
 
 class MailingController extends Controller {
-	protected $mailings = [
-		'initial-response' => WampiriadaThankYouMailingComposer::class,
-		'after-edition' => WampiriadaSummaryMailingComposer::class,
-		'announcement' => WampiriadaAnnouncementMailingComposer::class,
-	];
-
-	public function getIndex() {
-		$mailings = collect($this->mailings)->transform(function($class_name) {
+	public function getIndex(MailingRepository $repository) {
+		$mailings = $repository->collect()->transform(function($class_name) {
 			return $class_name::spawnSampleInstance();
 		});
 
@@ -45,12 +37,11 @@ class MailingController extends Controller {
 		]);
 	}
 
-	public function getPreview($name) {
-		if(!isset($this->mailings[$name])) {
+	public function getPreview(Request $request, MailingRepository $repository) {
+		$class_name = $request->input('class');
+		if(!$repository->exists($class_name)) {
 			return abort(404);
 		}
-
-		$class_name = $this->mailings[$name];
 
 		$composer = $class_name::spawnSampleInstance();
 
@@ -60,18 +51,17 @@ class MailingController extends Controller {
 		return view($composer->getView(), $composer->getSampleContext(Auth::user()));
 	}
 
-	public function getShow($name) {
-		if(!isset($this->mailings[$name])) {
+	public function getShow(Request $request, MailingRepository $repository) {
+		$class_name = $request->input('class');
+		if(!$repository->exists($class_name)) {
 			return abort(404);
 		}
-
-		$class_name = $this->mailings[$name];
 
 		$composer = $class_name::spawnSampleInstance();
 
 		return view('admin.mailing.show', [
 			'composer' => $composer,
-			'mailing_key' => $name,
+			'class_name' => $class_name,
 			'user' => Auth::user(),
 		]);
 	}

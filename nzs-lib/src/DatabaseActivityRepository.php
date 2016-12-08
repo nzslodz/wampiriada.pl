@@ -18,8 +18,7 @@ class DatabaseActivityRepository implements ActivityRepository {
             $class_names = [$class_names];
         }
 
-        foreach($class_names as $class_name) {
-            $activity_class = new $class_name;
+        foreach($class_names as $activity_class) {
             $this->activity_classes[$activity_class->getModel()] = $activity_class;
         }
     }

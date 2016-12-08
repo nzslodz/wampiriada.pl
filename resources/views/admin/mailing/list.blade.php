@@ -17,15 +17,15 @@
             </tr>
         </thead>
         <tbody class="table-middle">
-            @forelse($mailings as $key => $mailing)
+            @forelse($mailings as $mailing)
                 <tr>
-                    <th><a href="{{ url('admin/mailing/' . $key) }}">{{ $mailing->getCampaignName() }}</a></th>
+                    <th><a href="{{ url('admin/mailing/show?class=' . get_class($mailing)) }}">{{ $mailing->getCampaignName() }}</a></th>
                     <td>{{ get_class($mailing) }}</td>
                 </tr>
             @empty
             <tr class="no-results">
                 <td colspan="2">
-                    Aby dodać nowy typ nagrody, naciśnij przycisk <strong>Dodaj nowy typ nagrody</strong> w prawym górnym rogu.
+                    Brak mailingów.
                 </td>
             </tr>
             @endforelse

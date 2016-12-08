@@ -15,7 +15,7 @@
     </div>
 
     <div class="container">
-        <iframe scrolling="no" class="mailing-frame" width="800" src="{{ url('admin/mailing/preview/' . $mailing_key) }}"></iframe>
+        <iframe scrolling="no" class="mailing-frame" width="800" src="{{ url('admin/mailing/preview?class=' . $class_name) }}"></iframe>
     </div>
 
 @stop

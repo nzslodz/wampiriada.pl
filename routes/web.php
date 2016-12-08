@@ -82,8 +82,8 @@ Route::group(['prefix' => 'admin'], function() {
 	   	Route::post('email/create', 'MailController@postCreate');
 
         Route::get('mailing', ['as' => 'admin-mailing-list', 'uses' => 'MailingController@getIndex']);
-        Route::get('mailing/preview/{name}', ['as' => 'admin-mailing-preview', 'uses' => 'MailingController@getPreview']);
-        Route::get('mailing/{name}', ['as' => 'admin-mailing-show', 'uses' => 'MailingController@getShow']);
+        Route::get('mailing/preview', ['as' => 'admin-mailing-preview', 'uses' => 'MailingController@getPreview']);
+        Route::get('mailing/show', ['as' => 'admin-mailing-show', 'uses' => 'MailingController@getShow']);
 
         Route::get('activity/profile/{user}', ['as' => 'activity-profile', 'uses' => 'ActivityController@getProfile']);
 
