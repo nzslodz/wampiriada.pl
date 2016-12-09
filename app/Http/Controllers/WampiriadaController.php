@@ -33,10 +33,9 @@ class WampiriadaController extends Controller {
 
         $event_redirect = $repository->getRedirect('facebook-event');
 
-        // XXX TODO
-        $display_results = true;
-        $display_actions = true;
-        $display_faces = true;
+        $display_results = $repository->getConfiguration()->display_results;
+        $display_actions = $repository->getConfiguration()->display_actions;
+        $display_faces = $repository->getConfiguration()->display_faces;
 
         try {
             $results = $repository->getResults();

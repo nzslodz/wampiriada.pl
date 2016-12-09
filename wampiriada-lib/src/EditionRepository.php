@@ -3,6 +3,7 @@
 use NZS\Core\Exceptions\ObjectDoesNotExist;
 use NZS\Core\Redirects\DatabaseRedirectRepository;
 use NZS\Core\Redirects\CompositeRedirectRepository;
+use NZS\Wampiriada\EmptyConfiguration;
 
 class EditionRepository {
     protected
@@ -117,5 +118,15 @@ class EditionRepository {
         $wampiriada_repository = new WampiriadaRedirectRepository($this);
 
         return $wampiriada_repository->registerRedirect($key, $url);
+    }
+
+    public function getConfiguration() {
+        $configuration = $this->getEdition()->configuration;
+
+        if(!$configuration) {
+            return new EmptyConfiguration;
+        }
+
+        return $configuration;
     }
 }

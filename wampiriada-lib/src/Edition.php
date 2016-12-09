@@ -34,6 +34,10 @@ class Edition extends Model {
         return $this->repository;
     }
 
+	public function configuration() {
+		return $this->hasOne(EditionConfiguration::class, 'id');
+	}
+
 	public function checkins() {
 		return $this->hasMany(Checkin::class);
 	}
