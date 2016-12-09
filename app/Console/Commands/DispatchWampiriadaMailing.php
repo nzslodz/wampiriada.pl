@@ -106,9 +106,15 @@ class DispatchWampiriadaMailing extends Command
 
     protected function constructRecipientListFromArray($users) {
         return collect($users)->transform(function($user_email) {
-            $user = new User;
-            $user->email = $user_email;
+            $user = User::whereEmail($user_email)->first();
+
+            if($user === null) {
+                $this->warn(sprintf("User with e-mail %s not found in database", $user_email));
+            }
+
             return $user;
+        })->filter(function($object) {
+            return $object !== null;
         });
     }
 
