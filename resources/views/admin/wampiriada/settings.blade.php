@@ -46,6 +46,21 @@
         </div>
         <div class="row">
             <div class="container-xs-12">
+                {{ Form::checkbox("display_results", '1', $configuration->display_results) }}
+                {{ Form::label("display_results", "Pokaż wykres z wynikami edycji na stronie głównej") }}
+            </div>
+            <div class="container-xs-12">
+                {{ Form::checkbox("display_actions", '1', $configuration->display_actions) }}
+                {{ Form::label("display_actions", "Pokaż listę akcji na stronie głównej (jeśli odznaczone, pokaże się komunikat informujacy o tym, że lista będzie dostępna już niebawem)") }}
+            </div>
+            <div class="container-xs-12">
+                {{ Form::checkbox("display_faces", '1', $configuration->display_faces) }}
+                {{ Form::label("display_faces", "Pokaż grafikę 1000 twarzy Wampiriady na stronie głównej") }}
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="container-xs-12">
                 <edition-list></edition-list>
             </div>
         </div>
