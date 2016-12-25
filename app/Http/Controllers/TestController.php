@@ -11,12 +11,7 @@ use NZS\Core\Activity;
 
 class TestController extends Controller {
 	public function getTest() {
-		$container = new Container;
-
-		//$container->instance(User::class, null);
-
-		dd($container->make(User::class));
-
+		view('magic');
 
 	}
 }

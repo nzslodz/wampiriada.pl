@@ -3,17 +3,26 @@ use NZS\Core\Mailing\BaseMailingComposer;
 use NZS\Wampiriada\EditionRepository;
 use NZS\Wampiriada\WampiriadaMailingComposer;
 use App\Jobs\WampiriadaThankYouEmail;
+use NZS\Core\Mailing\MultipleViews;
 
 use App\User;
 use Storage;
 
 class WampiriadaThankYouMailingComposer extends BaseMailingComposer implements WampiriadaMailingComposer {
+    use MultipleViews;
+
     protected $edition;
 
-    protected $view = 'emails.wampiriada.thankyou';
     protected $campaign_key = 'initial-response';
     protected $campaign_name = 'Mail z podziękowaniem po oddaniu krwi';
     protected $subject = 'Wampiriada - 28. edycja. Dziękujemy że jesteś z nami!';
+
+    public function getViews() {
+        return [
+            "emails.wampiriada.thankyou.{$this->edition->number}",
+            "emails.wampiriada.thankyou.default",
+        ];
+    }
 
     public function __construct(Edition $edition) {
         $this->edition = $edition;
