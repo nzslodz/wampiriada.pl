@@ -101,7 +101,7 @@
                     @foreach($list as $connection)
                 {
                     'id': {{ $connection->getUser()->id }},
-                    'name': '{{ $connection->getUser()->getFullName() }}',
+                    'name': '{!! addslashes($connection->getUser()->getFullName()) !!}',
                     'action_day_id': {{ $connection->getCheckin()->action_day_id }},
                     'friends': [
                         @foreach($connection->getFriendCheckins() as $friend_checkin)
