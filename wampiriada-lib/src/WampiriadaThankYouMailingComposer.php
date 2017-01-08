@@ -15,17 +15,20 @@ class WampiriadaThankYouMailingComposer extends BaseMailingComposer implements W
 
     protected $campaign_key = 'initial-response';
     protected $campaign_name = 'Mail z podziękowaniem po oddaniu krwi';
-    protected $subject = 'Wampiriada - 28. edycja. Dziękujemy że jesteś z nami!';
+
+    public function __construct(Edition $edition) {
+        $this->edition = $edition;
+    }
+
+    protected function getSubject() {
+        return "Wampiriada - {$this->edition->number}. edycja. Dziękujemy że jesteś z nami!";
+    }
 
     public function getViews() {
         return [
             "emails.wampiriada.thankyou.{$this->edition->number}",
             "emails.wampiriada.thankyou.default",
         ];
-    }
-
-    public function __construct(Edition $edition) {
-        $this->edition = $edition;
     }
 
     public function getContext(User $user) {
