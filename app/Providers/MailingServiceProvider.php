@@ -26,5 +26,9 @@ class MailingServiceProvider extends ServiceProvider
         $this->app->singleton(MailingRepository::class, function($app) {
             return new MailingRepository;
         });
+
+        $this->app->singleton(MailingManager::class, function(){
+            return new MailingManager;
+        });
     }
 }

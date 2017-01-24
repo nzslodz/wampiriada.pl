@@ -14,9 +14,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        app()->singleton(MailingManager::class, function(){
-            return new MailingManager;
-        });
+
     }
 
     /**

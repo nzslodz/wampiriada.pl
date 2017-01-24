@@ -20,7 +20,7 @@ class WampiriadaThankYouMailingComposer extends BaseMailingComposer implements W
         $this->edition = $edition;
     }
 
-    protected function getSubject() {
+    public function getSubject(User $user) {
         return "Wampiriada - {$this->edition->number}. edycja. Dziękujemy że jesteś z nami!";
     }
 
