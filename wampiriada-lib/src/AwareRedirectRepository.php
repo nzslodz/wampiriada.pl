@@ -27,7 +27,7 @@ class AwareRedirectRepository extends BaseRedirectRepository {
 	}
 
 	public static function fromRequest(Request $request, RedirectRepository $repository) {
-		$email_campaign = EmailCampaign::whereKey($request->input('c'))->first();
+		$email_campaign = EmailCampaign::where('key', $request->input('c'))->first();
 		if(!$email_campaign) {
 			return null;
 		}

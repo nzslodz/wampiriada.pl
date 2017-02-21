@@ -379,7 +379,7 @@ class WampiriadaController extends Controller {
         $edition = Edition::whereNumber($edition_number)->firstOrFail();
 
         return WampiriadaPoll::whereHas('poll', function($query) {
-            $query->whereKey('wampiriada_thank_you_mailing_poll');
+            $query->where('key', 'wampiriada_thank_you_mailing_poll');
         })->whereEditionId($edition->id)->firstOrFail();
     }
 

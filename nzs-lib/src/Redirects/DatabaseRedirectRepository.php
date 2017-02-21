@@ -12,7 +12,7 @@ class DatabaseRedirectRepository extends BaseRedirectRepository {
 
     protected function loadRedirect($name) {
         if(!isset($this->redirect_cache[$name])) {
-            $redirect = Redirect::whereKey($name)->whereClassName(get_class($this))->first();
+            $redirect = Redirect::where('key', $name)->whereClassName(get_class($this))->first();
 
             if(!$redirect) {
                 $redirect = new EmptyRedirect;

@@ -8,7 +8,7 @@ class Option extends Model {
     protected $guarded = array();
 
     public static function set($key, $value) {
-        if($option = static::whereKey($key)->first()) {
+        if($option = static::where('key', $key)->first()) {
             $option->value = $value;
             $option->save();
 
@@ -22,7 +22,7 @@ class Option extends Model {
     }
 
     public static function get($key, $default=null) {
-        if($option = static::whereKey($key)->first()) {
+        if($option = static::where('key', $key)->first()) {
             return $option->value;
         }
 
