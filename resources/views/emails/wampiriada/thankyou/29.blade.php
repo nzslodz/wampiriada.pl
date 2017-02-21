@@ -3,39 +3,35 @@
 @section('content')
 
  <h3 style="font-size: 24px; letter-spacing: 1px; font-family: Arial, sans-serif; color: #d33 !important; margin-top: 0; margin-left: 0; margin-bottom: 25px; font-weight: normal;">
-    Oddawanie krwi to powód do dumy. MUNI
+    Zwycięzcą się bywa.
 </h3>
 
 <p style="font-size: 13px; letter-spacing: 1px; font-family: Arial, sans-serif; color: #3D3D3D !important; margin-top: 0; margin-left: 0; margin-bottom: 25px; line-height: 1.4;">
-    A akcja Wampiriady nie udałaby się bez Ciebie i nas wszystkich, którzy podobnie jak Ty chcą podzielić się częścią siebie ze światem. Dlatego też wolontariusze NZS Regionu Łódzkiego przygotowali coś specjalnego na 28. edycję Wampiriady.
+    Kiedy oddajesz krew na Wampiriadzie, wszyscy wygrywają. Dla Ciebie to koszulka, czekolady, zniżki i gadżety przygotowane przez naszych partnerów. Dla biorcy to kolejne życie &ndash; niczym w grze komputerowej. A to tylko jeden zwyczajny, a raczej nadzwyczajny, dzień z Twojego życia. Jeden prosty czyn, z którego płynie duma. Ile jeszcze takich dni przez Tobą?
 </p>
 
  <h3 style="font-size: 24px; letter-spacing: 1px; font-family: Arial, sans-serif; color: #d33 !important; margin-top: 0; margin-left: 0; margin-bottom: 25px; font-weight: normal;">
-    Jeden Wampir &ndash; 1000 twarzy.
+    Człowiekiem się jest.
 </h3>
 
 <p style="font-size: 13px; letter-spacing: 1px; font-family: Arial, sans-serif; color: #3D3D3D !important; margin-top: 0; margin-left: 0; margin-bottom: 25px; line-height: 1.4;">
-    Na <a href="{{ $repository->getRedirect('wampiriada') }}">stronie Wampiriady</a> umieściliśmy tajemniczy obraz, który tylko wspólnymi siłami jesteśmy w stanie odsłonić. Obraz podzielony jest na tysiąc pól. Oddając krew i logując się przez Facebooka, wstawiasz zdjęcie profilowe w jedno z pól, i niczym w zdrapce odsłaniasz część tajemniczego obrazu. Celem akcji jest odkrycie całości obrazu i tysiąc zdjęć profilowych - włącznie z Twoim  - w jednym miejscu. A to nie wszystkie niespodzianki, jakie na Ciebie czekają.
+    Życie to coś więcej, niż jednorazowa akcja. Życie opiera się nie na sukcesach, a na wartościach. Dlatego życzymy Ci, aby wartości, które przywiodły Cię do decyzji oddania krwi, poprowadziły Cię w przyszłości ku jeszcze lepszej wersji siebie. Wszak to Ty tutaj dowodzisz.
 </p>
 
  <h3 style="font-size: 24px; letter-spacing: 1px; font-family: Arial, sans-serif; color: #d33 !important; margin-top: 0; margin-left: 0; margin-bottom: 25px; font-weight: normal;">
-    Możesz pomóc. I wygrać. Oto, co możesz zrobić.
+    Tak właśnie rodzi się synergia.
 </h3>
 
 <p style="font-size: 13px; letter-spacing: 1px; font-family: Arial, sans-serif; color: #3D3D3D !important; margin-top: 0; margin-left: 0; margin-bottom: 25px; line-height: 1.4;">
-    Przekaż informację innym:<br>
-    &mdash; Zaproś przyjaciół do wydarzenia <a href="{{ $repository->getRedirect('facebook-event') }}">https://web.facebook.com/events/1056420187739141/</a>; <br>
-    &mdash; Opublikuj na swojej tablicy <a href="{{ $repository->getRedirect('plakat') }}">plakat Wampiriady</a> z hasztagiem #przyjacielWAMPIRA;<br>
-    &mdash; Polub stronę <a href="{{ $repository->getRedirect('facebook') }}">http://facebook.com/wampiriada.nzs.rl</a>;<br>
-    &mdash; Polub stronę <a href="{{ $repository->getRedirect('facebook-nzs') }}">http://facebook.com/NZSRegionuLodzkiego</a>;<br>
+    Każdy z nas ma w sobie odrobinę indywidualności, która czyni nas niesamowitymi. Z kolei Wampiriada jest niezwykła dzięki honorowym krwiodawcom. To właśnie Ty i aż ponad 1000 innych osób podjęło wyjątkową decyzję o wzięciu udziału w Wampiriadzie, dzięki czemu pozyskaliśmy zawrotne 766 jednostek krwi. Tylko dzięki Tobie wyniki 29. edycji Wampiriady są tak dobre.
 </p>
 
-<p style="font-size: 13px; letter-spacing: 1px; font-family: Arial, sans-serif; color: #3D3D3D !important; margin-top: 0; margin-left: 0; margin-bottom: 25px; line-height: 1.4;">
-    Mamy do rozdania nagrody przygotowane przez naszych sponsorów. Są to między innymi: karnety na basen, zaproszenia do teatrów łódzkich, vouchery do kręgielni, zaproszenia do pizzerii, vouchery do jednego z escape roomów.
-</p>
+<h3 style="font-size: 24px; letter-spacing: 1px; font-family: Arial, sans-serif; color: #d33 !important; margin-top: 0; margin-left: 0; margin-bottom: 25px; font-weight: normal;">
+   To takie proste.
+</h3>
 
 <p style="font-size: 13px; letter-spacing: 1px; font-family: Arial, sans-serif; color: #3D3D3D !important; margin-top: 0; margin-left: 0; margin-bottom: 25px; line-height: 1.4;">
-    Pod koniec 28. edycji przeprowadzimy jeszcze jedno losowanie. Za każdym razem, kiedy ktoś z Twoich znajomych na Facebooku odda krew na Wampiriadzie, zwiększa szanse Was obojga na wygranie nagrody. Jeśli zaprosisz więcej niż jedną osobę, Twoje szanse będą jeszcze większe.
+   Zapraszamy Cię na Wampiriadę już na wiosnę. Oddawanie krwi to powód do dumy, więc zabierz ze sobą swoich przyjaciół i razem z nimi weź udział w następnej, 30. edycji Wampiriady. Taka okazja nie zdarza się codziennie.
 </p>
 
  <h3 style="font-size: 24px; letter-spacing: 1px; font-family: Arial, sans-serif; color: #d33 !important; margin-top: 0; margin-left: 0; margin-bottom: 25px; font-weight: normal;">
