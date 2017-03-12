@@ -14,7 +14,8 @@
         "doctrine/dbal": "*",
         "predis/predis": "*",
         "davejamesmiller/laravel-breadcrumbs": "^3.0",
-        "jwage/purl": "^0.0.7"
+        "jwage/purl": "^0.0.7",
+        "stevenmaguire/trello-php": "^0.4.0"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

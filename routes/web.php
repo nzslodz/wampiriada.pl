@@ -95,6 +95,8 @@ Route::group(['prefix' => 'admin'], function() {
 
         Route::get('/test/example', 'TestController@getTest');
 
+        Route::get('trello/releases', 'TrelloController@getIndex');
+
 
 	});
 });

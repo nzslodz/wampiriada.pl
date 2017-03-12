@@ -222,5 +222,11 @@ return [
     'achievements' => [
         10 => [ 'icon' => 'crown.png', 'text' => 'Wampir obudził się i poczuł się głodny....' ],
         954 => [ 'icon' => 'crown.png', 'text' => '... dlatego najadł się 953 osobami'],
-    ]
+    ],
+
+    'trello' => [
+        'key' => 'd7a6d96eb1c149b7a4ea17056cb3f69a',
+        'token' => 'ea853a20340f8050017246c6323cb333b59f1a54130833f7cc803b15c0523495',
+        'release_boards' => ['JEFdzApw'],
+    ],
 ];
