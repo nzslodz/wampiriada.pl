@@ -73,3 +73,20 @@ Breadcrumbs::register('admin-mailing-show', function($breadcrumbs) {
     $breadcrumbs->parent('admin-mailing-list');
     //$breadcrumbs->push($name, route('admin-mailing-show', $name));
 });
+
+Breadcrumbs::register('admin-trello-releases', function($breadcrumbs) {
+    $breadcrumbs->parent('admin');
+    $breadcrumbs->push('Raporty', route('admin-trello-releases'));
+
+});
+
+Breadcrumbs::register('admin-trello-single-release', function($breadcrumbs, $key, $list) {
+    $breadcrumbs->parent('admin-trello-releases');
+    $breadcrumbs->push('Raport', route('admin-trello-single-release', ['key' => $key, 'list' =>$list]));
+
+});
+Breadcrumbs::register('admin-trello-releases-create', function($breadcrumbs, $key) {
+    $breadcrumbs->parent('admin-trello-releases');
+    $breadcrumbs->push('Nowy raport', route('admin-trello-releases-create', $key));
+
+});

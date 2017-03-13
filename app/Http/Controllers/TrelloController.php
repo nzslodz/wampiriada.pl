@@ -30,18 +30,37 @@ class TrelloController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function getIndex() {
-		$client = new TrelloClient(array(
-		    'key' => config('app.trello.key'),
-		    'token'  => config('app.trello.token'),
-			'domain' => 'http://api.trello.com',
-		));
+	public function getIndex(TrelloClient $client) {
+		$repositories = collect(config('app.trello.releases', []))->transform(function($config, $key) use($client) {
+			return new TrelloRepository($client, $key, $config);
+		});
 
-		$repository = new TrelloRepository($client);
-
-        return view('admin.trello.release.display_cards', [
-            'release_cards' => $repository->getCardsForBoards(config('app.trello.release_boards')),
+        return view('admin.trello.release.display_releases', [
+            'releases' => $repositories,
         ]);
+	}
+
+	public function getRelease(TrelloClient $client, $key, $list) {
+		$config = config("app.trello.releases.$key");
+
+		if(!$config) {
+			abort(404);
+		}
+
+		$repository = new TrelloRepository($client, $key, $config);
+		$release = $repository->getRelease($list);
+
+		return view('admin.trello.release.display_release', [
+			'release' => $release
+		]);
+	}
+
+	public function showBoardCardsForRelease() {
+
+	}
+
+	public function postRelease() {
+		
 	}
 
 }

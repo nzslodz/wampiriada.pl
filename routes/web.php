@@ -96,6 +96,10 @@ Route::group(['prefix' => 'admin'], function() {
         Route::get('/test/example', 'TestController@getTest');
 
         Route::get('trello/releases', ['as' => 'admin-trello-releases', 'uses' => 'TrelloController@getIndex']);
+        Route::get('trello/releases/{key}/{list}', ['as' => 'admin-trello-single-release', 'uses' => 'TrelloController@getRelease']);
+
+        Route::get('trello/releases/create/{key}', ['as' => 'admin-trello-releases-create', 'uses' => 'TrelloController@showBoardCardsForRelease']);
+        Route::get('trello/releases/create/{key}', 'TrelloController@postRelease');
 
 
 	});
