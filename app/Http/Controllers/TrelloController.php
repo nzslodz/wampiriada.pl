@@ -51,16 +51,37 @@ class TrelloController extends Controller {
 		$release = $repository->getRelease($list);
 
 		return view('admin.trello.release.display_release', [
-			'release' => $release
+			'release' => $release,
+			'repo' => $repository,
 		]);
 	}
 
-	public function showBoardCardsForRelease() {
+	public function showBoardCardsForRelease(TrelloClient $client, $key) {
+		$config = config("app.trello.releases.$key");
 
+		if(!$config) {
+			abort(404);
+		}
+
+		$repository = new TrelloRepository($client, $key, $config);
+
+		return view('admin.trello.release.display_cards', [
+			'release_cards' => $repository->getCardsForBoards(),
+		]);
 	}
 
-	public function postRelease() {
-		
+	public function postRelease(Request $request, TrelloClient $client, $key) {
+		$config = config("app.trello.releases.$key");
+
+		if(!$config) {
+			abort(404);
+		}
+
+		$repository = new TrelloRepository($client, $key, $config);
+
+		$list = $repository->moveCards($request->input('card_id'), $request->input('name'));
+
+		return redirect(route('admin-trello-single-release', ['key' => $key, 'list' => $list->id]));
 	}
 
 }

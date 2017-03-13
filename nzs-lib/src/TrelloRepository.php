@@ -50,14 +50,14 @@ class TrelloRepository {
         return  $this->release_board_key;
     }
 
-    public function getCardsForBoards($boards) {
+    public function getCardsForBoards() {
         $cards = [];
 
-        foreach($boards as $board) {
-            $cards = array_merge($cards, $this->client->getBoardCards($board));
-        }
+        $lists = $this->getListsForBoards();
 
-        $lists = $this->getListsForBoards($boards);
+        foreach($lists as $list) {
+            $cards = array_merge($cards, $this->client->getListCards($list->id));
+        }
 
         return collect($cards)->groupBy('idList')->transform(function($item, $key) use($lists) {
             return new TrelloList($item, $lists[$key]);
@@ -66,15 +66,32 @@ class TrelloRepository {
         });
     }
 
-    public function getListsForBoards($boards) {
+    public function getListsForBoards() {
         $lists = [];
 
-        foreach($boards as $board) {
+        foreach($this->source_boards as $board) {
             $lists = array_merge($lists, $this->client->getBoardLists($board));
         }
 
         return collect($lists)->mapWithKeys(function($item) {
             return [$item->id => $item];
+        })->filter(function($list) {
+            return starts_with($list->name, "+");
         });
+    }
+
+    public function moveCards($cardIds, $name) {
+        $list = $this->client->addBoardList($this->getReleaseBoard()->id, [
+            'name' => $name,
+        ]);
+
+
+        $list = $list[0];
+
+        foreach($cardIds as $cardId) {
+            $this->client->updateCardIdList($cardId, ['value' => $list->id]);
+        }
+
+        return $list;
     }
 }

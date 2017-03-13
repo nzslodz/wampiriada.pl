@@ -29,7 +29,7 @@ class AppServiceProvider extends ServiceProvider
             return new TrelloClient(array(
     		    'key' => config('app.trello.key'),
     		    'token'  => config('app.trello.token'),
-    			'domain' => 'http://api.trello.com',
+    			//'domain' => 'http://api.trello.com',
     		));
         });
     }

@@ -14,14 +14,23 @@
         <h2>Lista typów nagród</h2>
     </div>
 
+        <form class="form" action="" method="post">
+        {{ csrf_field() }}
         @foreach($release_cards as $list)
             <h3>{{ $list->getDefinition()->name }}</h3>
-            <ul>
-                @foreach($list->getItems() as $card)
-                    <li>{{ $card->name }}</li>
-                @endforeach
-            </ul>
+            @foreach($list->getItems() as $card)
+                <div class="checkbox"><label><input type="checkbox"  name="card_id[]" value="{{ $card->id }}"> {{ $card->name }}</label></div>
+            @endforeach
+
+            <div class="form-group">
+                <label for="name">Nazwij release</label>
+                <input name="name" type="name" class="form-control" id="name" placeholder="Przykładowy release">
+            </div>
+
+            <button type="submit" class="btn btn-default">Utwórz release</button>
         @endforeach
+
+        </form>
 
         {{--}}<thead>
             <tr>

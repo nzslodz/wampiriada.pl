@@ -8,7 +8,6 @@
     <div class="page-header">
         <div class='btn-toolbar pull-right'>
             <div class='btn-group'>
-                <a href="{{ url('admin/prize/create') }}" class="btn btn-default"><span class="glyphicon glyphicon-plus"></span> Dodaj nowy typ nagrody</a>
             </div>
         </div>
         <h2>Lista typów nagród</h2>

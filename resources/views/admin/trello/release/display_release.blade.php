@@ -8,16 +8,31 @@
     <div class="page-header">
         <div class='btn-toolbar pull-right'>
             <div class='btn-group'>
-                <a href="{{ url('admin/prize/create') }}" class="btn btn-default"><span class="glyphicon glyphicon-plus"></span> Dodaj nowy typ nagrody</a>
+                <a href="{{ route('admin-trello-releases-create', ['key' => $repo->getKey() ]) }}" class="btn btn-default"><span class="glyphicon glyphicon-plus"></span> Dodaj nowy typ nagrody</a>
             </div>
         </div>
-        <h2>Lista typów nagród</h2>
+        <h2>Release: {{ $release->getDefinition()->name }} ({{$release->getCount()}})</h2>
     </div>
 
-            <h3>{{ $release->getDefinition()->name }}</h3>
-            <ul>
-                @foreach($release->getItems() as $card)
-                    <li>{{ $card->name }}</li>
+                @foreach($release->getItems()->chunk(3) as $cards)
+                    <div class="row">
+                        @foreach($cards as $card)
+                            <div class="col-md-4">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h3 class="panel-title"><a href="{{ $card->url }}">{{ $card->name }}</a></h3>
+                                    </div>
+                                    <div class="panel-body">
+                                        <p>{{ $card->desc }}</p>
+                                        <p>{{ $card->badges->checkItemsChecked}}/{{ $card->badges->checkItems}} : {{ $card->badges->comments}} : {{ $card->badges->attachments}} : {{$card->badges->due}} {{$card->badges->dueComplete}}</p>
+                                        <p>@foreach($card->labels as $label)
+                                            {{$label->color}}
+                                        @endforeach</p>
+                                    </div>
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
                 @endforeach
             </ul>
 

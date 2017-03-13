@@ -12,6 +12,10 @@ class TrelloList {
         $this->items = $items;
     }
 
+    public function getCount() {
+        return count($this->items);
+    }
+
     public function getItems() {
         return collect($this->items)->sortBy('pos');
     }
