@@ -10,13 +10,31 @@ class TrelloRepository {
         $this->client = $client;
     }
 
-    public function getCardsFromReleaseBoards($boards) {
+    public function getCardsForBoards($boards) {
         $cards = [];
 
         foreach($boards as $board) {
             $cards = array_merge($cards, $this->client->getBoardCards($board));
         }
 
-        return $cards;
+        $lists = $this->getListsForBoards($boards);
+
+        return collect($cards)->groupBy('idList')->transform(function($item, $key) use($lists) {
+            return new TrelloList($item, $lists[$key]);
+        })->sortBy(function($list) {
+            return $list->getDefinition()->pos;
+        });
+    }
+
+    public function getListsForBoards($boards) {
+        $lists = [];
+
+        foreach($boards as $board) {
+            $lists = array_merge($lists, $this->client->getBoardLists($board));
+        }
+
+        return collect($lists)->mapWithKeys(function($item) {
+            return [$item->id => $item];
+        });
     }
 }

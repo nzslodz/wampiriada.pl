@@ -14,10 +14,13 @@
         <h2>Lista typów nagród</h2>
     </div>
 
-    <table class="table table-striped table-bordered">
-        @foreach($release_cards as $card)
-
-            <p>{{ $card }}</p>
+        @foreach($release_cards as $list)
+            <h3>{{ $list->getDefinition()->name }}</h3>
+            <ul>
+                @foreach($list->getItems() as $card)
+                    <li>{{ $card->name }}</li>
+                @endforeach
+            </ul>
         @endforeach
 
         {{--}}<thead>
@@ -48,5 +51,4 @@
             @endforelse
         </tbody>
         --}}
-    </table>
 @stop

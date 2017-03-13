@@ -34,12 +34,13 @@ class TrelloController extends Controller {
 		$client = new TrelloClient(array(
 		    'key' => config('app.trello.key'),
 		    'token'  => config('app.trello.token'),
+			'domain' => 'http://api.trello.com',
 		));
 
 		$repository = new TrelloRepository($client);
 
         return view('admin.trello.release.display_cards', [
-            'release_cards' => $repository->getCardsFromReleaseBoards(config('app.trello.release_boards')),
+            'release_cards' => $repository->getCardsForBoards(config('app.trello.release_boards')),
         ]);
 	}
 

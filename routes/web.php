@@ -95,7 +95,7 @@ Route::group(['prefix' => 'admin'], function() {
 
         Route::get('/test/example', 'TestController@getTest');
 
-        Route::get('trello/releases', 'TrelloController@getIndex');
+        Route::get('trello/releases', ['as' => 'admin-trello-releases', 'uses' => 'TrelloController@getIndex']);
 
 
 	});
