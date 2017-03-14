@@ -19,3 +19,9 @@ Route::group(['prefix' => 'mobile'], function() {
         Route::get('data/overall', 'WampiriadaMobileAppController@getOverall');
     });
 });
+
+Route::group(['prefix' => 'zapier'], function() {
+    Route::group(['prefix' => 'v1'], function() {
+        Route::post('application', 'ApplicationController@postNewApplication');
+    });
+});

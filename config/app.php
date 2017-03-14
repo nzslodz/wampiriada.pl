@@ -233,4 +233,8 @@ return [
             ],
         ],
     ],
+
+    'zapier' => [
+        'token' => 'e70I0wltavDqTJJSEFxW82z5aojtxrpU',
+    ],
 ];
