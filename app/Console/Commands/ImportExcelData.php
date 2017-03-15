@@ -10,7 +10,7 @@ use NZS\Wampiriada\ShirtSize;
 use NZS\Wampiriada\BloodType;
 use NZS\Wampiriada\Profile;
 
-use App\User;
+use NZS\Core\Person;
 use PHPExcel_IOFactory;
 
 
@@ -55,7 +55,7 @@ class ImportExcelData extends Command
         }
 
         $edition_id = Edition::whereNumber(27)->first()->id;
-        
+
         Checkin::whereEditionId($edition_id)->delete();
 
         $mapping = [
@@ -72,7 +72,7 @@ class ImportExcelData extends Command
 
             foreach($sheet->getRowIterator() as $row) {
                 $continue = false;
-                
+
                 $checkin = new Checkin;
                 $first_name = null;
                 $last_name = null;
@@ -80,7 +80,7 @@ class ImportExcelData extends Command
 
                 foreach($row->getCellIterator() as $index => $cell) {
                     $value = $cell->getValue();
-                    
+
                     switch($index) {
                         case "A":
                             if($value == 'Lp.') {
@@ -88,19 +88,19 @@ class ImportExcelData extends Command
                             }
 
                             break;
-                        
+
                         case "B":
                             $first_name = $value;
                             break;
-                        
+
                         case "C":
                             $last_name = $value;
                             break;
-                        
+
                         case "D":
                             $email = $value;
                             break;
-                        
+
                         case "E":
                             if($value == '') {
                                 $checkin->blood_type_id = $blood_type_map['Nie wiem'];
@@ -114,7 +114,7 @@ class ImportExcelData extends Command
                             if($value == '') {
                                 break;
                             }
-                            
+
                             if($value == '2XL') {
                                 $value = 'XXL';
                             }
@@ -124,7 +124,7 @@ class ImportExcelData extends Command
                             break;
 
                     }
-                    
+
                     if($continue) {
                         break;
                     }
@@ -144,10 +144,9 @@ class ImportExcelData extends Command
 
                 $this->info("saving $email...");
 
-                $user = User::firstOrNew(['email' => $email]);
+                $user = Person::firstOrNew(['email' => $email]);
                 $user->first_name = $first_name;
                 $user->last_name = $last_name;
-                $user->username = $email;
                 $user->save();
 
                 $profile = Profile::firstOrNew(['id' => $user->id]);

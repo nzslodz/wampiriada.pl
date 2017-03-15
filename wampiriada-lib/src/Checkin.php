@@ -1,7 +1,7 @@
 <?php namespace NZS\Wampiriada;
 
 use Illuminate\Database\Eloquent\Model as Model;
-use App\User;
+use NZS\Core\Person;
 use NZS\Wampiriada\FriendCheckin;
 use NZS\Wampiriada\PrizeForCheckin;
 
@@ -16,7 +16,7 @@ class Checkin extends Model {
     }
 
     public function user() {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(Person::class, 'user_id');
     }
 
     public function blood_type() {

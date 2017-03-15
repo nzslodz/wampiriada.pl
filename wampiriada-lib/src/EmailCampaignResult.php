@@ -1,14 +1,14 @@
 <?php namespace NZS\Wampiriada;
 
 use Illuminate\Database\Eloquent\Model as Model;
-use App\User;
+use NZS\Core\Person;
 use NZS\Core\Redirects\Redirect;
 
 class EmailCampaignResult extends Model {
     public $fillable = ['campaign_id', 'user_id', 'redirect_id'];
 
     public function user() {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(Person::class, 'user_id');
     }
 
     public function campaign() {

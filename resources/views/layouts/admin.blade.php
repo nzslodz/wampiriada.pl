@@ -76,7 +76,7 @@
                     </li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    <li class="navbar-text">{{ Auth::user()->username }}</li>
+                    <li class="navbar-text">{{ Auth::user()->person->getFullName() }}</li>
                     <li><a href="{{ url('logout') }}">Wyloguj</a></li>
                 </ul>
             </div>

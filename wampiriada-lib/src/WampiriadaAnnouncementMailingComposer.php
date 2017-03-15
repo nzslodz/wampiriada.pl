@@ -3,7 +3,7 @@ use NZS\Core\Mailing\BaseMailingComposer;
 use NZS\Wampiriada\EditionRepository;
 use App\Jobs\WampiriadaAnnouncementEmail;
 
-use App\User;
+use NZS\Core\Person;
 
 class WampiriadaAnnouncementMailingComposer extends BaseMailingComposer implements WampiriadaMailingComposer {
     protected $edition;
@@ -17,7 +17,7 @@ class WampiriadaAnnouncementMailingComposer extends BaseMailingComposer implemen
         return 'emails.wampiriada.announcements.'. $this->edition->number;
     }
 
-    public function getSubject(User $user) {
+    public function getSubject(Person $user) {
         return "{$this->edition->number}. edycja Wampiriady - poznaj terminy akcji :)";
     }
 
@@ -25,7 +25,7 @@ class WampiriadaAnnouncementMailingComposer extends BaseMailingComposer implemen
         $this->edition = $edition;
     }
 
-    public function getContext(User $user) {
+    public function getContext(Person $user) {
         $edition_repository = new EditionRepository($this->edition);
         $repository = $edition_repository->getRedirectRepository();
 
@@ -47,7 +47,7 @@ class WampiriadaAnnouncementMailingComposer extends BaseMailingComposer implemen
         return sprintf('w%d:%s', (int) $this->edition->number, $this->campaign_key);
     }
 
-    public function getJobInstance(User $user) {
+    public function getJobInstance(Person $user) {
         return new WampiriadaAnnouncementEmail($this->edition, $user);
     }
 
@@ -57,7 +57,7 @@ class WampiriadaAnnouncementMailingComposer extends BaseMailingComposer implemen
         return new static($edition_repository->getEdition());
     }
 
-    public function getSampleContext(User $user) {
+    public function getSampleContext(Person $user) {
         return $this->getContext($user);
     }
 }

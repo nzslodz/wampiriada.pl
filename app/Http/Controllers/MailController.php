@@ -14,8 +14,6 @@ use DB;
 use NZS\Core\EmailAccounts\EmailRepository;
 use NZS\Core\EmailAccounts\AddEmailAccountRequest;
 
-use App\User;
-
 use Illuminate\Http\Request;
 
 use Mail;
@@ -47,7 +45,7 @@ class MailController extends Controller {
         } catch (\LogicException $e) {
             return redirect()->back()->with('status', 'danger')->with('message', 'Zmień adres e-mailowy na adres kończący się w domenie @nzs.lodz.pl')->withInput();
         }
-        
+
         return redirect('/admin/email/');
     }
 

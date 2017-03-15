@@ -1,7 +1,7 @@
 <?php namespace NZS\Core\Polls;
 use NZS\Core\Contracts\PollFlow as PollFlowContract;
 use NZS\Core\Polls\PollContainer;
-use App\User;
+use NZS\Core\Person;
 
 abstract class PollFlow implements PollFlowContract {
     protected $data, $user;
@@ -11,7 +11,7 @@ abstract class PollFlow implements PollFlowContract {
     protected $form_view = null;
     protected $success_view = null;
 
-    public function __construct(PollContainer $poll_container, User $user) {
+    public function __construct(PollContainer $poll_container, Person $user) {
         $this->data = $poll_container;
         $this->user = $user;
     }

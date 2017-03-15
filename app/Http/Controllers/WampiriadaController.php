@@ -16,7 +16,6 @@ use NZS\Wampiriada\WampiriadaRedirectRepository;
 use Illuminate\Http\Request;
 
 use NZS\Wampiriada\AwareRedirectRepository;
-use App\User;
 
 use NZS\Core\Polls\Poll;
 use NZS\Core\Polls\UsesPolls;

@@ -1,7 +1,7 @@
 <?php namespace NZS\Wampiriada;
 
 use Illuminate\Database\Eloquent\Model as Model;
-use App\User;
+
 use NZS\Wampiriada\PrizeType;
 use Carbon\Carbon;
 

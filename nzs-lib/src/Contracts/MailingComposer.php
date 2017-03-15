@@ -1,17 +1,17 @@
 <?php namespace NZS\Core\Contracts;
-use App\User;
+use NZS\Core\Person;
 
 interface MailingComposer {
     public function getView();
-    public function getSubject(User $user);
-    public function getContext(User $user);
+    public function getSubject(Person $user);
+    public function getContext(Person $user);
 
     public function getCampaignKey();
     public function getCampaignName();
 
-    public function getJobInstance(User $user);
+    public function getJobInstance(Person $user);
 
     public static function spawnSampleInstance();
-    public function getSampleContext(User $user);
+    public function getSampleContext(Person $user);
 
 }

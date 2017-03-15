@@ -1,6 +1,6 @@
 <?php namespace NZS\Wampiriada;
 
-use App\User;
+use NZS\Core\Person;
 use NZS\Core\Contracts\RedirectRepository;
 use NZS\Core\Redirects\BaseRedirectRepository;
 use NZS\Wampiriada\EmailCampaign;
@@ -14,7 +14,7 @@ class AwareRedirectRepository extends BaseRedirectRepository {
 		$campaign,
 		$campaign_key;
 
-	public function __construct(RedirectRepository $repository, User $user, $campaign) {
+	public function __construct(RedirectRepository $repository, Person $user, $campaign) {
 		$this->repository = $repository;
 		$this->user = $user;
 
@@ -32,12 +32,12 @@ class AwareRedirectRepository extends BaseRedirectRepository {
 			return null;
 		}
 
-		$user = User::whereMd5email($request->input('m'))->first();
+		$user = Person::whereCampaignToken($request->input('m'))->first();
 		if(!$user) {
 			return null;
 		}
 
-		if($user->is_staff) {
+		if($user->application_user && $user->application_user->is_staff) {
 			return null;
 		}
 
@@ -69,7 +69,7 @@ class AwareRedirectRepository extends BaseRedirectRepository {
 			return '';
 		}
 
-		$url->query->set('m', $this->user->md5email);
+		$url->query->set('m', $this->user->campaign_token);
 		$url->query->set('c', $this->campaign_key);
 
 		return $url;

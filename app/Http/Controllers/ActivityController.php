@@ -16,14 +16,14 @@ use NZS\Core\Activity;
 use NZS\Core\Exceptions\ObjectDoesNotExist;
 use NZS\Core\Exceptions\CannotResolveInterface;
 
-use App\User;
+use NZS\Core\Person;
 use Storage;
 
 use Illuminate\Http\Request;
 use Illuminate\Contracts\Filesystem\FileNotFoundException;
 
 class ActivityController extends Controller {
-    public function getProfile(User $user) {
+    public function getProfile(Person $user) {
         $activities = Activity::whereUserId($user->id)->orderBy('created_at')->get();
 
         $json = [];
@@ -43,7 +43,7 @@ class ActivityController extends Controller {
         ]);
     }
 
-    public function getProfileCard(User $user) {
+    public function getProfileCard(Person $user) {
         $activity_count = Activity::whereUserId($user->id)->count();
 
         if($user->facebook_user_id) {

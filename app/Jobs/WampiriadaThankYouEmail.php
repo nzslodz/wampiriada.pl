@@ -8,10 +8,10 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
 use NZS\Wampiriada\Edition;
-use App\User;
 use Illuminate\Contracts\Mail\Mailer;
 use Exception;
 use Storage;
+use NZS\Core\Person;
 
 use NZS\Wampiriada\AwareRedirectRepository;
 use NZS\Wampiriada\WampiriadaThankYouMailingComposer;
@@ -29,7 +29,7 @@ class WampiriadaThankYouEmail extends Job implements ShouldQueue
      *
      * @return void
      */
-    public function __construct(Edition $edition, User $user) {
+    public function __construct(Edition $edition, Person $user) {
         $this->user = $user;
         $this->edition = $edition;
     }

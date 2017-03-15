@@ -1,4 +1,5 @@
 <?php
+use NZS\Core\ApplicationUser;
 
 return [
 
@@ -67,7 +68,7 @@ return [
     'providers' => [
         'users' => [
             'driver' => 'eloquent',
-            'model' => App\User::class,
+            'model' => ApplicationUser::class,
         ],
 
         // 'users' => [

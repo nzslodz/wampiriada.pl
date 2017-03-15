@@ -1,11 +1,11 @@
 <?php namespace NZS\Wampiriada;
 
 use Illuminate\Database\Eloquent\Model as Model;
-use App\User;
+use NZS\Core\Person;
 
 class Profile extends Model {
     public $timestamps = false;
-    
+
     protected $table = 'wampiriada_profile';
 
     protected $fillable = ['id'];
@@ -21,6 +21,6 @@ class Profile extends Model {
     }
 
     public function user() {
-    	return $this->belongsTo(User::class, 'id');
+    	return $this->belongsTo(Person::class, 'id');
     }
 }

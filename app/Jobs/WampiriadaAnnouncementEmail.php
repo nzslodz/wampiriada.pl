@@ -8,7 +8,7 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
 use NZS\Wampiriada\Edition;
-use App\User;
+use NZS\Core\Person;
 use Illuminate\Contracts\Mail\Mailer;
 use Exception;
 use Storage;
@@ -28,7 +28,7 @@ class WampiriadaAnnouncementEmail extends Job implements ShouldQueue
      *
      * @return void
      */
-    public function __construct(Edition $edition, User $user) {
+    public function __construct(Edition $edition, Person $user) {
         $this->user = $user;
         $this->edition = $edition;
     }

@@ -1,4 +1,5 @@
 <?php
+use NZS\Core\ApplicationUser;
 
 return [
 
@@ -30,7 +31,7 @@ return [
     ],
 
     'stripe' => [
-        'model' => App\User::class,
+        'model' => ApplicationUser::class,
         'key' => env('STRIPE_KEY'),
         'secret' => env('STRIPE_SECRET'),
     ],

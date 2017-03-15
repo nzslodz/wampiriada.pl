@@ -21,8 +21,6 @@ use NZS\Wampiriada\WampiriadaRedirect;
 use DB;
 use Carbon\Carbon;
 
-use App\User;
-
 use Illuminate\Http\Request;
 use App\Http\Requests\PrizeForCheckinRequest;
 

@@ -18,8 +18,6 @@ use NZS\Wampiriada\Redirect;
 use DB;
 use Carbon\Carbon;
 
-use App\User;
-
 use Illuminate\Http\Request;
 use App\Http\Requests\PrizeTypeRequest;
 use App\Http\Requests\PrizeForCheckinRequest;
@@ -48,7 +46,7 @@ class MailingController extends Controller {
 		$mailingManager = app(MailingManager::class);
 		$mailingManager->setInPreviewMode();
 
-		return view($composer->getView(), $composer->getSampleContext(Auth::user()));
+		return view($composer->getView(), $composer->getSampleContext(Auth::user()->person));
 	}
 
 	public function getShow(Request $request, MailingRepository $repository) {
@@ -62,7 +60,7 @@ class MailingController extends Controller {
 		return view('admin.mailing.show', [
 			'composer' => $composer,
 			'class_name' => $class_name,
-			'user' => Auth::user(),
+			'user' => Auth::user()->person,
 		]);
 	}
 }

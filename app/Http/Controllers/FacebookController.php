@@ -3,8 +3,7 @@
 use SammyK\LaravelFacebookSdk\LaravelFacebookSdk;
 use Facebook\Exceptions\FacebookSDKException;
 use Session;
-use App\User;
-use Auth;
+use NZS\Core\Person;
 use App\Http\Requests\CheckinRequest;
 use App\Http\Requests\EmailLoginRequest;
 use Illuminate\Http\Request;
@@ -51,7 +50,7 @@ class FacebookController extends Controller {
 
         Session::forget('fb_user_access_token');
         Session::forget('hide_email_login_checkout');
-        Auth::logout();
+        Session::forget('checkin_user_id');
 
         $login_url = $fb->getLoginUrl();
         $is_facebook_login_enabled = (bool) Option::get('wampiriada.facebook_login', true);
@@ -64,7 +63,7 @@ class FacebookController extends Controller {
     }
 
     public function postLoginViaEmailPage(EmailLoginRequest $request) {
-        $user = User::firstOrCreate(['email' => $request->email]);
+        $user = Person::firstOrCreate(['email' => $request->email]);
 
         $edition_number = Option::get('wampiriada.edition', 28);
         $edition = Edition::whereNumber($edition_number)->first();
@@ -79,8 +78,7 @@ class FacebookController extends Controller {
                 ->with('message', 'Nie można oddawać krwi dwa razy w trakcie jednej edycji.');
         }
 
-        Auth::login($user);
-
+        Session::put('checkin_user_id', $user->id);
         Session::put('hide_email_login_checkout', 1);
 
         return redirect('/facebook/checkin');
@@ -133,11 +131,10 @@ class FacebookController extends Controller {
 
         $facebook_user = $response->getGraphUser();
 
-        $user = User::createOrUpdateGraphNode($facebook_user);
-        $user->username = $user->email;
+        $user = Person::createOrUpdateGraphNode($facebook_user);
         $user->save();
 
-        Auth::login($user);
+        Session::put('checkin_user_id', $user->id);
 
         dispatch(new DownloadFacebookProfile($user));
 
@@ -150,7 +147,7 @@ class FacebookController extends Controller {
                 foreach($graphEdge as $graphNode) {
                     $user_id = $graphNode->getField('id');
 
-                    if($target_user = User::whereFacebookUserId($user_id)->first()) {
+                    if($target_user = Person::whereFacebookUserId($user_id)->first()) {
                         FacebookConnection::firstOrCreate(['source_id' => $user->id, 'target_id' => $target_user->id]);
                         FacebookConnection::firstOrCreate(['source_id' => $target_user->id, 'target_id' => $user->id]);
                     }
@@ -172,14 +169,19 @@ class FacebookController extends Controller {
     }
 
     public function getCheckin(LaravelFacebookSdk $fb) {
-        $profile = Profile::whereId(Auth::user()->id)->first();
+        $user = Person::find(Session::get('checkin_user_id'));
+
+        if(!$user) {
+            throw new LogicException("/checkin url used without user being created.");
+        }
+
+        $profile = Profile::whereId($user->id)->first();
         $hide_email_login_checkout = Session::get('hide_email_login_checkout', false);
 
         if(!$profile || $hide_email_login_checkout) {
             $profile = new Profile;
         }
 
-        $user = Auth::user();
         if($hide_email_login_checkout) {
             $user->first_name = null;
             $user->last_name = null;
@@ -206,10 +208,10 @@ class FacebookController extends Controller {
         return view('facebook.checkin', [
             'sizes' => $shirt_sizes,
             'blood_types' => $blood_types,
-            'first_time' => !(Checkin::whereUserId(Auth::user()->id)->exists()),
+            'first_time' => !(Checkin::whereUserId($user->id)->exists()),
             'profile' => $profile,
             'hide_email_login_checkout' => $hide_email_login_checkout,
-            'user' => Auth::user(),
+            'user' => $user,
         ]);
     }
 
@@ -219,7 +221,10 @@ class FacebookController extends Controller {
             return abort(403, "Today the process is not available");
         }
 
-        $user = Auth::user();
+        $user = Person::find(Session::get('checkin_user_id'));
+        if(!$user) {
+            throw new LogicException("POST on /checkin url used without user being created.");
+        }
 
         $edition_number = Option::get('wampiriada.edition', 28);
         $edition = Edition::whereNumber($edition_number)->first();
@@ -379,6 +384,11 @@ class FacebookController extends Controller {
     /*public function getFinish(LaravelFacebookSdk $fb) {
         $token = Session::get('fb_user_access_token');
 
+        $user = Person::find(Session::get('checkin_user_id'));
+        if(!$user) {
+            throw new LogicException("/checkin url used without user being created.");
+        }
+
         if(!$token) {
             abort(403, 'Not authorized');
         }
@@ -401,7 +411,7 @@ class FacebookController extends Controller {
 
 
         $current_action = ActionDay::whereDate('created_at', '=', Carbon::today()->toDateString())->first();
-        $checkin = Checkin::whereActionDayId($current_action->id)->whereUserId(Auth::user()->id)->first();
+        $checkin = Checkin::whereActionDayId($current_action->id)->whereUserId($user->id)->first();
 
         if(!$checkin) {
             abort(403, 'Forbidden');

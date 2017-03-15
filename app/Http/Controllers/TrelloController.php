@@ -14,8 +14,6 @@ use DB;
 use NZS\Core\EmailAccounts\EmailRepository;
 use NZS\Core\EmailAccounts\AddEmailAccountRequest;
 
-use App\User;
-
 use Illuminate\Http\Request;
 
 use Mail;

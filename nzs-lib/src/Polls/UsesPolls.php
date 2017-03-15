@@ -1,9 +1,9 @@
 <?php namespace NZS\Core\Polls;
 
 use App\Http\Requests;
-use App\User;
 use Illuminate\Http\Request;
 use NZS\Core\Polls\Poll;
+use NZS\Core\Person;
 use NZS\Core\Polls\Answer;
 use NZS\Core\Exceptions\ObjectDoesNotExist;
 use NZS\Core\Exceptions\CannotResolveInterface;
@@ -18,7 +18,7 @@ use Cookie;
 use DB;
 
 trait UsesPolls {
-    protected function canPollBeAnswered(Request $request, PollProxy $poll_proxy, User $user=null) {
+    protected function canPollBeAnswered(Request $request, PollProxy $poll_proxy, Person $user=null) {
         $poll = $poll_proxy->getPoll();
 
         // use soft, runtime version of abstract method definition based on allowMultipleResponses() conditional
@@ -47,14 +47,14 @@ trait UsesPolls {
 
         // determine user
         if(Auth::check()) {
-            $user = Auth::user();
+            $user = Auth::user()->person;
         } elseif($request->input('m')) {
-            $user = User::whereMd5email($request->input('m'))->first();
+            $user = Person::whereCampaignToken($request->input('m'))->first();
         } else {
             $user = null;
         }
 
-        $poll->getPollClass()->getDependencyContainer()->instance(User::class, $user);
+        $poll->getPollClass()->getDependencyContainer()->instance(Person::class, $user);
 
         $flow = $poll->resolveInterface(PollFlow::class);
 
@@ -74,9 +74,9 @@ trait UsesPolls {
         $poll = $poll_proxy->getPoll();
 
         $user_id = $request->input('user_id');
-        $user = User::find($user_id);
+        $user = Person::find($user_id);
 
-        $poll->getPollClass()->getDependencyContainer()->instance(User::class, $user);
+        $poll->getPollClass()->getDependencyContainer()->instance(Person::class, $user);
 
         $flow = $poll->resolveInterface(PollFlow::class);
 

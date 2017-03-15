@@ -5,7 +5,7 @@ use NZS\Wampiriada\WampiriadaMailingComposer;
 use App\Jobs\WampiriadaThankYouEmail;
 use NZS\Core\Mailing\MultipleViews;
 
-use App\User;
+use NZS\Core\Person;
 use Storage;
 
 class WampiriadaThankYouMailingComposer extends BaseMailingComposer implements WampiriadaMailingComposer {
@@ -20,7 +20,7 @@ class WampiriadaThankYouMailingComposer extends BaseMailingComposer implements W
         $this->edition = $edition;
     }
 
-    public function getSubject(User $user) {
+    public function getSubject(Person $user) {
         return "Wampiriada - {$this->edition->number}. edycja. Dziękujemy że jesteś z nami!";
     }
 
@@ -31,7 +31,7 @@ class WampiriadaThankYouMailingComposer extends BaseMailingComposer implements W
         ];
     }
 
-    public function getContext(User $user) {
+    public function getContext(Person $user) {
         $edition_repository = new EditionRepository($this->edition);
         $repository = $edition_repository->getRedirectRepository();
 
@@ -53,7 +53,7 @@ class WampiriadaThankYouMailingComposer extends BaseMailingComposer implements W
         return sprintf('w%d:%s', (int) $this->edition->number, $this->campaign_key);
     }
 
-    public function getJobInstance(User $user) {
+    public function getJobInstance(Person $user) {
         return new WampiriadaThankYouEmail($this->edition, $user);
     }
 
@@ -63,7 +63,7 @@ class WampiriadaThankYouMailingComposer extends BaseMailingComposer implements W
         return new static($edition_repository->getEdition());
     }
 
-    public function getSampleContext(User $user) {
+    public function getSampleContext(Person $user) {
         return $this->getContext($user);
     }
 }

@@ -6,8 +6,7 @@ use App\Jobs\Job;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
-use App\User;
-
+use NZS\Core\Person;
 use Storage;
 
 class DownloadFacebookProfile extends Job implements ShouldQueue
@@ -21,7 +20,7 @@ class DownloadFacebookProfile extends Job implements ShouldQueue
      *
      * @return void
      */
-    public function __construct(User $user){
+    public function __construct(Person $user){
         $this->user = $user;
     }
 

@@ -29,7 +29,7 @@
             <div class="form-group {{ $errors->has('name') ? 'has-error' : '' }}">
                 {{ Form::label('name', 'Imię i nazwisko', ['class' => 'control-label col-sm-2']) }}
                 <div class="col-sm-6">
-                    {{ Form::text('name', $profile->current_name ? $profile->current_name : Auth::user()->getFullName(), ['class' => 'form-control']) }}
+                    {{ Form::text('name', $profile->current_name ? $profile->current_name : $user->getFullName(), ['class' => 'form-control']) }}
                 </div>
                 <div class="col-sm-4">
                     {{ $errors->first('name') }}

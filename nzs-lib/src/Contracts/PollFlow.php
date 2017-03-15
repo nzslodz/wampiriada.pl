@@ -1,6 +1,5 @@
 <?php namespace NZS\Core\Contracts;
 use NZS\Core\Polls\Answer;
-use App\User;
 
 interface PollFlow {
     public function getAnonymousErrorResponse();
