@@ -14,6 +14,10 @@ class WampiriadaThankYouPollClass extends PollClass {
         return false;
     }
 
+    public function allowMatchingUserByEmailField() {
+        return false;
+    }
+
     public function getInterface($contract) {
         if($contract == PollFlow::class) {
             return WampiriadaThankYouPollFlow::class;

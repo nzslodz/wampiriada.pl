@@ -30,4 +30,8 @@ abstract class PollFormRequest extends FormRequest implements PollFormRequestCon
     public function authorize() {
         return true;
     }
+
+    public function getUser() {
+        return null;
+    }
 }

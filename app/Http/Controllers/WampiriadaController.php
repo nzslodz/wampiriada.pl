@@ -374,24 +374,26 @@ class WampiriadaController extends Controller {
         return $rows;
     }
 
-    protected function getThankYouMailingPoll($edition_number) {
+    protected function getThankYouMailingPoll($edition_number=null) {
+        if(!$edition_number) {
+            $edition_number = Option::get('wampiriada.edition', 28);
+        }
+
         $edition = Edition::whereNumber($edition_number)->firstOrFail();
 
-        return WampiriadaPoll::whereHas('poll', function($query) {
+        $wampiriada_poll = WampiriadaPoll::whereHas('poll', function($query) {
             $query->where('key', 'wampiriada_thank_you_mailing_poll');
         })->whereEditionId($edition->id)->firstOrFail();
-    }
 
-    protected function getCookieNameForPoll($wampiridada_poll) {
-        return sprintf("poll:%s:%d", $wampiridada_poll->poll->key, $wampiridada_poll->edition->number);
+        return $wampiriada_poll;
     }
 
     public function showThankYouMailingPoll(Request $request) {
-        return $this->showPoll($request, $this->getThankYouMailingPoll(Option::get('wampiriada.edition', 28)));
+        return $this->showPoll($request, $this->getThankYouMailingPoll());
     }
 
     public function saveThankYouMailingPoll(WampiriadaThankYouPollFormRequest $request) {
-        return $this->savePollAnswer($request, $this->getThankYouMailingPoll(Option::get('wampiriada.edition', 28)));
+        return $this->savePollAnswer($request, $this->getThankYouMailingPoll());
     }
 
     public function getKrew() {

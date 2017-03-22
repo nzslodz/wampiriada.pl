@@ -5,8 +5,10 @@ use Illuminate\Http\Request;
 use NZS\Core\Polls\Poll;
 use NZS\Core\Person;
 use NZS\Core\Polls\Answer;
+use NZS\Core\Polls\CookieResolver;
 use NZS\Core\Exceptions\ObjectDoesNotExist;
 use NZS\Core\Exceptions\CannotResolveInterface;
+use NZS\Core\Contracts\PollUserFinder;
 use NZS\Core\Contracts\PollFormRequest;
 use NZS\Core\Contracts\PollFlow;
 use NZS\Core\Contracts\PollProxy;
@@ -21,20 +23,12 @@ trait UsesPolls {
     protected function canPollBeAnswered(Request $request, PollProxy $poll_proxy, Person $user=null) {
         $poll = $poll_proxy->getPoll();
 
-        // use soft, runtime version of abstract method definition based on allowMultipleResponses() conditional
-        if(!$poll->getPollClass()->allowMultipleResponses() && !method_exists($this, 'getCookieNameForPoll')) {
-            $class_name = get_class($this);
-            $poll_class_name = get_class($poll->getPollClass());
-
-            throw new RuntimeException("$class_name does not define getCookieNameForPoll() method when $poll_class_name::allowMultipleResponses() is set to false");
-        }
-
         if(!$poll->getPollClass()->allowMultipleResponses()) {
             if($user && Answer::whereUserId($user->id)->wherePollId($poll->id)->first()) {
                 return false;
             }
 
-            if($request->cookie($this->getCookieNameForPoll($poll_proxy)) == 'answered') {
+            if($request->cookie("poll:{$proxy->poll->key}") == 'answered') {
                 return false;
             }
         }
@@ -42,24 +36,66 @@ trait UsesPolls {
         return true;
     }
 
+    protected function determineUser(Request $request, PollProxy $poll_proxy, $context) {
+        $poll = $poll_proxy->getPoll();
+
+        if(!$poll->getPollClass()->enableTracking()) {
+            return null;
+        }
+
+        if(Auth::check()) {
+            return Auth::user()->person;
+        }
+
+        if($request->input('m') && $context == 'display') {
+            $user = Person::whereCampaignToken($request->input('m'))->first();
+
+            if($user) {
+                return $user;
+            }
+        }
+
+        if($request->input('user_id') && $context == 'save') {
+            $user = Person::find('user_id');
+
+            if($user) {
+                return $user;
+            }
+        }
+
+        // match email when saving or when it's allowed to be passed as query parameter
+        if($email_field = $poll->getPollClass()->emailField()) {
+            $allowed_parameters = $poll->getPollClass()->allowedQueryParameters();
+
+            if($context == 'save' || in_array($email_field, $allowed_parameters)) {
+                if($request->input($email_field)) {
+                    $user = Person::whereEmail($request->input($email_field))->first();
+                }
+            }
+
+            if($user) {
+                return $user;
+            }
+        }
+
+        return null;
+    }
+
     protected function showPoll(Request $request, PollProxy $poll_proxy) {
         $poll = $poll_proxy->getPoll();
 
-        // determine user
-        if(Auth::check()) {
-            $user = Auth::user()->person;
-        } elseif($request->input('m')) {
-            $user = Person::whereCampaignToken($request->input('m'))->first();
-        } else {
-            $user = null;
-        }
+        $user = $this->determineUser($request, $poll_proxy, 'display');
 
         $poll->getPollClass()->getDependencyContainer()->instance(Person::class, $user);
 
         $flow = $poll->resolveInterface(PollFlow::class);
 
         // raise 404 if anonymous responses are not allowed
-        if(!$user && !$poll->getPollClass()->allowAnonymousResponses()) {
+        if(!$user && !$poll->getPollClass()->allowAnonymousDisplay()) {
+            return $flow->getAnonymousErrorResponse();
+        }
+
+        if(!$user && !$poll->getPollClass()->allowAnonymousResponses() && !$poll->getPollClass()->emailField()) {
             return $flow->getAnonymousErrorResponse();
         }
 
@@ -73,8 +109,7 @@ trait UsesPolls {
     protected function savePollAnswer(PollFormRequest $request, PollProxy $poll_proxy) {
         $poll = $poll_proxy->getPoll();
 
-        $user_id = $request->input('user_id');
-        $user = Person::find($user_id);
+        $user = $this->determineUser($request, $poll_proxy, 'save');
 
         $poll->getPollClass()->getDependencyContainer()->instance(Person::class, $user);
 
@@ -96,6 +131,8 @@ trait UsesPolls {
 
         $answer->raw_answer = $request->getSanitizedData();
 
+        // implicitly create person
+
         DB::transaction(function() use($poll, $answer) {
             $answer->save();
 
@@ -108,7 +145,7 @@ trait UsesPolls {
 
         // one year in minutes
         if(!$poll->getPollClass()->allowMultipleResponses()) {
-            Cookie::queue($this->getCookieNameForPoll($poll_proxy), 'answered', 525600);
+            Cookie::queue("poll:{$proxy->poll->key}", 'answered', 525600);
         }
 
         try {

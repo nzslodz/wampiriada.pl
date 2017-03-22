@@ -5,6 +5,7 @@ use Carbon\Carbon;
 
 use NZS\Core\Contracts\PollClass as PollClassContract;
 use NZS\Core\Exceptions\CannotResolveInterface;
+use NZS\Core\Polls\CookieResolver;
 use Illuminate\Container\Container;
 
 abstract class PollClass implements PollClassContract {
@@ -45,7 +46,7 @@ abstract class PollClass implements PollClassContract {
 
             $current_poll = $container->make(Poll::class);
 
-            // bind poll and its data to the container once until poll with another id is requested
+            // rebind poll and its data to the container if needed
             if($current_poll->id != $requested_poll->id) {
                 $container->instance(Poll::class, $requested_poll);
                 $container->singleton(PollContainer::class, function($container) {
