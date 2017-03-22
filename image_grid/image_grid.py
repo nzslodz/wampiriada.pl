@@ -15,12 +15,12 @@ class ImageGrid(object):
         self.imageWidth = self.backgroundImage.width
         self.imageHeight = self.backgroundImage.height
         self.imageSize = self.backgroundImage.size
-        
+
         self.achievementUsers = options['achievementUsers']
 
         for key, value in self.achievementUsers.iteritems():
             self.achievementUsers[key] = value.convert('RGBA')
-        
+
         self.rescaleOverlay()
         self.createTilesImage()
 
@@ -76,7 +76,7 @@ class ImageGrid(object):
             iconWidth = image.width
             iconHeight = image.height
             self.achievementPositions.append((
-                (   
+                (
                     self.gridX(position['x']) + self.cellWidth - iconWidth,
                     self.gridY(position['y']) + self.cellHeight - iconHeight,
                 ),
@@ -118,5 +118,25 @@ class ImageGrid(object):
         # add achievements!
         for position, image in self.achievementPositions:
             dest.paste(image, position, mask=image.split()[3])
-        
+
         return dest
+
+
+class NewspaperImageGrid(object):
+    props = {
+        'background': Image.open(arguments['--background']),
+        'profile': Image.open(arguments['--profile']),
+        'name': arguments['--name'],
+        'x': 200,
+        'y': 700,
+        'w': 400,
+    }
+
+    def __init__(self, options):
+        pass
+
+    def addLines(self, lines):
+        self.lines = lines
+
+    def generate(self):
+        pass

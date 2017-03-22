@@ -21,31 +21,34 @@ class RegenerateTileImage extends Job implements ShouldQueue
 {
     use InteractsWithQueue, SerializesModels;
 
+    protected $user;
+
     /**
-     * Execute the job.
+     * Create a new job instance.
+     *
+     * @return void
+     */
+    public function __construct(Person $user){
+        $this->user = $user;
+    }
+
+    /**
+     * Execute the job.Options:
      *
      * @return void
      */
     public function handle() {
-        $arguments = [];
-        foreach(config('app.achievements') as $key => $value) {
-            $path = storage_path('app/image-grid-images/'. $value['icon']);
-
-            $arguments[] = "$key:$path";
-        }
-
         $options = array(
-            'background' => storage_path('app/image-grid-images/wampir-1610.jpg'),
-            'overlay' => storage_path('app/image-grid-images/overlay.jpg'),
-            'width' => 40,
-            'height' => 25,
+            'background' => storage_path('app/nn-images/graphics.jpg'),
+            'profile' => storage_path($this->user->getFacebookProfileImagePath()),
+            'name' => $this->user->getFullName(),
             'seed' => Option::get('wampiriada.image_seed', 123),
             'output' => '-',
+            'text-file' => '-',
         );
 
-
         $python_path = base_path('image_grid/env/bin/python');
-        $command_path = base_path('image_grid/create_image_grid.py');
+        $command_path = base_path('image_grid/create_image_newspaper.py');
 
         $builder = new ProcessBuilder([$python_path, $command_path]);
 
@@ -53,28 +56,17 @@ class RegenerateTileImage extends Job implements ShouldQueue
             $builder->add("--$key=$value");
         }
 
-        foreach($arguments as $value) {
-            $builder->add($value);
-        }
-
         $process = $builder->getProcess();
         echo $process->getCommandLine();
 
-        $editionNumber = Option::get('wampiriada.edition', 28);
-        $repository = new EditionRepository($editionNumber);
-        $editionId = $repository->getEdition()->id;
-        $checkins = Checkin::whereEditionId($editionId)->with('user')->get();
 
-        $images = $checkins->map(function($checkin) {
-            return storage_path('app/'.$checkin->user->getFacebookProfileImagePath());
-        });
 
-        $process->setInput(join("\n", $images->toArray()));
+        $process->setInput("ome long long text fad fsdf asdf asdf daf dsf asdg sg asgd asdg gd dg adsg asdg asdg agd asgd ag sdg sdg sgd asg sdg asdgsgd asdg sgd sgd sgd sdg asg asg dg sgd dg sgdsg\n");
 
         echo $process->run();
 
-        $storageTempFilename = "ImageGrid_tmp.jpg";
-        $storageFilename = "ImageGrid.jpg";
+        $storageTempFilename = "newspaper-images/image_tmp_{$this->user->id}.jpg";
+        $storageFilename = "newapaper-images/image_{$this->user->id}.jpg";
 
         $publicStorage = Storage::disk('public');
         $publicStorage->put($storageTempFilename, $process->getOutput());

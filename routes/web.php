@@ -39,6 +39,11 @@ Route::group(['middleware' => 'auth.facebook'], function() {
     Route::get('/facebook/complete', 'FacebookController@getComplete');
 });
 
+Route::get('/nzs', 'FacebookNewspaperController@getPage');
+Route::post('/nzs/poll_image', 'FacebookNewspaperController@postPollImage');
+Route::get('/nzs/callback', 'FacebookNewspaperController@getCallback');
+
+
 // mobile controller
 //Route::get('data/overall', 'MobileController@getOverall');
 
