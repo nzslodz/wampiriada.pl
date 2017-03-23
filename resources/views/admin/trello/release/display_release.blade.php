@@ -31,6 +31,7 @@
                                     </div>
                                 </div>
                             </div>
+                            {!!  nl2br(json_encode($card, true)) !!}
                         @endforeach
                     </div>
                 @endforeach

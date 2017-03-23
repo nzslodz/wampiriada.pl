@@ -42,7 +42,7 @@ class TrelloRepository {
 
     public function getRelease($id) {
         $list = $this->client->getList($id);
-        $cards = $this->client->getListCards($id);
+        $cards = $this->client->getListCards($id, ['members' => 'true', 'checkItemStates' => 'true', 'checklists' => 'all']);
 
         return new TrelloList($cards, $list);
     }
@@ -85,11 +85,8 @@ class TrelloRepository {
             'name' => $name,
         ]);
 
-
-        $list = $list[0];
-
         foreach($cardIds as $cardId) {
-            $this->client->updateCardIdList($cardId, ['value' => $list->id]);
+            $this->client->updateCardIdBoard($cardId, ['value' => $list->idBoard, 'idList' => $list->id]);
         }
 
         return $list;
