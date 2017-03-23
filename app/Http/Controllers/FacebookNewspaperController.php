@@ -33,6 +33,7 @@ use App\Libraries\ErrorMailer;
 use LogicException;
 use Mail;
 use DB;
+use Cookie;
 
 use Storage;
 
@@ -79,7 +80,7 @@ class FacebookNewspaperController extends Controller {
 
     public function getCallback(LaravelFacebookSdk $fb, Request $request, ErrorMailer $error_mailer) {
         try {
-            $token = $fb->getAccessTokenFromRedirect();
+            $token = $fb->getAccessTokenFromRedirect('/nzs/callback');
         } catch(FacebookSDKException $e) {
             $error_mailer->mailException($e);
 
