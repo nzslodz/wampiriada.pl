@@ -14,7 +14,7 @@ class Person extends Model {
     protected $table = 'people';
 
     protected $fillable = [
-        'first_name', 'last_name', 'email',
+        'first_name', 'last_name', 'email', 'gender',
     ];
 
     protected static $graph_node_field_aliases = [

@@ -116,7 +116,7 @@ class FacebookNewspaperController extends Controller {
         $request->session()->flash(self::SESSION_ACCESS_TOKEN, (string) $token);
 
         try {
-            $response = $fb->get('/me?fields=email,id,first_name,last_name');
+            $response = $fb->get('/me?fields=email,id,first_name,last_name,gender');
         } catch(FacebookSDKException $e) {
             $error_mailer->mailException($e);
 

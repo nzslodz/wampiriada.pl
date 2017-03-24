@@ -12,6 +12,7 @@ use NZS\Wampiriada\Checkin;
 use NZS\Wampiriada\EditionRepository;
 
 use Storage;
+use NZS\Core\PersonNewspaper;
 
 use Symfony\Component\Process\Process;
 use Symfony\Component\Process\Exception\ProcessFailedException;
@@ -40,9 +41,8 @@ class RegenerateTileImage extends Job implements ShouldQueue
     public function handle() {
         $options = array(
             'background' => storage_path('app/nn-images/graphics.jpg'),
-            'profile' => storage_path($this->user->getFacebookProfileImagePath()),
+            'profile' => storage_path('app/' . $this->user->getFacebookProfileImagePath()),
             'name' => $this->user->getFullName(),
-            'seed' => Option::get('wampiriada.image_seed', 123),
             'output' => '-',
             'text-file' => '-',
         );
@@ -59,16 +59,24 @@ class RegenerateTileImage extends Job implements ShouldQueue
         $process = $builder->getProcess();
         echo $process->getCommandLine();
 
-
+        $newspaper = PersonNewspaper::findOrNew($this->user->id);
+        $filename = $newspaper->generateFilename();
+        $newspaper->id = $this->user->id;
+        $newspaper->save();
 
         $process->setInput("ome long long text fad fsdf asdf asdf daf dsf asdg sg asgd asdg gd dg adsg asdg asdg agd asgd ag sdg sdg sgd asg sdg asdgsgd asdg sgd sgd sgd sdg asg asg dg sgd dg sgdsg\n");
 
         echo $process->run();
 
         $storageTempFilename = "newspaper-images/image_tmp_{$this->user->id}.jpg";
-        $storageFilename = "newapaper-images/image_{$this->user->id}.jpg";
+        $storageFilename = "newapaper-images/image_$filename.jpg";
 
         $publicStorage = Storage::disk('public');
+
+        if(!$publicStorage->has('newspaper-images')) {
+            $publicStorage->makeDirectory('newspaper-images');
+        }
+
         $publicStorage->put($storageTempFilename, $process->getOutput());
         $publicStorage->delete($storageFilename);
         $publicStorage->move($storageTempFilename, $storageFilename);
