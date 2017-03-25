@@ -18,10 +18,6 @@ class AddGenderFields extends Migration
             $table->string('gender')->nullable();
             $table->decimal('gender_probability', 4, 2)->default(0);
         });
-
-        foreach(Person::all() as $person) {
-            // XXX: update gender
-        }
     }
 
     /**

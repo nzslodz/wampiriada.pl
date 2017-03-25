@@ -128,6 +128,7 @@ class FacebookNewspaperController extends Controller {
         $facebook_user = $response->getGraphUser();
 
         $user = Person::createOrUpdateGraphNode($facebook_user);
+        $user->updateGender($facebook_user);
         $user->save();
 
         $request->session()->flash(self::SESSION_USER_ID, $user->id);
