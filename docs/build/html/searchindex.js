@@ -1,0 +1,1 @@
+Search.setIndex({docnames:["index"],envversion:51,filenames:["index.rst"],objects:{},objnames:{},objtypes:{},terms:{"modu\u0142\u00f3w":0,indek:0,wyszukiwani:0},titles:["Welcome to wampiriada-backend&#8217;s documentation!"],titleterms:{backend:0,document:0,indic:0,tabl:0,wampiriada:0,welcom:0}})
