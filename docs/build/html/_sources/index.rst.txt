@@ -10,6 +10,8 @@ Welcome to wampiriada-backend's documentation!
    :maxdepth: 2
    :caption: Contents:
 
+   mailings
+   redirects
 
 
 Indices and tables
