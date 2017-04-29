@@ -4,6 +4,7 @@ use NZS\Core\ModelActivityClass;
 use NZS\Core\Activity;
 use NZS\Core\ActivityContainer;
 use NZS\Core\Contracts\Timeline;
+use NZS\Wampiriada\Editions\Edition;
 
 class CheckinActivityClass extends ModelActivityClass {
     public function getModel() {
