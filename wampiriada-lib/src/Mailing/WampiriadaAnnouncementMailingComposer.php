@@ -7,60 +7,17 @@ use NZS\Core\Person;
 
 use NZS\Wampiriada\Editions\Edition;
 use NZS\Wampiriada\Redirects\AwareRedirectRepository;
+use NZS\Wampiriada\Mailing\BaseWampiriadaMailingComposer;
 
-class WampiriadaAnnouncementMailingComposer extends BaseMailingComposer implements WampiriadaMailingComposer {
-    protected $edition;
-
+class WampiriadaAnnouncementMailingComposer extends BaseWampiriadaMailingComposer {
     protected $campaign_key = 'announcement';
     protected $campaign_name = 'Mail z ogłoszeniem nowej edycji Wampiriady';
 
-    public function getView() {
-        // XXX: if view exists
+    protected $job_class = WampiriadaAnnouncementEmail::class;
 
-        return 'emails.wampiriada.announcements.'. $this->edition->number;
-    }
+    protected $view_prefix = 'emails.wampiriada.announcements';
 
     public function getSubject(Person $user) {
         return "{$this->edition->number}. edycja Wampiriady - poznaj terminy akcji :)";
-    }
-
-    public function __construct(Edition $edition) {
-        $this->edition = $edition;
-    }
-
-    public function getContext(Person $user) {
-        $edition_repository = new EditionRepository($this->edition);
-        $repository = $edition_repository->getRedirectRepository();
-
-        $repository = new AwareRedirectRepository($repository, $user, $this->getCampaignKey());
-
-        $has_facebook_photo = $user->facebook_user_id && Storage::disk('local')->exists("fb-images/{$user->facebook_user_id}.jpg");
-
-        return [
-            'user' => $user,
-            'composer' => $this,
-            'edition' => $this->edition,
-            'repository' => $repository,
-            'has_facebook_photo' => $has_facebook_photo,
-            'registered_through_facebook' => (bool) $user->facebook_user_id,
-        ];
-    }
-
-    public function getCampaignKey() {
-        return sprintf('w%d:%s', (int) $this->edition->number, $this->campaign_key);
-    }
-
-    public function getJobInstance(Person $user) {
-        return new WampiriadaAnnouncementEmail($this->edition, $user);
-    }
-
-    public static function spawnSampleInstance() {
-        $edition_repository = new EditionRepository;
-
-        return new static($edition_repository->getEdition());
-    }
-
-    public function getSampleContext(Person $user) {
-        return $this->getContext($user);
     }
 }
