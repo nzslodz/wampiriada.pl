@@ -10,24 +10,24 @@ use Illuminate\Http\Request;
 
 use NZS\Wampiriada\ShirtSize;
 use NZS\Wampiriada\BloodType;
-use NZS\Wampiriada\Edition;
+use NZS\Wampiriada\Editions\Edition;
 use NZS\Wampiriada\ActionDay;
 use NZS\Wampiriada\ActionData;
-use NZS\Wampiriada\FriendCheckin;
-use NZS\Wampiriada\Checkin;
+use NZS\Wampiriada\Checkins\Friend\FriendCheckin;
+use NZS\Wampiriada\Checkins\Checkin;
 use NZS\Wampiriada\Profile;
 use NZS\Wampiriada\Option;
 use NZS\Wampiriada\FacebookConnection;
-use NZS\Wampiriada\EditionRepository;
+use NZS\Wampiriada\Editions\EditionRepository;
 use Carbon\Carbon;
 
 use App\Jobs\DownloadFacebookProfile;
 use App\Jobs\WampiriadaThankYouEmail;
 use App\Jobs\RegenerateTileImage;
 
-use NZS\Wampiriada\AwareRedirectRepository;
-use NZS\Wampiriada\FirstTimeDonatingActivityClass;
-use NZS\Wampiriada\WampiriadaThankYouMailingComposer;
+use NZS\Wampiriada\Redirects\AwareRedirectRepository;
+use NZS\Wampiriada\Checkins\FirstTimeDonatingActivityClass;
+use NZS\Wampiriada\Mailing\WampiriadaThankYouMailingComposer;
 
 use App\Libraries\ErrorMailer;
 use LogicException;

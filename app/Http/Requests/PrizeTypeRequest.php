@@ -5,9 +5,9 @@ namespace App\Http\Requests;
 use App\Http\Requests\Request;
 use Auth;
 
-use NZS\Wampiriada\Checkin;
+use NZS\Wampiriada\Checkins\Checkin;
 use NZS\Wampiriada\Option;
-use NZS\Wampiriada\Edition;
+use NZS\Wampiriada\Editions\Edition;
 
 class PrizeTypeRequest extends Request
 {

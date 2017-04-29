@@ -1,25 +1,25 @@
 <?php namespace App\Http\Controllers;
 
-use NZS\Wampiriada\EditionRepository;
+use NZS\Wampiriada\Editions\EditionRepository;
 use NZS\Core\Exceptions\ObjectDoesNotExist;
 use NZS\Core\Redirects\DatabaseRedirectRepository;
 use NZS\Core\Redirects\CompositeRedirectRepository;
 use App\Libraries\PartnerRow;
 use NZS\Wampiriada\Option;
-use NZS\Wampiriada\Checkin;
+use NZS\Wampiriada\Checkins\Checkin;
 use NZS\Wampiriada\Redirect;
-use NZS\Wampiriada\Edition;
-use NZS\Wampiriada\EmailCampaign;
-use NZS\Wampiriada\WampiriadaPoll;
-use NZS\Wampiriada\EmailCampaignResult;
-use NZS\Wampiriada\WampiriadaRedirectRepository;
+use NZS\Wampiriada\Editions\Edition;
+use NZS\Wampiriada\Mailing\Campaigns\EmailCampaign;
+use NZS\Wampiriada\Polls\WampiriadaPoll;
+use NZS\Wampiriada\Mailing\Campaigns\EmailCampaignResult;
+use NZS\Wampiriada\Redirects\WampiriadaRedirectRepository;
 use Illuminate\Http\Request;
 
-use NZS\Wampiriada\AwareRedirectRepository;
+use NZS\Wampiriada\Redirects\AwareRedirectRepository;
 
 use NZS\Core\Polls\Poll;
 use NZS\Core\Polls\UsesPolls;
-use NZS\Wampiriada\WampiriadaThankYouPollFormRequest;
+use NZS\Wampiriada\Polls\ThankYou\WampiriadaThankYouPollFormRequest;
 
 
 class WampiriadaController extends Controller {

@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Eloquent\Model as Model;
 use Carbon\Carbon;
+use NZS\Wampiriada\Checkins\Checkin;
 
 class Action extends Model {
     protected $dates = ['day'];

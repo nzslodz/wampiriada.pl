@@ -7,15 +7,15 @@ use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-use NZS\Wampiriada\Edition;
+use NZS\Wampiriada\Editions\Edition;
 use Illuminate\Contracts\Mail\Mailer;
 use Exception;
 use Storage;
 use NZS\Core\Person;
 
-use NZS\Wampiriada\AwareRedirectRepository;
-use NZS\Wampiriada\WampiriadaThankYouMailingComposer;
-use NZS\Wampiriada\EditionRepository;
+use NZS\Wampiriada\Redirects\AwareRedirectRepository;
+use NZS\Wampiriada\Mailing\WampiriadaThankYouMailingComposer;
+use NZS\Wampiriada\Editions\EditionRepository;
 use NZS\Core\Mailing\ComposerSender;
 
 class WampiriadaThankYouEmail extends Job implements ShouldQueue

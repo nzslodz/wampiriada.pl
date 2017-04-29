@@ -56,7 +56,7 @@
                         </a>
 
                         <ul class="dropdown-menu">
-                            <li><a href="{{ url('admin/wampiriada') }}"><i class="glyphicon glyphicon-signal"></i> {{ NZS\Wampiriada\Edition::current()->number }}. edycja</a></li>
+                            <li><a href="{{ url('admin/wampiriada') }}"><i class="glyphicon glyphicon-signal"></i> {{ NZS\Wampiriada\Editions\Edition::current()->number }}. edycja</a></li>
                             <li><a href="{{ url('admin/wampiriada/list') }}"><i class="glyphicon glyphicon-list"></i> Wszystkie edycje</a></li>
                             <li role="separator" class="divider"></li>
 

@@ -3,9 +3,9 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
-use NZS\Wampiriada\Edition;
+use NZS\Wampiriada\Editions\Edition;
 use NZS\Wampiriada\ActionDay;
-use NZS\Wampiriada\Checkin;
+use NZS\Wampiriada\Checkins\Checkin;
 use NZS\Wampiriada\ShirtSize;
 use NZS\Wampiriada\BloodType;
 use NZS\Wampiriada\Profile;

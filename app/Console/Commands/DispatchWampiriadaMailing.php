@@ -4,8 +4,8 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Foundation\Inspiring;
-use NZS\Wampiriada\EditionRepository;
-use NZS\Wampiriada\WampiriadaMailingComposer;
+use NZS\Wampiriada\Editions\EditionRepository;
+use NZS\Wampiriada\Mailing\WampiriadaMailingComposer;
 use NZS\Core\Mailing\MailingRepository;
 use NZS\Core\Contracts\MailingComposer;
 use NZS\Core\Person;
