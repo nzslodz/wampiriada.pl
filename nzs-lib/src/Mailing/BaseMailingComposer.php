@@ -38,9 +38,6 @@ abstract class BaseMailingComposer implements MailingComposer {
     }
 
     public function getSampleContext(Person $user) {
-        return [
-            'user' => $user,
-            'composer' => $this,
-        ];
+        return $this->getContext($user);
     }
 }
