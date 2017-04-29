@@ -3,7 +3,6 @@ use NZS\Core\Mailing\BaseMailingComposer;
 use NZS\Wampiriada\Editions\EditionRepository;
 use NZS\Wampiriada\Mailing\WampiriadaMailingComposer;
 use NZS\Wampiriada\Mailing\BaseWampiriadaMailingComposer;
-use App\Jobs\WampiriadaThankYouEmail;
 use NZS\Core\Mailing\MultipleViews;
 
 use NZS\Core\Person;
@@ -14,8 +13,6 @@ use NZS\Wampiriada\Redirects\AwareRedirectRepository;
 class WampiriadaThankYouMailingComposer extends BaseWampiriadaMailingComposer {
     protected $campaign_key = 'initial-response';
     protected $campaign_name = 'Mail z podziękowaniem po oddaniu krwi';
-
-    protected $job_class = WampiriadaThankYouEmail::class;
 
     protected $view_prefix = 'emails.wampiriada.thankyou';
 

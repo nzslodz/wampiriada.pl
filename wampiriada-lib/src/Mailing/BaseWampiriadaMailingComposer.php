@@ -1,8 +1,8 @@
 <?php namespace NZS\Wampiriada\Mailing;
 use NZS\Core\Mailing\BaseMailingComposer;
 use NZS\Wampiriada\Editions\EditionRepository;
+use NZS\Wampiriada\Mailing\WampiriadaEmailJob;
 use NZS\Wampiriada\Mailing\WampiriadaMailingComposer;
-use App\Jobs\WampiriadaThankYouEmail;
 use NZS\Core\Mailing\MultipleViews;
 
 use NZS\Core\Person;
@@ -14,6 +14,8 @@ abstract class BaseWampiriadaMailingComposer extends BaseMailingComposer impleme
     use MultipleViews;
 
     protected $edition;
+
+    protected $job_class = WampiriadaEmailJob::class;
 
     public function __construct(Edition $edition) {
         $this->edition = $edition;
@@ -52,7 +54,7 @@ abstract class BaseWampiriadaMailingComposer extends BaseMailingComposer impleme
     public function getJobInstance(Person $user) {
         $class_name = $this->job_class;
 
-        return new $class_name($this->edition, $user);
+        return new $class_name($this->edition, $user, get_class($this));
     }
 
     public static function spawnSampleInstance() {

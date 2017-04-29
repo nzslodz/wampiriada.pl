@@ -1,7 +1,6 @@
 <?php namespace NZS\Wampiriada\Mailing;
 use NZS\Core\Mailing\BaseMailingComposer;
 use NZS\Wampiriada\Editions\EditionRepository;
-use App\Jobs\WampiriadaThankYouEmail;
 
 use NZS\Core\Person;
 use NZS\Wampiriada\Editions\Edition;
@@ -15,7 +14,4 @@ class WampiriadaSummaryMailingComposer extends BaseWampiriadaMailingComposer {
     protected $subject = 'Podziękowanie XXX TODO';
 
     protected $view_prefix = 'emails.wampiriada.summary';
-
-    // TODO
-    protected $job_class = null;
 }

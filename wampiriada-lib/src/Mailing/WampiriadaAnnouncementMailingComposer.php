@@ -1,7 +1,6 @@
 <?php namespace NZS\Wampiriada\Mailing;
 use NZS\Core\Mailing\BaseMailingComposer;
 use NZS\Wampiriada\Editions\EditionRepository;
-use App\Jobs\WampiriadaAnnouncementEmail;
 
 use NZS\Core\Person;
 
@@ -12,8 +11,6 @@ use NZS\Wampiriada\Mailing\BaseWampiriadaMailingComposer;
 class WampiriadaAnnouncementMailingComposer extends BaseWampiriadaMailingComposer {
     protected $campaign_key = 'announcement';
     protected $campaign_name = 'Mail z ogłoszeniem nowej edycji Wampiriady';
-
-    protected $job_class = WampiriadaAnnouncementEmail::class;
 
     protected $view_prefix = 'emails.wampiriada.announcements';
 

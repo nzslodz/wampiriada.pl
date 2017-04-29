@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Jobs;
+namespace NZS\Wampiriada\Mailing;
 
 use App\Jobs\Job;
 use Illuminate\Queue\SerializesModels;
@@ -18,20 +18,21 @@ use NZS\Wampiriada\Mailing\WampiriadaThankYouMailingComposer;
 use NZS\Wampiriada\Editions\EditionRepository;
 use NZS\Core\Mailing\ComposerSender;
 
-class WampiriadaThankYouEmail extends Job implements ShouldQueue
+class WampiriadaEmailJob extends Job implements ShouldQueue
 {
     use InteractsWithQueue, SerializesModels;
 
-    protected $user, $edition;
+    protected $user, $edition, $composer_class;
 
     /**
      * Create a new job instance.
      *
      * @return void
      */
-    public function __construct(Edition $edition, Person $user) {
+    public function __construct(Edition $edition, Person $user, $composer_class) {
         $this->user = $user;
         $this->edition = $edition;
+        $this->composer_class = $composer_class;
     }
 
     /**
@@ -40,7 +41,9 @@ class WampiriadaThankYouEmail extends Job implements ShouldQueue
      * @return void
      */
     public function handle(ComposerSender $sender) {
-        $composer = new WampiriadaThankYouMailingComposer($this->edition);
+        $class_name = $this->composer_class;
+
+        $composer = new $class_name($this->edition);
 
         $sender->send($composer, $this->user);
     }

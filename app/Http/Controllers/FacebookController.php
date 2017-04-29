@@ -22,7 +22,6 @@ use NZS\Wampiriada\Editions\EditionRepository;
 use Carbon\Carbon;
 
 use App\Jobs\DownloadFacebookProfile;
-use App\Jobs\WampiriadaThankYouEmail;
 use App\Jobs\RegenerateTileImage;
 
 use NZS\Wampiriada\Redirects\AwareRedirectRepository;
