@@ -2,10 +2,10 @@
 
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
-use NZS\Wampiriada\FriendCheckin;
+use NZS\Wampiriada\Checkins\Friend\FriendCheckin;
 use NZS\Wampiriada\FacebookConnection;
-use NZS\Wampiriada\FriendCheckinActivityClass;
-use NZS\Wampiriada\Checkin;
+use NZS\Wampiriada\Checkins\Friend\FriendCheckinActivityClass;
+use NZS\Wampiriada\Checkins\Checkin;
 use NZS\Core\Activity;
 
 class CreateFriendCheckins extends Migration
