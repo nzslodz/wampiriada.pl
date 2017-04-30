@@ -19,6 +19,11 @@ Route::get('/redirect/{edition_number}/{name}', 'WampiriadaController@getRedirec
 Route::get('/krew', 'WampiriadaController@getKrew');
 Route::get('/szpik', 'WampiriadaController@getSzpik');
 
+Route::get('/reminder/{action_day_id}', 'WampiriadaController@getReminder');
+Route::post('/reminder/{action_day_id}', 'WampiriadaController@postReminder');
+
+Route::get('/reminder_ok', 'WampiriadaController@getReminderSuccess');
+
 /*
 Route::get('/dziekujemy/ankieta', 'WampiriadaController@showThankYouMailingPoll');
 Route::post('/dziekujemy/ankieta', 'WampiriadaController@saveThankYouMailingPoll');

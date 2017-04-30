@@ -4,7 +4,7 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
 use Carbon\Carbon;
-use NZS\Wampiriada\Edition;
+use NZS\Wampiriada\Editions\Edition;
 
 class AddUntilOnEdition extends Migration
 {

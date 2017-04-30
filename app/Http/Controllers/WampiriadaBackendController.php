@@ -3,21 +3,22 @@
 use NZS\Wampiriada\Option;
 use NZS\Wampiriada\Action;
 use NZS\Wampiriada\ActionData;
-use NZS\Wampiriada\PrizeForCheckin;
+use NZS\Wampiriada\Checkins\Prize\PrizeForCheckin;
 use NZS\Wampiriada\PrizeAggregator;
 use NZS\Wampiriada\FacebookConncection;
 use NZS\Wampiriada\ActionDataAggregator;
-use NZS\Wampiriada\EditionConfiguration;
-use NZS\Wampiriada\FriendCheckinDecorator;
-use NZS\Wampiriada\PrizeForCheckinActivityClass;
-use NZS\Wampiriada\PrizeForCheckinClaimedActivityClass;
-use NZS\Wampiriada\Edition;
-use NZS\Wampiriada\Checkin;
+use NZS\Wampiriada\Editions\EditionConfiguration;
+use NZS\Wampiriada\Checkins\Friend\FriendCheckinDecorator;
+use NZS\Wampiriada\Checkins\Prize\PrizeForCheckinActivityClass;
+use NZS\Wampiriada\Checkins\Prize\PrizeForCheckinClaimedActivityClass;
+use NZS\Wampiriada\Editions\Edition;
+use NZS\Wampiriada\Checkins\Checkin;
 use NZS\Wampiriada\PrizeType;
 use NZS\Wampiriada\ShirtSize;
 use NZS\Core\Redirects\Redirect;
-use NZS\Wampiriada\EditionRepository;
-use NZS\Wampiriada\WampiriadaRedirect;
+use NZS\Wampiriada\Editions\EditionRepository;
+use NZS\Wampiriada\Redirects\WampiriadaRedirect;
+use NZS\Wampiriada\Editions\EmptyConfiguration;
 use DB;
 use Carbon\Carbon;
 
@@ -180,13 +181,20 @@ class WampiriadaBackendController extends Controller {
             'redirect_event' => new Redirect,
             'redirect_koszulka' => new Redirect,
             'redirect_plakat' => new Redirect,
+			'configuration' => new EmptyConfiguration,
             'checkboxes' => $checkboxes,
+			'actions' => null,
         ]);
     }
 
     // XXX - handle new editions
     public function postSettings(Request $request, $number) {
-        $edition = Edition::whereNumber($number)->firstOrFail();
+        $edition = Edition::whereNumber($number)->first();
+
+		if(!$edition) {
+			$edition = new Edition;
+			$edition->number = $number;
+		}
 
         $sizes = $request->input('sizes');
         if(!is_array($sizes)) {

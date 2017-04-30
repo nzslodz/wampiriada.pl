@@ -8,8 +8,8 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
 use NZS\Wampiriada\Option;
-use NZS\Wampiriada\Checkin;
-use NZS\Wampiriada\EditionRepository;
+use NZS\Wampiriada\Checkins\Checkin;
+use NZS\Wampiriada\Editions\EditionRepository;
 
 use Storage;
 

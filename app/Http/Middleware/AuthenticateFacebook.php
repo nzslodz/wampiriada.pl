@@ -18,7 +18,6 @@ class AuthenticateFacebook
      */
     public function handle($request, Closure $next, $guard = null)
     {
-        // XXX FIX -> needs testing
         if (!Session::get('fb_user_access_token')) {
             if ($request->ajax() || $request->wantsJson()) {
                 return response('Unauthorized.', 401);

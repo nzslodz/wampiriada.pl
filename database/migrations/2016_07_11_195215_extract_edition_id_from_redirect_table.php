@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 use NZS\Core\Redirects\Redirect;
-use NZS\Wampiriada\WampiriadaRedirect;
+use NZS\Wampiriada\Redirects\WampiriadaRedirect;
 
 class ExtractEditionIdFromRedirectTable extends Migration
 {

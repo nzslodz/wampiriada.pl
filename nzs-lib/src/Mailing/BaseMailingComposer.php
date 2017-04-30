@@ -1,6 +1,7 @@
 <?php namespace NZS\Core\Mailing;
 use NZS\Core\Contracts\MailingComposer;
 use NZS\Core\Person;
+use NZS\Core\Mailing\SimpleEmailJob;
 
 abstract class BaseMailingComposer implements MailingComposer {
     protected $view;
@@ -9,7 +10,7 @@ abstract class BaseMailingComposer implements MailingComposer {
     protected $campaign_key;
     protected $campaign_name;
 
-    protected $job_class;
+    protected $job_class = SimpleEmailJob::class;
 
     public function getView() {
         return $this->view;
@@ -34,13 +35,10 @@ abstract class BaseMailingComposer implements MailingComposer {
     public function getJobInstance(Person $user) {
         $class_name = $this->job_class;
 
-        return new $class_name($user);
+        return new $class_name($user, get_class($this));
     }
 
     public function getSampleContext(Person $user) {
-        return [
-            'user' => $user,
-            'composer' => $this,
-        ];
+        return $this->getContext($user);
     }
 }

@@ -4,8 +4,9 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Foundation\Inspiring;
-use NZS\Wampiriada\EditionRepository;
-use NZS\Wampiriada\WampiriadaMailingComposer;
+use NZS\Wampiriada\Editions\EditionRepository;
+use NZS\Wampiriada\Mailing\WampiriadaMailingComposer;
+use NZS\Wampiriada\Checkins\Checkin;
 use NZS\Core\Mailing\MailingRepository;
 use NZS\Core\Contracts\MailingComposer;
 use NZS\Core\Person;
@@ -29,6 +30,7 @@ class DispatchWampiriadaMailing extends Command
      * @var string
      */
     protected $signature = 'wampiriada:dispatch-mailing
+        {--all : dispatch e-mails to all checked in people in the past}
         {--production : dispatch e-mails instead of just printing recipients}
         {--edition= : dispatch mailing with specific edition, by default use current edition}
         {--hours=24 : distribute recipients over time in hours (can be set to 0 to dispatch immediately)}
@@ -67,7 +69,9 @@ class DispatchWampiriadaMailing extends Command
 
         $this->comment(sprintf('Chosen mailing class: %s', get_class($mailing)));
 
-        if($array = $this->argument('user')) {
+        if($this->option('all')) {
+            $users = $this->constructRecipientListFromAllCheckins();
+        } elseif($array = $this->argument('user')) {
             // XXX: this wont work because of SerializesModels trait on Job that requires functional user in database
             $users = $this->constructRecipientListFromArray($array);
         } else {
@@ -116,6 +120,12 @@ class DispatchWampiriadaMailing extends Command
         })->filter(function($object) {
             return $object !== null;
         });
+    }
+
+    protected function constructRecipientListFromAllCheckins() {
+        return Checkin::with('user')->get()->transform(function($checkin) {
+            return $checkin->user;
+        })->unique('id');
     }
 
     protected function constructRecipientListFromRepository($repository) {
