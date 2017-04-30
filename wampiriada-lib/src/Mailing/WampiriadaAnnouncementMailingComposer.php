@@ -15,6 +15,10 @@ class WampiriadaAnnouncementMailingComposer extends BaseWampiriadaMailingCompose
     protected $view_prefix = 'emails.wampiriada.announcements';
 
     public function getSubject(Person $user) {
+        if($this->edition->number == 30) {
+            return "Majówka z Wampirem + Terminy 30. edycji Wampiriady!";
+        }
+
         return "{$this->edition->number}. edycja Wampiriady - poznaj terminy akcji :)";
     }
 
@@ -29,6 +33,18 @@ class WampiriadaAnnouncementMailingComposer extends BaseWampiriadaMailingCompose
 
         $context['actions'] = $actions;
 
-        return $context;     
+        $school_mapping = array(
+            'UŁ' => '#c2812c',
+            'PŁ' => '#b72b2a',
+            'UMed' => '#71953d',
+        );
+
+        $color = function($short_name) use($school_mapping) {
+            return isset($school_mapping[$short_name])? $school_mapping[$short_name]: "#c14d8f";
+        };
+
+        $context['color'] = $color;
+
+        return $context;
     }
 }
