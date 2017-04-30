@@ -18,6 +18,7 @@ use NZS\Wampiriada\ShirtSize;
 use NZS\Core\Redirects\Redirect;
 use NZS\Wampiriada\Editions\EditionRepository;
 use NZS\Wampiriada\Redirects\WampiriadaRedirect;
+use NZS\Wampiriada\Editions\EmptyConfiguration;
 use DB;
 use Carbon\Carbon;
 
@@ -180,13 +181,20 @@ class WampiriadaBackendController extends Controller {
             'redirect_event' => new Redirect,
             'redirect_koszulka' => new Redirect,
             'redirect_plakat' => new Redirect,
+			'configuration' => new EmptyConfiguration,
             'checkboxes' => $checkboxes,
+			'actions' => null,
         ]);
     }
 
     // XXX - handle new editions
     public function postSettings(Request $request, $number) {
-        $edition = Edition::whereNumber($number)->firstOrFail();
+        $edition = Edition::whereNumber($number)->first();
+
+		if(!$edition) {
+			$edition = new Edition;
+			$edition->number = $number;
+		}
 
         $sizes = $request->input('sizes');
         if(!is_array($sizes)) {

@@ -41,6 +41,7 @@ abstract class BaseWampiriadaMailingComposer extends BaseMailingComposer impleme
             'user' => $user,
             'composer' => $this,
             'edition' => $this->edition,
+            'edition_repository' => $edition_repository,
             'repository' => $repository,
             'has_facebook_photo' => $has_facebook_photo,
             'registered_through_facebook' => (bool) $user->facebook_user_id,
