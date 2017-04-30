@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('title')
-Krew+ - akcja informująca o roli żelaza w Twoim życiu.
+Dodaj przypomnienie - Wampiriada
 @stop
 
 @section('meta-description')
