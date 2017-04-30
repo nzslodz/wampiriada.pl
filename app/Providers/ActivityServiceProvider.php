@@ -10,6 +10,7 @@ use NZS\Core\DatabaseActivityRepository;
 use NZS\Wampiriada\Checkins\CheckinActivityClass;
 use NZS\Wampiriada\Checkins\Friend\FriendCheckinActivityClass;
 use NZS\Wampiriada\Checkins\Prize\PrizeForCheckinActivityClass;
+use NZS\Wampiriada\Reminders\ReminderActivityClass;
 
 class ActivityServiceProvider extends ServiceProvider
 {
@@ -41,6 +42,7 @@ class ActivityServiceProvider extends ServiceProvider
             EmailCampaignResultActivityClass::class,
             PrizeForCheckinActivityClass::class,
             FriendCheckinActivityClass::class,
+            ReminderActivityClass::class,
         ], 'activity.model_classes');
     }
 }

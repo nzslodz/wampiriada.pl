@@ -4,6 +4,7 @@ use NZS\Core\Person;
 use NZS\Core\Contracts\RedirectRepository;
 use NZS\Core\Redirects\BaseRedirectRepository;
 use NZS\Wampiriada\Mailing\Campaigns\EmailCampaign;
+use NZS\Wampiriada\Mailing\Campaigns\EmailCampaignResult;
 use Purl\Url;
 use Illuminate\Http\Request;
 
@@ -38,10 +39,14 @@ class AwareRedirectRepository extends BaseRedirectRepository {
 		}
 
 		if($user->application_user && $user->application_user->is_staff) {
-			return null;
+			//return null;
 		}
 
 		return new static($repository, $user, $email_campaign);
+	}
+
+	public function getUser() {
+		return $this->user;
 	}
 
 	public function getEmailCampaign() {
