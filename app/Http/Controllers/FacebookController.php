@@ -318,7 +318,8 @@ class FacebookController extends Controller {
         });
 
         $composer = new WampiriadaThankYouMailingComposer($edition);
-        dispatch($composer->getJobInstance($user)->delay(Carbon::now()->addHours(2)));
+        // 2017-05-01 We'll send these e-mails after the action had started 
+        //dispatch($composer->getJobInstance($user)->delay(Carbon::now()->addHours(2)));
         dispatch(new RegenerateTileImage());
 
         $token = Session::get('fb_user_access_token');
