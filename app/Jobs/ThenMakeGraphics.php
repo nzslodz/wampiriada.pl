@@ -13,12 +13,13 @@ use NZS\Wampiriada\EditionRepository;
 
 use Storage;
 use NZS\Core\PersonNewspaper;
+use NZS\Core\Person;
 
 use Symfony\Component\Process\Process;
 use Symfony\Component\Process\Exception\ProcessFailedException;
 use Symfony\Component\Process\ProcessBuilder;
 
-class RegenerateTileImage extends Job implements ShouldQueue
+class ThenMakeGraphics extends Job implements ShouldQueue
 {
     use InteractsWithQueue, SerializesModels;
 
