@@ -132,6 +132,11 @@ class FacebookNewspaperController extends Controller {
         $user->updateGender($facebook_user);
         $user->save();
 
+        $newspaper = PersonNewspaper::findOrNew($this->user->id);
+        $newspaper->generateFilename();
+        $newspaper->id = $user->id;
+        $newspaper->save();
+
         $request->session()->flash(self::SESSION_USER_ID, $user->id);
 
         Cookie::queue(self::SAVE_COOKIE_NAME, $user->campaign_token);
