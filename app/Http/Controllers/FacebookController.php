@@ -51,7 +51,7 @@ class FacebookController extends Controller {
         Session::forget('hide_email_login_checkout');
         Session::forget('checkin_user_id');
 
-        $login_url = $fb->getLoginUrl();
+        $login_url = $fb->getLoginUrl(['email', 'user_friends']);
         $is_facebook_login_enabled = (bool) Option::get('wampiriada.facebook_login', true);
 
         // XXX RESTYLE THIS

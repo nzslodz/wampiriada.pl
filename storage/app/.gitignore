@@ -5,3 +5,5 @@
 !image-grid-images/*
 !default-images
 !default-images/*
+!newspaper-images
+!newspaper-images/.gitkeep
