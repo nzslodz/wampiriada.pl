@@ -71,6 +71,10 @@ class ThenMakeGraphics extends Job implements ShouldQueue
 
         echo $process->run();
 
+        if (!$process->isSuccessful()) {
+            throw new ProcessFailedException($process);
+        }
+
         $storageTempFilename = "newspaper-images/image_tmp_{$this->user->id}.jpg";
         $storageFilename = "newspaper-images/image_$filename.jpg";
 
