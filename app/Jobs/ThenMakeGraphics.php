@@ -57,7 +57,7 @@ class ThenMakeGraphics extends Job implements ShouldQueue
             $builder->add("--$key=$value");
         }
 
-        $buider->setWorkingDirectory(base_path('image_grid'));
+        $builder->setWorkingDirectory(base_path('image_grid'));
 
         $process = $builder->getProcess();
         echo $process->getCommandLine();
