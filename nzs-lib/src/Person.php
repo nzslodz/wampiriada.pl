@@ -63,7 +63,7 @@ class Person extends Model {
 
         // try to find by first_name
         if($this->first_name) {
-            $guzzle = new Client();
+            $client = new Client();
 
             $res = $client->request('GET', 'https://api.genderize.io/', [
                 'query' => ['name' => $this->first_name, 'country_id' => 'pl'],
@@ -72,9 +72,9 @@ class Person extends Model {
             if($res->getStatusCode() == 200) {
                 $json = json_decode($res->getBody());
 
-                if($json['gender']) {
-                    $this->gender = $json['gender'];
-                    $this->gender_probability = $json['probability'];
+                if($json->gender) {
+                    $this->gender = $json->gender;
+                    $this->gender_probability = $json->probability;
 
                     return;
                 }

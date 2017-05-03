@@ -17,6 +17,7 @@ class Kernel extends ConsoleKernel
          Commands\RegenerateTileImage::class,
          Commands\DispatchWampiriadaMailing::class,
          Commands\RemoveOldActivities::class,
+         Commands\TryToDetermineGender::class,
     ];
 
     /**
