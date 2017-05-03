@@ -47,7 +47,7 @@ class Person extends Model {
             $this->gender = $something;
             $this->gender_probability = 1;
 
-            return;
+            return true;
         }
 
         // for facebook GraphNodes
@@ -57,12 +57,12 @@ class Person extends Model {
                 $this->gender = $gender;
                 $this->gender_probability = 1;
 
-                return;
+                return true;
             }
         }
 
-        // try to find by first_name
-        if($this->first_name) {
+        // try to find by first_name but only for weak matches
+        if($this->first_name && $this->gender_probability < 0.9) {
             $client = new Client();
 
             $res = $client->request('GET', 'https://api.genderize.io/', [
@@ -72,24 +72,29 @@ class Person extends Model {
             if($res->getStatusCode() == 200) {
                 $json = json_decode($res->getBody());
 
-                if($json->gender) {
+                if($json->gender && $json->probability > $this->gender_probability) {
                     $this->gender = $json->gender;
                     $this->gender_probability = $json->probability;
 
-                    return;
+                    return true;
                 }
             }
 
-            if(ends_with($this->first_name, 'a')) {
-                $this->gender = 'female';
-                $this->gender_probability = 0.01;
-            } else {
-                $this->gender = 'male';
-                $this->gender_probability = 0.01;
-            }
+            // wild guess - only if there was no other option
+            if($this->gender_probability == 0) {
+                if(ends_with($this->first_name, 'a')) {
+                    $this->gender = 'female';
+                    $this->gender_probability = 0.01;
+                } else {
+                    $this->gender = 'male';
+                    $this->gender_probability = 0.01;
+                }
 
-            return;
+                return true;
+            }
         }
+
+        return false;
     }
 
     // XXX hack
