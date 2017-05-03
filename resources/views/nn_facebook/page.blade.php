@@ -12,9 +12,14 @@
 @if($logged_user)
 	<div class="container">
 	    <div class="row">
-	        <div class="col-xs-12 text-center">
-				Tu będzie Twój obrazek,
-				{{ $logged_user->getFullName() }}
+	        <div class="col-xs-12 text-center" id="image-container">
+				@if(!$newspaper->getImagePath())
+					{{ $logged_user->getFullName() }},
+					trwa przetwarzanie danych, poczekaj kilka sekund.<br>
+					<img src="{{ asset('img/heart.svg') }}">
+				@else
+					<img src="{{ Storage::url($newspaper->getImagePath()) }}">
+				@endif
 			</div>
 		</div>
 	</div>
@@ -49,4 +54,41 @@
 		</div>
 	</div>
 </div>
+@stop
+
+
+@section('extrajs')
+	<script type="text/javascript">
+		var _token = '{{ csrf_token() }}';
+
+		$(function() {
+			$.ajaxSetup({
+				data: { _token: _token }
+			});
+
+			var timeinterval = 2;
+
+			@if($logged_user && !$newspaper->getImagePath())
+
+			var f = function() {
+				$.post(path('nzs/poll_image'), {
+					'filename': '{{ $newspaper->filename }}'
+				}).done(function(data, status, xhr) {
+					if(xhr.status == '202') {
+						timeinterval = timeinterval * 1.5;
+						setTimeout(f, 1000 * timeinterval);
+					} else if(data.url) {
+						$('#image-container').html(
+							'<img src=' + data.url + '>'
+						)
+					}
+				})
+			}
+
+			setTimeout(f, 1000 * timeinterval);
+
+			@endif
+		})
+
+	</script>
 @stop

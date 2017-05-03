@@ -70,7 +70,7 @@ class ThenMakeGraphics extends Job implements ShouldQueue
         echo $process->run();
 
         $storageTempFilename = "newspaper-images/image_tmp_{$this->user->id}.jpg";
-        $storageFilename = "newapaper-images/image_$filename.jpg";
+        $storageFilename = "newspaper-images/image_$filename.jpg";
 
         $publicStorage = Storage::disk('public');
 

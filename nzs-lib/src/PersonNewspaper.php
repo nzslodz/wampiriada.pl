@@ -22,14 +22,14 @@ class PersonNewspaper extends Model {
     public function getImagePath() {
         $publicStorage = Storage::disk('public');
 
-        if($publicStorage->has("newspaper-images/$this->filename.jpg")) {
-            return "newspaper-images/$this->filename.jpg";
+        if($publicStorage->has("newspaper-images/image_$this->filename.jpg")) {
+            return "newspaper-images/image_$this->filename.jpg";
         }
 
         return null;
     }
 
     public function getArticleName() {
-        
+
     }
 }

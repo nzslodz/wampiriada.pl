@@ -4,6 +4,7 @@ use SammyK\LaravelFacebookSdk\LaravelFacebookSdk;
 use Facebook\Exceptions\FacebookSDKException;
 use Session;
 use NZS\Core\Person;
+use NZS\Core\PersonNewspaper;
 use App\Http\Requests\CheckinRequest;
 use App\Http\Requests\EmailLoginRequest;
 use Illuminate\Http\Request;
@@ -60,10 +61,11 @@ class FacebookNewspaperController extends Controller {
         $logged_user = Person::find($logged_user_id);
 
         if(!$logged_user) {
-            // XXX why return callback fails?
             $login_url =  $fb->getLoginUrl(['email'], '/nzs/callback');
+            $newspaper = null;
         } else {
             $login_url = null;
+            $newspaper = PersonNewspaper::find($logged_user->id);
         }
 
         // then find an user through campaign token
@@ -74,6 +76,7 @@ class FacebookNewspaperController extends Controller {
             'login_url' => $login_url,
             'logged_user' => $logged_user,
             'loggable_user' => $loggable_user,
+            'newspaper' => $newspaper,
         ]);
     }
 
@@ -83,8 +86,6 @@ class FacebookNewspaperController extends Controller {
             $token = $fb->getAccessTokenFromRedirect('/nzs/callback');
         } catch(FacebookSDKException $e) {
             $error_mailer->mailException($e);
-
-            dd($e);
 
             return redirect('/nzs')
                 ->with('status', 'warning')
@@ -145,8 +146,15 @@ class FacebookNewspaperController extends Controller {
             ->cookie(self::SAVE_COOKIE_NAME, $user->campaign_token, 60*24*30);
     }
 
-    // XXX TODO
     public function postPollImage(Request $request) {
+        $newspaper = PersonNewspaper::whereFilename($request->input('filename'))->firstOrFail();
 
+        $image_path = $newspaper->getImagePath();
+
+        if(!$image_path) {
+            return response()->json(['url' => null], 202);
+        }
+
+        return response()->json(['url' => Storage::url($image_path)]);
     }
 }
