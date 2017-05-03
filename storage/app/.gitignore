@@ -7,3 +7,5 @@
 !default-images/*
 !newspaper-images
 !newspaper-images/.gitkeep
+!nn-images
+!nn-images/*
