@@ -40,10 +40,11 @@ class TryToDetermineGender extends Command
      */
     public function handle()
     {
-      foreach(Person::whereNull('gender')->whereGenderProbability(0)->get() as $person) {
-          $person->updateGender();
-          $this->info("{$person->getFullName()}: gender determined as $person->gender with probability $person->gender_probability");
-          $person->save();
+      foreach(Person::all() as $person) {
+          if($person->updateGender()) {
+              $this->info("{$person->getFullName()}: gender determined as $person->gender with probability $person->gender_probability");
+              $person->save();
+          }
       }
     }
 }
