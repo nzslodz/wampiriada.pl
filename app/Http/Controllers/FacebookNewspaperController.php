@@ -132,7 +132,7 @@ class FacebookNewspaperController extends Controller {
         $user->updateGender($facebook_user);
         $user->save();
 
-        $newspaper = PersonNewspaper::findOrNew($this->user->id);
+        $newspaper = PersonNewspaper::findOrNew($user->id);
         $newspaper->generateFilename();
         $newspaper->id = $user->id;
         $newspaper->save();
