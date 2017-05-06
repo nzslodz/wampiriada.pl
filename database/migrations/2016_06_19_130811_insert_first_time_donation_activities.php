@@ -2,8 +2,8 @@
 
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
-use NZS\Wampiriada\Checkin;
-use NZS\Wampiriada\FirstTimeDonatingActivityClass;
+use NZS\Wampiriada\Checkins\Checkin;
+use NZS\Wampiriada\Checkins\FirstTimeDonatingActivityClass;
 use NZS\Core\Activity;
 
 class InsertFirstTimeDonationActivities extends Migration
