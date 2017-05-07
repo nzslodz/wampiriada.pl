@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-use NZS\Wampiriada\Checkin;
+use NZS\Wampiriada\Checkins\Checkin;
 use NZS\Wampiriada\Profile;
 use App\User;
 

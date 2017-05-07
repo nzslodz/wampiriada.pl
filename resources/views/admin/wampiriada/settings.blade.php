@@ -76,6 +76,10 @@
 
 @section('data')
     <script type="text/javascript">
+        @if($actions)
         actionList = {!! $actions->toJson() !!}
+        @else
+        actionList = []
+        @endif
     </script>
 @stop

@@ -3,13 +3,14 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use NZS\Wampiriada\EmailCampaignResultActivityClass;
+use NZS\Wampiriada\Mailing\Campaigns\EmailCampaignResultActivityClass;
 use Illuminate\Database\Migrations\MigrationRepositoryInterface;
 use NZS\Core\ActivityRepository;
 use NZS\Core\DatabaseActivityRepository;
-use NZS\Wampiriada\CheckinActivityClass;
-use NZS\Wampiriada\FriendCheckinActivityClass;
-use NZS\Wampiriada\PrizeForCheckinActivityClass;
+use NZS\Wampiriada\Checkins\CheckinActivityClass;
+use NZS\Wampiriada\Checkins\Friend\FriendCheckinActivityClass;
+use NZS\Wampiriada\Checkins\Prize\PrizeForCheckinActivityClass;
+use NZS\Wampiriada\Reminders\ReminderActivityClass;
 
 class ActivityServiceProvider extends ServiceProvider
 {
@@ -41,6 +42,7 @@ class ActivityServiceProvider extends ServiceProvider
             EmailCampaignResultActivityClass::class,
             PrizeForCheckinActivityClass::class,
             FriendCheckinActivityClass::class,
+            ReminderActivityClass::class,
         ], 'activity.model_classes');
     }
 }

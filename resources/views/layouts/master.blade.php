@@ -38,6 +38,11 @@
         <link href='http://fonts.googleapis.com/css?family=Alegreya+Sans:100,300,400,700&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
         <link rel="stylesheet" href="{{ url('css/main.css') }}?r=6">
         <script src="{{ url('js/vendor/modernizr-2.6.2.min.js') }}"></script>
+        <script type="text/javascript">
+            function path(url) {
+                return '{{ url('') }}/' + url
+            }
+        </script>
     </head>
     <body class="@yield('classes')">
 

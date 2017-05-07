@@ -2,7 +2,7 @@
 
 use NZS\Wampiriada\ActionDay;
 use NZS\Wampiriada\PrizeType;
-use NZS\Wampiriada\Edition;
+use NZS\Wampiriada\Editions\Edition;
 
 Breadcrumbs::register('admin', function($breadcrumbs) {
     $breadcrumbs->push('Administracja', route('admin-home'));

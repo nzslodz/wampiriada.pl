@@ -4,8 +4,8 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 use NZS\Core\Redirects\Redirect;
 use NZS\Core\Redirects\DatabaseRedirectRepository;
-use NZS\Wampiriada\WampiriadaRedirectRepository;
-use NZS\Wampiriada\WampiriadaRedirect;
+use NZS\Wampiriada\Redirects\WampiriadaRedirectRepository;
+use NZS\Wampiriada\Redirects\WampiriadaRedirect;
 
 class AddClassToRedirects extends Migration
 {

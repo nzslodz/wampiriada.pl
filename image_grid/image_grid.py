@@ -3,6 +3,8 @@ from PIL import Image, ImageOps, ImageFilter
 from tile_sequence import TileSequence
 import image_helpers
 
+from image_utils import ImageText
+
 range = xrange
 TRANSPARENT = (0, 0, 0, 0)
 
@@ -15,12 +17,12 @@ class ImageGrid(object):
         self.imageWidth = self.backgroundImage.width
         self.imageHeight = self.backgroundImage.height
         self.imageSize = self.backgroundImage.size
-        
+
         self.achievementUsers = options['achievementUsers']
 
         for key, value in self.achievementUsers.iteritems():
             self.achievementUsers[key] = value.convert('RGBA')
-        
+
         self.rescaleOverlay()
         self.createTilesImage()
 
@@ -76,7 +78,7 @@ class ImageGrid(object):
             iconWidth = image.width
             iconHeight = image.height
             self.achievementPositions.append((
-                (   
+                (
                     self.gridX(position['x']) + self.cellWidth - iconWidth,
                     self.gridY(position['y']) + self.cellHeight - iconHeight,
                 ),
@@ -118,5 +120,62 @@ class ImageGrid(object):
         # add achievements!
         for position, image in self.achievementPositions:
             dest.paste(image, position, mask=image.split()[3])
-        
+
         return dest
+
+class Paragraph(object):
+    def __init__(self, text, font='arial.ttf', size=10, skip=20, color=None):
+        self.text = text
+        self.font = font
+        self.size = size
+        self.skip = skip
+        self.color = color
+
+    def get_text(self, replacements):
+        return self.text % replacements
+
+class NewspaperImageGrid(object):
+    def __init__(self, options):
+        self.backgroundImage = options['background'].convert('RGBA')
+        self.profileImage = options['profile'].convert('RGBA')
+        self.blockWidth = options['w']
+        self.blockPosition = (options['x'], options['y'])
+
+        self.imageWidth = self.backgroundImage.width
+        self.imageHeight = self.backgroundImage.height
+        self.imageSize = self.backgroundImage.size
+
+        self.replacements = {}
+        self.lines = []
+        self.rescaleProfile()
+
+    def rescaleProfile(self):
+        if self.profileImage.width != self.blockWidth:
+            self.profileImage = self.profileImage.resize((self.blockWidth, self.blockWidth), Image.BILINEAR)
+
+    def addParagraph(self, line, **kwargs):
+        if len(line) == 0:
+            return
+
+        self.lines.append(Paragraph(line, **kwargs))
+
+    def setReplacements(self, replacements):
+        self.replacements = replacements
+
+    def generate(self):
+        # 1. paste image on image
+        self.backgroundImage.paste(self.profileImage, self.blockPosition)
+
+        # 2. put text on image
+        position = (self.blockPosition[0], self.blockPosition[1] + self.blockWidth)
+
+        for paragraph in self.lines:
+            image_text = ImageText((self.blockWidth, self.imageHeight - self.blockPosition[1]))
+
+            (x,y) = image_text.write_text_box((0, 0), paragraph.get_text(self.replacements), self.blockWidth, font_filename=paragraph.font, font_size=paragraph.size, color=paragraph.color, place='justify')
+
+            self.backgroundImage.paste(image_text.image, position, image_text.image)
+
+            position = (position[0], position[1] + y + paragraph.skip)
+
+        return self.backgroundImage

@@ -1,26 +1,29 @@
 <?php namespace App\Http\Controllers;
 
-use NZS\Wampiriada\EditionRepository;
+use NZS\Wampiriada\Editions\EditionRepository;
 use NZS\Core\Exceptions\ObjectDoesNotExist;
 use NZS\Core\Redirects\DatabaseRedirectRepository;
 use NZS\Core\Redirects\CompositeRedirectRepository;
 use App\Libraries\PartnerRow;
 use NZS\Wampiriada\Option;
-use NZS\Wampiriada\Checkin;
+use NZS\Wampiriada\Action;
+use NZS\Wampiriada\Checkins\Checkin;
 use NZS\Wampiriada\Redirect;
-use NZS\Wampiriada\Edition;
-use NZS\Wampiriada\EmailCampaign;
-use NZS\Wampiriada\WampiriadaPoll;
-use NZS\Wampiriada\EmailCampaignResult;
-use NZS\Wampiriada\WampiriadaRedirectRepository;
+use NZS\Wampiriada\Editions\Edition;
+use NZS\Wampiriada\Mailing\Campaigns\EmailCampaign;
+use NZS\Wampiriada\Polls\WampiriadaPoll;
+use NZS\Wampiriada\Mailing\Campaigns\EmailCampaignResult;
+use NZS\Wampiriada\Redirects\WampiriadaRedirectRepository;
 use Illuminate\Http\Request;
 
-use NZS\Wampiriada\AwareRedirectRepository;
+use NZS\Wampiriada\Redirects\AwareRedirectRepository;
 
 use NZS\Core\Polls\Poll;
 use NZS\Core\Polls\UsesPolls;
-use NZS\Wampiriada\WampiriadaThankYouPollFormRequest;
+use NZS\Wampiriada\Polls\ThankYou\WampiriadaThankYouPollFormRequest;
+use NZS\Wampiriada\Reminders\Reminder;
 
+use NZS\Core\Person;
 
 class WampiriadaController extends Controller {
     use UsesPolls;
@@ -135,11 +138,21 @@ class WampiriadaController extends Controller {
             abort(404);
         }
 
+        $aware_repository = AwareRedirectRepository::fromRequest($request, $repository);
+        if($aware_repository) {
+            $aware_repository->saveEmailCampaignInfo($name);
+
+            // remember flag
+            if($request->input('r') == 't') {
+                $request->session()->flash('redirect_user_id', $aware_repository->getUser()->id);
+            }
+        }
+
         return redirect($redirect_url);
     }
 
     public function getRedirect(Request $request, $edition_number, $name) {
-        $edition_repository = new EditionRepository( $edition_number);
+        $edition_repository = new EditionRepository($edition_number);
         $repository = $edition_repository->getRedirectRepository();
 
         $redirect_url = $repository->resolveRedirect($name);
@@ -151,9 +164,40 @@ class WampiriadaController extends Controller {
         $aware_repository = AwareRedirectRepository::fromRequest($request, $repository);
         if($aware_repository) {
             $aware_repository->saveEmailCampaignInfo($name);
+
+            // remember flag
+            if($request->input('r') == 't') {
+                $request->session()->flash('redirect_user_id', $aware_repository->getUser()->id);
+            }
         }
 
         return redirect($redirect_url);
+    }
+
+    public function getReminder(Request $request, $action_day_id) {
+        $action = Action::findOrFail($action_day_id);
+        $user = Person::findOrFail($request->session()->get('redirect_user_id'));
+
+        return view('wampiriada.reminder', [
+            'action' => $action,
+            'user' => $user,
+        ]);
+    }
+
+    public function postReminder(Request $request, $action_day_id) {
+        $action = Action::findOrFail($action_day_id);
+        $user = Person::findOrFail($request->input('user_id'));
+
+        $reminder = Reminder::firstOrCreate([
+            'action_day_id' => $action->id,
+            'user_id' => $user->id
+        ]);
+
+        return redirect('/reminder_ok');
+    }
+
+    public function getReminderSuccess(Request $request) {
+        return view('wampiriada.reminder_success');
     }
 
     public function getPartners() {

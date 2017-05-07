@@ -47,13 +47,4 @@ class User extends Authenticatable {
 
         return "default-images/$image_id.png";
     }
-
-    // XXX hack
-    protected static function boot() {
-        parent::boot();
-
-        static::creating(function ($model) {
-            $model->md5email = md5($model->email);
-        });
-    }
 }
