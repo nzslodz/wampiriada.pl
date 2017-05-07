@@ -1,5 +1,5 @@
 <?php namespace NZS\Core\Polls;
-use App\User;
+use NZS\Core\Person;
 
 trait MatchesUserWithEmail {
     public function getUser() {
@@ -9,6 +9,6 @@ trait MatchesUserWithEmail {
             $email_field = 'email';
         }
 
-        return User::whereEmail($this->input($email_field))->first();
+        return Person::whereEmail($this->input($email_field))->first();
     }
 }
