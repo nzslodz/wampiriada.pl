@@ -3,11 +3,11 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-use NZS\Wampiriada\Checkin;
-use NZS\Wampiriada\CheckinActivityClass;
+use NZS\Wampiriada\Checkins\Checkin;
+use NZS\Wampiriada\Checkins\CheckinActivityClass;
 
-use NZS\Wampiriada\EmailCampaignResultActivityClass;
-use NZS\Wampiriada\EmailCampaignResult;
+use NZS\Wampiriada\Mailing\Campaigns\EmailCampaignResultActivityClass;
+use NZS\Wampiriada\Mailing\Campaigns\EmailCampaignResult;
 
 class AddActivityTable extends Migration
 {

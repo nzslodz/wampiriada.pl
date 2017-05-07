@@ -8,8 +8,8 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
 use NZS\Wampiriada\Option;
-use NZS\Wampiriada\Checkin;
-use NZS\Wampiriada\EditionRepository;
+use NZS\Wampiriada\Checkins\Checkin;
+use NZS\Wampiriada\Editions\EditionRepository;
 
 use Storage;
 
@@ -26,15 +26,13 @@ class RegenerateTileImage extends Job implements ShouldQueue
      *
      * @return void
      */
-    public function handle() {       
+    public function handle() {
         $arguments = [];
         foreach(config('app.achievements') as $key => $value) {
             $path = storage_path('app/image-grid-images/'. $value['icon']);
 
             $arguments[] = "$key:$path";
         }
-
-        $outputTempFilename = tempnam(sys_get_temp_dir(), 'output');
 
         $options = array(
             'background' => storage_path('app/image-grid-images/wampir-1610.jpg'),

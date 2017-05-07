@@ -1,0 +1,3 @@
+Gwiazda biznesu
+
+Niezwykła współpraca, jaką nawiązała %(name)s jest tutaj.

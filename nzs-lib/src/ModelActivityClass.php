@@ -39,4 +39,18 @@ abstract class ModelActivityClass extends ActivityClass {
 
         return $this->loadData($activity_container);
     }
+
+    public function removeIfStale(Activity $activity) {
+        $class = $this->getModel();
+
+        $object = $class::where($this->activity_field, '=', $activity->id)->first();
+
+        if($object === null) {
+            $activity->delete();
+
+            return true;
+        }
+
+        return false;
+    }
 }

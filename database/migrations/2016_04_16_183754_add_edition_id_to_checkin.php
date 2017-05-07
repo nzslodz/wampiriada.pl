@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
-use NZS\Wampiriada\Edition;
+use NZS\Wampiriada\Editions\Edition;
 
 
 class AddEditionIdToCheckin extends Migration

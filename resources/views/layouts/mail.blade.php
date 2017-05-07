@@ -29,7 +29,7 @@ a:hover#ff { background-color: #6CF !important; text-decoration: none !important
                             <tr>
 
                                 <td style="text-align: center">
-                                    <a href="{{ $repository->getRedirect('facebook-event') }}"><img src="{{ $repository->getRedirect('mailing-img') }}" alt="Wampiriada - {{ $edition->number }}. edycja"></a>
+                                    <a href="{{ $repository->getRedirect('wampiriada') }}"><img src="{{ $repository->getRedirect('mailing-img') }}" alt="Wampiriada - {{ $edition->number }}. edycja"></a>
                                 </td>
                             </tr>
                         </table>
