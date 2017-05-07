@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Eloquent\Model as Model;
 use NZS\Wampiriada\Checkins\Checkin;
+use NZS\Wampiriada\Editions\Edition;
 
 class ActionDay extends Model {
 	protected $table = 'action_days';
@@ -12,5 +13,9 @@ class ActionDay extends Model {
 
 	public function checkins() {
 		return $this->hasMany(Checkin::class);
+	}
+
+	public function edition() {
+		return $this->belongsTo(Edition::class);
 	}
 }

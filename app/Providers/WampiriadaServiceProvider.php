@@ -6,6 +6,7 @@ use Illuminate\Support\ServiceProvider;
 use NZS\Wampiriada\Mailing\Campaigns\EmailCampaignResultActivityClass;
 use NZS\Wampiriada\Mailing\WampiriadaSummaryMailingComposer;
 use NZS\Wampiriada\Mailing\WampiriadaThankYouMailingComposer;
+use NZS\Wampiriada\Mailing\WampiriadaReminderMailingComposer;
 use NZS\Wampiriada\Mailing\WampiriadaAnnouncementMailingComposer;
 use Illuminate\Database\Migrations\MigrationRepositoryInterface;
 use NZS\Core\ActivityRepository;
@@ -22,7 +23,8 @@ class WampiriadaServiceProvider extends ServiceProvider
         $repository->register([
             WampiriadaThankYouMailingComposer::class,
             WampiriadaSummaryMailingComposer::class,
-            WampiriadaAnnouncementMailingComposer::class
+            WampiriadaAnnouncementMailingComposer::class,
+            WampiriadaReminderMailingComposer::class,
         ]);
     }
 }

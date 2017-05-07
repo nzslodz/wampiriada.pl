@@ -1,47 +1,20 @@
-========
-Mailingi
-========
+=====================
+Maile i ich wysyłanie
+=====================
 
-Ta strona pokazuje, w jaki sposób stworzyć mailing w aplikacji.
+Ta strona pokazuje, w jaki sposób stworzyć powiadomienia w aplikacji.
 
-Tworzenie mailingu
-==================
+.. note:: Ta implementacja rozsyłania maili została stworzona zanim Laravel 5.3 wprowadził `Mail Notifications <https://laravel.com/docs/5.4/notifications>`_ , dlatego część tej implementacji pokrywa się z rozwiązaniami, które zostały wprowadzone w nowszych wydaniach Laravela. Na przyszłość, na tyle, na ile to możliwe, planowane jest połączenie obu tych rozwiązań, aby uczynić sekcję powiadomień prostszą w nauce i bardziej intuicyjną dla osób, które znają framework.
 
-Aby móc wysłać mailing, należy wykonać kilka czynności.
+Tworzenie wysyłalnego e-maila
+=============================
+
+Aby móc skorzystać z rozsyłania e-maili, należy przygotować klasę Mailing Composera. Ta klasa odpowiada za przygotowywanie treści e-maila dla danej osoby.
 
 1. Klasa Mailing Composer
 -------------------------
 
 Composer jest bazową klasą dla mailingów. Poniżej znajduje się przykładowa klasa composera.
 
-
-.. code-block:: php
-
-    use NZS\Core\Person;
-    use NZS\Core\Mailing\BaseMailingComposer;
-
-    class MyMailingComposer extends BaseMailingComposer {
-        protected $campaign_key = 'my-mailing';
-        protected $campaign_name = 'Mój mailing';
-        protected $job_class = MyEmailJob::class;
-
-        public function getSubject(Person $user) {
-            return "Tytuł e-maila";
-        }
-
-        public function getView() {
-            return 'emails.moj-mailing';
-        }
-
-        public function getContext(Person $user) {
-            $repository = new SomethingRedirectRepository();
-
-            return [
-                'user' => $user,
-                'composer' => $this,
-                'repository' => $repository,
-            ];
-        }
-    }
-
-Każda z
+.. literalinclude:: ../../wampiriada-lib/src/Mailing/WampiriadaReminderMailingComposer.php
+   :language: php
