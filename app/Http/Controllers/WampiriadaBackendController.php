@@ -19,6 +19,7 @@ use NZS\Core\Redirects\Redirect;
 use NZS\Wampiriada\Editions\EditionRepository;
 use NZS\Wampiriada\Redirects\WampiriadaRedirect;
 use NZS\Wampiriada\Editions\EmptyConfiguration;
+use NZS\Wampiriada\Reminders\Reminder;
 use DB;
 use Carbon\Carbon;
 
@@ -69,6 +70,8 @@ class WampiriadaBackendController extends Controller {
 			'edition_object' => $edition_object,
             'actions' => $actions_with_data,
             'choices' => $actions_without_data,
+			'reminder_actions' => $actions,
+			'iterator' => 0,
             'summary' => new ActionDataAggregator($actions_with_data),
         ));
 	}
@@ -99,7 +102,7 @@ class WampiriadaBackendController extends Controller {
 		} else {
 			$first_time_checkin_count_percentage = 0;
 		}
-		
+
         return view('admin.wampiriada.edit', array(
             'action' => $action,
             'data' => $action_data,

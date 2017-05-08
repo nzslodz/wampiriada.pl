@@ -3,6 +3,7 @@
 use Illuminate\Database\Eloquent\Model as Model;
 use Carbon\Carbon;
 use NZS\Wampiriada\Checkins\Checkin;
+use NZS\Wampiriada\Reminders\Reminder;
 
 class Action extends Model {
     protected $dates = ['day'];
@@ -31,5 +32,9 @@ class Action extends Model {
 
     public function checkins() {
         return $this->hasMany(Checkin::class, 'action_day_id');
+    }
+
+    public function reminders() {
+        return $this->hasMany(Reminder::class, 'action_day_id');
     }
 }
