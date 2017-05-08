@@ -104,6 +104,7 @@ class WampiriadaController extends Controller {
             'AHE' => 'ahe',
             'AMuz' => 'amuz',
             'ASP' => 'asp',
+            'PWSFTviT' => 'other',
             'Pozostałe' => 'other',
         );
 
