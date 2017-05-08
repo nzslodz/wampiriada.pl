@@ -40,11 +40,29 @@ Oficjalna strona akcji honorowego krwiodawstwa Wampiriada w Łodzi, organizowane
                     <p>Wyślemy Ci e-maila z przypomnieniem na 2 dni przed akcją. :)</p>
                 </div>
 
-
-                <div class="col-xs-12 text-center">
+            </div>
+            <div class="row">
+                <div class="col-xs-12 col-sm-8 col-md-4 col-sm-push-2 col-md-push-4 text-center">
                     <form class="form" method="post">
+
                         {{ csrf_field() }}
+                        @if($user->id)
                         <input type="hidden" name="user_id" value="{{ $user->id }}">
+                        @else
+                            <div class="form-group">
+                                <label for="email">E-mail</label>
+                                <input type="text" class="form-control" name="email" id="email">
+                            </div>
+                            <div class="form-group">
+                                <label for="first_name">Imię</label>
+                                <input type="text" class="form-control" name="first_name" id="first_name">
+                            </div>
+                            <div class="form-group">
+                                <label for="last_name">Nazwisko</label>
+                                <input type="text" class="form-control" name="last_name" id="last_name">
+                            </div>
+                        @endif
+
                         <button class="btn btn-default" type="submit">Ustaw przypomnienie</button>
                     </form>
 
