@@ -94,6 +94,12 @@ class WampiriadaBackendController extends Controller {
             return $checkin->first_time;
         })->count();
 
+		if($action_data->getOverall() > 0) {
+			$first_time_checkin_count_percentage = round(100 * $first_time_checkin_count / $action_data->getOverall());
+		} else {
+			$first_time_checkin_count_percentage = 0;
+		}
+
         $first_time_checkin_count_percentage = round(100 * $first_time_checkin_count / $action_data->getOverall());
 
         return view('admin.wampiriada.edit', array(
