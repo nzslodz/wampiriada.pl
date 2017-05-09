@@ -25,6 +25,10 @@ class Transition {
         return $this->value == $value;
     }
 
+    public function getValue() {
+        return $this->value;
+    }
+
     public function getTransitionFunction() {
         return $this->transition;
     }

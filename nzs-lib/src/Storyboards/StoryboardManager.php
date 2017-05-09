@@ -11,7 +11,8 @@ class StoryboardManager {
 
     public function getStoryboard() {
         if($this->storyboard === null) {
-            $this->storyboard = $this->request->route()->getController()->getStoryboard();
+            $controller = $this->request->route()->getController();
+            $this->storyboard = $controller->getStoryboard($controller);
         }
 
         return $this->storyboard;
@@ -24,7 +25,7 @@ class StoryboardManager {
     public function is($parameter, $value) {
         return $this->getStoryboard()->is($this->request, $parameter, $value);
     }
-    
+
     public function isDefault($parameter) {
         return $this->getStoryboard()->isDefault($this->request, $parameter);
     }
