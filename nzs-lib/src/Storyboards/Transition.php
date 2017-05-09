@@ -5,12 +5,14 @@ use RuntimeException;
 class Transition {
     protected $value;
     protected $transition;
+    protected $managed_parameter;
     protected $text = null;
     protected $is_default = false;
 
-    public function __construct($value, $transition) {
+    public function __construct($parameter, $value, $transition_function) {
+        $this->managed_parameter = $parameter;
         $this->value = $value;
-        $this->transition = $transition;
+        $this->transition = $transition_function;
     }
 
     public function setDefault() {
@@ -21,8 +23,12 @@ class Transition {
         return $this->is_default;
     }
 
+    public function getManagedParameter() {
+        return $this->managed_parameter;
+    }
+
     public function compareValue($value) {
-        return $this->value == $value;
+        return $this->value === $value;
     }
 
     public function getValue() {
@@ -31,6 +37,10 @@ class Transition {
 
     public function getTransitionFunction() {
         return $this->transition;
+    }
+
+    public function getText($text) {
+        return $this->text;
     }
 
     public function withText($text) {

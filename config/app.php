@@ -1,5 +1,4 @@
 <?php
-use App\Providers\WampiriadaServiceProvider;
 
 return [
 
@@ -164,6 +163,7 @@ return [
         App\Providers\MailingServiceProvider::class,
         App\Providers\WampiriadaServiceProvider::class,
         Illuminate\Database\MigrationServiceProvider::class,
+        NZS\Core\Storyboards\StoryboardServiceProvider::class,
     ],
 
     /*

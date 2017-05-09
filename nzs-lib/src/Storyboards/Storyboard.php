@@ -13,19 +13,24 @@ class Storyboard {
     public function __construct(Controller $controller) {
         $this->managed_parameters = collect();
         $this->controller = $controller;
+
+        $this->setup();
+    }
+
+    // can be used in subclasses
+    protected function setup() {
     }
 
     public function getController() {
         return $this->controller;
     }
 
-    /* XXX what is param? baby dont hurt me */
     public function addTransitionOn($parameter, $value, $transition) {
         if(!isset($this->managed_parameters[$parameter])) {
             $this->managed_parameters[$parameter] = collect();
         }
 
-        $transition = new Transition($value, $transition);
+        $transition = new Transition($parameter, $value, $transition);
 
         $this->managed_parameters[$parameter]->push($transition);
 
@@ -33,7 +38,7 @@ class Storyboard {
     }
 
     public function addDefaultTransition($parameter, $transition) {
-        return $this->addTransitionOn($parameter, null, $transition)->setDefault();
+        return $this->addTransitionOn($parameter, false, $transition)->setDefault();
     }
 
     public function useSession() {
@@ -111,9 +116,15 @@ class Storyboard {
     }
 
     protected function decorate(Request $request, Response $response, Transition $transition) {
-        /*if($this->use_session) {
-            $reqeust->session()->put($this->);
-        }*/
+        if($this->use_session) {
+            $session_key = $this->getSessionKey($transition->getManagedParameter());
+
+            if($transition->isDefault()) {
+                $request->session()->forget($session_key);
+            } else {
+                $reqeust->session()->put($session_key, $transiton->getValue());
+            }
+        }
 
         return $response;
     }
