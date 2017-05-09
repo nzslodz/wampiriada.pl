@@ -15,7 +15,7 @@ use Illuminate\Http\Request;
 class ApplicationController extends Controller {
 
     protected function postNewApplication(Request $request) {
-        if($request->input('token') !== config('app.zapier.token')) {
+        if($request->input('token') !== config('services.zapier.token')) {
             abort(401);
         }
 
