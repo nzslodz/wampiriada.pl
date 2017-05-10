@@ -29,7 +29,7 @@ class TrelloController extends Controller {
 	 * @return Response
 	 */
 	public function getIndex(TrelloClient $client) {
-		$repositories = collect(config('app.trello.releases', []))->transform(function($config, $key) use($client) {
+		$repositories = collect(config('services.trello.releases', []))->transform(function($config, $key) use($client) {
 			return new TrelloRepository($client, $key, $config);
 		});
 
@@ -39,7 +39,7 @@ class TrelloController extends Controller {
 	}
 
 	public function getRelease(TrelloClient $client, $key, $list) {
-		$config = config("app.trello.releases.$key");
+		$config = config("services.trello.releases.$key");
 
 		if(!$config) {
 			abort(404);
@@ -55,7 +55,7 @@ class TrelloController extends Controller {
 	}
 
 	public function showBoardCardsForRelease(TrelloClient $client, $key) {
-		$config = config("app.trello.releases.$key");
+		$config = config("services.trello.releases.$key");
 
 		if(!$config) {
 			abort(404);
@@ -69,7 +69,7 @@ class TrelloController extends Controller {
 	}
 
 	public function postRelease(Request $request, TrelloClient $client, $key) {
-		$config = config("app.trello.releases.$key");
+		$config = config("services.trello.releases.$key");
 
 		if(!$config) {
 			abort(404);

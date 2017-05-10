@@ -214,7 +214,7 @@
                 </tr>
             @empty
                 <tr class="no-results">
-                    <td colspan="7">
+                    <td colspan="8">
                         Do tej akcji nikt jeszcze się nie wpisał.
                     </td>
                 </tr>
