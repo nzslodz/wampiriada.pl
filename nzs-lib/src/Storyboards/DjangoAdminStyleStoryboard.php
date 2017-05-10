@@ -2,7 +2,7 @@
 
 /*
 
-Use with the following code:
+Place the following code in your controller:
 
     public function getStoryboard() {
         return (new DjangoAdminStyleStoryboard($this))
@@ -23,6 +23,12 @@ view.blade.php:
     @foreach(storyboard()->choices('_save') as $value => $transition)
         <button class="btn btn-default" name="_save" type="submit" value="{{ $value }}">{{ $transition }}</button>
     @endforeach
+
+or manually:
+
+    <button class="btn btn-default" name="_save" type="submit" value="save-and-add-another">Zapisz i dodaj następny</button>
+    <button class="btn btn-default" name="_save" type="submit" value="save-and-continue">Zapisz i kontynuuj edycję</button>
+    <button class="btn btn-default" name="_save" type="submit" value="">Zapisz</button>
 
 */
 

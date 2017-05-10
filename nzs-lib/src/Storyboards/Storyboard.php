@@ -50,14 +50,14 @@ class Storyboard {
     }
 
     protected function getValueFromRequest(Request $request, $parameter) {
-        if($request->has($parameter)) {
+        if($request->exists($parameter)) {
             return $request->get($parameter);
         }
 
         if($this->use_session) {
             $session_key = $this->getSessionKey($parameter);
 
-            if($request->session()->has($session_key)) {
+            if($request->session()->exists($session_key)) {
                 return $request->session()->get($session_key);
             }
         }
