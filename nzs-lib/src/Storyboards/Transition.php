@@ -17,6 +17,8 @@ class Transition {
 
     public function setDefault() {
         $this->is_default = true;
+
+        return $this;
     }
 
     public function isDefault() {
@@ -35,11 +37,19 @@ class Transition {
         return $this->value;
     }
 
+    public function value() {
+        return $this->getValue();
+    }
+
     public function getTransitionFunction() {
         return $this->transition;
     }
 
-    public function getText($text) {
+    public function getText() {
+        if(is_callable($this->text)) {
+            return call_user_func($this->text);
+        }
+
         return $this->text;
     }
 
@@ -50,10 +60,12 @@ class Transition {
     }
 
     public function __toString() {
-        if($this->text === null) {
+        $text = $this->getText();
+
+        if($text === null) {
             throw new RuntimeException("Transition $this->value does not have its text set. Use withText() method.");
         }
 
-        return $this->text;
+        return $text;
     }
 }

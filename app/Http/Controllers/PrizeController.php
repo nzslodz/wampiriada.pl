@@ -1,6 +1,7 @@
 <?php namespace App\Http\Controllers;
 
 use NZS\Core\CollectionAggregator;
+use NZS\Core\Storyboards\DjangoAdminStyleStoryboard;
 use NZS\Wampiriada\Option;
 use NZS\Wampiriada\Action;
 use NZS\Wampiriada\ActionData;
@@ -21,6 +22,12 @@ use App\Http\Requests\PrizeTypeRequest;
 use App\Http\Requests\PrizeForCheckinRequest;
 
 class PrizeController extends Controller {
+	public function getStoryboard() {
+		return (new DjangoAdminStyleStoryboard($this))
+			->withRoutes('admin-prize-list', 'admin-prize-edit', 'admin-prize-create')
+			->withTexts('Zapisz', 'Zapisz i kontynuuj edycję', 'Zapisz i dodaj następny');
+	}
+
 	public function getIndex() {
         $edition_number = (int) Option::get('wampiriada.edition', 26);
 
@@ -46,9 +53,11 @@ class PrizeController extends Controller {
 
 		$type->save();
 
-		return redirect('admin/prize')
+		return $this->getStoryboard()
+			->response($request, $type)
 			->with('status', 'success')
 			->with('message', 'Typ nagrody poprawnie zapisany');
+
 	}
 
 	public function postToggle(Request $request, PrizeType $type) {

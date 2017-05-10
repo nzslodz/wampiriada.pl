@@ -1,7 +1,7 @@
 <?php namespace NZS\Core\Storyboards;
 use NZS\Core\Storyboards\Transition;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
+use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Routing\Controller;
 use LogicException;
 
@@ -14,11 +14,11 @@ class Storyboard {
         $this->managed_parameters = collect();
         $this->controller = $controller;
 
-        $this->setup();
+        $this->configure();
     }
 
     // can be used in subclasses
-    protected function setup() {
+    protected function configure() {
     }
 
     public function getController() {
@@ -30,11 +30,11 @@ class Storyboard {
             $this->managed_parameters[$parameter] = collect();
         }
 
-        $transition = new Transition($parameter, $value, $transition);
+        $transition_object = new Transition($parameter, $value, $transition);
 
-        $this->managed_parameters[$parameter]->push($transition);
+        $this->managed_parameters[$parameter]->push($transition_object);
 
-        return $transition;
+        return $transition_object;
     }
 
     public function addDefaultTransition($parameter, $transition) {
@@ -130,7 +130,9 @@ class Storyboard {
     }
 
     public function response(Request $request, ...$args) {
-        $function = $this->findTransition($request)->getTransitionFunction();
+        $transition = $this->findTransition($request);
+
+        $function = $transition->getTransitionFunction();
 
         $response = $function($request, ...$args);
 

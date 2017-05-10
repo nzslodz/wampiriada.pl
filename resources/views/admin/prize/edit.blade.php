@@ -53,7 +53,9 @@
 
             <div class="form-group">
                 <div class="col-sm-offset-2 col-sm-6">
-                    {{ Form::submit('Zapisz', ['class' => 'btn btn-default']) }}
+                    @foreach(storyboard()->choices('_save') as $value => $transition)
+                        <button class="btn btn-default" name="_save" type="submit" value="{{ $value }}">{{ $transition }}</button>
+                    @endforeach
                 </div>
             </div>
         {{ Form::close() }}
