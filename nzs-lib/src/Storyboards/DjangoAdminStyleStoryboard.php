@@ -1,5 +1,31 @@
 <?php namespace NZS\Core\Storyboards;
 
+/*
+
+Use with the following code:
+
+    public function getStoryboard() {
+        return (new DjangoAdminStyleStoryboard($this))
+            ->withRoutes('admin-prize-list', 'admin-prize-edit', 'admin-prize-create')
+            ->withTexts('Zapisz', 'Zapisz i kontynuuj edycję', 'Zapisz i dodaj następny');
+    }
+
+    public function postEdit(PrizeTypeRequest $request, $id=null) {
+        [...]
+        return $this->getStoryboard()
+            ->response($request, $type)
+            ->with('status', 'success')
+            ->with('message', 'Typ nagrody poprawnie zapisany');
+    }
+
+view.blade.php:
+
+    @foreach(storyboard()->choices('_save') as $value => $transition)
+        <button class="btn btn-default" name="_save" type="submit" value="{{ $value }}">{{ $transition }}</button>
+    @endforeach
+
+*/
+
 class DjangoAdminStyleStoryboard extends Storyboard {
     protected $list_route;
     protected $edit_route;
