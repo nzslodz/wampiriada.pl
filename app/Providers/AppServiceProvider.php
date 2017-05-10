@@ -28,8 +28,8 @@ class AppServiceProvider extends ServiceProvider
     {
         $this->app->singleton(TrelloClient::class, function($app) {
             $trello = new TrelloClient(array(
-    		    'key' => config('app.trello.key'),
-    		    'token'  => config('app.trello.token'),
+    		    'key' => config('services.trello.key'),
+    		    'token'  => config('services.trello.token'),
     			//'domain' => 'http://api.trello.com',
     		));
 

@@ -88,4 +88,45 @@
         {{ Form::close() }}
         </div>
     @endif
+
+    <h2>Przypomnienia</h2>
+
+    <table class="table table-striped table-bordered">
+        <thead>
+            <tr>
+                <td>L.p.</td>
+                <th>Osoba</th>
+                <td>Dodano</td>
+            </tr>
+        </thead>
+        <tbody>
+            @forelse($reminder_actions as $action)
+                @if($action->reminders()->count() > 0)
+                    <tr class="info">
+                        <th colspan="3" class="text-center">
+                            {{ $action->short_description }}
+                        </th>
+                    </tr>
+                    @foreach($action->reminders as $reminder)
+                        <td>{{ $iterator += 1 }} / {{ $loop->iteration }}</td>
+                        <th>
+                            <a data-card="{{ $reminder->user_id }}" href="{{ url('admin/activity/profile/' . $reminder->user_id )}}">
+                            {{ $reminder->user->getFullName() }}
+                            </a>
+                        </th>
+                        <td>
+                            {{ $reminder->created_at }}
+                        </td>
+                    </tr>
+                    @endforeach
+                @endif
+            @empty
+                <tr class="no-results">
+                    <td colspan="3">
+                        Ta edycja nie posiada jeszcze żadnych akcji.
+                    </td>
+                </tr>
+            @endforelse
+        </tbody>
+    </table>
 @stop

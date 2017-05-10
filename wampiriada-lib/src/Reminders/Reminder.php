@@ -14,6 +14,10 @@ class Reminder extends Model {
 
     protected $fillable = ['action_day_id', 'user_id'];
 
+    public function action() {
+        return $this->belongsTo(Action::class, 'action_day_id');
+    }
+
     public function action_day() {
         return $this->belongsTo(ActionDay::class, 'action_day_id');
     }

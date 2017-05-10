@@ -104,6 +104,7 @@ class WampiriadaController extends Controller {
             'AHE' => 'ahe',
             'AMuz' => 'amuz',
             'ASP' => 'asp',
+            'PWSFTviT' => 'pwsftvit',
             'Pozostałe' => 'other',
         );
 
@@ -176,7 +177,11 @@ class WampiriadaController extends Controller {
 
     public function getReminder(Request $request, $action_day_id) {
         $action = Action::findOrFail($action_day_id);
-        $user = Person::findOrFail($request->session()->get('redirect_user_id'));
+        $user = Person::find($request->session()->get('redirect_user_id'));
+
+        if(!$user) {
+            $user = new Person;
+        }
 
         return view('wampiriada.reminder', [
             'action' => $action,
@@ -186,7 +191,14 @@ class WampiriadaController extends Controller {
 
     public function postReminder(Request $request, $action_day_id) {
         $action = Action::findOrFail($action_day_id);
-        $user = Person::findOrFail($request->input('user_id'));
+        $user = Person::find($request->input('user_id'));
+
+        if(!$user) {
+            $user = Person::firstOrNew(['email' => $request->email]);
+            $user->first_name = $request->first_name;
+            $user->last_name = $request->last_name;
+            $user->save();
+        }
 
         $reminder = Reminder::firstOrCreate([
             'action_day_id' => $action->id,
