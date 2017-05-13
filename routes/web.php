@@ -111,6 +111,21 @@ Route::group(['prefix' => 'admin'], function() {
         Route::get('trello/releases/{key}/{list}', ['as' => 'admin-trello-single-release', 'uses' => 'TrelloController@getRelease']);
 
 
+        Route::group(['prefix' => 'hr'], function() {
+            Route::get('autocomplete', ['as' => 'admin-hr-members-create', 'uses' => 'HRController@getPersonAutocomplete']);
+
+            Route::group(['prefix' => 'members'], function() {
+                Route::get('/', ['as' => 'admin-hr-members-list', 'uses' => 'HRController@getMemberIndex']);
+                Route::get('create', ['as' => 'admin-hr-members-create', 'uses' => 'HRController@getCreateMember']);
+                Route::get('{id}', ['as' => 'admin-hr-members-show', 'uses' => 'HRController@getMember']);
+                Route::get('{id}/edit', ['as' => 'admin-hr-members-edit', 'uses' => 'HRController@getUpdateMember']);
+                Route::get('{id}/delete', ['as' => 'admin-hr-members-delete', 'uses' => 'HRController@getDeleteMember']);
+
+                Route::post('create', 'HRController@postCreateMember');
+                Route::post('{id}/edit', 'HRController@postUpdateMember');
+                Route::post('{id}/delete', 'HRController@postDeleteMember');
+            });
+        });
 
 
 	});

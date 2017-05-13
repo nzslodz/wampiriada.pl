@@ -44,8 +44,8 @@ class CreateMemberRequest extends Request
             'status' => [Rule::in(Member::getStatuses())],
             'has_badge' => 'boolean',
             'is_member' => 'boolean',
-            'member_since' => 'nullable|datetime',
-            'member_to' => 'nullable|datetime',
+            'member_since' => 'nullable|date',
+            'member_to' => 'nullable|date',
         ];
     }
 

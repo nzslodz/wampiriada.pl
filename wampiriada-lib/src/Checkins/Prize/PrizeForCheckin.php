@@ -27,8 +27,6 @@ class PrizeForCheckin extends Model {
             return false;
         }
 
-        Carbon::setLocale('pl');
-
         if($this->claimed_at->diffInMinutes($this->created_at) < 10) {
             return 'Nagroda wpisana po odbiorze';
         }

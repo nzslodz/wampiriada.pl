@@ -19,7 +19,11 @@ use Illuminate\Http\Request;
 use Mail;
 use App\Http\Requests\MemberRequest;
 use App\Http\Requests\CreateMemberRequest;
+use NZS\Core\HR\Member;
 
+use NZS\Core\Storyboards\DjangoAdminStyleStoryboard;
+
+use NZS\Core\Person;
 
 use Stevenmaguire\Services\Trello\Client as TrelloClient;
 use NZS\Core\TrelloRepository;
@@ -28,13 +32,19 @@ class HRController extends Controller {
 
 	/* id, created_at, updated_at, STATUS, HAS_BADGE, IS_MEMBER, MEMBER_SINCE, MEMBER_TO */
 
+	public function getStoryboard() {
+		return (new DjangoAdminStyleStoryboard($this))
+			->withRoutes('admin-hr-members-list', 'admin-hr-members-edit', 'admin-hr-members-create')
+			->withTexts('Zapisz', 'Zapisz i kontynuuj edycję', 'Zapisz i dodaj następny');
+	}
+
 	/**
 	 * Display a listing of the resource.
 	 *
 	 * @return Response
 	 */
 	public function getMemberIndex() {
-		$members = Member::whereIsMember(true)->get();
+		$members = Member::with('user')->whereIsMember(true)->get();
 
         return view('admin.hr.members.list', [
             'members' => $members,
@@ -50,17 +60,23 @@ class HRController extends Controller {
 	}
 
 	public function getCreateMember() {
-		return view('acmin.hr.members.create');
+		return view('admin.hr.members.create');
 	}
 
 	public function getPersonAutocomplete(Request $request) {
-		$input = $request->input('query');
+		$input = $request->input('q');
 
 		$people = Person::where('first_name', 'LIKE', "$input%")
 			->orWhere('last_name', 'LIKE', "$input%")
 			->orWhere('email', 'LIKE', "$input%")
-			-limit(10)
-			->get();
+			->limit(10)
+			->offset($request->input('page', 0) * 10)
+			->get()
+			->transform(function($person) {
+				$person->text = sprintf("%s <%s>", $person->getFullName(), $person->email);
+
+				return $person;
+			});
 
 		return response()->json($people);
 	}
@@ -93,10 +109,10 @@ class HRController extends Controller {
 		$member = Member::findOrFail($id);
 
 		$member->status = $request->status;
-		$member->has_badge = $request->has_badge;
+		$member->has_badge = $request->input('has_badge', false);
 		$member->member_since = $request->member_since;
 		$member->member_to = $request->member_to;
-		$member->is_member = $request->is_member;
+		$member->is_member = $request->input('is_member', false);
 
 		$member->save();
 

@@ -6,13 +6,20 @@ use Illuminate\Database\Eloquent\Model as Model;
 use SammyK\LaravelFacebookSdk\SyncableGraphNodeTrait;
 use Storage;
 use NZS\Core\Person;
+use NZS\Core\HR\MemberPresenter;
+use Laracodes\Presenter\Traits\Presentable;
+
 
 use Illuminate\Notifications\Notifiable;
 
 class Member extends Model {
+    use Presentable;
+
     protected $table = 'hr_profiles';
 
     protected $dates = ['created_at', 'updated_at', 'member_since', 'member_to'];
+
+    protected $presenter = MemberPresenter::class;
 
     protected static $statuses = [
         'active_member' => 'Aktywny członek',
@@ -29,7 +36,11 @@ class Member extends Model {
         return static::$statuses;
     }
 
+    public function getStatus() {
+        return static::getStatusesAsChoices()[$this->status];
+    }
+
     public function user() {
-        return $this->belongsTo(Person::class, 'user_id');
+        return $this->belongsTo(Person::class, 'id');
     }
 }

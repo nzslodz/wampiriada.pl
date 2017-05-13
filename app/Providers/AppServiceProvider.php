@@ -7,6 +7,8 @@ use NZS\Core\Mailing\MailingManager;
 use Stevenmaguire\Services\Trello\Client as TrelloClient;
 use GuzzleHttp\Client;
 
+use Carbon\Carbon;
+
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -37,5 +39,7 @@ class AppServiceProvider extends ServiceProvider
 
             return $trello;
         });
+
+        Carbon::setLocale('pl');
     }
 }
