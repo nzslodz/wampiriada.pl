@@ -17,23 +17,23 @@ use NZS\Wampiriada\Redirects\AwareRedirectRepository;
 use NZS\Wampiriada\Mailing\WampiriadaThankYouMailingComposer;
 use NZS\Wampiriada\Editions\EditionRepository;
 use NZS\Wampiriada\Reminders\Reminder;
-use NZS\Wampiriada\Action;
+use NZS\Wampiriada\ActionDay;
 use NZS\Core\Mailing\ComposerSender;
 
 class WampiriadaReminderEmailJob extends Job implements ShouldQueue
 {
     use InteractsWithQueue, SerializesModels;
 
-    protected $user, $action, $composer_class;
+    protected $user, $action_day, $composer_class;
 
     /**
      * Create a new job instance.
      *
      * @return void
      */
-    public function __construct(Action $action, Person $user, $composer_class) {
+    public function __construct(ActionDay $action_day, Person $user, $composer_class) {
         $this->user = $user;
-        $this->action = $action;
+        $this->action_day = $action_day;
         $this->composer_class = $composer_class;
     }
 
@@ -45,7 +45,7 @@ class WampiriadaReminderEmailJob extends Job implements ShouldQueue
     public function handle(ComposerSender $sender) {
         $class_name = $this->composer_class;
 
-        $composer = new $class_name($this->action);
+        $composer = new $class_name($this->action_day);
 
         $sender->send($composer, $this->user);
     }

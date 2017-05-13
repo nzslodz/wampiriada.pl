@@ -4,6 +4,7 @@ use Illuminate\Database\Eloquent\Model as Model;
 use Carbon\Carbon;
 use NZS\Wampiriada\Checkins\Checkin;
 use NZS\Wampiriada\Reminders\Reminder;
+use NZS\Wampiriada\Editions\Edition;
 
 class Action extends Model {
     protected $dates = ['day'];

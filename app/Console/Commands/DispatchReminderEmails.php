@@ -5,7 +5,7 @@ namespace App\Console\Commands;
 use Illuminate\Console\Command;
 use Illuminate\Foundation\Inspiring;
 use NZS\Wampiriada\Editions\EditionRepository;
-use NZS\Wampiriada\Mailing\WampiriadaMailingComposer;
+use NZS\Wampiriada\Mailing\WampiriadaReminderMailingComposer;
 use NZS\Wampiriada\Checkins\Checkin;
 use NZS\Wampiriada\Reminders\Reminder;
 use NZS\Core\Mailing\MailingRepository;
@@ -43,7 +43,7 @@ class DispatchReminderEmails extends Command
     public function handle()
     {
 
-        $action = Action::where('day', '<', Carbon::now()->addDays(2))->get();
+        $actions = ActionDay::where('created_at', '<', Carbon::now()->addDays(2))->get();
 
         foreach($actions as $action) {
             $composer = new WampiriadaReminderMailingComposer($action);
@@ -51,11 +51,11 @@ class DispatchReminderEmails extends Command
             $reminders = Reminder::whereSent(false)->whereActionDayId($action->id)->get();
 
             foreach($reminders as $reminder) {
-                $composer->getJobInstance($reminder->user);
+                $job = $composer->getJobInstance($reminder->user);
 
-                $delay = Carbon::now()->addSeconds(rand(0, $this->hours * 3600));
+                //$delay = Carbon::now()->addSeconds(rand(0, $this->hours * 3600));
 
-                $job->delay($delay);
+                //$job->delay($delay);
 
                 dispatch($job);
 
