@@ -26,9 +26,9 @@ class WampiriadaReminderMailingComposer extends BaseMailingComposer {
 
     protected $subject = 'Wybrana przez Ciebie akcja Wampiriady już za dwa dni! Kilka porad, jak przygotować się do oddania krwi';
 
-    public function __construct(Reminder $reminder) {
-        $this->reminder = $reminder;
-        $this->edition = $this->reminder->action_day->edition;
+    public function __construct(Action $action) {
+        $this->action = $action;
+        $this->edition = $action->edition;
     }
 
     public function getViews() {
@@ -47,8 +47,10 @@ class WampiriadaReminderMailingComposer extends BaseMailingComposer {
 
         $redirect_repository = new AwareRedirectRepository($redirect_repository, $user, $this->getCampaignKey());
 
-        $action_day = $this->reminder->action_day;
-        $action = Action::whereId($action_day->id)->first();
+        $reminder = Reminder::whereActionDayId($this->action->id, $user->id)->first();
+
+        $action_day = ActionDay::find($action->id);
+        $action = $this->action;
 
         return [
             'user' => $user,
@@ -57,7 +59,7 @@ class WampiriadaReminderMailingComposer extends BaseMailingComposer {
             'edition_repository' => $edition_repository,
             'action_day' => $action_day,
             'action' => $action,
-            'reminder' => $this->reminder,
+            'reminder' => $reminder,
             'repository' => $redirect_repository,
         ];
     }
@@ -67,13 +69,11 @@ class WampiriadaReminderMailingComposer extends BaseMailingComposer {
     }
 
     public function getJobInstance(Person $user) {
-        return new WampiriadaReminderEmailJob($this->reminder, $user, get_class($this));
+        return new WampiriadaReminderEmailJob($this->action, $user, get_class($this));
     }
 
     public static function spawnSampleInstance() {
-        $sample_instance = new Reminder;
-        $sample_instance->action_day = ActionDay::first();
-        $sample_instance->user = Auth::user()->person;
+        $action = Action::sortBy('id', 'DESC')->first();
 
         return new static($sample_instance);
     }
