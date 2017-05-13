@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Mailingi &mdash; wampiriada-backend 0.9.1 - dokumentacja</title>
+  <title>Maile i ich wysyłanie &mdash; wampiriada-backend 0.9.1 - dokumentacja</title>
   
 
   
@@ -92,8 +92,8 @@
             
               <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Mailingi</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#tworzenie-mailingu">Tworzenie mailingu</a><ul>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Maile i ich wysyłanie</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#tworzenie-wysylalnego-e-maila">Tworzenie wysyłalnego e-maila</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#klasa-mailing-composer">1. Klasa Mailing Composer</a></li>
 </ul>
 </li>
@@ -144,7 +144,7 @@
     
       <li><a href="index.html">Docs</a> &raquo;</li>
         
-      <li>Mailingi</li>
+      <li>Maile i ich wysyłanie</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -163,44 +163,104 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="mailingi">
-<h1>Mailingi<a class="headerlink" href="#mailingi" title="Stały odnośnik do tego nagłówka">¶</a></h1>
-<p>Ta strona pokazuje, w jaki sposób stworzyć mailing w aplikacji.</p>
-<div class="section" id="tworzenie-mailingu">
-<h2>Tworzenie mailingu<a class="headerlink" href="#tworzenie-mailingu" title="Stały odnośnik do tego nagłówka">¶</a></h2>
-<p>Aby móc wysłać mailing, należy wykonać kilka czynności.</p>
+  <div class="section" id="maile-i-ich-wysylanie">
+<h1>Maile i ich wysyłanie<a class="headerlink" href="#maile-i-ich-wysylanie" title="Stały odnośnik do tego nagłówka">¶</a></h1>
+<p>Ta strona pokazuje, w jaki sposób stworzyć powiadomienia w aplikacji.</p>
+<div class="admonition note">
+<p class="first admonition-title">Informacja</p>
+<p class="last">Ta implementacja rozsyłania maili została stworzona zanim Laravel 5.3 wprowadził <a class="reference external" href="https://laravel.com/docs/5.4/notifications">Mail Notifications</a> , dlatego część tej implementacji pokrywa się z rozwiązaniami, które zostały wprowadzone w nowszych wydaniach Laravela. Na przyszłość, na tyle, na ile to możliwe, planowane jest połączenie obu tych rozwiązań, aby uczynić sekcję powiadomień prostszą w nauce i bardziej intuicyjną dla osób, które znają framework.</p>
+</div>
+<div class="section" id="tworzenie-wysylalnego-e-maila">
+<h2>Tworzenie wysyłalnego e-maila<a class="headerlink" href="#tworzenie-wysylalnego-e-maila" title="Stały odnośnik do tego nagłówka">¶</a></h2>
+<p>Aby móc skorzystać z rozsyłania e-maili, należy przygotować klasę Mailing Composera. Ta klasa odpowiada za przygotowywanie treści e-maila dla danej osoby.</p>
 <div class="section" id="klasa-mailing-composer">
 <h3>1. Klasa Mailing Composer<a class="headerlink" href="#klasa-mailing-composer" title="Stały odnośnik do tego nagłówka">¶</a></h3>
 <p>Composer jest bazową klasą dla mailingów. Poniżej znajduje się przykładowa klasa composera.</p>
-<div class="highlight-php"><div class="highlight"><pre><span></span><span class="k">use</span> <span class="nx">NZS\Core\Person</span><span class="p">;</span>
+<div class="highlight-php"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span> <span class="k">namespace</span> <span class="nx">NZS\Wampiriada\Mailing</span><span class="p">;</span>
 <span class="k">use</span> <span class="nx">NZS\Core\Mailing\BaseMailingComposer</span><span class="p">;</span>
+<span class="k">use</span> <span class="nx">NZS\Core\Mailing\MultipleViews</span><span class="p">;</span>
 
-<span class="k">class</span> <span class="nc">MyMailingComposer</span> <span class="k">extends</span> <span class="nx">BaseMailingComposer</span> <span class="p">{</span>
-    <span class="k">protected</span> <span class="nv">$campaign_key</span> <span class="o">=</span> <span class="s1">&#39;my-mailing&#39;</span><span class="p">;</span>
-    <span class="k">protected</span> <span class="nv">$campaign_name</span> <span class="o">=</span> <span class="s1">&#39;Mój mailing&#39;</span><span class="p">;</span>
-    <span class="k">protected</span> <span class="nv">$job_class</span> <span class="o">=</span> <span class="nx">MyEmailJob</span><span class="o">::</span><span class="na">class</span><span class="p">;</span>
+<span class="k">use</span> <span class="nx">NZS\Core\Person</span><span class="p">;</span>
 
-    <span class="k">public</span> <span class="k">function</span> <span class="nf">getSubject</span><span class="p">(</span><span class="nx">Person</span> <span class="nv">$user</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">return</span> <span class="s2">&quot;Tytuł e-maila&quot;</span><span class="p">;</span>
+<span class="k">use</span> <span class="nx">NZS\Wampiriada\Editions\EditionRepository</span><span class="p">;</span>
+<span class="k">use</span> <span class="nx">NZS\Wampiriada\Redirects\AwareRedirectRepository</span><span class="p">;</span>
+
+<span class="k">use</span> <span class="nx">NZS\Wampiriada\Mailing\WampiriadaReminderEmailJob</span><span class="p">;</span>
+
+<span class="k">use</span> <span class="nx">NZS\Wampiriada\Reminders\Reminder</span><span class="p">;</span>
+<span class="k">use</span> <span class="nx">NZS\Wampiriada\ActionDay</span><span class="p">;</span>
+<span class="k">use</span> <span class="nx">NZS\Wampiriada\Action</span><span class="p">;</span>
+
+
+<span class="k">use</span> <span class="nx">Auth</span><span class="p">;</span>
+
+<span class="k">class</span> <span class="nc">WampiriadaReminderMailingComposer</span> <span class="k">extends</span> <span class="nx">BaseMailingComposer</span> <span class="p">{</span>
+    <span class="k">use</span> <span class="nx">MultipleViews</span><span class="p">;</span>
+
+    <span class="k">protected</span> <span class="nv">$reminder</span><span class="p">;</span>
+    <span class="k">protected</span> <span class="nv">$edition</span><span class="p">;</span>
+
+    <span class="sd">/**</span>
+<span class="sd">     *  Used primarily to track campaigns.</span>
+<span class="sd">     */</span>
+    <span class="k">protected</span> <span class="nv">$campaign_name</span> <span class="o">=</span> <span class="s1">&#39;Przypomnienie o oddawaniu krwi wysyłane na 2 dni przed oddaniem&#39;</span><span class="p">;</span>
+
+    <span class="k">protected</span> <span class="nv">$subject</span> <span class="o">=</span> <span class="s1">&#39;Wybrana przez Ciebie akcja Wampiriady już za dwa dni! Kilka porad, jak przygotować się do oddania krwi&#39;</span><span class="p">;</span>
+
+    <span class="k">public</span> <span class="k">function</span> <span class="fm">__construct</span><span class="p">(</span><span class="nx">Reminder</span> <span class="nv">$reminder</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">reminder</span> <span class="o">=</span> <span class="nv">$reminder</span><span class="p">;</span>
+        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">edition</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">reminder</span><span class="o">-&gt;</span><span class="na">action_day</span><span class="o">-&gt;</span><span class="na">edition</span><span class="p">;</span>
     <span class="p">}</span>
 
-    <span class="k">public</span> <span class="k">function</span> <span class="nf">getView</span><span class="p">()</span> <span class="p">{</span>
-        <span class="k">return</span> <span class="s1">&#39;emails.moj-mailing&#39;</span><span class="p">;</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">getViews</span><span class="p">()</span> <span class="p">{</span>
+        <span class="nv">$view_prefix</span> <span class="o">=</span> <span class="s1">&#39;emails.wampiriada.reminder&#39;</span><span class="p">;</span>
+
+        <span class="k">return</span> <span class="p">[</span>
+            <span class="s2">&quot;</span><span class="si">{</span><span class="nv">$view_prefix</span><span class="si">}</span><span class="s2">.</span><span class="si">{</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">edition</span><span class="o">-&gt;</span><span class="na">number</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;</span><span class="si">{</span><span class="nv">$view_prefix</span><span class="si">}</span><span class="s2">.default&quot;</span><span class="p">,</span>
+            <span class="nv">$view_prefix</span><span class="p">,</span>
+        <span class="p">];</span>
     <span class="p">}</span>
 
     <span class="k">public</span> <span class="k">function</span> <span class="nf">getContext</span><span class="p">(</span><span class="nx">Person</span> <span class="nv">$user</span><span class="p">)</span> <span class="p">{</span>
-        <span class="nv">$repository</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">SomethingRedirectRepository</span><span class="p">();</span>
+        <span class="nv">$edition_repository</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">EditionRepository</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">edition</span><span class="p">);</span>
+        <span class="nv">$redirect_repository</span> <span class="o">=</span> <span class="nv">$edition_repository</span><span class="o">-&gt;</span><span class="na">getRedirectRepository</span><span class="p">();</span>
+
+        <span class="nv">$redirect_repository</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">AwareRedirectRepository</span><span class="p">(</span><span class="nv">$redirect_repository</span><span class="p">,</span> <span class="nv">$user</span><span class="p">,</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">getCampaignKey</span><span class="p">());</span>
+
+        <span class="nv">$action_day</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">reminder</span><span class="o">-&gt;</span><span class="na">action_day</span><span class="p">;</span>
+        <span class="nv">$action</span> <span class="o">=</span> <span class="nx">Action</span><span class="o">::</span><span class="na">whereId</span><span class="p">(</span><span class="nv">$action_day</span><span class="o">-&gt;</span><span class="na">id</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">first</span><span class="p">();</span>
 
         <span class="k">return</span> <span class="p">[</span>
             <span class="s1">&#39;user&#39;</span> <span class="o">=&gt;</span> <span class="nv">$user</span><span class="p">,</span>
             <span class="s1">&#39;composer&#39;</span> <span class="o">=&gt;</span> <span class="nv">$this</span><span class="p">,</span>
-            <span class="s1">&#39;repository&#39;</span> <span class="o">=&gt;</span> <span class="nv">$repository</span><span class="p">,</span>
+            <span class="s1">&#39;edition&#39;</span> <span class="o">=&gt;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">edition</span><span class="p">,</span>
+            <span class="s1">&#39;edition_repository&#39;</span> <span class="o">=&gt;</span> <span class="nv">$edition_repository</span><span class="p">,</span>
+            <span class="s1">&#39;action_day&#39;</span> <span class="o">=&gt;</span> <span class="nv">$action_day</span><span class="p">,</span>
+            <span class="s1">&#39;action&#39;</span> <span class="o">=&gt;</span> <span class="nv">$action</span><span class="p">,</span>
+            <span class="s1">&#39;reminder&#39;</span> <span class="o">=&gt;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">reminder</span><span class="p">,</span>
+            <span class="s1">&#39;repository&#39;</span> <span class="o">=&gt;</span> <span class="nv">$redirect_repository</span><span class="p">,</span>
         <span class="p">];</span>
+    <span class="p">}</span>
+
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">getCampaignKey</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nb">sprintf</span><span class="p">(</span><span class="s1">&#39;w%d:%s&#39;</span><span class="p">,</span> <span class="p">(</span><span class="nx">int</span><span class="p">)</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">edition</span><span class="o">-&gt;</span><span class="na">number</span><span class="p">,</span> <span class="s1">&#39;reminder&#39;</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">getJobInstance</span><span class="p">(</span><span class="nx">Person</span> <span class="nv">$user</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="nx">WampiriadaReminderEmailJob</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">reminder</span><span class="p">,</span> <span class="nv">$user</span><span class="p">,</span> <span class="nb">get_class</span><span class="p">(</span><span class="nv">$this</span><span class="p">));</span>
+    <span class="p">}</span>
+
+    <span class="k">public</span> <span class="k">static</span> <span class="k">function</span> <span class="nf">spawnSampleInstance</span><span class="p">()</span> <span class="p">{</span>
+        <span class="nv">$sample_instance</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Reminder</span><span class="p">;</span>
+        <span class="nv">$sample_instance</span><span class="o">-&gt;</span><span class="na">action_day</span> <span class="o">=</span> <span class="nx">ActionDay</span><span class="o">::</span><span class="na">first</span><span class="p">();</span>
+        <span class="nv">$sample_instance</span><span class="o">-&gt;</span><span class="na">user</span> <span class="o">=</span> <span class="nx">Auth</span><span class="o">::</span><span class="na">user</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">person</span><span class="p">;</span>
+
+        <span class="k">return</span> <span class="k">new</span> <span class="k">static</span><span class="p">(</span><span class="nv">$sample_instance</span><span class="p">);</span>
     <span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>Każda z</p>
 </div>
 </div>
 </div>

@@ -18,6 +18,7 @@ class Kernel extends ConsoleKernel
          Commands\DispatchWampiriadaMailing::class,
          Commands\RemoveOldActivities::class,
          Commands\TryToDetermineGender::class,
+         Commands\DispatchReminderEmails::class,
     ];
 
     /**
@@ -28,7 +29,7 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')
-        //          ->hourly();
+        $schedule->command(Commands\DispatchReminderEmails::class)
+            ->dailyAt('17:00');
     }
 }
