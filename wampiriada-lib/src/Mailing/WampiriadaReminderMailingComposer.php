@@ -24,7 +24,7 @@ class WampiriadaReminderMailingComposer extends BaseMailingComposer {
 
     protected $campaign_name = 'Przypomnienie o oddawaniu krwi wysyłane na 2 dni przed oddaniem';
 
-    protected $subject = 'Wybrana przez Ciebie akcja Wampiriady już za dwa dni! Kilka porad, jak przygotować się do oddania krwi';
+    protected $subject = 'Wybrana przez Ciebie akcja Wampiriady już niebawem! Kilka porad, jak przygotować się do oddania krwi';
 
     public function __construct(ActionDay $action_day) {
         $this->action_day = $action_day;
@@ -51,6 +51,22 @@ class WampiriadaReminderMailingComposer extends BaseMailingComposer {
 
         $action = Action::find($this->action_day->id);
 
+        try {
+            $actions = $edition_repository->getFutureActions();
+        } catch(ObjectDoesNotExist $e) {
+            $actions = collect();
+        }
+
+        $school_mapping = array(
+            'UŁ' => '#c2812c',
+            'PŁ' => '#b72b2a',
+            'UMed' => '#71953d',
+        );
+
+        $color = function($short_name) use($school_mapping) {
+            return isset($school_mapping[$short_name])? $school_mapping[$short_name]: "#c14d8f";
+        };
+
         return [
             'user' => $user,
             'composer' => $this,
@@ -58,8 +74,10 @@ class WampiriadaReminderMailingComposer extends BaseMailingComposer {
             'edition_repository' => $edition_repository,
             'action_day' => $this->action_day,
             'action' => $action,
+            'actions' => $actions,
             'reminder' => $reminder,
             'repository' => $redirect_repository,
+            'color' => $color,
         ];
     }
 
@@ -72,7 +90,7 @@ class WampiriadaReminderMailingComposer extends BaseMailingComposer {
     }
 
     public static function spawnSampleInstance() {
-        $action_day = ActionDay::sortBy('id', 'DESC')->first();
+        $action_day = ActionDay::orderBy('id', 'DESC')->first();
 
         return new static($action_day);
     }

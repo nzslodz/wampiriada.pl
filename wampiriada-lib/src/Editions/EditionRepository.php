@@ -8,6 +8,7 @@ use NZS\Wampiriada\Redirects\WampiriadaRedirectRepository;
 use NZS\Wampiriada\OverallResult;
 use NZS\Wampiriada\Action;
 use NZS\Wampiriada\Option;
+use Carbon\Carbon;
 
 class EditionRepository {
     protected
@@ -15,6 +16,7 @@ class EditionRepository {
         $edition = null,
         $result,
         $actions,
+        $future_actions,
         $redirects = array();
 
     public function __construct($edition=null) {
@@ -79,6 +81,24 @@ class EditionRepository {
         }
 
         return $this->actions;
+    }
+
+    public function getFutureActions() {
+        if($this->future_actions) {
+            return $this->actions;
+        }
+
+        $this->future_actions = Action::where('number', $this->getEditionNumber())
+            ->whereHidden(false)
+            ->where('day', '>', Carbon::now())
+            ->orderBy('day')
+            ->get();
+
+        if($this->future_actions->isEmpty()) {
+            throw new ObjectDoesNotExist("There are no actions defined for edition {$this->getEditionNumber()}.");
+        }
+
+        return $this->future_actions;
     }
 
     public function getGalleryActions() {
