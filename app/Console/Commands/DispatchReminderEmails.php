@@ -55,9 +55,9 @@ class DispatchReminderEmails extends Command
             foreach($reminders as $reminder) {
                 $job = $composer->getJobInstance($reminder->user);
 
-                //$delay = Carbon::now()->addSeconds(rand(0, $this->hours * 3600));
+                $delay = Carbon::now()->addSeconds(rand(0, $this->hours * 3600));
 
-                //$job->delay($delay);
+                $job->delay($delay);
 
                 dispatch($job);
 
