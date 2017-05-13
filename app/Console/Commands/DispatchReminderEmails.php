@@ -58,6 +58,9 @@ class DispatchReminderEmails extends Command
                 $job->delay($delay);
 
                 dispatch($job);
+
+                $reminder->sent = true;
+                $reminder->save();
             }
         }
     }
