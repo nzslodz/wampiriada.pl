@@ -49,7 +49,7 @@
             <div class="form-group {{ $errors->has('member_since') ? 'has-error' : '' }}">
                 {{ Form::label('member_since', 'Członek od', ['class' => 'control-label col-sm-2']) }}
                 <div class="col-sm-6">
-                    {{ Form::text('member_since', $member->member_since->format('Y-m-d'), ['class' => 'form-control datepicker']) }}
+                    {{ Form::text('member_since', $member->member_since ? $member->member_since->format('Y-m-d') : null, ['class' => 'form-control datepicker']) }}
                 </div>
                 <div class="col-sm-4">
                     {{ $errors->first('member_since') }}
@@ -59,7 +59,7 @@
             <div class="form-group {{ $errors->has('member_to') ? 'has-error' : '' }}">
                 {{ Form::label('member_since', 'Członek do', ['class' => 'control-label col-sm-2']) }}
                 <div class="col-sm-6">
-                    {{ Form::text('member_to', $member->member_to, ['class' => 'form-control datepicker']) }}
+                    {{ Form::text('member_to', $member->member_to ? $member->member_to->format('Y-m-d') : null, ['class' => 'form-control datepicker']) }}
                 </div>
                 <div class="col-sm-4">
                     {{ $errors->first('member_to') }}
