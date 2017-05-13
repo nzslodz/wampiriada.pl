@@ -55,6 +55,16 @@
                     </div>
                 </div>
 
+                <div class="form-group {{ $errors->has('person.gender') ? 'has-error' : '' }}">
+                    {{ Form::label('person[gender]', 'Płeć', ['class' => 'control-label col-sm-2']) }}
+                    <div class="col-sm-6">
+                        {{ Form::select('person[gender]', ['male' => 'Mężczyzna', 'female' => 'Kobieta'], '', ['class' => 'form-control']) }}
+                    </div>
+                    <div class="col-sm-4">
+                        {{ $errors->first('person.gender') }}
+                    </div>
+                </div>
+
                 <div class="form-group {{ $errors->has('person.email') ? 'has-error' : '' }}">
                     {{ Form::label('person[email]', 'E-mail', ['class' => 'control-label col-sm-2']) }}
                     <div class="col-sm-6">
@@ -118,7 +128,7 @@
                         {{ $errors->first('member_to') }}
                     </div>
                 </div>
-            </formset>
+            </fieldset>
 
             <div class="form-group">
                 <div class="col-sm-offset-2 col-sm-6">
@@ -128,6 +138,7 @@
                 </div>
             </div>
         {{ Form::close() }}
+
     </div>
 
 @stop

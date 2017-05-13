@@ -59,6 +59,14 @@ class HRController extends Controller {
 		]);
 	}
 
+	public function getUpdateMember($id) {
+		$member = Member::findOrFail($id);
+
+		return view('admin.hr.members.edit', [
+			'member' => $member,
+		]);
+	}
+
 	public function getCreateMember() {
 		return view('admin.hr.members.create');
 	}
@@ -102,7 +110,12 @@ class HRController extends Controller {
 
 		$member->save();
 
-		return redirect('/admin/hr/members/' . $member->id);
+		$member = Member::findOrFail($person->id);
+
+		return $this->getStoryboard()
+			->response($request, $member)
+			->with('status', 'success')
+			->with('message', 'Utworzono nową osobę');
 	}
 
 	public function postUpdateMember(MemberRequest $request, $id) {
@@ -116,7 +129,10 @@ class HRController extends Controller {
 
 		$member->save();
 
-		return redirect('/admin/hr/members/' . $member->id);
+		return $this->getStoryboard()
+			->response($request, $member)
+			->with('status', 'success')
+			->with('message', 'Zapisano dane osoby');
 	}
 
 	public function getDeleteMember($id) {
