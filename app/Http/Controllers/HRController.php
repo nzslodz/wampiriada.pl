@@ -74,9 +74,12 @@ class HRController extends Controller {
 	public function getPersonAutocomplete(Request $request) {
 		$input = $request->input('q');
 
-		$people = Person::where('first_name', 'LIKE', "$input%")
-			->orWhere('last_name', 'LIKE', "$input%")
-			->orWhere('email', 'LIKE', "$input%")
+		$people = Person::doesntHave('member')
+			->where(function($query) use($input) {
+				$query->where('first_name', 'LIKE', "$input%")
+				->orWhere('last_name', 'LIKE', "$input%")
+				->orWhere('email', 'LIKE', "$input%");
+			})
 			->limit(10)
 			->offset($request->input('page', 0) * 10)
 			->get()

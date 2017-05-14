@@ -79,4 +79,20 @@ class HREventController extends Controller {
 			->with('status', 'success')
 			->with('message', 'Zapisano wydarzenie');
 	}
+
+	public function getAttendances($id) {
+		$event = Event::findOrFail($id);
+		$members = Member::whereIsMember(true)->get();
+
+		return view('admin.hr.events.attendances', [
+			'members' => $members,
+			'event' => $event,
+		]);
+	}
+
+	public function postAttendances($id) {
+		$event = Event::findOrFail($id);
+
+		return redirect()->route('admin-hr-events-show', ['id' => $id]);
+	}
 }

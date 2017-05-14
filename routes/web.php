@@ -130,9 +130,12 @@ Route::group(['prefix' => 'admin'], function() {
                 Route::get('/', ['as' => 'admin-hr-events-list', 'uses' => 'HREventController@getIndex']);
                 Route::get('create', ['as' => 'admin-hr-events-create', 'uses' => 'HREventController@getUpdate']);
                 Route::get('{id}/edit', ['as' => 'admin-hr-events-edit', 'uses' => 'HREventController@getUpdate']);
+                Route::get('{id}', ['as' => 'admin-hr-events-show', 'uses' => 'HREventController@getAttendances']);
+
 
                 Route::post('create', 'HREventController@postUpdate');
                 Route::post('{id}/edit', 'HREventController@postUpdate');
+                Route::post('{id}','HREventController@postAttendances');
             });
         });
 

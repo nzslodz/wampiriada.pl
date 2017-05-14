@@ -6,6 +6,7 @@ use Storage;
 use GuzzleHttp\Client;
 use Facebook\GraphNodes\GraphUser;
 use NZS\Core\ApplicationUser;
+use NZS\Core\HR\Member;
 
 use Illuminate\Notifications\Notifiable;
 
@@ -39,6 +40,10 @@ class Person extends Model {
 
     public function application_user() {
         return $this->hasOne(ApplicationUser::class, 'id');
+    }
+
+    public function member() {
+        return $this->hasOne(Member::class, 'id');
     }
 
     public function updateGender($something=null) {

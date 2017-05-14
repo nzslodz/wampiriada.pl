@@ -27,7 +27,7 @@
         <tbody class="table-middle">
             @forelse($events as $event)
                 <tr>
-                    <th><a href="{{ url('admin/hr/events/' . $event->id . '/edit' ) }}">{{ $event->name }}</a></th>
+                    <th><a href="{{ url('admin/hr/events/' . $event->id ) }}">{{ $event->name }}</a></th>
                     <td>{{ $event->happened_at->format('Y-m-d') }}</td>
                     <td>
                         {{ $event->present()->isPublicIcon() }}
