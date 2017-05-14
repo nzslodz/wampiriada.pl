@@ -147,5 +147,9 @@ class HRController extends Controller {
 		$member = Member::findOrFail($id);
 
 		$member->delete();
+
+		return redirect()->route('admin-hr-members-list')
+			->with('status', 'success')
+			->with('message', 'Pomyślnie usunięto osobę');
 	}
 }

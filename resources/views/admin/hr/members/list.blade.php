@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
 @section('title')
-    Lista typów nagród
+    Lista NZSiaków
 @stop
 
 @section('content')

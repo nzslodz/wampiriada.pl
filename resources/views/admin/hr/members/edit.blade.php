@@ -80,38 +80,14 @@
 @stop
 
 @section('extrahead')
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
 @stop
 
 @section('script')
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
       <script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
        <script type="text/javascript">
             $(function() {
-
                 $('.datepicker').datepicker({ dateFormat: 'yy-mm-dd' });
-
-                $('.selector').select2({
-                    placeholder: "Wpisz e-mail lub imię/nazwisko...",
-                    minimumInputLength: 2,
-                    ajax: {
-                        url: '{{ url('admin/hr/autocomplete') }}',
-                        dataType: 'json',
-                        data: function (params) {
-                            return {
-                                q: $.trim(params.term.toLowerCase()),
-                                page: params.page,
-                            };
-                        },
-                        processResults: function (data) {
-                            return {
-                                results: data
-                            };
-                        },
-                        cache: true
-                    }
-               });
-           })
+            })
        </script>
 @stop
