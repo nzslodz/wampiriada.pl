@@ -19,6 +19,7 @@ use Illuminate\Http\Request;
 use Mail;
 use App\Http\Requests\EventRequest;
 use NZS\Core\HR\Member;
+use NZS\Core\HR\AttendanceAggregator;
 use NZS\Core\HR\Event;
 
 use NZS\Core\Storyboards\DjangoAdminStyleStoryboard;
@@ -83,15 +84,23 @@ class HREventController extends Controller {
 	public function getAttendances($id) {
 		$event = Event::findOrFail($id);
 		$members = Member::whereIsMember(true)->get();
+		$aggregator = new AttendanceAggregator($event);
 
 		return view('admin.hr.events.attendances', [
 			'members' => $members,
 			'event' => $event,
+			'attendance_aggregator' => $aggregator,
 		]);
 	}
 
-	public function postAttendances($id) {
+	public function postAttendances(Request $request, $id) {
 		$event = Event::findOrFail($id);
+
+		$attendees = collect($request->input('attendees'))->filter(function($attendee) {
+			return isset($attendee['active']) && $attendee['active'];
+		});
+
+		$event->attendees()->sync($attendees);
 
 		return redirect()->route('admin-hr-events-show', ['id' => $id]);
 	}
