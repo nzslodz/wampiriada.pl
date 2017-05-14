@@ -25,6 +25,10 @@ class FontAwesomeIcon implements Htmlable {
         return $this->withClass('text-danger');
     }
 
+    public function normal() {
+        return $this->withClass('text-default');
+    }
+
     public function success() {
         return $this->withClass('text-success');
     }

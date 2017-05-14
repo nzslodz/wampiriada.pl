@@ -125,6 +125,15 @@ Route::group(['prefix' => 'admin'], function() {
                 Route::post('{id}/edit', 'HRController@postUpdateMember');
                 Route::post('{id}/delete', 'HRController@postDeleteMember');
             });
+
+            Route::group(['prefix' => 'events'], function() {
+                Route::get('/', ['as' => 'admin-hr-events-list', 'uses' => 'HREventController@getIndex']);
+                Route::get('create', ['as' => 'admin-hr-events-create', 'uses' => 'HREventController@getUpdate']);
+                Route::get('{id}/edit', ['as' => 'admin-hr-events-edit', 'uses' => 'HREventController@getUpdate']);
+
+                Route::post('create', 'HREventController@postUpdate');
+                Route::post('{id}/edit', 'HREventController@postUpdate');
+            });
         });
 
 
