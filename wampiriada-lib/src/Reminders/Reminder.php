@@ -15,6 +15,8 @@ class Reminder extends Model {
 
     protected $fillable = ['action_day_id', 'user_id'];
 
+    protected $_checkin = false;
+
     public function action() {
         return $this->belongsTo(Action::class, 'action_day_id');
     }
@@ -31,7 +33,27 @@ class Reminder extends Model {
         return $this->belongsTo(Person::class, 'user_id');
     }
 
-    public function hasCheckin($checkins=null) {
-        return Checkin::whereUserId($this->user_id)->whereActionDayId($this->action_day_id)->exists();
+    public function getCheckin() {
+        if($this->_checkin !== false) {
+            return $this->_checkin;
+        }
+
+        $this->_checkin = Checkin::whereUserId($this->user_id)->whereEditionId($this->action_day->edition_id)->first();
+
+        return $this->_checkin;
+    }
+
+    public function hasCheckin() {
+        $checkin = $this->getCheckin();
+
+        if(!$checkin) {
+            return false;
+        }
+
+        return $checkin->action_day_id == $this->action_day_id;
+    }
+
+    public function hasAnyCheckin() {
+        return (bool)$this->getCheckin();
     }
 }

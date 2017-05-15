@@ -109,7 +109,7 @@
                         </th>
                     </tr>
                     @foreach($action->reminders as $reminder)
-                    <tr class="@if($reminder->hasCheckin()) success @elseif($action->inPast()) danger @endif">
+                    <tr class="@if($reminder->hasCheckin()) success @elseif($reminder->hasAnyCheckin()) warning @elseif($action->inPast()) danger @endif">
                         <td>{{ $iterator += 1 }} / {{ $loop->iteration }}</td>
                         <th>
                             <a data-card="{{ $reminder->user_id }}" href="{{ url('admin/activity/profile/' . $reminder->user_id )}}">
