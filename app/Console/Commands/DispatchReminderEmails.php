@@ -53,6 +53,10 @@ class DispatchReminderEmails extends Command
             $reminders = Reminder::whereSent(false)->whereActionDayId($action->id)->get();
 
             foreach($reminders as $reminder) {
+                if($reminder->hasAnyCheckin()) {
+                    continue;
+                }
+                
                 $job = $composer->getJobInstance($reminder->user);
 
                 $delay = Carbon::now()->addSeconds(rand(0, $this->hours * 3600));
