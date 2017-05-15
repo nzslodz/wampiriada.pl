@@ -21,6 +21,7 @@ use App\Http\Requests\EventRequest;
 use NZS\Core\HR\Member;
 use NZS\Core\HR\AttendanceAggregator;
 use NZS\Core\HR\Event;
+use NZS\Core\HR\Attendance;
 
 use NZS\Core\Storyboards\DjangoAdminStyleStoryboard;
 
@@ -28,6 +29,7 @@ use NZS\Core\Person;
 
 use Stevenmaguire\Services\Trello\Client as TrelloClient;
 use NZS\Core\TrelloRepository;
+
 
 /* XXX: should use datetimepicker instead of datepicker for happened_at field */
 
@@ -96,11 +98,43 @@ class HREventController extends Controller {
 	public function postAttendances(Request $request, $id) {
 		$event = Event::findOrFail($id);
 
-		$attendees = collect($request->input('attendees'))->filter(function($attendee) {
-			return isset($attendee['active']) && $attendee['active'];
-		});
+		$attendees = collect($request->input('attendees'))->only($request->input('active_members'));
 
-		$event->attendees()->sync($attendees);
+		$existing_attendance_ids = Attendance::whereEventId($event->id)->get()->pluck('id')->flip();
+
+		foreach($attendees as $user_id => $attendee_info) {
+			$attendance = Attendance::whereEventId($id)->whereUserId($user_id)->first();
+
+			if(!$attendance) {
+				$attendance = new Attendance;
+				$attendance->user_id = $user_id;
+				$attendance->event_id = $event->id;
+			}
+
+			if(isset($attendee_info['attended_to']) && !$attendee_info['attended_to']) {
+				$attendee_info['attended_to'] = null;
+			}
+
+			if(isset($attendee_info['attended_since']) && !$attendee_info['attended_since']) {
+				$attendee_info['attended_since'] = null;
+			}
+
+			$attendance->fill($attendee_info);
+
+			$attendance->save();
+
+			$existing_attendance_ids->forget($attendance->id);
+		}
+
+		foreach($existing_attendance_ids->keys() as $attendance_id) {
+			$attendance = Attendance::find($attendance_id);
+
+			if(!$attendance) {
+				continue;
+			}
+
+			$attendance->delete();
+		}
 
 		return redirect()->route('admin-hr-events-show', ['id' => $id]);
 	}

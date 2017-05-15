@@ -22,7 +22,7 @@ abstract class ModelActivityClass extends ActivityClass {
             $object->{$this->activity_field} = $activity->id;
         });
 
-        $model_class::deleting(function($object) {
+        $model_class::deleted(function($object) {
             Activity::whereId($object->{$this->activity_field})->delete();
         });
     }

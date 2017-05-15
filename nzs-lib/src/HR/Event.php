@@ -21,7 +21,7 @@ class Event extends Model {
 
     protected $presenter = EventPresenter::class;
 
-    public function attendees() {
-        return $this->hasManyThrough(Person::class, Attendance::class, 'event_id', 'user_id');
+    public function attendances() {
+        return $this->hasMany(Attendance::class);
     }
 }

@@ -4,38 +4,36 @@ use NZS\Core\HR\Member;
 
 class AttendanceAggregator {
     protected $event;
+    protected $_members;
+    protected $_attendances;
 
     public function __construct(Event $event) {
         $this->event = $event;
-    }
 
-    public function getAttendees() {
-        return $event->attendees;
-    }
+        $this->_members = Member::whereIsMember(true)->get()->mapWithKeys(function($member) {
+            return [$member->id => $member];
+        });
 
-    public function getMembers() {
-        if($this->_members) {
-            return $this->_members;
-        }
-
-        $this->_members = Member::whereIsMember(true)->get();
-
-        return $this->_members;
-    }
-
-    public function getMemberAttendees() {
-        $member_ids = $this->getMembers()->pluck('id');
-
-        return $this->attendees->filter(function($value) use($member_ids) {
-            return $member_ids->contains($value->id);
+        $this->_attendances = $event->attendances->mapWithKeys(function($attendance) {
+            return [$attendance->user_id => $attendance];
         });
     }
 
-    public function getOtherAttendees() {
-        $member_ids = $this->getMembers()->pluck('id');
+    public function getActiveMembers() {
+        return $this->_members->transform(function($member, $key) {
+            return new AttendanceProxy($this->_attendances->get($key), $member);
+        });
+    }
 
-        return $this->attendees->filter(function($value) use($member_ids) {
-            return !$member_ids->contains($value->id);
+    public function getAttendedIds() {
+        return $this->_attendances->keys()->all();
+    }
+
+    public function getOtherAttendees() {
+        return $this->_attendances->filter(function($attendance, $key) {
+            return !$this->_members->has($key);
+        })->transform(function($attendance, $key) {
+            return new AttendanceProxy($attendance);
         });
     }
 }

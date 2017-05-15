@@ -13,6 +13,8 @@ class Attendance extends Model {
 
     protected $dates = ['created_at', 'updated_at', 'attended_since', 'attended_to'];
 
+    protected $fillable = ['attended_to', 'attended_since', 'additional_notes', 'role'];
+
     public function user() {
         return $this->belongsTo(Person::class, 'user_id');
     }
