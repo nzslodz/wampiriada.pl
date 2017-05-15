@@ -4,6 +4,7 @@ use Illuminate\Database\Eloquent\Model as Model;
 
 use Carbon\Carbon;
 use NZS\Wampiriada\ActionDay;
+use NZS\Wampiriada\Checkins\Checkin;
 use NZS\Core\Person;
 use NZS\Core\Activity;
 
@@ -28,5 +29,9 @@ class Reminder extends Model {
 
     public function user() {
         return $this->belongsTo(Person::class, 'user_id');
+    }
+
+    public function hasCheckin($checkins=null) {
+        return Checkin::whereUserId($this->user_id)->whereActionDayId($this->action_day_id)->exists();
     }
 }

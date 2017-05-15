@@ -97,17 +97,19 @@
                 <td>L.p.</td>
                 <th>Osoba</th>
                 <td>Dodano</td>
+                <td>Flagi</td>
             </tr>
         </thead>
         <tbody>
             @forelse($reminder_actions as $action)
                 @if($action->reminders()->count() > 0)
                     <tr class="info">
-                        <th colspan="3" class="text-center">
+                        <th colspan="4" class="text-center">
                             {{ $action->short_description }}
                         </th>
                     </tr>
                     @foreach($action->reminders as $reminder)
+                    <tr class="@if($reminder->hasCheckin()) success @elseif($action->inPast()) danger @endif">
                         <td>{{ $iterator += 1 }} / {{ $loop->iteration }}</td>
                         <th>
                             <a data-card="{{ $reminder->user_id }}" href="{{ url('admin/activity/profile/' . $reminder->user_id )}}">
@@ -117,13 +119,18 @@
                         <td>
                             {{ $reminder->created_at }}
                         </td>
+                        <td class="text-center">
+                            @if($reminder->sent)
+                                <i class="fa fa-envelope" title="Wiadomość e-mailowa wysłana"></i>
+                            @endif
+                        </td>
                     </tr>
                     @endforeach
                 @endif
             @empty
                 <tr class="no-results">
-                    <td colspan="3">
-                        Ta edycja nie posiada jeszcze żadnych akcji.
+                    <td colspan="4">
+                        Ta edycja nie posiada jeszcze żadnych przypomnień.
                     </td>
                 </tr>
             @endforelse
