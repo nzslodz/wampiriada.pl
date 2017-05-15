@@ -38,4 +38,12 @@ class Action extends Model {
     public function reminders() {
         return $this->hasMany(Reminder::class, 'action_day_id');
     }
+
+    public function inFuture() {
+        return $this->day > Carbon::today();
+    }
+
+    public function inPast() {
+        return $this->day < Carbon::today();
+    }
 }
