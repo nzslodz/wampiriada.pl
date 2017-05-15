@@ -32,11 +32,6 @@
                     <td>{{ $user->pivot->role }}</td>
                     <td>{{ $user->pivot->attended_since }}</td>
                     <td>{{ $user->pivot->attended_to }}</td>
-                    <td>
-                        <a class="btn btn-default btn-sm" href="{{ url('admin/hr/events/' . $user->pivot->id . '/edit' )}}">
-                            <i class="fa fa-edit"></i> Edytuj</i>
-                        </a>
-                    </td>
                 </tr>
             @empty
             <tr class="no-results">
