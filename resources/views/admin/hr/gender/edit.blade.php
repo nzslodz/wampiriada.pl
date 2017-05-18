@@ -8,7 +8,7 @@
 @section('content')
     <div class="page-header">
         <h1>
-            Określ płeć dla {{ $person->getFullName() }}
+            Określ płeć dla {{ $person->getFullName() }} &lt;{{ $person->email }}&gt;
         </h1>
     </div>
 
