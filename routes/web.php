@@ -137,6 +137,13 @@ Route::group(['prefix' => 'admin'], function() {
                 Route::post('{id}/edit', 'HREventController@postUpdate');
                 Route::post('{id}','HREventController@postAttendances');
             });
+
+            Route::group(['prefix' => 'gender'], function() {
+                Route::get('/', ['as' => 'admin-hr-gender-index', 'uses' => 'HRGenderController@getIndex']);
+                Route::get('{id}/edit', ['as' => 'admin-hr-gender-edit', 'uses' => 'HRGenderController@getGender']);
+
+                Route::post('{id}/edit', 'HRGenderController@postGender');
+            });
         });
 
 
