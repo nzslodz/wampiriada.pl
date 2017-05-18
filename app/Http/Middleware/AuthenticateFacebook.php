@@ -18,7 +18,7 @@ class AuthenticateFacebook
      */
     public function handle($request, Closure $next, $guard = null)
     {
-        if (!Session::get('fb_user_access_token')) {
+        if (!$request->session()->get('checkin_user_id')) {
             if ($request->ajax() || $request->wantsJson()) {
                 return response('Unauthorized.', 401);
             } else {
