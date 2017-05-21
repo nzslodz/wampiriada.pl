@@ -131,6 +131,7 @@ class FacebookController extends Controller {
         $facebook_user = $response->getGraphUser();
 
         $user = Person::createOrUpdateGraphNode($facebook_user);
+        $user->updateGender($facebook_user);
         $user->save();
 
         Session::put('checkin_user_id', $user->id);
@@ -318,7 +319,7 @@ class FacebookController extends Controller {
         });
 
         $composer = new WampiriadaThankYouMailingComposer($edition);
-        // 2017-05-01 We'll send these e-mails after the action had started 
+        // 2017-05-01 We'll send these e-mails after the action had started
         //dispatch($composer->getJobInstance($user)->delay(Carbon::now()->addHours(2)));
         dispatch(new RegenerateTileImage());
 
