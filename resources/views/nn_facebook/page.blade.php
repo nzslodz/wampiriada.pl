@@ -31,13 +31,7 @@
         <div class="col-xs-12 text-center">
             <h2>Kolaboruj z Wampirem</h2>
 			@if($login_url)
-	            <p><a href="{{ $login_url }}">
-					@if($loggable_user)
-						Kontynuuj jako {{ $loggable_user->first_name }}
-					@else
-						Zaloguj się z Facebookiem, aby kontynuować
-					@endif
-				</a></p>
+	            <p><a href="{{ $login_url }}">Zaloguj się z Facebookiem, aby kontynuować</a></p>
 			@endif
         </div>
     </div>
@@ -79,7 +73,7 @@
 						setTimeout(f, 1000 * timeinterval);
 					} else if(data.url) {
 						$('#image-container').html(
-							'<img src=' + data.url + '>'
+							'<img src="' + data.url + '?t=' + data.t + '">'
 						)
 					}
 				})

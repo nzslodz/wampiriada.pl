@@ -8,7 +8,15 @@ use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use NZS\Core\Person;
+use NZS\Core\Contracts\FBProfileDownloaderSchema;
+use NZS\Core\Facebook\NewspaperProfileDownloaderSchema;
 use Storage;
+
+use Symfony\Component\Process\Process;
+use Symfony\Component\Process\Exception\ProcessFailedException;
+use Symfony\Component\Process\ProcessBuilder;
+
+use NZS\Core\PersonNewspaper;
 
 class DownloadFacebookProfileThenMakeGraphics extends Job implements ShouldQueue
 {
@@ -30,13 +38,59 @@ class DownloadFacebookProfileThenMakeGraphics extends Job implements ShouldQueue
      *
      * @return void
      */
-    public function handle() {
-        $job = new DownloadFacebookProfile($this->user);
+    public function handle(NewspaperProfileDownloaderSchema $schema) {
+        $result = $schema->getDownloader()->downloadProfilePicture($this->user);
 
-        $job->handle();
+        if(!$result) {
+            return;
+        }
 
-        $job = new ThenMakeGraphics($this->user);
+        $options = array(
+            'background' => storage_path('app/nn-images/graphics.jpg'),
+            'profile' => storage_path('app/' . $this->user->getFacebookProfileImagePath($schema)),
+            'name' => $this->user->getFullName(),
+            'output' => '-',
+            'text-file' => '-',
+        );
 
-        $job->handle();
+        $python_path = base_path('image_grid/env/bin/python');
+        $command_path = base_path('image_grid/create_image_newspaper.py');
+
+        $builder = new ProcessBuilder([$python_path, $command_path]);
+
+        foreach($options as $key => $value) {
+            $builder->add("--$key=$value");
+        }
+
+        $builder->setWorkingDirectory(base_path('image_grid'));
+
+        $process = $builder->getProcess();
+        echo $process->getCommandLine();
+
+        $newspaper = PersonNewspaper::findOrNew($this->user->id);
+        $filename = $newspaper->generateFilename();
+        $newspaper->id = $this->user->id;
+        $newspaper->save();
+
+        $process->setInput("On robi to dobrze\nZapytany, czy będzie chciał kontynuować swoje działane, odpowiedział, że chętnie.");
+
+        echo $process->run();
+
+        if (!$process->isSuccessful()) {
+            throw new ProcessFailedException($process);
+        }
+
+        $storageTempFilename = "newspaper-images/image_tmp_{$this->user->id}.jpg";
+        $storageFilename = "newspaper-images/image_$filename.jpg";
+
+        $publicStorage = Storage::disk('public');
+
+        if(!$publicStorage->has('newspaper-images')) {
+            $publicStorage->makeDirectory('newspaper-images');
+        }
+
+        $publicStorage->put($storageTempFilename, $process->getOutput());
+        $publicStorage->delete($storageFilename);
+        $publicStorage->move($storageTempFilename, $storageFilename);
     }
 }

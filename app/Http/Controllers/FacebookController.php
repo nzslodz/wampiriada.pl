@@ -103,6 +103,12 @@ class FacebookController extends Controller {
                     ->with('message', 'Logowanie zostało odrzucone. Prosimy zalogować się ponownie.');
             }
 
+            if($helper->getErrorCode() >= 200 && $helper->getErrorCode() <= 299) {
+                return redirect('/facebook/login')
+                    ->with('status', 'warning')
+                    ->with('message', 'Aby wpisać się na listę odbioru koszulek, zaakceptuj uprawnienia lub zapisz się używając opcji "Nie posiadam Facebooka".');
+            }
+
             $error_mailer->mail($helper->getError(), [
                 'code' => $helper->getErrorCode(),
                 'reason' => $helper->getErrorReason(),

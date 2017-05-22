@@ -32,9 +32,11 @@ if __name__ == '__main__':
     props = {
         'background': Image.open(arguments['--background']),
         'profile': Image.open(arguments['--profile']),
-        'x': 50,
-        'y': 200,
-        'w': 600,
+        'x': 48,
+        'y': 294,
+        'imgx': 48,
+        'imgy': 587,
+        'w': 460,
     }
 
     grid = NewspaperImageGrid(props)
@@ -48,14 +50,14 @@ if __name__ == '__main__':
 
         for number, line in enumerate(lines):
             if number == 0:
-                grid.addParagraph(line, font=os.path.join(arguments['--font-path'], 'AlegreyaSans-Bold.otf'), size=30, skip=30, color=(255,0,0))
+                grid.addParagraph(line, font=os.path.join(arguments['--font-path'], 'Alegreya-Regular.otf'), size=48, skip=48, color=(0,0,0))
             else:
-                grid.addParagraph(line, font=os.path.join(arguments['--font-path'], 'Alegreya-Regular.otf'), size=20, skip=15, color=(0,0,0))
+                grid.addParagraph(line, font=os.path.join(arguments['--font-path'], 'Alegreya-Regular.otf'), size=24, skip=24, color=(0,0,0))
 
     output_image = grid.generate()
 
     bytes_io = io.BytesIO()
-    output_image.save(bytes_io, 'JPEG', quality=80)
+    output_image.save(bytes_io, 'JPEG', quality=90)
 
     bytes_io.seek(0)
 

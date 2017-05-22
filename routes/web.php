@@ -49,9 +49,6 @@ Route::post('/nzs/poll_image', 'FacebookNewspaperController@postPollImage');
 Route::get('/nzs/callback', 'FacebookNewspaperController@getCallback');
 
 
-// mobile controller
-//Route::get('data/overall', 'MobileController@getOverall');
-
 // newsletter controller - remove yourself from newsletter,
 //Route::get('newsletter/remove', 'NewsletterController@getRemove');
 

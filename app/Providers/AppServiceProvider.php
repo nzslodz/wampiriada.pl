@@ -4,10 +4,17 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use NZS\Core\Mailing\MailingManager;
+use NZS\Core\Contracts\FBProfileDownloaderSchema;
+use NZS\Core\Facebook\LargeProfileDownloaderSchema;
+use NZS\Core\Facebook\NewspaperProfileDownloaderSchema;
+
 use Stevenmaguire\Services\Trello\Client as TrelloClient;
 use GuzzleHttp\Client;
 
 use Carbon\Carbon;
+use App\Jobs\RegenerateTileImage;
+use App\Jobs\DownloadFacebookProfile;
+use App\Jobs\DownloadFacebookProfileThenMakeGraphics;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -41,5 +48,9 @@ class AppServiceProvider extends ServiceProvider
         });
 
         Carbon::setLocale('pl');
+
+        $this->app->singleton('fb.downloader.default', function() {
+            return new LargeProfileDownloaderSchema;
+        });
     }
 }

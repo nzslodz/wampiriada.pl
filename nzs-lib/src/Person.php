@@ -7,6 +7,7 @@ use GuzzleHttp\Client;
 use Facebook\GraphNodes\GraphUser;
 use NZS\Core\ApplicationUser;
 use NZS\Core\HR\Member;
+use NZS\Core\Contracts\FBProfileDownloaderSchema;
 
 use Illuminate\Notifications\Notifiable;
 
@@ -28,9 +29,13 @@ class Person extends Model {
         return "$this->first_name $this->last_name";
     }
 
-    public function getFacebookProfileImagePath() {
-        if($this->facebook_user_id && Storage::has("fb-images/$this->facebook_user_id.jpg")) {
-            return "fb-images/$this->facebook_user_id.jpg";
+    public function getFacebookProfileImagePath(FBProfileDownloaderSchema $schema=null) {
+        if(!$schema) {
+            $schema = app('fb.downloader.default');
+        }
+
+        if($path = $schema->getImagePath($this)) {
+            return $path;
         }
 
         $image_id = crc32($this->facebook_user_id . $this->email) % 32;
@@ -45,7 +50,7 @@ class Person extends Model {
     public function member() {
         return $this->hasOne(Member::class, 'id');
     }
-    
+
     public function updateGender($something=null) {
         // raw input - e.g. from form
         if($something == 'male' || $something == 'female') {

@@ -12,6 +12,8 @@ use NZS\Wampiriada\Checkins\Checkin;
 use NZS\Wampiriada\Editions\EditionRepository;
 
 use Storage;
+use NZS\Core\Contracts\FBProfileDownloaderSchema;
+use NZS\Core\Facebook\LargeProfileDownloaderSchema;
 
 use Symfony\Component\Process\Process;
 use Symfony\Component\Process\Exception\ProcessFailedException;
@@ -26,7 +28,7 @@ class RegenerateTileImage extends Job implements ShouldQueue
      *
      * @return void
      */
-    public function handle() {
+    public function handle(LargeProfileDownloaderSchema $schema) {
         $arguments = [];
         foreach(config('app.achievements') as $key => $value) {
             $path = storage_path('app/image-grid-images/'. $value['icon']);
@@ -66,7 +68,7 @@ class RegenerateTileImage extends Job implements ShouldQueue
         $checkins = Checkin::whereEditionId($editionId)->with('user')->get();
 
         $images = $checkins->map(function($checkin) {
-            return storage_path('app/'.$checkin->user->getFacebookProfileImagePath());
+            return storage_path('app/'.$checkin->user->getFacebookProfileImagePath($schema));
         });
 
         $process->setInput(join("\n", $images->toArray()));

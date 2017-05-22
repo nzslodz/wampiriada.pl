@@ -140,6 +140,7 @@ class NewspaperImageGrid(object):
         self.profileImage = options['profile'].convert('RGBA')
         self.blockWidth = options['w']
         self.blockPosition = (options['x'], options['y'])
+        self.imagePosition = (options['imgx'], options['imgy'])
 
         self.imageWidth = self.backgroundImage.width
         self.imageHeight = self.backgroundImage.height
@@ -164,10 +165,10 @@ class NewspaperImageGrid(object):
 
     def generate(self):
         # 1. paste image on image
-        self.backgroundImage.paste(self.profileImage, self.blockPosition)
+        self.backgroundImage.paste(self.profileImage, self.imagePosition)
 
         # 2. put text on image
-        position = (self.blockPosition[0], self.blockPosition[1] + self.blockWidth)
+        position = (self.blockPosition[0], self.blockPosition[1])
 
         for paragraph in self.lines:
             image_text = ImageText((self.blockWidth, self.imageHeight - self.blockPosition[1]))

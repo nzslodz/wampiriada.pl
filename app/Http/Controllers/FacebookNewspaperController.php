@@ -51,10 +51,7 @@ use Storage;
  */
 
 class FacebookNewspaperController extends Controller {
-    const SESSION_ACCESS_TOKEN = 'nn_fb_user_access_token';
     const SESSION_USER_ID = 'nn_user_id';
-
-    const SAVE_COOKIE_NAME = 'nn_user_cookie';
 
     public function getPage(Request $request, LaravelFacebookSdk $fb) {
         $logged_user_id = $request->session()->get(self::SESSION_USER_ID);
@@ -68,14 +65,9 @@ class FacebookNewspaperController extends Controller {
             $newspaper = PersonNewspaper::find($logged_user->id);
         }
 
-        // then find an user through campaign token
-        $loggable_user_token = $request->cookie(self::SAVE_COOKIE_NAME);
-        $loggable_user = Person::whereCampaignToken($loggable_user_token)->first();
-
         return view('nn_facebook.page', [
             'login_url' => $login_url,
             'logged_user' => $logged_user,
-            'loggable_user' => $loggable_user,
             'newspaper' => $newspaper,
         ]);
     }
@@ -114,8 +106,6 @@ class FacebookNewspaperController extends Controller {
 
         $fb->setDefaultAccessToken($token);
 
-        $request->session()->flash(self::SESSION_ACCESS_TOKEN, (string) $token);
-
         try {
             $response = $fb->get('/me?fields=email,id,first_name,last_name,gender');
         } catch(FacebookSDKException $e) {
@@ -139,27 +129,23 @@ class FacebookNewspaperController extends Controller {
 
         $request->session()->flash(self::SESSION_USER_ID, $user->id);
 
-        Cookie::queue(self::SAVE_COOKIE_NAME, $user->campaign_token);
-
-        Session::put('checkin_user_id', $user->id);
-
         dispatch(new DownloadFacebookProfileThenMakeGraphics($user));
 
-        // XXX SEND AND DISPATCH EMAIL for a few hours ahead
-
-        return redirect('/nzs')
-            ->cookie(self::SAVE_COOKIE_NAME, $user->campaign_token, 60*24*30);
+        return redirect('/nzs');
     }
 
+    // XXX silhouette?
     public function postPollImage(Request $request) {
         $newspaper = PersonNewspaper::whereFilename($request->input('filename'))->firstOrFail();
 
         $image_path = $newspaper->getImagePath();
 
         if(!$image_path) {
-            return response()->json(['url' => null], 202);
+            return response()->json(['url' => null, 't' => null], 202);
         }
 
-        return response()->json(['url' => Storage::url($image_path)]);
+        $disk = Storage::disk('public');
+
+        return response()->json(['url' => Storage::url($image_path), 't' => $disk->lastModified($image_path)]);
     }
 }
