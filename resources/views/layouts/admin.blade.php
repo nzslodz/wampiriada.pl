@@ -91,6 +91,8 @@
                         {{{ Session::get('message') }}}
                     </div>
                 @endif
+
+                @include('flash::message')
             </div>
         </div>
 

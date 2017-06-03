@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Routing\Controller;
 use LogicException;
+use Exception;
 
 class Storyboard {
     protected $managed_parameters;
@@ -57,7 +58,7 @@ class Storyboard {
         if($this->use_session) {
             $session_key = $this->getSessionKey($parameter);
 
-            if($request->session()->exists($session_key)) {
+            if($request->session()->has($session_key)) {
                 return $request->session()->get($session_key);
             }
         }
@@ -101,6 +102,14 @@ class Storyboard {
         throw new LogicException("Storyboard tried to find matching transition, but reached no conclusion.");
     }
 
+    public function value(Request $request, $parameter) {
+        try {
+            return $this->findTransition($request, $parameter)->value();
+        } catch(LogicException $e) {
+            return '';
+        }
+    }
+
     public function getChoiceCollection($parameter) {
         return $this->managed_parameters->get($parameter, collect())->mapWithKeys(function($transition) {
             return [$transition->getValue() => $transition];
@@ -122,7 +131,7 @@ class Storyboard {
             if($transition->isDefault()) {
                 $request->session()->forget($session_key);
             } else {
-                $reqeust->session()->put($session_key, $transiton->getValue());
+                $request->session()->put($session_key, $transition->getValue());
             }
         }
 

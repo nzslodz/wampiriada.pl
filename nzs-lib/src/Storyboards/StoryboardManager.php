@@ -29,4 +29,8 @@ class StoryboardManager {
     public function isDefault($parameter) {
         return $this->getStoryboard()->isDefault($this->request, $parameter);
     }
+
+    public function value($parameter) {
+        return $this->getStoryboard()->value($this->request, $parameter);
+    }
 }

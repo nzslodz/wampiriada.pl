@@ -45,7 +45,7 @@ class Person extends Model {
     public function member() {
         return $this->hasOne(Member::class, 'id');
     }
-
+    
     public function updateGender($something=null) {
         // raw input - e.g. from form
         if($something == 'male' || $something == 'female') {
