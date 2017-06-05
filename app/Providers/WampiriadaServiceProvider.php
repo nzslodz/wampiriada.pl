@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use NZS\Wampiriada\Mailing\Campaigns\EmailCampaignResultActivityClass;
+use NZS\Wampiriada\Mailing\WampiriadaPartyMailingComposer;
 use NZS\Wampiriada\Mailing\WampiriadaSummaryMailingComposer;
 use NZS\Wampiriada\Mailing\WampiriadaThankYouMailingComposer;
 use NZS\Wampiriada\Mailing\WampiriadaReminderMailingComposer;
@@ -25,6 +26,7 @@ class WampiriadaServiceProvider extends ServiceProvider
             WampiriadaSummaryMailingComposer::class,
             WampiriadaAnnouncementMailingComposer::class,
             WampiriadaReminderMailingComposer::class,
+            WampiriadaPartyMailingComposer::class,
         ]);
     }
 }
