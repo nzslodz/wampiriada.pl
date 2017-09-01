@@ -47,7 +47,7 @@ class PrizeController extends Controller {
 	public function postEdit(PrizeTypeRequest $request, $id=null) {
 		$type = PrizeType::findOrNew($id);
 
-		$type->active = $request->has('active');
+		$type->active = $request->filled('active');
 		$type->description = $request->description;
 		$type->name = $request->name;
 
