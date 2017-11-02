@@ -201,6 +201,7 @@ class WampiriadaBackendController extends Controller {
 		if(!$edition) {
 			$edition = new Edition;
 			$edition->number = $number;
+			$edition->save();
 		}
 
         $sizes = $request->input('sizes');
