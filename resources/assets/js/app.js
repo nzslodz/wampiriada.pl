@@ -13,7 +13,7 @@ require('./bootstrap');
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-Vue.component('edition-list', require('./components/List.vue'));
+Vue.component('editionlist', require('./components/List.vue').default);
 
 const app = new Vue({
     el: '#application'

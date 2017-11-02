@@ -61,7 +61,7 @@
 
         <div class="row">
             <div class="container-xs-12">
-                <edition-list></edition-list>
+                <editionlist></editionlist>
             </div>
         </div>
 
