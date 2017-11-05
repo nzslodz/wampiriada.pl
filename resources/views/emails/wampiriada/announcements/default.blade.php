@@ -3,7 +3,7 @@
 @section('content')
 
  <h3 style="font-size: 24px; letter-spacing: 1px; font-family: Arial, sans-serif; color: #d33 !important; margin-top: 0; margin-left: 0; margin-bottom: 25px; font-weight: normal;">
-    Wampir nadchodzi po raz {{ $edition->number }}.
+    Wampir nawiedzi łódzkie uczelnie po raz {{ $edition->number }}.
 </h3>
 
 
