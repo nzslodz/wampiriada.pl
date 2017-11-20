@@ -14,7 +14,7 @@
         Wiosna
     @endif
 
-    to czas, w którym odbywa się Wampiriada. Projekt, która pochłania blisko 1000 osób, które chcą popełnić dobry czyn. Do czego zapraszamy Cię po raz kolejny! Przyjdź na jedną z akcji Wampiriady, oddaj krew, zbierz czekolady, koszulkę i upominki od naszych sponsorów oraz podziel się tą dobrą wieścią ze swoimi znajomymi, aby było nas jeszcze więcej! :)
+    to czas, w którym odbywa się Wampiriada. Projekt pochłania blisko 1000 osób, które chcą popełnić dobry czyn. Do czego zapraszamy Cię po raz kolejny! Przyjdź na jedną z akcji Wampiriady, oddaj krew, zbierz czekolady, koszulkę i upominki od naszych sponsorów oraz podziel się tą dobrą wieścią ze swoimi znajomymi, aby było nas jeszcze więcej! :)
 </p>
 
 
