@@ -452,8 +452,8 @@ class WampiriadaController extends Controller {
         ];
 
         $structure = [
-            [ 'lodz-kreuje',  'wl-lodzkie', 'mz', 'nck'],
-            [ 'wl-main', 'pzu', 'kghm', 'uml-zdrowie' ],
+            [ 'lodz-kreuje',  'wl-lodzkie', 'wl-main', ],
+            [ 'mz', 'nck', 'kghm', 'uml-zdrowie' ],
             [ 'ul', 'pl', 'um', 'szkolafilmowa', 'wsiu' ],
             [ 'teatr-wielki', 'teatr-nowy', 'teatr-muzyczny', 'bodo' ],
             [ 'fiero', 'saltos', 'musicschool', 'krolkul' ],
