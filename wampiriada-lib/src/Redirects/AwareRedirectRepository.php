@@ -64,7 +64,7 @@ class AwareRedirectRepository extends BaseRedirectRepository {
 	}
 
 	public function exists($name) {
-		$this->repository->exists($name);
+		return $this->repository->exists($name);
 	}
 
 	public function generateUrl($name) {

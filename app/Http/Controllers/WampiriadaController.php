@@ -232,7 +232,7 @@ class WampiriadaController extends Controller {
             'wl-lodzkie' => [
                 'title' => 'Promuje Łódzkie',
                 'link' => 'http://lodzkie.pl',
-                'image' => 'img/partnerzy/04.jpg',
+                'image' => 'img/partnerzy/wl-lodzkie.jpg',
             ],
             'pzu' => [
                 'title' => 'Grupa PZU',
@@ -248,7 +248,7 @@ class WampiriadaController extends Controller {
             'ul' => [
                 'title' => 'Uniwersytet Łódzki',
                 'link' => 'http://uni.lodz.pl',
-                'image' => 'img/partnerzy/07.jpg',
+                'image' => 'img/partnerzy/ul-neue.jpg',
             ],
             'pl' => [
                 'title' => 'Politechnika Łódzka',
@@ -406,15 +406,59 @@ class WampiriadaController extends Controller {
                 'image' => 'img/partnerzy/wydarzysie.png',
             ],
 
+            'kghm' => [
+                'title' => 'Fundacja KGHM',
+                'link' => 'http://fundacjakghm.pl/',
+                'image' => 'img/partnerzy/kghm.jpg',
+            ],
+
+            'bodo' => [
+                'title' => 'Kino Bodo',
+                'link' => 'https://kinobodo.pl/',
+                'image' => 'img/partnerzy/bodo.jpg',
+            ],
+
+            'krolkul' => [
+                'title' => 'Król Kul',
+                'link' => 'http://krolkul.pl/',
+                'image' => 'img/partnerzy/krolkul.jpg',
+            ],
+            'musicschool' => [
+                'title' => 'Music School',
+                'link' => 'https://szkola-muzyki.pl/',
+                'image' => 'img/partnerzy/musicschool.jpg',
+            ],
+            'mz' => [
+                'title' => 'Ministerstwo Zdrowia',
+                'link' => 'http://www.mz.gov.pl/',
+                'image' => 'img/partnerzy/mzdrowia.jpg',
+            ],
+            'nck' => [
+                'title' => 'Narodowe Centrum Krwi',
+                'link' => 'https://www.nck.gov.pl/',
+                'image' => 'img/partnerzy/nck.jpg',
+            ],
+            'saltos' => [
+                'title' => 'Park Trampolin Saltos Łódź',
+                'link' => 'https://www.saltos.pl/',
+                'image' => 'img/partnerzy/saltos.jpg',
+            ],
+            'szkolafilmowa' => [
+                'title' => 'Szkoła Filmowa w Łodzi',
+                'link' => 'https://www.filmschool.lodz.pl/',
+                'image' => 'img/partnerzy/szkolafilmowa.jpg',
+            ],
+
         ];
 
         $structure = [
-            [ 'lodz-kreuje',  'wl-lodzkie', 'wl-main', 'pzu'],
-            [ 'ul', 'pl', 'um', 'wsiu' ],
-            [ 'fiero', 'pastago', 'zapiekarnia', 'rytm'],
-            [ 'teatr-wielki', 'teatr-nowy', 'teatr-muzyczny', 'goudaworks' ],
+            [ 'lodz-kreuje',  'wl-lodzkie', 'wl-main', ],
+            [ 'mz', 'nck', 'kghm', 'uml-zdrowie' ],
+            [ 'ul', 'pl', 'um', 'szkolafilmowa', 'wsiu' ],
+            [ 'teatr-wielki', 'teatr-nowy', 'teatr-muzyczny', 'bodo' ],
+            [ 'fiero', 'saltos', 'musicschool', 'krolkul' ],
             [ 'mlodziwlodzi', 'makimo', 'eska', 'plaster'],
-            [ 'infostudent', 'zak', 'wydarzysie', 'studentlodz'],
+            [ 'infostudent', 'zak', 'studentlodz'],
         ];
 
         $unknown = [
