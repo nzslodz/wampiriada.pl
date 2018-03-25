@@ -15,6 +15,7 @@ use NZS\Wampiriada\Editions\Edition;
 use NZS\Wampiriada\Checkins\Checkin;
 use NZS\Wampiriada\PrizeType;
 use NZS\Wampiriada\ShirtSize;
+use NZS\Wampiriada\ActionDay;
 use NZS\Core\Redirects\Redirect;
 use NZS\Wampiriada\Editions\EditionRepository;
 use NZS\Wampiriada\Redirects\WampiriadaRedirect;
@@ -166,6 +167,7 @@ class WampiriadaBackendController extends Controller {
 		$mapping['configuration'] = $repository->getConfiguration();
 		$mapping['edition_number'] = $number;
 		$mapping['checkboxes'] = $checkboxes;
+		$mapping['exists'] = true;
 		$mapping['actions'] = Action::where('number', $number)->orderBy('day')->get();
 
         return view('admin.wampiriada.settings', $mapping->all());
@@ -191,10 +193,10 @@ class WampiriadaBackendController extends Controller {
 			'configuration' => new EmptyConfiguration,
             'checkboxes' => $checkboxes,
 			'actions' => null,
+			'exists' => false,
         ]);
     }
 
-    // XXX - handle new editions
     public function postSettings(Request $request, $number) {
         $edition = Edition::whereNumber($number)->first();
 
@@ -204,6 +206,7 @@ class WampiriadaBackendController extends Controller {
 			$edition->save();
 		}
 
+		// Set shirt sizes
         $sizes = $request->input('sizes');
         if(!is_array($sizes)) {
             $sizes = [];
@@ -220,6 +223,7 @@ class WampiriadaBackendController extends Controller {
             'plakat' => 'redirect_plakat',
         ];
 
+		// Set configuration flags
 		$configuration = $edition->configuration;
 		if(!$configuration) {
 			$configuration = new EditionConfiguration;
@@ -232,6 +236,7 @@ class WampiriadaBackendController extends Controller {
 
 		$configuration->save();
 
+		// Set redirects
         foreach($redirects as $key => $field) {
 			$new_url = trim($request->input($field));
 
@@ -269,7 +274,68 @@ class WampiriadaBackendController extends Controller {
 			$wampiriada_redirect->save();
         }
 
-        return redirect('admin/wampiriada/show/' . $number)->with('message', 'Zmiany zapisane poprawnie')->with('status', 'success');
+		// Set actions
+		$action_inputs = $request->input('actions', []);
+
+		$valid_action_ids = [];
+		foreach($action_inputs as $action_input) {
+			$action_day = null;
+			if(isset($action_input['id'])) {
+				$action_day = ActionDay::find($action['id']);
+			}
+
+			if(!$action_day) {
+				$action_day = new ActionDay;
+				$action_day->edition_id = $edition->id;
+			}
+
+			$action_day->place_id = $action_input['place_id'];
+			$action_day->start = $action_input['start'];
+			$action_day->end = $action_input['end'];
+			$action_day->marrow = isset($action_input['marrow']);
+			$action_day->hidden = isset($action_input['hidden']);
+			$action_day->created_at = $action_input['day'];
+
+			$action_day->save();
+
+			$valid_action_ids[] = $action->id;
+		}
+
+		// remove actions that are not in the form
+		ActionDay::doesntHave('checkins')
+			->whereEditionId($edition->id)
+			->whereNotIn('id', $valid_action_ids)
+			->delete();
+
+		$protected_actions = ActionDay::has('checkins')
+			->whereEditionId($edition->id)
+			->whereNotIn('id', $valid_action_ids)
+			->get();
+
+		$first_action_day = ActionDay::whereEditionId($id)
+			->whereHidden(false)
+			->orderBy('created_at', 'ASC')
+			->first();
+
+		if($first_action_day) {
+			$edition->start_date = $first_action_day->getActionDate();
+		}
+
+		$last_action_day = ActionDay::whereEditionId($id)
+			->whereHidden(false)
+			->orderBy('created_at', 'DESC')
+			->first();
+
+		if($last_action_day) {
+			$edition->end_date = $last_action_day->getActionDate();
+		}
+
+		$edition->save();
+
+        return redirect('admin/wampiriada/show/' . $number)
+			->with('message', 'Zmiany zapisane poprawnie')
+			->with('status', 'success')
+			->with('$protected_actions', $protected_actions);
     }
 
 	public function postResults(Request $request) {
