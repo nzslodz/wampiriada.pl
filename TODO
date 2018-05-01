@@ -33,3 +33,6 @@ c. trzeci ekran - wyrażam zgodę:
 Usuwanie danych
 
 TODO - totally rewrite fb login, może nawet skorzystaj ze storyboardu
+1) dodać stronę, dzięki której usuwanie jest możliwe z formularzem
+2) strona jest dostępna tylko dla człowieka, który ma mail z hashem
+3) zablokować wysyłanie e-maili na podstawie strony
