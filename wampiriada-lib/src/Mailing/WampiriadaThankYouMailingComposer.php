@@ -8,7 +8,6 @@ use NZS\Core\Mailing\MultipleViews;
 use NZS\Core\Person;
 use Storage;
 use NZS\Wampiriada\Editions\Edition;
-use NZS\Wampiriada\Redirects\AwareRedirectRepository;
 
 class WampiriadaThankYouMailingComposer extends BaseWampiriadaMailingComposer {
     protected $campaign_key = 'initial-response';

@@ -24,4 +24,8 @@ class ActionData extends Model {
     public function getOverallAttribute() {
         return $this->getOverall();
     }
+
+    public function getFirstTimePercentage() {
+        return round(100 * $this->first_time / $this->donated);
+    }
 }

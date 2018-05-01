@@ -66,7 +66,7 @@ class WampiriadaRedirectRepository extends BaseRedirectRepository {
     }
 
     public function generateUrl($name) {
-        return new Url(url("redirect/{$this->repository->getEditionNumber()}/$name"));
+        return new Url($this->loadRedirect($name)->redirect());
     }
 
 }

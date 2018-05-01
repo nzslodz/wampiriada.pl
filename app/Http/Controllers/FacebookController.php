@@ -13,19 +13,15 @@ use NZS\Wampiriada\BloodType;
 use NZS\Wampiriada\Editions\Edition;
 use NZS\Wampiriada\ActionDay;
 use NZS\Wampiriada\ActionData;
-use NZS\Wampiriada\Checkins\Friend\FriendCheckin;
 use NZS\Wampiriada\Checkins\Checkin;
 use NZS\Wampiriada\Profile;
 use NZS\Wampiriada\Option;
-use NZS\Wampiriada\FacebookConnection;
 use NZS\Wampiriada\Editions\EditionRepository;
 use Carbon\Carbon;
 
 use App\Jobs\DownloadFacebookProfile;
 use App\Jobs\RegenerateTileImage;
 
-use NZS\Wampiriada\Redirects\AwareRedirectRepository;
-use NZS\Wampiriada\Checkins\FirstTimeDonatingActivityClass;
 use NZS\Wampiriada\Mailing\WampiriadaThankYouMailingComposer;
 
 use App\Libraries\ErrorMailer;
@@ -51,7 +47,7 @@ class FacebookController extends Controller {
         Session::forget('hide_email_login_checkout');
         Session::forget('checkin_user_id');
 
-        $login_url = $fb->getLoginUrl(['email', 'user_friends']);
+        $login_url = $fb->getLoginUrl(['email']);
         $is_facebook_login_enabled = (bool) Option::get('wampiriada.facebook_login', true);
 
         // XXX RESTYLE THIS
@@ -136,33 +132,6 @@ class FacebookController extends Controller {
         Session::put('checkin_user_id', $user->id);
 
         dispatch(new DownloadFacebookProfile($user));
-
-        try {
-            $response = $fb->get('/me/friends?fields=id');
-
-            $graphEdge = $response->getGraphEdge();
-
-            while($graphEdge) {
-                foreach($graphEdge as $graphNode) {
-                    $user_id = $graphNode->getField('id');
-
-                    if($target_user = Person::whereFacebookUserId($user_id)->first()) {
-                        FacebookConnection::firstOrCreate(['source_id' => $user->id, 'target_id' => $target_user->id]);
-                        FacebookConnection::firstOrCreate(['source_id' => $target_user->id, 'target_id' => $user->id]);
-                    }
-                }
-
-                $graphEdge = $fb->next($graphEdge);
-            }
-        } catch(facebookSDKException $e) {
-            $error_mailer->mailException($e);
-        }
-
-        // XXX: not needed really
-        if(Session::get('to') == 'finish') {
-            Session::forget('to');
-            return redirect('/facebook/finish');
-        }
 
         return redirect('/facebook/checkin');
     }
@@ -258,35 +227,6 @@ class FacebookController extends Controller {
 
             $checkin->save();
 
-            // create activity object for first-time donation
-            if($checkin->first_time) {
-                $activity_class = new FirstTimeDonatingActivityClass;
-                $activity_class->saveActivityInstance($checkin);
-            }
-
-            $facebook_connections = FacebookConnection::whereSourceId($user->id)->get();
-
-            foreach($facebook_connections as $connection) {
-                $friend = Checkin::whereEditionId($current_action->edition_id)->whereUserId($connection->target_id)->first();
-                if(!$friend) {
-                    continue;
-                }
-
-                $reverse_connection = FacebookConnection::whereTargetId($connection->source_id)->whereSourceId($connection->target_id)->first();
-
-                FriendCheckin::firstOrCreate([
-                    'facebook_connection_id' => $connection->id,
-                    'checkin_id' => $checkin->id,
-                    'friend_checkin_id' => $friend->id,
-                ]);
-
-                FriendCheckin::firstOrCreate([
-                    'facebook_connection_id' => $reverse_connection->id,
-                    'checkin_id' => $friend->id,
-                    'friend_checkin_id' => $checkin->id,
-                ]);
-            }
-
             // save profile defaults
             $profile = Profile::whereId($user->id)->first();
             if(!$profile) {
@@ -318,8 +258,8 @@ class FacebookController extends Controller {
         });
 
         $composer = new WampiriadaThankYouMailingComposer($edition);
-        // 2017-05-01 We'll send these e-mails after the action had started
-        //dispatch($composer->getJobInstance($user)->delay(Carbon::now()->addHours(2)));
+
+        dispatch($composer->getJobInstance($user)->delay(Carbon::now()->addHours(2)));
         dispatch(new RegenerateTileImage());
 
         $token = Session::get('fb_user_access_token');
@@ -332,96 +272,6 @@ class FacebookController extends Controller {
 
         return redirect($fb->getRedirectLoginHelper()->getLogoutUrl($token,  url('facebook/complete')));
     }
-
-    /*
-    public function getRaffle(LaravelFacebookSdk $fb) {
-        $token = Session::get('fb_user_access_token');
-
-        if(!$token) {
-            abort(403, 'Not authorized');
-        }
-
-        $fb->setDefaultAccessToken($token);
-
-        $user_likes_wampiriada = false;
-        $user_likes_nzs = false;
-
-        try {
-            # Wampiriada
-            $wamp_response = $fb->get('/me/likes/110146435762751');
-            # NZS
-            $nzs_response = $fb->get('/me/likes/150737411647566');
-        } catch(FacebookSDKException $e) {
-            dd($e->getMessage());
-        }
-
-        foreach($wamp_response->getGraphEdge() as $graph_node) {
-            if($graph_node['id']) {
-                $user_likes_wampiriada = true;
-            }
-        }
-
-        foreach($nzs_response->getGraphEdge() as $graph_node) {
-            if($graph_node['id']) {
-                $user_likes_nzs = true;
-            }
-        }
-
-        return view('facebook.raffle', [
-            'user_likes_wampiriada' => $user_likes_wampiriada,
-            'user_likes_nzs' => $user_likes_nzs,
-        ]);
-    }
-
-    public function postRaffle(LaravelFacebookSdk $fb) {
-        $login_url = $fb->getLoginUrl(['user_likes', 'publish_actions']);
-
-        Session::set('to', 'finish');
-
-        return redirect($login_url);
-    }*/
-
-    /*public function getFinish(LaravelFacebookSdk $fb) {
-        $token = Session::get('fb_user_access_token');
-
-        $user = Person::find(Session::get('checkin_user_id'));
-        if(!$user) {
-            throw new LogicException("/checkin url used without user being created.");
-        }
-
-        if(!$token) {
-            abort(403, 'Not authorized');
-        }
-
-        $fb->setDefaultAccessToken($token);
-
-        $edition_repository = new EditionRepository(Option::get('wampiriada.edition', 28));
-        $redirect = $edition_repository->getRedirect('plakat');
-
-        try {
-            $data = [
-                'link' => $redirect->asUrl(),
-                'message' => 'Test message',
-            ];
-
-            $fb->post("/me/feed", $data);
-        } catch(FacebookSDKException $e) {
-            dd($e->getMessage());
-        }
-
-
-        $current_action = ActionDay::whereDate('created_at', '=', Carbon::today()->toDateString())->first();
-        $checkin = Checkin::whereActionDayId($current_action->id)->whereUserId($user->id)->first();
-
-        if(!$checkin) {
-            abort(403, 'Forbidden');
-        }
-
-        $checkin->qualified_for_raffle = true;
-        $checkin->save();
-
-        return redirect($fb->getRedirectLoginHelper()->getLogoutUrl($token,  url('facebook/complete')));
-    }*/
 
     public function getComplete() {
         return view('facebook.complete', [

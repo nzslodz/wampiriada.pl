@@ -8,7 +8,6 @@ use NZS\Core\Mailing\MultipleViews;
 use NZS\Core\Person;
 use Storage;
 use NZS\Wampiriada\Editions\Edition;
-use NZS\Wampiriada\Redirects\AwareRedirectRepository;
 
 abstract class BaseWampiriadaMailingComposer extends BaseMailingComposer implements WampiriadaMailingComposer {
     use MultipleViews;
@@ -32,8 +31,6 @@ abstract class BaseWampiriadaMailingComposer extends BaseMailingComposer impleme
     public function getContext(Person $user) {
         $edition_repository = new EditionRepository($this->edition);
         $repository = $edition_repository->getRedirectRepository();
-
-        $repository = new AwareRedirectRepository($repository, $user, $this->getCampaignKey());
 
         $has_facebook_photo = $user->facebook_user_id && Storage::disk('local')->exists("fb-images/{$user->facebook_user_id}.jpg");
 
@@ -59,7 +56,7 @@ abstract class BaseWampiriadaMailingComposer extends BaseMailingComposer impleme
     }
 
     public static function spawnSampleInstance() {
-        $edition_repository = new EditionRepository;
+        $edition_repository = EditionRepository::current();
 
         return new static($edition_repository->getEdition());
     }

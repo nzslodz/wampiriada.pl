@@ -36,7 +36,8 @@ class DatabaseRedirectRepository extends BaseRedirectRepository {
         ]);
     }
 
+    // XXX needs refactoring
     public function generateUrl($name) {
-        return new Url(url("redirect/$name"));
+        return new Url($this->loadRedirect($name)->redirect());
     }
 }

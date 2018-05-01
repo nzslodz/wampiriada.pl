@@ -149,8 +149,6 @@
                 <td>E-mail</td>
                 <td>Godzina wpisu</td>
                 <td>Rozmiar koszulki</td>
-                <td>Grupa krwi</td>
-                <td>Pierwszy raz</td>
                 <td>Nagroda</td>
             </tr>
         </thead>
@@ -180,12 +178,6 @@
                     @else
                     <td></td>
                     @endif
-                    <td>{{ $checkin->blood_type->name }}</td>
-                    <td>
-                        @if($checkin->first_time)
-                        <span class="glyphicon glyphicon-check"></span>
-                        @endif
-                    </td>
                     <td>
                         <button
                                 class="btn btn-sm btn-default @if(!$checkin->prize) visible-on-hover @endif"

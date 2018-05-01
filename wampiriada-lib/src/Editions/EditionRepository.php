@@ -12,44 +12,65 @@ use Carbon\Carbon;
 
 class EditionRepository {
     protected
-        $edition_number,
         $edition = null,
         $result,
         $actions,
         $future_actions,
         $redirects = array();
 
-    public function __construct($edition=null) {
-        if($edition instanceof Edition) {
-            $this->edition = $edition;
-            $this->edition_number = $edition->number;
-        } elseif($edition) {
-            $this->edition_number = $edition;
-        } else {
-            $this->edition_number = Option::get('wampiriada.edition', 28);
+    public function __construct(Edition $edition) {
+        $this->edition = $edition;
+    }
+
+    // static constructors
+    public static function current() {
+        $number = Option::get('wampiriada.edition', 28);
+
+        return static::fromNumber($number);
+    }
+
+    public static function fromNumber($number) {
+        $edition = Edition::whereNumber($number)->first();
+
+        if(!$edition) {
+            throw new ObjectDoesNotExist("Edition does not exist");
         }
+
+        return new static($edition);
     }
 
-    public function getEditionNumber() {
-        return $this->edition_number;
+    public static function fromId($id) {
+        $edition = Edition::find($id);
+
+        if(!$edition) {
+            throw new ObjectDoesNotExist("Edition does not exist");
+        }
+
+        return new static($edition);
     }
 
+    public static function fromPreviousYear(EditionRepository $repository) {
+        return static::fromNumber($repository->getEditionNumber() - 2);
+    }
+
+    // edition getters
     public function getEdition() {
-        if(!$this->edition) {
-            $this->edition = Edition::whereNumber($this->edition_number)->first();
-        }
-
         return $this->edition;
     }
 
+    public function getEditionNumber() {
+        return $this->edition->number;
+    }
+
     public function getEditionType() {
-        return $this->edition_number % 2 + 1;
+        return $this->edition->number % 2 + 1;
     }
 
     public function getEditionYear() {
-        return (int) ($this->edition_number / 2) + 2002;
+        return (int) ($this->edition->number / 2) + 2002;
     }
 
+    // dependent model getters
     public function getResults() {
         if($this->result) {
             return $this->result;
@@ -64,6 +85,20 @@ class EditionRepository {
         }
 
         return $this->result;
+    }
+
+    public function getData() {
+        if($this->data) {
+            return $this->data;
+        }
+
+        $this->data = EditionData::find($this->edition->id);
+
+        if(!$this->data) {
+            throw new ObjectDoesNotExist("There is no data for edition {$this->getEditionNumber()}.");
+        }
+
+        return $this->data;
     }
 
     public function getActions() {
@@ -107,6 +142,16 @@ class EditionRepository {
         });
     }
 
+    public function getConfiguration() {
+        $configuration = $this->getEdition()->configuration;
+
+        if(!$configuration) {
+            return new EmptyConfiguration;
+        }
+
+        return $configuration;
+    }
+
     public function getOverall() {
         return $this->getResults()->overall;
     }
@@ -123,6 +168,7 @@ class EditionRepository {
         return $this->getOverall() - $repository->getOverall();
     }
 
+    // Redirects
     public function getRedirectAsTag($name, $contents, array $attrs=array()) {
         return $this->getRedirect($name)->asTag($contents, $attrs);
     }
@@ -142,15 +188,5 @@ class EditionRepository {
         $wampiriada_repository = new WampiriadaRedirectRepository($this);
 
         return $wampiriada_repository->registerRedirect($key, $url);
-    }
-
-    public function getConfiguration() {
-        $configuration = $this->getEdition()->configuration;
-
-        if(!$configuration) {
-            return new EmptyConfiguration;
-        }
-
-        return $configuration;
     }
 }

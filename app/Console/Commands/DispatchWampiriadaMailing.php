@@ -57,7 +57,7 @@ class DispatchWampiriadaMailing extends Command
             return 1;
         }
 
-        $repository = new EditionRepository($this->option('edition'));
+        $repository = EditionRepository::fromNumber($this->option('edition'));
 
         $mailing = $this->resolveMailing($repository, $this->argument('mailing'));
 
@@ -148,6 +148,10 @@ class DispatchWampiriadaMailing extends Command
             if(!trim($user->email)) {
                 $this->warn(sprintf('{%d}: %s (%d) omitted - no email address', $index, $user->getFullName(), $user->id));
                 continue;
+            }
+
+            if($user->email == 'joannagapinska@outlook.com') {
+                continue; // dirty hack XXX TODO
             }
 
             $job = $composer->getJobInstance($user);

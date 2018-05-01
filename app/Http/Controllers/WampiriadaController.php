@@ -16,8 +16,6 @@ use NZS\Wampiriada\Mailing\Campaigns\EmailCampaignResult;
 use NZS\Wampiriada\Redirects\WampiriadaRedirectRepository;
 use Illuminate\Http\Request;
 
-use NZS\Wampiriada\Redirects\AwareRedirectRepository;
-
 use NZS\Core\Polls\Poll;
 use NZS\Core\Polls\UsesPolls;
 use NZS\Wampiriada\Polls\ThankYou\WampiriadaThankYouPollFormRequest;
@@ -29,9 +27,7 @@ class WampiriadaController extends Controller {
     use UsesPolls;
 
     public function showIndex() {
-        $edition = Option::get('wampiriada.edition', 28);
-
-        $repository = new EditionRepository($edition);
+        $repository = EditionRepository::current();
 
         $event_redirect = $repository->getRedirect('facebook-event');
 
@@ -47,7 +43,7 @@ class WampiriadaController extends Controller {
         }
 
         try {
-            $last_year_edition = new EditionRepository($repository->getEditionNumber() - 2);
+            $last_year_edition = EditionRepository::fromPreviousYear($repository);
             $overall_difference = $repository->getOverallDifference($last_year_edition) * 0.45;
         } catch(ObjectDoesNotExist $e) {
             $overall_difference = false;
@@ -130,51 +126,6 @@ class WampiriadaController extends Controller {
         ]);
     }
 
-    public function getRedirectByName(Request $request, $name) {
-        $repository = new DatabaseRedirectRepository;
-
-        $redirect_url = $repository->resolveRedirect($name);
-
-        if(!$redirect_url) {
-            abort(404);
-        }
-
-        $aware_repository = AwareRedirectRepository::fromRequest($request, $repository);
-        if($aware_repository) {
-            $aware_repository->saveEmailCampaignInfo($name);
-
-            // remember flag
-            if($request->input('r') == 't') {
-                $request->session()->flash('redirect_user_id', $aware_repository->getUser()->id);
-            }
-        }
-
-        return redirect($redirect_url);
-    }
-
-    public function getRedirect(Request $request, $edition_number, $name) {
-        $edition_repository = new EditionRepository($edition_number);
-        $repository = $edition_repository->getRedirectRepository();
-
-        $redirect_url = $repository->resolveRedirect($name);
-
-        if(!$redirect_url) {
-            abort(404);
-        }
-
-        $aware_repository = AwareRedirectRepository::fromRequest($request, $repository);
-        if($aware_repository) {
-            $aware_repository->saveEmailCampaignInfo($name);
-
-            // remember flag
-            if($request->input('r') == 't') {
-                $request->session()->flash('redirect_user_id', $aware_repository->getUser()->id);
-            }
-        }
-
-        return redirect($redirect_url);
-    }
-
     public function getReminder(Request $request, $action_day_id) {
         $action = Action::findOrFail($action_day_id);
         $user = Person::find($request->session()->get('redirect_user_id'));
@@ -232,7 +183,7 @@ class WampiriadaController extends Controller {
             'wl-lodzkie' => [
                 'title' => 'Promuje Łódzkie',
                 'link' => 'http://lodzkie.pl',
-                'image' => 'img/partnerzy/04.jpg',
+                'image' => 'img/partnerzy/wl-lodzkie.jpg',
             ],
             'pzu' => [
                 'title' => 'Grupa PZU',
@@ -248,7 +199,7 @@ class WampiriadaController extends Controller {
             'ul' => [
                 'title' => 'Uniwersytet Łódzki',
                 'link' => 'http://uni.lodz.pl',
-                'image' => 'img/partnerzy/07.jpg',
+                'image' => 'img/partnerzy/ul-neue.jpg',
             ],
             'pl' => [
                 'title' => 'Politechnika Łódzka',
@@ -406,15 +357,59 @@ class WampiriadaController extends Controller {
                 'image' => 'img/partnerzy/wydarzysie.png',
             ],
 
+            'kghm' => [
+                'title' => 'Fundacja KGHM',
+                'link' => 'http://fundacjakghm.pl/',
+                'image' => 'img/partnerzy/kghm.jpg',
+            ],
+
+            'bodo' => [
+                'title' => 'Kino Bodo',
+                'link' => 'https://kinobodo.pl/',
+                'image' => 'img/partnerzy/bodo.jpg',
+            ],
+
+            'krolkul' => [
+                'title' => 'Król Kul',
+                'link' => 'http://krolkul.pl/',
+                'image' => 'img/partnerzy/krolkul.jpg',
+            ],
+            'musicschool' => [
+                'title' => 'Music School',
+                'link' => 'https://szkola-muzyki.pl/',
+                'image' => 'img/partnerzy/musicschool.jpg',
+            ],
+            'mz' => [
+                'title' => 'Ministerstwo Zdrowia',
+                'link' => 'http://www.mz.gov.pl/',
+                'image' => 'img/partnerzy/mzdrowia.jpg',
+            ],
+            'nck' => [
+                'title' => 'Narodowe Centrum Krwi',
+                'link' => 'https://www.nck.gov.pl/',
+                'image' => 'img/partnerzy/nck.jpg',
+            ],
+            'saltos' => [
+                'title' => 'Park Trampolin Saltos Łódź',
+                'link' => 'https://www.saltos.pl/',
+                'image' => 'img/partnerzy/saltos.jpg',
+            ],
+            'szkolafilmowa' => [
+                'title' => 'Szkoła Filmowa w Łodzi',
+                'link' => 'https://www.filmschool.lodz.pl/',
+                'image' => 'img/partnerzy/szkolafilmowa.jpg',
+            ],
+
         ];
 
         $structure = [
-            [ 'lodz-kreuje',  'wl-lodzkie', 'wl-main', 'pzu'],
-            [ 'ul', 'pl', 'um', 'wsiu' ],
-            [ 'fiero', 'pastago', 'zapiekarnia', 'rytm'],
-            [ 'teatr-wielki', 'teatr-nowy', 'teatr-muzyczny', 'goudaworks' ],
+            [ 'lodz-kreuje',  'wl-lodzkie', 'wl-main', ],
+            [ 'mz', 'nck', 'kghm', 'uml-zdrowie' ],
+            [ 'ul', 'pl', 'um', 'szkolafilmowa', 'wsiu' ],
+            [ 'teatr-wielki', 'teatr-nowy', 'teatr-muzyczny', 'bodo' ],
+            [ 'fiero', 'saltos', 'musicschool', 'krolkul' ],
             [ 'mlodziwlodzi', 'makimo', 'eska', 'plaster'],
-            [ 'infostudent', 'zak', 'wydarzysie', 'studentlodz'],
+            [ 'infostudent', 'zak', 'studentlodz'],
         ];
 
         $unknown = [

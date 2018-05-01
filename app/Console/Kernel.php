@@ -13,7 +13,6 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-         Commands\ImportExcelData::class,
          Commands\RegenerateTileImage::class,
          Commands\DispatchWampiriadaMailing::class,
          Commands\RemoveOldActivities::class,

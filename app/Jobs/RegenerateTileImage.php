@@ -60,8 +60,7 @@ class RegenerateTileImage extends Job implements ShouldQueue
         $process = $builder->getProcess();
         echo $process->getCommandLine();
 
-        $editionNumber = Option::get('wampiriada.edition', 28);
-        $repository = new EditionRepository($editionNumber);
+        $repository = EditionRepository::current();
         $editionId = $repository->getEdition()->id;
         $checkins = Checkin::whereEditionId($editionId)->with('user')->get();
 
