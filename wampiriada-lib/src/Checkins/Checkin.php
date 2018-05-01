@@ -5,7 +5,6 @@ use NZS\Core\Person;
 use NZS\Wampiriada\Checkins\Prize\PrizeForCheckin;
 
 use NZS\Wampiriada\ActionDay;
-use NZS\Wampiriada\BloodType;
 use NZS\Wampiriada\ShirtSize;
 use NZS\Wampiriada\Editions\Edition;
 
@@ -20,10 +19,6 @@ class Checkin extends Model {
 
     public function user() {
         return $this->belongsTo(Person::class, 'user_id');
-    }
-
-    public function blood_type() {
-        return $this->belongsTo(BloodType::class);
     }
 
     public function size() {

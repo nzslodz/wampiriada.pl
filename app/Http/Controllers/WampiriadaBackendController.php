@@ -90,24 +90,14 @@ class WampiriadaBackendController extends Controller {
 
         $checkins = Checkin::whereActionDayId($id)->orderBy('created_at')->get();
 
-        $first_time_checkin_count = $checkins->filter(function($checkin) {
-            return $checkin->first_time;
-        })->count();
-
-		if($action_data->getOverall() > 0) {
-			$first_time_checkin_count_percentage = round(100 * $first_time_checkin_count / $action_data->getOverall());
-		} else {
-			$first_time_checkin_count_percentage = 0;
-		}
-
         return view('admin.wampiriada.edit', array(
             'action' => $action,
             'data' => $action_data,
             'checkins' => $checkins,
 			'prize_types' => PrizeType::whereActive(true)->pluck('name', 'id'),
             'checkin_count' => $checkins->count(),
-            'first_time_checkin_count' => $first_time_checkin_count,
-            'first_time_checkin_count_percentage' => $first_time_checkin_count_percentage,
+            'first_time_checkin_count' => $action_data->first_time,
+            'first_time_checkin_count_percentage' => $action_data->getFirstTimePercentage(),
             'missing_count' => $action_data->getOverall() - $checkins->count(),
         ));
 	}

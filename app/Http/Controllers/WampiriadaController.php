@@ -27,9 +27,7 @@ class WampiriadaController extends Controller {
     use UsesPolls;
 
     public function showIndex() {
-        $edition = Option::get('wampiriada.edition', 28);
-
-        $repository = new EditionRepository($edition);
+        $repository = EditionRepository::current();
 
         $event_redirect = $repository->getRedirect('facebook-event');
 
@@ -45,7 +43,7 @@ class WampiriadaController extends Controller {
         }
 
         try {
-            $last_year_edition = new EditionRepository($repository->getEditionNumber() - 2);
+            $last_year_edition = EditionRepository::fromPreviousYear($repository);
             $overall_difference = $repository->getOverallDifference($last_year_edition) * 0.45;
         } catch(ObjectDoesNotExist $e) {
             $overall_difference = false;

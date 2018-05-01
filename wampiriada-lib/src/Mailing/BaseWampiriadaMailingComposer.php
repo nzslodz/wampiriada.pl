@@ -56,7 +56,7 @@ abstract class BaseWampiriadaMailingComposer extends BaseMailingComposer impleme
     }
 
     public static function spawnSampleInstance() {
-        $edition_repository = new EditionRepository;
+        $edition_repository = EditionRepository::current();
 
         return new static($edition_repository->getEdition());
     }

@@ -37,7 +37,7 @@
                 <tr>
                     <th><a href="{{ url('admin/wampiriada/edit/' . $action->id) }}">{{ $action->short_description }}</a></th>
                     <td class="info"><strong>{{ $action->data->getOverall() }}</strong></td>
-                    <td>{{ $action->checkins()->whereFirstTime(true)->count() }}
+                    <td>{{ $action->data->first_time }}</td>
                     <td>{{ $action->data->a_plus }}</td>
                     <td>{{ $action->data->a_minus }}</td>
                     <td>{{ $action->data->b_plus }}</td>
@@ -60,7 +60,7 @@
             <tr class="active">
                 <th>Razem</th>
                 <td class="info"><strong>{{ $summary->sumData('overall') }}</strong></td>
-                <td>{{ $edition_object->checkins()->whereFirstTime(true)->count() }}</td>
+                <td>{{ $edition_object->data->first_time }}</td>
                 <td>{{ $summary->sumData('a_plus') }}</td>
                 <td>{{ $summary->sumData('a_minus') }}</td>
                 <td>{{ $summary->sumData('b_plus') }}</td>

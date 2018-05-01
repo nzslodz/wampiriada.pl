@@ -227,12 +227,6 @@ class FacebookController extends Controller {
 
             $checkin->save();
 
-            // create activity object for first-time donation
-            if($checkin->first_time) {
-                $activity_class = new FirstTimeDonatingActivityClass;
-                $activity_class->saveActivityInstance($checkin);
-            }
-
             // save profile defaults
             $profile = Profile::whereId($user->id)->first();
             if(!$profile) {
@@ -278,96 +272,6 @@ class FacebookController extends Controller {
 
         return redirect($fb->getRedirectLoginHelper()->getLogoutUrl($token,  url('facebook/complete')));
     }
-
-    /*
-    public function getRaffle(LaravelFacebookSdk $fb) {
-        $token = Session::get('fb_user_access_token');
-
-        if(!$token) {
-            abort(403, 'Not authorized');
-        }
-
-        $fb->setDefaultAccessToken($token);
-
-        $user_likes_wampiriada = false;
-        $user_likes_nzs = false;
-
-        try {
-            # Wampiriada
-            $wamp_response = $fb->get('/me/likes/110146435762751');
-            # NZS
-            $nzs_response = $fb->get('/me/likes/150737411647566');
-        } catch(FacebookSDKException $e) {
-            dd($e->getMessage());
-        }
-
-        foreach($wamp_response->getGraphEdge() as $graph_node) {
-            if($graph_node['id']) {
-                $user_likes_wampiriada = true;
-            }
-        }
-
-        foreach($nzs_response->getGraphEdge() as $graph_node) {
-            if($graph_node['id']) {
-                $user_likes_nzs = true;
-            }
-        }
-
-        return view('facebook.raffle', [
-            'user_likes_wampiriada' => $user_likes_wampiriada,
-            'user_likes_nzs' => $user_likes_nzs,
-        ]);
-    }
-
-    public function postRaffle(LaravelFacebookSdk $fb) {
-        $login_url = $fb->getLoginUrl(['user_likes', 'publish_actions']);
-
-        Session::set('to', 'finish');
-
-        return redirect($login_url);
-    }*/
-
-    /*public function getFinish(LaravelFacebookSdk $fb) {
-        $token = Session::get('fb_user_access_token');
-
-        $user = Person::find(Session::get('checkin_user_id'));
-        if(!$user) {
-            throw new LogicException("/checkin url used without user being created.");
-        }
-
-        if(!$token) {
-            abort(403, 'Not authorized');
-        }
-
-        $fb->setDefaultAccessToken($token);
-
-        $edition_repository = new EditionRepository(Option::get('wampiriada.edition', 28));
-        $redirect = $edition_repository->getRedirect('plakat');
-
-        try {
-            $data = [
-                'link' => $redirect->asUrl(),
-                'message' => 'Test message',
-            ];
-
-            $fb->post("/me/feed", $data);
-        } catch(FacebookSDKException $e) {
-            dd($e->getMessage());
-        }
-
-
-        $current_action = ActionDay::whereDate('created_at', '=', Carbon::today()->toDateString())->first();
-        $checkin = Checkin::whereActionDayId($current_action->id)->whereUserId($user->id)->first();
-
-        if(!$checkin) {
-            abort(403, 'Forbidden');
-        }
-
-        $checkin->qualified_for_raffle = true;
-        $checkin->save();
-
-        return redirect($fb->getRedirectLoginHelper()->getLogoutUrl($token,  url('facebook/complete')));
-    }*/
 
     public function getComplete() {
         return view('facebook.complete', [

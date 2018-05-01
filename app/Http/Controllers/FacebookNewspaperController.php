@@ -10,7 +10,6 @@ use App\Http\Requests\EmailLoginRequest;
 use Illuminate\Http\Request;
 
 use NZS\Wampiriada\ShirtSize;
-use NZS\Wampiriada\BloodType;
 use NZS\Wampiriada\Edition;
 use NZS\Wampiriada\ActionDay;
 use NZS\Wampiriada\ActionData;
