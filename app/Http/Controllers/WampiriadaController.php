@@ -16,8 +16,6 @@ use NZS\Wampiriada\Mailing\Campaigns\EmailCampaignResult;
 use NZS\Wampiriada\Redirects\WampiriadaRedirectRepository;
 use Illuminate\Http\Request;
 
-use NZS\Wampiriada\Redirects\AwareRedirectRepository;
-
 use NZS\Core\Polls\Poll;
 use NZS\Core\Polls\UsesPolls;
 use NZS\Wampiriada\Polls\ThankYou\WampiriadaThankYouPollFormRequest;
@@ -128,51 +126,6 @@ class WampiriadaController extends Controller {
             'partners' => $this->getPartners(),
             'numberOfCheckins' => Checkin::whereEditionId($repository->getEdition()->id)->count(),
         ]);
-    }
-
-    public function getRedirectByName(Request $request, $name) {
-        $repository = new DatabaseRedirectRepository;
-
-        $redirect_url = $repository->resolveRedirect($name);
-
-        if(!$redirect_url) {
-            abort(404);
-        }
-
-        $aware_repository = AwareRedirectRepository::fromRequest($request, $repository);
-        if($aware_repository) {
-            $aware_repository->saveEmailCampaignInfo($name);
-
-            // remember flag
-            if($request->input('r') == 't') {
-                $request->session()->flash('redirect_user_id', $aware_repository->getUser()->id);
-            }
-        }
-
-        return redirect($redirect_url);
-    }
-
-    public function getRedirect(Request $request, $edition_number, $name) {
-        $edition_repository = new EditionRepository($edition_number);
-        $repository = $edition_repository->getRedirectRepository();
-
-        $redirect_url = $repository->resolveRedirect($name);
-
-        if(!$redirect_url) {
-            abort(404);
-        }
-
-        $aware_repository = AwareRedirectRepository::fromRequest($request, $repository);
-        if($aware_repository) {
-            $aware_repository->saveEmailCampaignInfo($name);
-
-            // remember flag
-            if($request->input('r') == 't') {
-                $request->session()->flash('redirect_user_id', $aware_repository->getUser()->id);
-            }
-        }
-
-        return redirect($redirect_url);
     }
 
     public function getReminder(Request $request, $action_day_id) {

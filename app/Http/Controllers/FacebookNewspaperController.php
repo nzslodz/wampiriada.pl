@@ -24,8 +24,6 @@ use App\Jobs\DownloadFacebookProfileThenMakeGraphics;
 use App\Jobs\WampiriadaThankYouEmail;
 use App\Jobs\RegenerateTileImage;
 
-use NZS\Wampiriada\AwareRedirectRepository;
-use NZS\Wampiriada\FirstTimeDonatingActivityClass;
 use NZS\Wampiriada\WampiriadaThankYouMailingComposer;
 
 use App\Libraries\ErrorMailer;

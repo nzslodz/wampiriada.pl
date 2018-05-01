@@ -36,7 +36,6 @@ class ActivityServiceProvider extends ServiceProvider
         });
 
         $this->app->tag([
-            EmailCampaignResultActivityClass::class,
             AttendanceActivityClass::class,
         ], 'activity.model_classes');
     }

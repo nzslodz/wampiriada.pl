@@ -22,8 +22,6 @@ use Carbon\Carbon;
 use App\Jobs\DownloadFacebookProfile;
 use App\Jobs\RegenerateTileImage;
 
-use NZS\Wampiriada\Redirects\AwareRedirectRepository;
-use NZS\Wampiriada\Checkins\FirstTimeDonatingActivityClass;
 use NZS\Wampiriada\Mailing\WampiriadaThankYouMailingComposer;
 
 use App\Libraries\ErrorMailer;

@@ -5,7 +5,6 @@ use NZS\Core\Mailing\MultipleViews;
 use NZS\Core\Person;
 
 use NZS\Wampiriada\Editions\EditionRepository;
-use NZS\Wampiriada\Redirects\AwareRedirectRepository;
 
 use NZS\Wampiriada\Mailing\WampiriadaReminderEmailJob;
 
@@ -44,8 +43,6 @@ class WampiriadaReminderMailingComposer extends BaseMailingComposer {
     public function getContext(Person $user) {
         $edition_repository = new EditionRepository($this->edition);
         $redirect_repository = $edition_repository->getRedirectRepository();
-
-        $redirect_repository = new AwareRedirectRepository($redirect_repository, $user, $this->getCampaignKey());
 
         $reminder = Reminder::whereActionDayId($this->action_day->id, $user->id)->first();
 

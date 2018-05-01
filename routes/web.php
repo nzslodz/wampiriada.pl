@@ -14,8 +14,6 @@ use App\Http\Middleware\AdminMiddleware;
 */
 
 Route::get('/', 'WampiriadaController@showIndex');
-Route::get('/redirect/{name}', 'WampiriadaController@getRedirectByName');
-Route::get('/redirect/{edition_number}/{name}', 'WampiriadaController@getRedirect');
 Route::get('/krew', 'WampiriadaController@getKrew');
 Route::get('/szpik', 'WampiriadaController@getSzpik');
 

@@ -13,7 +13,6 @@ use Exception;
 use Storage;
 use NZS\Core\Person;
 
-use NZS\Wampiriada\Redirects\AwareRedirectRepository;
 use NZS\Wampiriada\Mailing\WampiriadaThankYouMailingComposer;
 use NZS\Wampiriada\Editions\EditionRepository;
 use NZS\Core\Mailing\ComposerSender;
