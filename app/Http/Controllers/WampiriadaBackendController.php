@@ -225,9 +225,9 @@ class WampiriadaBackendController extends Controller {
 			$configuration->id = $edition->id;
 		}
 
-		$configuration->display_faces = $request->has('display_faces');
-		$configuration->display_actions = $request->has('display_actions');
-		$configuration->display_results = $request->has('display_results');
+		$configuration->display_faces = $request->filled('display_faces');
+		$configuration->display_actions = $request->filled('display_actions');
+		$configuration->display_results = $request->filled('display_results');
 
 		$configuration->save();
 

@@ -48,12 +48,9 @@ Route::get('/nzs', 'FacebookNewspaperController@getPage');
 Route::post('/nzs/poll_image', 'FacebookNewspaperController@postPollImage');
 Route::get('/nzs/callback', 'FacebookNewspaperController@getCallback');
 
-
-// mobile controller
-//Route::get('data/overall', 'MobileController@getOverall');
-
 // newsletter controller - remove yourself from newsletter,
-//Route::get('newsletter/remove', 'NewsletterController@getRemove');
+Route::get('newsletter/remove', 'NewsletterController@getRemove');
+Route::post('newsletter/remove', 'NewsletterController@postRemove');
 
 Route::group(['prefix' => 'admin'], function() {
 	// Login/forgot_password/reset_password

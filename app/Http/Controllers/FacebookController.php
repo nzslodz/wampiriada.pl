@@ -248,7 +248,7 @@ class FacebookController extends Controller {
         DB::transaction(function() use($request, $current_action, $user) {
             // save checkin model
             $checkin = new Checkin();
-            $checkin->first_time = $request->has('first_time');
+            $checkin->first_time = $request->filled('first_time');
             $checkin->size_id = $request->size;
             $checkin->blood_type_id = $request->blood_type;
             $checkin->name = $request->name;
@@ -318,7 +318,7 @@ class FacebookController extends Controller {
         });
 
         $composer = new WampiriadaThankYouMailingComposer($edition);
-        // 2017-05-01 We'll send these e-mails after the action had started 
+        // 2017-05-01 We'll send these e-mails after the action had started
         //dispatch($composer->getJobInstance($user)->delay(Carbon::now()->addHours(2)));
         dispatch(new RegenerateTileImage());
 
