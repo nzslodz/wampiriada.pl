@@ -106,10 +106,10 @@ class HRController extends Controller {
 		$member = new Member;
 		$member->id = $person->id;
 		$member->status = $request->status;
-		$member->has_badge = $request->has_badge;
+		$member->has_badge = $request->input('has_badge', false);
 		$member->member_since = $request->member_since === '' ? null: $request->member_since;
 		$member->member_to = $request->member_to === '' ? null: $request->member_to;
-		$member->is_member = $request->is_member;
+		$member->is_member = $request->input('is_member', false);
 
 		$member->save();
 
