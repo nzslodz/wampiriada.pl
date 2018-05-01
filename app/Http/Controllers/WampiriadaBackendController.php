@@ -8,7 +8,6 @@ use NZS\Wampiriada\PrizeAggregator;
 use NZS\Wampiriada\FacebookConncection;
 use NZS\Wampiriada\ActionDataAggregator;
 use NZS\Wampiriada\Editions\EditionConfiguration;
-use NZS\Wampiriada\Checkins\Friend\FriendCheckinDecorator;
 use NZS\Wampiriada\Checkins\Prize\PrizeForCheckinActivityClass;
 use NZS\Wampiriada\Checkins\Prize\PrizeForCheckinClaimedActivityClass;
 use NZS\Wampiriada\Editions\Edition;
@@ -293,26 +292,6 @@ class WampiriadaBackendController extends Controller {
 
 		return redirect()->back();
 	}
-
-    public function getFacebookConnections(Request $request, $number) {
-        $edition = Edition::whereNumber($number)->firstOrFail();
-
-        $checkins = Checkin::with('user', 'friend_checkins.checkin.user')
-			->whereEditionId($edition->id)
-			->get()
-			->transform(function($checkin) {
-				return new FriendCheckinDecorator($checkin);
-			});
-
-        return view('admin.wampiriada.facebook_connections', [
-            'connections' => $checkins->sortByDesc(function($decorator) {
-				return $decorator->getScore();
-			}),
-			'connections_by_action' => $checkins->groupBy(function($decorator) {
-				return $decorator->getCheckin()->actionDay->created_at->timestamp;
-			}),
-        ]);
-    }
 
 	public function prizeSummary($number) {
 		$edition = Edition::whereNumber($number)->firstOrFail();

@@ -14,11 +14,9 @@ use NZS\Wampiriada\BloodType;
 use NZS\Wampiriada\Edition;
 use NZS\Wampiriada\ActionDay;
 use NZS\Wampiriada\ActionData;
-use NZS\Wampiriada\FriendCheckin;
 use NZS\Wampiriada\Checkin;
 use NZS\Wampiriada\Profile;
 use NZS\Wampiriada\Option;
-use NZS\Wampiriada\FacebookConnection;
 use NZS\Wampiriada\EditionRepository;
 use Carbon\Carbon;
 

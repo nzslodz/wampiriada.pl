@@ -36,11 +36,6 @@ Breadcrumbs::register('admin-wampiriada-settings', function($breadcrumbs, $numbe
     $breadcrumbs->push('Ustawienia', route('admin-wampiriada-settings', $number));
 });
 
-Breadcrumbs::register('admin-wampiriada-connections', function($breadcrumbs, $number) {
-    $breadcrumbs->parent('admin-wampiriada-show', $number);
-    $breadcrumbs->push('Połączenia', route('admin-wampiriada-connections', $number));
-});
-
 Breadcrumbs::register('admin-prize-list', function($breadcrumbs) {
     $breadcrumbs->parent('admin');
     $breadcrumbs->push('Nagrody', route('admin-prize-list'));

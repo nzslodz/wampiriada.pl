@@ -72,7 +72,6 @@ Route::group(['prefix' => 'admin'], function() {
 	    Route::post('wampiriada/results', 'WampiriadaBackendController@postResults');
 	    Route::get('wampiriada/settings/{number}', ['as' => 'admin-wampiriada-settings', 'uses' => 'WampiriadaBackendController@getSettings']);
 	    Route::post('wampiriada/settings/{number}', 'WampiriadaBackendController@postSettings');
-	    Route::get('wampiriada/connections/{number}', ['as' => 'admin-wampiriada-connections', 'uses' => 'WampiriadaBackendController@getFacebookConnections']);
 
         Route::post('wampiriada/prize/{checkin}', 'WampiriadaBackendController@postPrize');
         Route::get('wampiriada/prize/summary/{number}', [ 'as' =>'admin-wampiriada-prize-summary', 'uses' => 'WampiriadaBackendController@prizeSummary'] );
