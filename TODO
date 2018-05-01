@@ -1,0 +1,33 @@
+- ograniczyc zbieranie danych marketingowych do minimum
+- dropnac connection pomiedzy grupami a ludzmi
+- dropnac zalozenie, ze bedziemy uzywac backendu w celach rekrutacyjnych/analizy
+- dac appke ktora bedzie po prostu dzialac
+
+
+szczegółowe kroki:
+- activity classes są chujowe (podpadają pod tracking behavioralny), podobnie redirecty nie mają większego sensu (poza oryginalnym założeniem, że można zdefiniować link do pliku X, bez trackingu)
+- checkiny są do wyrzucenia (?)
+- logowanie Facebookiem przy oddawaniu krwi zostawiamy jako opcję - alternatywnie e-mail, alternatywnie nic (?)
+- potrzebne nam imię i nazwisko?
+- logowanie Facebookiem dla akcji promocyjnych
+- lista przyjaciół Facebooka - to już prędzej jest to do przejścia
+
+A. LISTA KRWIODAWCÓW
+
+B. PRZYPOMNIENIA
+
+C. PROMOWANIE, NETWORKING
+
+D. LOSOWANIE NAGRÓD
+
+Jak osoba się loguje na stronie, to powinna:
+a. mieć możliwość wyrazić (loguję się FB | podaję e-mail - i imię nazwisko? | nie podaję danych osobowych) zgodę
+b. drugi ekran - dla celów statystycznych - oddałem/am krew, grupa krwi, to mój pierwszy raz (anonimizowane)
+c. trzeci ekran - wyrażam zgodę:
+ c1. chcę otrzymywać e-maile o nowych edycjach Wampiriady oraz o potrzebnej krwi
+ c2. chcę się dowiedzieć więcej o NZS Regionu Łódzkiego
+ c3. chcę pomóc Wampiriadzie dotrzeć do większej ilości krwiodawców
+
+ Google Analytics
+
+Usuwanie danych
