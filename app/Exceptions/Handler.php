@@ -40,6 +40,8 @@ class Handler extends ExceptionHandler
      */
     public function report(Exception $e)
     {
+        var_dump($e);
+        die();
         $error_mailer = new ErrorMailer($this->dontReport);
         $error_mailer->mailException($e);
         parent::report($e);

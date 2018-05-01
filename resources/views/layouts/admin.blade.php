@@ -97,7 +97,7 @@
         </div>
 
         <div class="container">
-            {!! Breadcrumbs::renderIfExists() !!}
+            {!! Breadcrumbs::render() !!}
         </div>
 
         <section class="container" role="main"  id="application">

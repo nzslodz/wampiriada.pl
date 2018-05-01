@@ -76,7 +76,7 @@ window.fbAsyncInit = function() {
         <script src="{{ url('js/plugins.js') }}"></script>
 
 		<!--skrypty z map google-->
-		<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script>
+		<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true&key=AIzaSyCL7ZBHNxksuMm90Rua5BXpeu4yEze3P8I"></script>
 		<script type="text/javascript" src="{{ url('bower_components/gmaps/gmaps.min.js') }}"></script>
 		<script type="text/javascript" src="{{ url('bower_components/bootstrap/dist/js/bootstrap.min.js') }}"></script>
         <script type="text/javascript" src="{{ url('bower_components/isotope/dist/isotope.pkgd.min.js') }}"></script>

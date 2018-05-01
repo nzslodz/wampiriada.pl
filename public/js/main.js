@@ -1,16 +1,16 @@
 $(function() {
     $('a.button').click(function() {
         $.scrollTo($($(this).attr('href')), 500);//przewijanie do nastepnej sekcji
-        
+
         return false;
     })
 
     var source = $('#map-item-template').html()
-    
+
     if(source) {
         var template = Handlebars.compile(source)
 	}
-	
+
     //sortowanie tabelki
     $('.isotope').isotope({
         getSortData: {
@@ -27,7 +27,7 @@ $(function() {
     $('.sorting a').click(function() {
         var me = $(this)
         var option = me.data('option-value')
-        
+
         if(me.hasClass('active')) {
             return false;
         }
@@ -38,7 +38,7 @@ $(function() {
         return false;
     })
 
-	
+
 	//wykres na stronie
 
     $('#results').each(function() {
@@ -54,7 +54,7 @@ $(function() {
         maximum: 1000,
         labelFontColor: "#fff"
     },
-    
+
     data: [
       {
         indexLabelFontColor: "#fff",
@@ -96,7 +96,7 @@ $(function() {
         scaleControl: false,
         draggable: false,
       });
-	  
+
       var items = $('.isotope li')
 
 	  items.each(function() {
@@ -105,10 +105,10 @@ $(function() {
 		me.click(function() {
             items.removeClass('active')
 			map.removeMarkers()
-            
+
             me.addClass('active')
-            
-            var title = me.find('.place').text()
+
+            var title = me.find('.place').clone().children().remove().end().text()
             var address = me.find('.place').data('address')
 
 			map.addMarker ({
@@ -124,7 +124,7 @@ $(function() {
                     }),
                 },
 			});
-            
+
             if(ResponsiveBootstrapToolkit.is('<md')) {
                 $.scrollTo($('#map'), 500)
             }
