@@ -8,8 +8,6 @@ use NZS\Wampiriada\PrizeAggregator;
 use NZS\Wampiriada\FacebookConncection;
 use NZS\Wampiriada\ActionDataAggregator;
 use NZS\Wampiriada\Editions\EditionConfiguration;
-use NZS\Wampiriada\Checkins\Prize\PrizeForCheckinActivityClass;
-use NZS\Wampiriada\Checkins\Prize\PrizeForCheckinClaimedActivityClass;
 use NZS\Wampiriada\Editions\Edition;
 use NZS\Wampiriada\Checkins\Checkin;
 use NZS\Wampiriada\PrizeType;

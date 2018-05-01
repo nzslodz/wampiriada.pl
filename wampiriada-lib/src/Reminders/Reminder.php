@@ -6,7 +6,6 @@ use Carbon\Carbon;
 use NZS\Wampiriada\ActionDay;
 use NZS\Wampiriada\Checkins\Checkin;
 use NZS\Core\Person;
-use NZS\Core\Activity;
 
 class Reminder extends Model {
     protected $table = 'wampiriada_reminders';
@@ -23,10 +22,6 @@ class Reminder extends Model {
 
     public function action_day() {
         return $this->belongsTo(ActionDay::class, 'action_day_id');
-    }
-
-    public function activity() {
-        return $this->belongsTo(Activity::class);
     }
 
     public function user() {

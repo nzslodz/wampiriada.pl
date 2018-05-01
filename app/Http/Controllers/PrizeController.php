@@ -7,8 +7,6 @@ use NZS\Wampiriada\Action;
 use NZS\Wampiriada\ActionData;
 use NZS\Wampiriada\Checkins\Prize\PrizeForCheckin;
 use NZS\Wampiriada\FacebookConncection;
-use NZS\Wampiriada\Checkins\Prize\PrizeForCheckinActivityClass;
-use NZS\Wampiriada\Checkins\Prize\PrizeForCheckinClaimedActivityClass;
 use NZS\Wampiriada\Editions\Edition;
 use NZS\Wampiriada\Checkins\Checkin;
 use NZS\Wampiriada\ShirtSize;

@@ -8,8 +8,6 @@ use Illuminate\Database\Migrations\MigrationRepositoryInterface;
 use NZS\Core\ActivityRepository;
 use NZS\Core\DatabaseActivityRepository;
 use NZS\Core\Mailing\MailingRepository;
-use NZS\Wampiriada\Checkins\CheckinActivityClass;
-use NZS\Wampiriada\Checkins\Prize\PrizeForCheckinActivityClass;
 
 class MailingServiceProvider extends ServiceProvider
 {

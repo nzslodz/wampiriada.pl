@@ -8,8 +8,6 @@ use Illuminate\Database\Migrations\MigrationRepositoryInterface;
 use NZS\Core\ActivityRepository;
 use NZS\Core\DatabaseActivityRepository;
 use NZS\Core\HR\AttendanceActivityClass;
-use NZS\Wampiriada\Checkins\CheckinActivityClass;
-use NZS\Wampiriada\Checkins\Prize\PrizeForCheckinActivityClass;
 use NZS\Wampiriada\Reminders\ReminderActivityClass;
 
 class ActivityServiceProvider extends ServiceProvider
@@ -38,10 +36,7 @@ class ActivityServiceProvider extends ServiceProvider
         });
 
         $this->app->tag([
-            CheckinActivityClass::class,
             EmailCampaignResultActivityClass::class,
-            PrizeForCheckinActivityClass::class,
-            ReminderActivityClass::class,
             AttendanceActivityClass::class,
         ], 'activity.model_classes');
     }
