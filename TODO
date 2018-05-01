@@ -9,7 +9,7 @@ szczegółowe kroki:
 [ ] dac appke ktora bedzie po prostu dzialac
 [ ] activity classes są chujowe (podpadają pod tracking behavioralny)
 [ ] podobnie redirecty nie mają większego sensu (poza oryginalnym założeniem, że można zdefiniować link do pliku X, bez trackingu)
-[ ] checkiny są do wyrzucenia (?)
+[ ] checkiny są do wyrzucenia (?) - nie, ale zrobić lightweight model osoby z Wampiriady (e-mail, imię, nazwisko, fb id) + checkiny?
 [ ] logowanie Facebookiem przy oddawaniu krwi zostawiamy jako opcję - alternatywnie e-mail, alternatywnie nic (?)
 [x] potrzebne nam imię i nazwisko? tak
 [ ] logowanie Facebookiem dla akcji promocyjnych
