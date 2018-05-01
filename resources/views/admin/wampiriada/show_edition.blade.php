@@ -111,9 +111,7 @@
                     <tr class="@if($reminder->hasCheckin()) success @elseif($reminder->hasAnyCheckin()) warning @elseif($action->inPast()) danger @endif">
                         <td>{{ $iterator += 1 }} / {{ $loop->iteration }}</td>
                         <th>
-                            <a data-card="{{ $reminder->user_id }}" href="{{ url('admin/activity/profile/' . $reminder->user_id )}}">
                             {{ $reminder->user->getFullName() }}
-                            </a>
                         </th>
                         <td>
                             {{ $reminder->created_at }}

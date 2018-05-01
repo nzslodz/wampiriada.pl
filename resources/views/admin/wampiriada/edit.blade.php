@@ -157,14 +157,11 @@
                 <tr>
                     <th>{{ $key + 1 }}</th>
                     <th>
-
-                        <a data-card="{{ $checkin->user_id }}" href="{{ url('admin/activity/profile/' . $checkin->user_id )}}">
-                            @if($checkin->user->getFullName() != ' ')
-                                {{ $checkin->user->getFullName() }}
-                            @else
-                                {{ $checkin->name }}
-                            @endif
-                        </a>
+                        @if($checkin->user->getFullName() != ' ')
+                            {{ $checkin->user->getFullName() }}
+                        @else
+                            {{ $checkin->name }}
+                        @endif
 
                         @if($checkin->user->facebook_user_id)
                             <small><a href="https://facebook.com/{{ $checkin->user->facebook_user_id }}">facebook</a></small>

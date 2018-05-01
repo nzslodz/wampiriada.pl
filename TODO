@@ -1,16 +1,19 @@
-- ograniczyc zbieranie danych marketingowych do minimum
-- dropnac connection pomiedzy grupami a ludzmi
-- dropnac zalozenie, ze bedziemy uzywac backendu w celach rekrutacyjnych/analizy
-- dac appke ktora bedzie po prostu dzialac
+
 
 
 szczegółowe kroki:
-- activity classes są chujowe (podpadają pod tracking behavioralny), podobnie redirecty nie mają większego sensu (poza oryginalnym założeniem, że można zdefiniować link do pliku X, bez trackingu)
-- checkiny są do wyrzucenia (?)
-- logowanie Facebookiem przy oddawaniu krwi zostawiamy jako opcję - alternatywnie e-mail, alternatywnie nic (?)
-- potrzebne nam imię i nazwisko?
-- logowanie Facebookiem dla akcji promocyjnych
-- lista przyjaciół Facebooka - to już prędzej jest to do przejścia
+[ ] ograniczyc zbieranie danych marketingowych do minimum
+[ ] dropnac zalozenie, ze bedziemy uzywac backendu w celach rekrutacyjnych/analizy
+[x] dropnac wyświetlanie activity dla wampiriady
+[ ] dropnąć tworzenie profili userów przy checkinach (nie chcemy miec modelu Person)
+[ ] dac appke ktora bedzie po prostu dzialac
+[ ] activity classes są chujowe (podpadają pod tracking behavioralny)
+[ ] podobnie redirecty nie mają większego sensu (poza oryginalnym założeniem, że można zdefiniować link do pliku X, bez trackingu)
+[ ] checkiny są do wyrzucenia (?)
+[ ] logowanie Facebookiem przy oddawaniu krwi zostawiamy jako opcję - alternatywnie e-mail, alternatywnie nic (?)
+[x] potrzebne nam imię i nazwisko? tak
+[ ] logowanie Facebookiem dla akcji promocyjnych
+[ ] lista przyjaciół Facebooka - to już prędzej jest to do przejścia
 
 A. LISTA KRWIODAWCÓW
 
