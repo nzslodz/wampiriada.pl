@@ -7,7 +7,6 @@ use NZS\Wampiriada\Editions\Edition;
 use NZS\Wampiriada\Editions\EditionData;
 use NZS\Wampiriada\ActionData;
 use NZS\Wampiriada\Checkins\Checkin;
-use NZS\Wampiriada\OverallResult;
 
 class RemoveConnectionBetweenCheckinAndMedicalData extends Migration
 {
@@ -68,7 +67,7 @@ class RemoveConnectionBetweenCheckinAndMedicalData extends Migration
             $data->marrow = NULL;
 
             $data->registered = NULL;
-            $data->donated = OverallResult::where('year', $edition->getStartDate()->year)->whereEditionType(floor($edition->getStartDate()->month / 6) + 1)->first()->overall;
+            $data->donated = DB::table('overall_results')->where('year', $edition->getStartDate()->year)->whereEditionType(floor($edition->getStartDate()->month / 6) + 1)->first()->overall;
 
             $data->save();
         }

@@ -1,6 +1,7 @@
 <?php namespace NZS\Wampiriada;
 
 use Illuminate\Database\Eloquent\Model as Model;
+use NZS\Wampiriada\ActionDay;
 
 class ActionData extends Model {
     protected $table = 'action_data';
@@ -27,5 +28,9 @@ class ActionData extends Model {
 
     public function getFirstTimePercentage() {
         return round(100 * $this->first_time / $this->donated);
+    }
+
+    public function action_day() {
+        return $this->belongsTo(ActionDay::class, 'id');
     }
 }

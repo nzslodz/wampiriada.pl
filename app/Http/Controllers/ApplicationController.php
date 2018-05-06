@@ -1,10 +1,8 @@
 <?php namespace App\Http\Controllers;
 
 use NZS\Wampiriada\School;
-use NZS\Wampiriada\OverallSchools;
 use NZS\Wampiriada\Editions\Edition;
 use NZS\Wampiriada\ActionDay;
-use NZS\Wampiriada\OverallResult;
 
 use DB;
 use Input;
