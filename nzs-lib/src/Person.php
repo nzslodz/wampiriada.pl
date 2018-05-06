@@ -14,7 +14,7 @@ class Person extends Model {
     use SyncableGraphNodeTrait;
     use Notifiable;
 
-    protected $table = 'people';
+    protected $table = 'nzs_people';
 
     protected $fillable = [
         'first_name', 'last_name', 'email', 'gender',
@@ -45,7 +45,7 @@ class Person extends Model {
     public function member() {
         return $this->hasOne(Member::class, 'id');
     }
-    
+
     public function updateGender($something=null) {
         // raw input - e.g. from form
         if($something == 'male' || $something == 'female') {

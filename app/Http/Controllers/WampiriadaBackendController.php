@@ -53,7 +53,7 @@ class WampiriadaBackendController extends Controller {
 	public function getShow($number) {
 		$edition_object = Edition::whereNumber($number)->first();
 
-        $actions = ActionDay::whereEditionId($edition->id)->orderBy('created_at')->get();
+        $actions = ActionDay::whereEditionId($edition_object->id)->orderBy('created_at')->get();
 
         $actions_with_data = $actions->filter(function($action) {
             return (bool) $action->data;

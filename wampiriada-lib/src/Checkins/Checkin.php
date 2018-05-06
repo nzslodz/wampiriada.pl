@@ -1,12 +1,12 @@
 <?php namespace NZS\Wampiriada\Checkins;
 
 use Illuminate\Database\Eloquent\Model as Model;
-use NZS\Core\Person;
 use NZS\Wampiriada\Checkins\Prize\PrizeForCheckin;
 
 use NZS\Wampiriada\ActionDay;
 use NZS\Wampiriada\ShirtSize;
 use NZS\Wampiriada\Editions\Edition;
+use NZS\Wampiriada\Donor;
 
 class Checkin extends Model {
     public function actionDay() {
@@ -18,7 +18,7 @@ class Checkin extends Model {
     }
 
     public function user() {
-        return $this->belongsTo(Person::class, 'user_id');
+        return $this->belongsTo(Donor::class, 'user_id');
     }
 
     public function size() {

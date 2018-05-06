@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddGenderFields extends Migration
+class CreateNzsPeople extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,19 @@ class AddGenderFields extends Migration
      */
     public function up()
     {
-        Schema::table('people', function (Blueprint $table) {
+        Schema::create('nzs_people', function (Blueprint $table) {
+            $table->increments('id');
+            $table->timestamps();
+
+            $table->bigInteger('facebook_user_id')->unsigned()->nullable();
+
             $table->string('gender')->nullable();
             $table->decimal('gender_probability', 4, 2)->default(0);
+
+            $table->string('email');
+
+            $table->string('first_name');
+            $table->string('last_name');
         });
     }
 
@@ -26,8 +36,6 @@ class AddGenderFields extends Migration
      */
     public function down()
     {
-        Schema::table('people', function (Blueprint $table) {
-            $table->dropColumn(['gender', 'gender_probability']);
-        });
+        Schema::dropIfExists('nzs_people');
     }
 }

@@ -3,11 +3,11 @@
 namespace App\Http\Requests;
 
 use App\Http\Requests\Request;
-use NZS\Core\Person;
 
 use NZS\Wampiriada\Checkins\Checkin;
 use NZS\Wampiriada\Option;
 use NZS\Wampiriada\Editions\Edition;
+use NZS\Wampiriada\Donor;
 use Session;
 
 class CheckinRequest extends Request
@@ -31,7 +31,7 @@ class CheckinRequest extends Request
 
     public function extraValidation($validator) {
         $validator->sometimes('email', 'email|required', function($input) {
-            $user = Person::find(Session::get('checkin_user_id'));
+            $user = Donor::find(Session::get('checkin_user_id'));
 
             return empty($user->email);
         });

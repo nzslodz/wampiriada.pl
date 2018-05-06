@@ -3,7 +3,6 @@
 use SammyK\LaravelFacebookSdk\LaravelFacebookSdk;
 use Facebook\Exceptions\FacebookSDKException;
 use Session;
-use NZS\Core\Person;
 use App\Http\Requests\CheckinRequest;
 use App\Http\Requests\EmailLoginRequest;
 use Illuminate\Http\Request;
@@ -23,6 +22,7 @@ use App\Jobs\DownloadFacebookProfile;
 use App\Jobs\RegenerateTileImage;
 
 use NZS\Wampiriada\Mailing\WampiriadaThankYouMailingComposer;
+use NZS\Wampiriada\Donor;
 
 use App\Libraries\ErrorMailer;
 use LogicException;
@@ -58,7 +58,7 @@ class FacebookController extends Controller {
     }
 
     public function postLoginViaEmailPage(EmailLoginRequest $request) {
-        $user = Person::firstOrCreate(['email' => $request->email]);
+        $user = Donor::firstOrCreate(['email' => $request->email]);
 
         $edition_number = Option::get('wampiriada.edition', 28);
         $edition = Edition::whereNumber($edition_number)->first();
@@ -126,7 +126,7 @@ class FacebookController extends Controller {
 
         $facebook_user = $response->getGraphUser();
 
-        $user = Person::createOrUpdateGraphNode($facebook_user);
+        $user = Donor::createOrUpdateGraphNode($facebook_user);
         $user->save();
 
         Session::put('checkin_user_id', $user->id);
@@ -137,7 +137,7 @@ class FacebookController extends Controller {
     }
 
     public function getCheckin(LaravelFacebookSdk $fb) {
-        $user = Person::find(Session::get('checkin_user_id'));
+        $user = Donor::find(Session::get('checkin_user_id'));
 
         if(!$user) {
             throw new LogicException("/checkin url used without user being created.");
@@ -189,7 +189,7 @@ class FacebookController extends Controller {
             return abort(403, "Today the process is not available");
         }
 
-        $user = Person::find(Session::get('checkin_user_id'));
+        $user = Donor::find(Session::get('checkin_user_id'));
         if(!$user) {
             throw new LogicException("POST on /checkin url used without user being created.");
         }

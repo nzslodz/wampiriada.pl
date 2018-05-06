@@ -1,7 +1,6 @@
 <?php namespace NZS\Wampiriada;
 
 use Illuminate\Database\Eloquent\Model as Model;
-use NZS\Core\Person;
 
 class Profile extends Model {
     public $timestamps = false;
@@ -18,9 +17,5 @@ class Profile extends Model {
     	}
 
     	return $list;
-    }
-
-    public function user() {
-    	return $this->belongsTo(Person::class, 'id');
     }
 }

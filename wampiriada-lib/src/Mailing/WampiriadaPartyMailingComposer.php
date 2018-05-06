@@ -2,8 +2,6 @@
 use NZS\Core\Mailing\BaseMailingComposer;
 use NZS\Wampiriada\Editions\EditionRepository;
 
-use NZS\Core\Person;
-
 use NZS\Wampiriada\Editions\Edition;
 use NZS\Wampiriada\Mailing\BaseWampiriadaMailingComposer;
 

@@ -11,7 +11,6 @@ use NZS\Wampiriada\Editions\Edition;
 use Illuminate\Contracts\Mail\Mailer;
 use Exception;
 use Storage;
-use NZS\Core\Person;
 
 use NZS\Wampiriada\Mailing\WampiriadaThankYouMailingComposer;
 use NZS\Wampiriada\Editions\EditionRepository;
@@ -28,7 +27,7 @@ class SimpleEmailJob extends Job implements ShouldQueue
      *
      * @return void
      */
-    public function __construct(Person $user, $composer_class) {
+    public function __construct($user, $composer_class) {
         $this->user = $user;
         $this->composer_class = $composer_class;
     }

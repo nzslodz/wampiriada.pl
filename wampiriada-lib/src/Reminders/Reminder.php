@@ -5,7 +5,7 @@ use Illuminate\Database\Eloquent\Model as Model;
 use Carbon\Carbon;
 use NZS\Wampiriada\ActionDay;
 use NZS\Wampiriada\Checkins\Checkin;
-use NZS\Core\Person;
+use NZS\Wampiriada\Donor;
 
 class Reminder extends Model {
     protected $table = 'wampiriada_reminders';
@@ -21,7 +21,7 @@ class Reminder extends Model {
     }
 
     public function user() {
-        return $this->belongsTo(Person::class, 'user_id');
+        return $this->belongsTo(Donor::class, 'user_id');
     }
 
     public function getCheckin() {

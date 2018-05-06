@@ -3,7 +3,6 @@
 use SammyK\LaravelFacebookSdk\LaravelFacebookSdk;
 use Facebook\Exceptions\FacebookSDKException;
 use Session;
-use NZS\Core\Person;
 use NZS\Core\PersonNewspaper;
 use App\Http\Requests\CheckinRequest;
 use App\Http\Requests\EmailLoginRequest;
@@ -15,6 +14,7 @@ use NZS\Wampiriada\ActionDay;
 use NZS\Wampiriada\ActionData;
 use NZS\Wampiriada\Checkin;
 use NZS\Wampiriada\Profile;
+use NZS\Wampiriada\Donor;
 use NZS\Wampiriada\Option;
 use NZS\Wampiriada\EditionRepository;
 use Carbon\Carbon;
@@ -37,7 +37,7 @@ use Storage;
  * This controller is responsible for maintaining a promotional action
  * copying http://100000.pb.pl/
  *
- * A Person logs in through Facebok through a very simple interface and
+ * A Donor logs in through Facebok through a very simple interface and
  * then a custom image is being procesed for them with their profile picture
  * and a randomized text.
  *
@@ -53,7 +53,7 @@ class FacebookNewspaperController extends Controller {
 
     public function getPage(Request $request, LaravelFacebookSdk $fb) {
         $logged_user_id = $request->session()->get(self::SESSION_USER_ID);
-        $logged_user = Person::find($logged_user_id);
+        $logged_user = Donor::find($logged_user_id);
 
         if(!$logged_user) {
             $login_url =  $fb->getLoginUrl(['email'], '/nzs/callback');
@@ -65,7 +65,7 @@ class FacebookNewspaperController extends Controller {
 
         // then find an user through campaign token
         $loggable_user_token = $request->cookie(self::SAVE_COOKIE_NAME);
-        $loggable_user = Person::whereCampaignToken($loggable_user_token)->first();
+        $loggable_user = Donor::whereCampaignToken($loggable_user_token)->first();
 
         return view('nn_facebook.page', [
             'login_url' => $login_url,
@@ -123,7 +123,7 @@ class FacebookNewspaperController extends Controller {
 
         $facebook_user = $response->getGraphUser();
 
-        $user = Person::createOrUpdateGraphNode($facebook_user);
+        $user = Donor::createOrUpdateGraphNode($facebook_user);
         $user->updateGender($facebook_user);
         $user->save();
 

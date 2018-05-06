@@ -7,9 +7,9 @@ use Illuminate\Foundation\Inspiring;
 use NZS\Wampiriada\Editions\EditionRepository;
 use NZS\Wampiriada\Mailing\WampiriadaMailingComposer;
 use NZS\Wampiriada\Checkins\Checkin;
+use NZS\Wampiriada\Donor;
 use NZS\Core\Mailing\MailingRepository;
 use NZS\Core\Contracts\MailingComposer;
-use NZS\Core\Person;
 
 use Carbon\Carbon;
 
@@ -110,7 +110,7 @@ class DispatchWampiriadaMailing extends Command
 
     protected function constructRecipientListFromArray($users) {
         return collect($users)->transform(function($user_email) {
-            $user = Person::whereEmail($user_email)->first();
+            $user = Donor::whereEmail($user_email)->first();
 
             if($user === null) {
                 $this->warn(sprintf("User with e-mail %s not found in database", $user_email));

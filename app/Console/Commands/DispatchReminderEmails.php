@@ -10,7 +10,6 @@ use NZS\Wampiriada\Checkins\Checkin;
 use NZS\Wampiriada\Reminders\Reminder;
 use NZS\Core\Mailing\MailingRepository;
 use NZS\Core\Contracts\MailingComposer;
-use NZS\Core\Person;
 
 use Carbon\Carbon;
 

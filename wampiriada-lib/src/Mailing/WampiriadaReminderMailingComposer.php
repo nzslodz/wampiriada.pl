@@ -2,8 +2,6 @@
 use NZS\Core\Mailing\BaseMailingComposer;
 use NZS\Core\Mailing\MultipleViews;
 
-use NZS\Core\Person;
-
 use NZS\Wampiriada\Editions\EditionRepository;
 
 use NZS\Wampiriada\Mailing\WampiriadaReminderEmailJob;
@@ -39,7 +37,7 @@ class WampiriadaReminderMailingComposer extends BaseMailingComposer {
         ];
     }
 
-    public function getContext(Person $user) {
+    public function getContext($user) {
         $edition_repository = new EditionRepository($this->edition);
         $redirect_repository = $edition_repository->getRedirectRepository();
 
@@ -78,7 +76,7 @@ class WampiriadaReminderMailingComposer extends BaseMailingComposer {
         return sprintf('w%d:%s', (int) $this->edition->number, 'reminder');
     }
 
-    public function getJobInstance(Person $user) {
+    public function getJobInstance($user) {
         return new WampiriadaReminderEmailJob($this->action_day, $user, get_class($this));
     }
 
