@@ -69,7 +69,7 @@ class RemoveConnectionBetweenCheckinAndMedicalData extends Migration
 
         foreach(DB::table('editions')->get() as $edition) {
             $sum = DB::table('checkins')
-                ->where('action_day_id', $action_data->id)
+                ->where('edition_id', $edition->id)
                 ->sum('first_time');
 
             $start_date = new Carbon($edition->start_date);
