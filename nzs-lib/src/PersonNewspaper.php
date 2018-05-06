@@ -7,7 +7,7 @@ use NZS\Wampiriada\Donor;
 
 // XXX refactor
 class PersonNewspaper extends Model {
-    protected $table = 'person_newspapers';
+    protected $table = 'wampiriada_promo_newspapers';
 
     public function user() {
         return $this->belongsTo(Donor::class, 'id');

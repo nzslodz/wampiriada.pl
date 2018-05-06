@@ -8,7 +8,7 @@ use NZS\Wampiriada\Option;
 use NZS\Wampiriada\Checkins\Checkin;
 
 class EditionData extends Model {
-	protected $table = 'edition_data';
+	protected $table = 'wampiriada_edition_data';
 
     public $timestamps = false;
 

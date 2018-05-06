@@ -4,4 +4,6 @@ use Illuminate\Database\Eloquent\Model as Model;
 
 class School extends Model {
     public $timestamps = false;
+
+    protected $table = 'wampiriada_universities';
 }

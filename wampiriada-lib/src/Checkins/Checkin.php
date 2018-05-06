@@ -9,6 +9,8 @@ use NZS\Wampiriada\Editions\Edition;
 use NZS\Wampiriada\Donor;
 
 class Checkin extends Model {
+    protected $table = 'wampiriada_checkins';
+
     public function actionDay() {
         return $this->belongsTo(ActionDay::class);
     }

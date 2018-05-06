@@ -4,7 +4,7 @@ use Illuminate\Database\Eloquent\Model as Model;
 use NZS\Wampiriada\ActionDay;
 
 class ActionData extends Model {
-    protected $table = 'action_data';
+    protected $table = 'wampiriada_action_data';
 
     public $fillable = ['id'];
 

@@ -9,7 +9,7 @@ use NZS\Wampiriada\Checkins\Checkin;
 use NZS\Wampiriada\Editions\EditionData;
 
 class Edition extends Model {
-	protected $table = 'editions';
+	protected $table = 'wampiriada_editions';
     protected $repository = null;
 
     public $timestamps = false;

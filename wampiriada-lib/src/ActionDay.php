@@ -13,7 +13,7 @@ use Laracodes\Presenter\Traits\Presentable;
 class ActionDay extends Model {
 	use Presentable;
 
-	protected $table = 'action_days';
+	protected $table = 'wampiriada_action_meta';
 
 	protected $dates = ['created_at'];
 
