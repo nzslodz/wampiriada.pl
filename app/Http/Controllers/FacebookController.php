@@ -13,7 +13,6 @@ use NZS\Wampiriada\Editions\Edition;
 use NZS\Wampiriada\ActionDay;
 use NZS\Wampiriada\ActionData;
 use NZS\Wampiriada\Checkins\Checkin;
-use NZS\Wampiriada\Profile;
 use NZS\Wampiriada\Option;
 use NZS\Wampiriada\Editions\EditionRepository;
 use Carbon\Carbon;
@@ -143,12 +142,7 @@ class FacebookController extends Controller {
             throw new LogicException("/checkin url used without user being created.");
         }
 
-        $profile = Profile::whereId($user->id)->first();
         $hide_email_login_checkout = Session::get('hide_email_login_checkout', false);
-
-        if(!$profile || $hide_email_login_checkout) {
-            $profile = new Profile;
-        }
 
         if($hide_email_login_checkout) {
             $user->first_name = null;
@@ -177,7 +171,6 @@ class FacebookController extends Controller {
             'sizes' => $shirt_sizes,
             'blood_types' => $blood_types,
             'first_time' => !(Checkin::whereUserId($user->id)->exists()),
-            'profile' => $profile,
             'hide_email_login_checkout' => $hide_email_login_checkout,
             'user' => $user,
         ]);
@@ -227,25 +220,13 @@ class FacebookController extends Controller {
 
             $checkin->save();
 
-            // save profile defaults
-            $profile = Profile::whereId($user->id)->first();
-            if(!$profile) {
-                $profile = new Profile;
-                $profile->id = $user->id;
-            }
-
-            $profile->current_name = $request->name;
-            $profile->default_size_id = $request->size;
-            $profile->blood_type_id = $request->blood_type;
-            $profile->save();
-
             $user_has_changed = false;
 
             // fix user first_name/last_name
-            if(!$user->first_name && !$user->last_name) {
+            /*if(!$user->first_name && !$user->last_name) {
                 list($user->first_name, $user->last_name) = $profile->getNameAsPair();
                 $user_has_changed = true;
-            }
+            }*/
 
             if(!$user->email) {
                 $user->email = $request->email;

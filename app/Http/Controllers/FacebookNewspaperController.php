@@ -13,7 +13,6 @@ use NZS\Wampiriada\Edition;
 use NZS\Wampiriada\ActionDay;
 use NZS\Wampiriada\ActionData;
 use NZS\Wampiriada\Checkin;
-use NZS\Wampiriada\Profile;
 use NZS\Wampiriada\Donor;
 use NZS\Wampiriada\Option;
 use NZS\Wampiriada\EditionRepository;
