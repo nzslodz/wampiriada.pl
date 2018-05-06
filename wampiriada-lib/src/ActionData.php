@@ -10,7 +10,7 @@ class ActionData extends Model {
 
     public $timestamps = false;
 
-    public function getOverall() {
+    public function getOverallAttribute() {
         return $this->zero_plus
             + $this->zero_minus
             + $this->a_plus
@@ -20,10 +20,6 @@ class ActionData extends Model {
             + $this->ab_plus
             + $this->ab_minus
             + $this->unknown;
-    }
-
-    public function getOverallAttribute() {
-        return $this->getOverall();
     }
 
     public function getFirstTimePercentage() {

@@ -52,7 +52,7 @@ class RemoveConnectionBetweenCheckinAndMedicalData extends Migration
             }
 
             $action_data->registered = NULL;
-            $action_data->donated = $action_data->getOverall();
+            $action_data->donated = $action_data->overall;
 
             $action_data->save();
         }

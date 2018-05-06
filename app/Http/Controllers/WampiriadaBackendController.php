@@ -99,7 +99,7 @@ class WampiriadaBackendController extends Controller {
             'checkin_count' => $checkins->count(),
             'first_time_checkin_count' => $action_data->first_time,
             'first_time_checkin_count_percentage' => $action_data->getFirstTimePercentage(),
-            'missing_count' => $action_data->getOverall() - $checkins->count(),
+            'missing_count' => $action_data->overall - $checkins->count(),
         ));
 	}
 

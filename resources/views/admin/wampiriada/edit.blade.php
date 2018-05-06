@@ -27,7 +27,7 @@
     <div class="row input-second">
         <div class="col-md-3">
             <div class="card">
-            <strong>{{ $data->getOverall() }}</strong>
+            <strong>{{ $data->overall }}</strong>
             oddało krew
             </div>
         </div>
@@ -127,7 +127,7 @@
             <div class="form-group">
             {{ Form::label('overall', 'Razem', ['class' => 'control-label col-sm-2']) }}
             <div class="col-sm-10">
-            {{ Form::number('overall', $data->getOverall(), ['class' => 'form-control', 'data-calculate' => 'overall', 'readonly' => 'true']) }}
+            {{ Form::number('overall', $data->overall, ['class' => 'form-control', 'data-calculate' => 'overall', 'readonly' => 'true']) }}
             </div>
             </div>
             <div class="form-group">
