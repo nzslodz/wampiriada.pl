@@ -7,21 +7,23 @@ szczegółowe kroki:
 [x] dropnac wyświetlanie activity dla wampiriady
 [ ] dropnąć tworzenie profili userów przy checkinach (nie chcemy miec modelu Person)
 [ ] dac appke ktora bedzie po prostu dzialac
-[ ] activity classes są chujowe (podpadają pod tracking behavioralny)
-[ ] podobnie redirecty nie mają większego sensu (poza oryginalnym założeniem, że można zdefiniować link do pliku X, bez trackingu)
-[ ] checkiny są do wyrzucenia (?) - nie, ale zrobić lightweight model osoby z Wampiriady (e-mail, imię, nazwisko, fb id) + checkiny?
+[x] activity classes są chujowe (podpadają pod tracking behavioralny)
+[x] podobnie redirecty nie mają większego sensu (poza oryginalnym założeniem, że można zdefiniować link do pliku X, bez trackingu)
+    [ ] sprawdzić czy się to gdzieś nie wywala
+[x] checkiny są do wyrzucenia (?) - nie, ale zrobić lightweight model osoby z Wampiriady (e-mail, imię, nazwisko, fb id) + checkiny?
 [ ] logowanie Facebookiem przy oddawaniu krwi zostawiamy jako opcję - alternatywnie e-mail, alternatywnie nic (?)
 [x] potrzebne nam imię i nazwisko? tak
 [ ] logowanie Facebookiem dla akcji promocyjnych
-[ ] lista przyjaciół Facebooka - to już prędzej jest to do przejścia
+    [ ] lista przyjaciół Facebooka - to już prędzej jest to do przejścia przy akcji promocyjnej - z drugiej strony... po co?
 
-A. LISTA KRWIODAWCÓW
+Terms:
+    A. LISTA KRWIODAWCÓW
 
-B. PRZYPOMNIENIA
+    B. PRZYPOMNIENIA
 
-C. PROMOWANIE, NETWORKING
+    C. PROMOWANIE, NETWORKING
 
-D. LOSOWANIE NAGRÓD
+    D. LOSOWANIE NAGRÓD
 
 Jak osoba się loguje na stronie, to powinna:
 a. mieć możliwość wyrazić (loguję się FB | podaję e-mail - i imię nazwisko? | nie podaję danych osobowych) zgodę
