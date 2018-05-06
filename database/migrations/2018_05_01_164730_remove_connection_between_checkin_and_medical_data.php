@@ -3,10 +3,8 @@
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
-use NZS\Wampiriada\Editions\Edition;
-use NZS\Wampiriada\Editions\EditionData;
-use NZS\Wampiriada\ActionData;
-use NZS\Wampiriada\Checkins\Checkin;
+
+use Carbon\Carbon;
 
 class RemoveConnectionBetweenCheckinAndMedicalData extends Migration
 {
@@ -31,7 +29,6 @@ class RemoveConnectionBetweenCheckinAndMedicalData extends Migration
             $table->unsignedInteger('registered')->nullable()->default(0);
         });
 
-
         Schema::table('action_data', function (Blueprint $table) {
             $table->unsignedInteger('donated')->default(0);
 
@@ -40,36 +37,55 @@ class RemoveConnectionBetweenCheckinAndMedicalData extends Migration
             $table->unsignedInteger('registered')->nullable()->default(0);
         });
 
-        foreach(ActionData::all() as $action_data) {
-            $action_data->marrow = NULL;
+        foreach(DB::table('action_data')->get() as $action_data) {
+            $updates = [
+                'marrow' => null,
+                'registered' => null,
+                'donated' => $action_data->zero_plus
+                    + $action_data->zero_minus
+                    + $action_data->a_plus
+                    + $action_data->a_minus
+                    + $action_data->b_plus
+                    + $action_data->b_minus
+                    + $action_data->ab_plus
+                    + $action_data->ab_minus
+                    + $action_data->unknown,
+            ];
 
-            $sum = Checkin::whereActionDayId($action_data->id)->sum('first_time');
+            $sum = DB::table('checkins')
+                ->where('action_day_id', $action_data->id)
+                ->sum('first_time');
 
             if($action_data->id > 225) {
-                $action_data->first_time = $sum;
+                $updates['first_time'] = $sum;
             } else {
-                $action_data->first_time = ($sum == 0) ? NULL: $sum;
+                $updates['first_time'] = ($sum == 0) ? NULL: $sum;
             }
 
-            $action_data->registered = NULL;
-            $action_data->donated = $action_data->overall;
-
-            $action_data->save();
+            DB::table('action_data')
+                ->where('id', $action_data->id)
+                ->update($updates);
         }
 
-        foreach(Edition::all() as $edition) {
-            $data = new EditionData;
-            $data->id = $edition->id;
+        foreach(DB::table('editions')->get() as $edition) {
+            $sum = DB::table('checkins')
+                ->where('action_day_id', $action_data->id)
+                ->sum('first_time');
 
-            $sum = Checkin::whereEditionId($edition->id)->sum('first_time');
-            $data->first_time = ($sum == 0) ? NULL: $sum;
+            $start_date = new Carbon($edition->start_date);
 
-            $data->marrow = NULL;
+            $overall_result = DB::table('overall_results')
+                ->where('year', $start_date->year)
+                ->whereEditionType(floor($start_date->month / 6) + 1)
+                ->first();
 
-            $data->registered = NULL;
-            $data->donated = DB::table('overall_results')->where('year', $edition->getStartDate()->year)->whereEditionType(floor($edition->getStartDate()->month / 6) + 1)->first()->overall;
-
-            $data->save();
+            DB::table('edition_data')->insert([
+                'id' => $edition->id,
+                'first_time' => ($sum == 0) ? NULL: $sum,
+                'marrow' => null,
+                'registered' => null,
+                'donated' => $overall_result ? $overall_result->overall : 0,
+            ]);
         }
 
         Schema::table('checkins', function(Blueprint $table) {
