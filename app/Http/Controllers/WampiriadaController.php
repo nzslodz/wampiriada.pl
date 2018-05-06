@@ -6,7 +6,6 @@ use NZS\Core\Redirects\DatabaseRedirectRepository;
 use NZS\Core\Redirects\CompositeRedirectRepository;
 use App\Libraries\PartnerRow;
 use NZS\Wampiriada\Option;
-use NZS\Wampiriada\Action;
 use NZS\Wampiriada\Checkins\Checkin;
 use NZS\Wampiriada\Redirect;
 use NZS\Wampiriada\Editions\Edition;
@@ -127,7 +126,7 @@ class WampiriadaController extends Controller {
     }
 
     public function getReminder(Request $request, $action_day_id) {
-        $action = Action::findOrFail($action_day_id);
+        $action = ActionDay::findOrFail($action_day_id);
         $user = Person::find($request->session()->get('redirect_user_id'));
 
         if(!$user) {
@@ -141,7 +140,7 @@ class WampiriadaController extends Controller {
     }
 
     public function postReminder(Request $request, $action_day_id) {
-        $action = Action::findOrFail($action_day_id);
+        $action = ActionDay::findOrFail($action_day_id);
         $user = Person::find($request->input('user_id'));
 
         if(!$user) {

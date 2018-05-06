@@ -16,10 +16,6 @@ class Reminder extends Model {
 
     protected $_checkin = false;
 
-    public function action() {
-        return $this->belongsTo(Action::class, 'action_day_id');
-    }
-
     public function action_day() {
         return $this->belongsTo(ActionDay::class, 'action_day_id');
     }

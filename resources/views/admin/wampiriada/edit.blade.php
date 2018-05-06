@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
 @section('title')
-    {{ $action->getShortDescriptionAttribute() }} &mdash; edycja
+    {{ $action->short_description }} &mdash; edycja
 @stop
 
 @section('content')
@@ -21,7 +21,7 @@
     @endif
 
     <div class="page-header">
-        <h1>{{ $action->getShortDescriptionAttribute() }} &mdash; edycja</h1>
+        <h1>{{ $action->short_description }} &mdash; edycja</h1>
     </div>
 
     <div class="row input-second">

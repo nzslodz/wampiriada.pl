@@ -7,10 +7,10 @@ use NZS\Wampiriada\Editions\EmptyConfiguration;
 use NZS\Wampiriada\Redirects\WampiriadaRedirectRepository;
 use NZS\Wampiriada\ActionDay;
 use NZS\Wampiriada\ActionData;
-use NZS\Wampiriada\Action;
 use NZS\Wampiriada\Option;
 use NZS\Wampiriada\School;
 use Carbon\Carbon;
+use DB;
 
 class EditionRepository {
     protected
@@ -123,9 +123,10 @@ class EditionRepository {
             return $this->actions;
         }
 
-        $this->actions = Action::where('number', $this->getEditionNumber())
+        $this->actions = ActionDay::with(['place.school'])
+            ->whereEditionId($this->edition->id)
             ->whereHidden(false)
-            ->orderBy('day')
+            ->orderBy('created_at')
             ->get();
 
         if($this->actions->isEmpty()) {
@@ -135,15 +136,25 @@ class EditionRepository {
         return $this->actions;
     }
 
-    public function getFutureActions() {
+    public function getFutureActions($include_today=false) {
         if($this->future_actions) {
             return $this->actions;
         }
 
-        $this->future_actions = Action::where('number', $this->getEditionNumber())
+        $this->future_actions = ActionDay::with(['place.school'])
+            ->whereEditionId($this->edition->id)
             ->whereHidden(false)
-            ->where('day', '>', Carbon::now())
-            ->orderBy('day')
+            ->where(function($q) use($include_today) {
+                $q->where('created_at', '>', Carbon::now());
+
+                if($include_today) {
+                    $q->orWhere(function($query) {
+                        $query->where(DB::raw('DATE(created_at)'), '=', DB::raw('CURRENT_DATE()'))
+                            ->where('end', '>',  DB::raw('ADDTIME(CURRENT_TIME(), "01:00")'));
+                    });
+                }
+            })
+            ->orderBy('created_at')
             ->get();
 
         if($this->future_actions->isEmpty()) {

@@ -10,6 +10,7 @@ use DB;
 use Input;
 
 use DateTime;
+use NZS\Core\Exceptions\ObjectDoesNotExist;
 use Illuminate\Http\Request;
 
 class WampiriadaMobileAppController extends Controller {
@@ -38,49 +39,24 @@ class WampiriadaMobileAppController extends Controller {
         ];
     }
 
-    protected function getUpcomingActions($edition_number) {
-        $edition = Edition::where('number', $edition_number)->first();
-
-        if(!$edition) {
-            return [];
-        }
-
-        $actions = ActionDay::with(['place'])
-            ->where('edition_id', $edition->id)
-            ->where('hidden', '=', false)
-            ->where(DB::raw('DATE(created_at)'), '>', DB::raw('CURRENT_DATE()'))
-            ->orWhere(function($query) {
-                $query->where(DB::raw('DATE(created_at)'), '=', DB::raw('CURRENT_DATE()'))
-                    ->where('end', '>',  DB::raw('ADDTIME(CURRENT_TIME(), "01:00")'));
-            })->orderBy('created_at')->get();
-
-
-        $action_json = [];
-        foreach($actions as $action) {
-            $start = DateTime::createFromFormat('H:i:s', $action->start);
-            $end = DateTime::createFromFormat('H:i:s', $action->end);
-            $created_at = DateTime::createFromFormat('Y-m-d H:i:s', $action->created_at);
-
-            $action_json[] = [
-                'place_name' => $action->place->name,
-                'place_address' => $action->place->address,
-                'start' => $start->format('H:i'),
-                'end' => $end->format('H:i'),
-                'day' => $created_at->format('d-m-Y'),
-            ];
-        }
-
-        return $action_json;
-    }
-
     public function getOverall(Request $request) {
-        $edition_id = (int) Option::get('wampiriada.mobile_edition', 29);
+        $edition_id = (int) Option::get('wampiriada.mobile_edition_results', 29);
 
         $repository = EditionRepository::fromNumber($edition_id);
 
         $school = null;
         if($school_name = $request->input('school')) {
             $school = $this->getSchoolOverall($repository, $school_name);
+        }
+
+        $upcoming_edition_id = (int) Option::get('wampiriada.mobile_edition_upcoming', $edition_id);
+        try {
+            $upcoming_repository = EditionRepository::fromNumber($upcoming_edition_id);
+            $upcoming_actions = $upcoming_repository->getFutureActions(true)->map(function($action) {
+                return $action->present()->mobile_json;
+            });
+        } catch(ObjectDoesNotExist $e) {
+            $upcoming_actions = [];
         }
 
         return response()->json([
@@ -121,7 +97,7 @@ class WampiriadaMobileAppController extends Controller {
                 ],*/
             ],
 
-            'upcoming_actions' => $this->getUpcomingActions($edition_id),
+            'upcoming_actions' => $upcoming_actions,
             'labels' => [
                 'last_year' => 'Wampiriada Jesień 2015',
                 'this_year' => 'Wampiriada Jesień 2016',

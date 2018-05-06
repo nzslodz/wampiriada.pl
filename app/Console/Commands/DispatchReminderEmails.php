@@ -14,7 +14,6 @@ use NZS\Core\Person;
 
 use Carbon\Carbon;
 
-use NZS\Wampiriada\Action;
 use NZS\Wampiriada\ActionDay;
 
 
@@ -56,7 +55,7 @@ class DispatchReminderEmails extends Command
                 if($reminder->hasAnyCheckin()) {
                     continue;
                 }
-                
+
                 $job = $composer->getJobInstance($reminder->user);
 
                 $delay = Carbon::now()->addSeconds(rand(0, $this->hours * 3600));
