@@ -10,6 +10,7 @@ use NZS\Wampiriada\Editions\Edition;
 use NZS\Wampiriada\Donor;
 use Session;
 
+// XXX probably make a trait for messages that could be extended in some way
 class CheckinRequest extends Request
 {
     /**

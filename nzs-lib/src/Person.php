@@ -11,6 +11,7 @@ use NZS\Core\HasProfilePhoto;
 
 use Illuminate\Notifications\Notifiable;
 
+// XXX should we move updateGender to like another object?
 class Person extends Model {
     use SyncableGraphNodeTrait;
     use Notifiable;

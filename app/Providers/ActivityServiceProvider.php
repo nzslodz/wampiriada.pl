@@ -35,6 +35,7 @@ class ActivityServiceProvider extends ServiceProvider
             return new DatabaseActivityRepository($app['migration.repository']);
         });
 
+        // XXX should move to own providers
         $this->app->tag([
             AttendanceActivityClass::class,
         ], 'activity.model_classes');
