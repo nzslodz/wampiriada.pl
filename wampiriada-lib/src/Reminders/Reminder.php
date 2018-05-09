@@ -7,6 +7,7 @@ use NZS\Wampiriada\ActionDay;
 use NZS\Wampiriada\Checkins\Checkin;
 use NZS\Wampiriada\Donor;
 
+// XXX presenter 
 class Reminder extends Model {
     protected $table = 'wampiriada_reminders';
 

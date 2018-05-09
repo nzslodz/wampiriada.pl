@@ -19,6 +19,7 @@ class WampiriadaAnnouncementMailingComposer extends BaseWampiriadaMailingCompose
         return "{$this->edition->number}. edycja Wampiriady - poznaj terminy akcji :)";
     }
 
+    // XXX color function
     public function getContext($user) {
         $context = parent::getContext($user);
 

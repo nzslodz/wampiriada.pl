@@ -3,14 +3,16 @@
 use Illuminate\Database\Eloquent\Model as Model;
 use SammyK\LaravelFacebookSdk\SyncableGraphNodeTrait;
 use Storage;
-use GuzzleHttp\Client;
 use Facebook\GraphNodes\GraphUser;
+use NZS\Core\HasProfilePhoto;
+use NZS\Wampiriada\Checkins\Checkin;
 
 use Illuminate\Notifications\Notifiable;
 
 class Donor extends Model {
     use SyncableGraphNodeTrait;
     use Notifiable;
+    use HasProfilePhoto;
 
     protected $table = 'wampiriada_donors';
 
@@ -26,13 +28,7 @@ class Donor extends Model {
         return "$this->first_name $this->last_name";
     }
 
-    public function getFacebookProfileImagePath() {
-        if($this->facebook_user_id && Storage::has("fb-images/$this->facebook_user_id.jpg")) {
-            return "fb-images/$this->facebook_user_id.jpg";
-        }
-
-        $image_id = crc32($this->facebook_user_id . $this->email) % 32;
-
-        return "default-images/$image_id.png";
+    public function checkins() {
+        return $this->hasMany(Checkin::class, 'user_id');
     }
 }

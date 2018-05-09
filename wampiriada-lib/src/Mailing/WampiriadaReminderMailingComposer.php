@@ -37,6 +37,7 @@ class WampiriadaReminderMailingComposer extends BaseMailingComposer {
         ];
     }
 
+    // XXX color function
     public function getContext($user) {
         $edition_repository = new EditionRepository($this->edition);
         $redirect_repository = $edition_repository->getRedirectRepository();

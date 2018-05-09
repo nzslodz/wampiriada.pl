@@ -12,6 +12,7 @@ use NZS\Wampiriada\School;
 use Carbon\Carbon;
 use DB;
 
+// XXX should it be wise to drop caching and ObjectDoesNotExist?
 class EditionRepository {
     protected
         $edition = null,

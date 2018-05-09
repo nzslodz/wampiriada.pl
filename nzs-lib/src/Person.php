@@ -7,12 +7,14 @@ use GuzzleHttp\Client;
 use Facebook\GraphNodes\GraphUser;
 use NZS\Core\ApplicationUser;
 use NZS\Core\HR\Member;
+use NZS\Core\HasProfilePhoto;
 
 use Illuminate\Notifications\Notifiable;
 
 class Person extends Model {
     use SyncableGraphNodeTrait;
     use Notifiable;
+    use HasProfilePhoto;
 
     protected $table = 'nzs_people';
 
@@ -26,16 +28,6 @@ class Person extends Model {
 
     public function getFullName() {
         return "$this->first_name $this->last_name";
-    }
-
-    public function getFacebookProfileImagePath() {
-        if($this->facebook_user_id && Storage::has("fb-images/$this->facebook_user_id.jpg")) {
-            return "fb-images/$this->facebook_user_id.jpg";
-        }
-
-        $image_id = crc32($this->facebook_user_id . $this->email) % 32;
-
-        return "default-images/$image_id.png";
     }
 
     public function application_user() {

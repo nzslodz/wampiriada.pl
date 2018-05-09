@@ -8,6 +8,7 @@ use NZS\Core\Mailing\MultipleViews;
 use Storage;
 use NZS\Wampiriada\Editions\Edition;
 
+// XXX campaign key?
 abstract class BaseWampiriadaMailingComposer extends BaseMailingComposer implements WampiriadaMailingComposer {
     use MultipleViews;
 

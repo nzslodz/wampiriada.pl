@@ -10,6 +10,7 @@ use Carbon\Carbon;
 
 use Laracodes\Presenter\Traits\Presentable;
 
+// XXX move to own namespace?
 class ActionDay extends Model {
 	use Presentable;
 
@@ -39,6 +40,7 @@ class ActionDay extends Model {
 		return $this->hasMany(Reminder::class, 'action_day_id');
 	}
 
+	// XXX casts?
 	public function getStartAttribute($attr) {
         return Carbon::createFromFormat('H:i:s', $attr);
     }

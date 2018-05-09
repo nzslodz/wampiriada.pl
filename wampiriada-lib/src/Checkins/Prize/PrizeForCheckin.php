@@ -7,6 +7,7 @@ use Carbon\Carbon;
 use NZS\Wampiriada\Checkins\Checkin;
 use NZS\Wampiriada\PrizeType;
 
+// XXX Presenter
 class PrizeForCheckin extends Model {
     protected $table = 'wampiriada_checkin_prizes';
 
