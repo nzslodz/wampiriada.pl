@@ -270,9 +270,6 @@ class WampiriadaBackendController extends Controller {
 
 		if($request->claimed && !$prize->claimed_at) {
 			$prize->claimed_at = Carbon::now();
-
-			$activity_class = new PrizeForCheckinClaimedActivityClass;
-			$activity_class->saveActivityInstance($prize);
 		}
 
 		$prize->save();

@@ -21,6 +21,7 @@ use App\Http\Requests\PrizeForCheckinRequest;
 
 use Auth;
 
+// XXX find a good way to resolve Donor/User conflict 
 class MailingController extends Controller {
 	public function getIndex(MailingRepository $repository) {
 		$mailings = $repository->collect()->transform(function($class_name) {

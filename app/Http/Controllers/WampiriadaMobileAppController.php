@@ -13,6 +13,7 @@ use DateTime;
 use NZS\Core\Exceptions\ObjectDoesNotExist;
 use Illuminate\Http\Request;
 
+// XXX would be nice to have all-automated strings (for years and editions)
 class WampiriadaMobileAppController extends Controller {
 
     protected function getSchoolOverall(EditionRepository $repository, $school_name) {

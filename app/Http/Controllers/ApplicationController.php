@@ -10,6 +10,7 @@ use Input;
 use DateTime;
 use Illuminate\Http\Request;
 
+// XXX todo?
 class ApplicationController extends Controller {
 
     protected function postNewApplication(Request $request) {
