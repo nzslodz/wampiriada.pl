@@ -27,19 +27,16 @@ Route::get('/dziekujemy/ankieta', 'WampiriadaController@showThankYouMailingPoll'
 Route::post('/dziekujemy/ankieta', 'WampiriadaController@saveThankYouMailingPoll');
 */
 
-Route::get('/facebook/login', 'FacebookController@getLoginPage');
-Route::post('/facebook/login', 'FacebookController@postLoginViaEmailPage');
-Route::get('/facebook/callback', 'FacebookController@getCallback');
-Route::get('/facebook/callback/{to}', 'FacebookController@getCallback');
-Route::get('/privacy_policy', 'FacebookController@getPrivacyPolicy');
+Route::get('/facebook/login', 'CheckoutController@getLoginPage');
+Route::post('/facebook/login', 'CheckoutController@postLoginViaEmailPage');
+Route::get('/facebook/callback', 'CheckoutController@getCallback');
+Route::get('/facebook/callback/{to}', 'CheckoutController@getCallback');
+Route::get('/privacy_policy', 'CheckoutController@getPrivacyPolicy');
 
-Route::group(['middleware' => 'auth.facebook'], function() {
-    Route::get('/facebook/checkin', 'FacebookController@getCheckin');
-    Route::post('/facebook/checkin', 'FacebookController@postCheckin');
-    //Route::get('/facebook/raffle', 'FacebookController@getRaffle');
-    //Route::post('/facebook/raffle', 'FacebookController@postRaffle');
-    //Route::get('/facebook/finish', 'FacebookController@getFinish');
-    Route::get('/facebook/complete', 'FacebookController@getComplete');
+Route::group(['middleware' => 'auth.checkin'], function() {
+    Route::get('/facebook/checkin', 'CheckoutController@getCheckin');
+    Route::post('/facebook/checkin', 'CheckoutController@postCheckin');
+    Route::get('/facebook/complete', 'CheckoutController@getComplete');
 });
 
 Route::get('/nzs', 'FacebookNewspaperController@getPage');

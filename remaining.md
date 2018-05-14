@@ -1,6 +1,6 @@
 
 
-app/Http/Controllers/FacebookController.php
+app/Http/Controllers/CheckoutController.php
 app/Http/Controllers/FacebookNewspaperController.php
 
 (reminders + poll removal for now)

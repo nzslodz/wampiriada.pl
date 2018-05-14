@@ -6,7 +6,7 @@ use Closure;
 use Session;
 use Illuminate\Support\Facades\Auth;
 
-class AuthenticateFacebook
+class AuthenticateCheckinWithSession
 {
     /**
      * Handle an incoming request.
