@@ -35,19 +35,24 @@ class CheckinController extends Controller {
         return view('facebook.privacy_policy');
     }
 
-    public function getLoginPage(LaravelFacebookSdk $fb) {
+    public function getLoginPage(Request $request, LaravelFacebookSdk $fb) {
         $current_action = ActionDay::whereDate('created_at', '=', Carbon::today()->toDateString())->first();
         // XXX do this
         if(!$current_action) {
             return view('facebook.login_forbidden');
         }
 
-        Session::forget('fb_user_access_token');
-        Session::forget('hide_email_login_checkout');
-        Session::forget('checkin_user_id');
+        $request->session()->forget('fb_user_access_token');
+        $request->session()->forget('hide_email_login_checkout');
+        $request->session()->forget('checkin_user_id');
 
-        $login_url = $fb->getLoginUrl(['email']);
         $is_facebook_login_enabled = (bool) Option::get('wampiriada.facebook_login', true);
+
+        if($is_facebook_login_enabled) {
+            $login_url = $fb->getLoginUrl(['email']);
+        } else {
+            $login_url = null;
+        }
 
         // XXX RESTYLE THIS
         return view('facebook.login', [
