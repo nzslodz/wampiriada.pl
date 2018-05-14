@@ -30,7 +30,7 @@ use DB;
 
 use Storage;
 
-class CheckoutController extends Controller {
+class CheckinController extends Controller {
     public function getPrivacyPolicy() {
         return view('facebook.privacy_policy');
     }
