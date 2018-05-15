@@ -11,11 +11,11 @@
 </p>
 
 <p style="font-size: 18px; font-weight: bold; letter-spacing: 1px; font-family: Arial, sans-serif; color: #3D3D3D !important; margin-top: 0; margin-left: 0; margin-bottom: 10px; line-height: 1.4;">
-    {{ $action->place }}
+    {{ $action_day->present()->place }}
 </p>
 
 <p style="font-size: 18px; font-weight: bold; letter-spacing: 1px; font-family: Arial, sans-serif; color: #3D3D3D !important; margin-top: 0; margin-left: 0; margin-bottom: 25px; line-height: 1.4;">
-{{ $action->day->format('d-m-Y') }} ({{ $action->start->format('H:i') }} - {{ $action->end->format('H:i') }})
+{{ $action_day->created_at->format('d-m-Y') }} ({{ $action_day->start->format('H:i') }} - {{ $action_day->end->format('H:i') }})
 </p>
 
 <p style="font-size: 13px; letter-spacing: 1px; font-family: Arial, sans-serif; color: #3D3D3D !important; margin-top: 0; margin-left: 0; margin-bottom: 25px; line-height: 1.4;">
@@ -27,10 +27,10 @@
 </p>
 
 <p style="font-size: 13px; letter-spacing: 1px; font-family: Arial, sans-serif; color: #3D3D3D !important; margin-top: 0; margin-left: 0; margin-bottom: 25px; line-height: 1.4;">
-    Jeśli chcesz oddać krew jako jedna z pierwszych osób, to warto pojawić się nieco przed akcją. Zaczynamy o {{ $action->start->format('H:i') }}. :)
+    Jeśli chcesz oddać krew jako jedna z pierwszych osób, to warto pojawić się nieco przed akcją. Zaczynamy o {{ $action_day->start->format('H:i') }}. :)
 </p>
 
-@if($action->marrow)
+@if($action_day->marrow)
 <p style="font-size: 13px; letter-spacing: 1px; font-family: Arial, sans-serif; color: #3D3D3D !important; margin-top: 0; margin-left: 0; margin-bottom: 25px; line-height: 1.4;">
     Na akcji możesz zapisać się również do bazy dawców szpiku. Zapisywanie się polega na wypełnieniu dodatkowego formularza rejestracyjnego, a pielęgniarka sama pobierze Ci dodatkową próbkę do badania. Pamiętaj, ta decyzja do niczego Cię nie zobowiązuje. Decyzję o oddaniu szpiku podejmiesz dopiero wtedy, kiedy znajdzie się biorca pasujący do Ciebie.
 </p>
@@ -47,10 +47,10 @@
 
     @foreach($actions as $new_action)
     <p style="font-size: 13px; font-family: Arial, sans-serif; color: #3D3D3D !important; margin-top: 0; margin-left: 0; margin-bottom: 2px; line-height: 1.4;">
-        <strong style="width: 400px; display: inline-block;"><span style="background-color: {{ $color($new_action->school_short) }}; color:white; padding: 1px 2px; border-radius: 2px;">{{ $new_action->day->format('d.m') }}</span>
-        {{ $new_action->place }}
-        @if($new_action->day > $action->day)
-            <a style="font-size: 11px" href="{{ $repository->getRedirect('reminder-' . $action->id) }}&amp;r=t">przypomnij</a>
+        <strong style="width: 400px; display: inline-block;"><span style="background-color: {{ $color($new_action->present()->school_short) }}; color:white; padding: 1px 2px; border-radius: 2px;">{{ $new_action->created_at->format('d.m') }}</span>
+        {{ $new_action->present()->place }}
+        @if($new_action->created_at > $action_day->created_at)
+            <a style="font-size: 11px" href="{{ url('reminder/' . $action->id) }}">przypomnij</a>
         @endif
         </strong>
         {{ $new_action->start->format('H:i') }} - {{ $new_action->end->format('H:i') }}

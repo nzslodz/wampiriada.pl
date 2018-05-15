@@ -41,7 +41,7 @@
                 </tr>
             @empty
             <tr class="no-results">
-                <td colspan="5">
+                <td colspan="6">
                     Aby dodać nowe wydarzenie, naciśnij przycisk <strong>Dodaj wydarzenie</strong> w prawym górnym rogu.
                 </td>
             </tr>
