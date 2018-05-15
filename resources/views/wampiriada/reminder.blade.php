@@ -24,11 +24,11 @@ Oficjalna strona akcji honorowego krwiodawstwa Wampiriada w Łodzi, organizowane
                 <div class="col-xs-12 text-center">
                     <p style="font-size: 2em; margin: 40px 0">
                         <strong>
-                        {{ $action->present()->place }}
+                        {{ $action->place }}
                         </strong>
                     <br>
 
-                    {{ $action->created_at->format('d.m.Y') }}, godz. {{ $action->start->format('H:i') }} - {{ $action->end->format('H:i') }}
+                    {{ $action->day->format('d.m.Y') }}, godz. {{ $action->start->format('H:i') }} - {{ $action->end->format('H:i') }}
 
                     @if($action->marrow)
                         <br>+ SZPIK TO ME

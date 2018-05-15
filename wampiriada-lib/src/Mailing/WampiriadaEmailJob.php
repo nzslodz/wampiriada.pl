@@ -11,10 +11,11 @@ use NZS\Wampiriada\Editions\Edition;
 use Illuminate\Contracts\Mail\Mailer;
 use Exception;
 use Storage;
+use NZS\Core\Person;
 
+use NZS\Wampiriada\Redirects\AwareRedirectRepository;
 use NZS\Wampiriada\Mailing\WampiriadaThankYouMailingComposer;
 use NZS\Wampiriada\Editions\EditionRepository;
-use NZS\Wampiriada\Donor;
 use NZS\Core\Mailing\ComposerSender;
 
 class WampiriadaEmailJob extends Job implements ShouldQueue
@@ -28,7 +29,7 @@ class WampiriadaEmailJob extends Job implements ShouldQueue
      *
      * @return void
      */
-    public function __construct(Edition $edition, Donor $user, $composer_class) {
+    public function __construct(Edition $edition, Person $user, $composer_class) {
         $this->user = $user;
         $this->edition = $edition;
         $this->composer_class = $composer_class;

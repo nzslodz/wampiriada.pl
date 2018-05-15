@@ -5,7 +5,6 @@ use Carbon\Carbon;
 use NZS\Core\Redirects\Redirect;
 use NZS\Wampiriada\Editions\Edition;
 
-// XXX morphs? (just asking)
 class WampiriadaRedirect extends Model {
 	public $timestamps = false;
 

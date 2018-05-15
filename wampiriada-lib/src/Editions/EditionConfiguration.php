@@ -9,8 +9,6 @@ use NZS\Core\Redirects\Redirect;
 class EditionConfiguration extends Model {
     public $timestamps = false;
 
-    protected $table = 'wampiriada_edition_meta';
-
 	public function edition() {
 		return $this->belongsTo(EditionConfiguration::class, 'id');
 	}

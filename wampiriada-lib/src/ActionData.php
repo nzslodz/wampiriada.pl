@@ -1,16 +1,15 @@
 <?php namespace NZS\Wampiriada;
 
 use Illuminate\Database\Eloquent\Model as Model;
-use NZS\Wampiriada\ActionDay;
 
 class ActionData extends Model {
-    protected $table = 'wampiriada_action_data';
+    protected $table = 'action_data';
 
     public $fillable = ['id'];
 
     public $timestamps = false;
 
-    public function getOverallAttribute() {
+    public function getOverall() {
         return $this->zero_plus
             + $this->zero_minus
             + $this->a_plus
@@ -22,11 +21,7 @@ class ActionData extends Model {
             + $this->unknown;
     }
 
-    public function getFirstTimePercentage() {
-        return round(100 * $this->first_time / $this->donated);
-    }
-
-    public function action_day() {
-        return $this->belongsTo(ActionDay::class, 'id');
+    public function getOverallAttribute() {
+        return $this->getOverall();
     }
 }

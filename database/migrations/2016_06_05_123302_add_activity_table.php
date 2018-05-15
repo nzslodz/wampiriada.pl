@@ -9,7 +9,6 @@ use NZS\Wampiriada\Checkins\CheckinActivityClass;
 use NZS\Wampiriada\Mailing\Campaigns\EmailCampaignResultActivityClass;
 use NZS\Wampiriada\Mailing\Campaigns\EmailCampaignResult;
 
-// XXX wont work
 class AddActivityTable extends Migration
 {
     /**

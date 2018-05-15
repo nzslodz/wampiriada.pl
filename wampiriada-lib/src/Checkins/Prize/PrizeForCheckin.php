@@ -7,9 +7,8 @@ use Carbon\Carbon;
 use NZS\Wampiriada\Checkins\Checkin;
 use NZS\Wampiriada\PrizeType;
 
-// XXX Presenter
 class PrizeForCheckin extends Model {
-    protected $table = 'wampiriada_checkin_prizes';
+    protected $table = 'checkin_prizes';
 
     protected $dates = ['created_at', 'updated_at', 'claimed_at'];
 
@@ -20,7 +19,7 @@ class PrizeForCheckin extends Model {
     }
 
     public function items() {
-        return $this->belongsToMany(PrizeType::class, 'wampiriada_checkin_prize_items', 'checkin_prize_id', 'prize_type_id');
+        return $this->belongsToMany(PrizeType::class, 'checkin_prize_items', 'checkin_prize_id', 'prize_type_id');
     }
 
     public function getTimeDiffUntilClaimed() {

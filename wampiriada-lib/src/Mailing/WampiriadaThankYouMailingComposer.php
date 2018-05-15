@@ -5,8 +5,10 @@ use NZS\Wampiriada\Mailing\WampiriadaMailingComposer;
 use NZS\Wampiriada\Mailing\BaseWampiriadaMailingComposer;
 use NZS\Core\Mailing\MultipleViews;
 
+use NZS\Core\Person;
 use Storage;
 use NZS\Wampiriada\Editions\Edition;
+use NZS\Wampiriada\Redirects\AwareRedirectRepository;
 
 class WampiriadaThankYouMailingComposer extends BaseWampiriadaMailingComposer {
     protected $campaign_key = 'initial-response';
@@ -14,7 +16,7 @@ class WampiriadaThankYouMailingComposer extends BaseWampiriadaMailingComposer {
 
     protected $view_prefix = 'emails.wampiriada.thankyou';
 
-    public function getSubject($user) {
+    public function getSubject(Person $user) {
         return "Wampiriada - {$this->edition->number}. edycja. Dziękujemy że jesteś z nami!";
     }
 }

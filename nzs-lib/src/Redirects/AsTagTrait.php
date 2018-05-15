@@ -1,6 +1,6 @@
 <?php namespace NZS\Core\Redirects;
 
-use Netzmacht\Html\Factory\ElementFactory;
+use Netzmacht\Html\Element;
 
 trait AsTagTrait {
     public function asTag($contents, array $attrs=[]) {
@@ -10,8 +10,6 @@ trait AsTagTrait {
 
         $attrs['href'] = $this->asUrl();
 
-        $factory  = new ElementFactory();
-
-        return $factory->create('a', $attrs)->addChild($contents);
+        return Element::create('a', $attrs)->addChild($contents);
     }
 }

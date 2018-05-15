@@ -18,7 +18,7 @@ class FixUserModels extends Migration
 
         // facebook_user_id = 0 => null
         // and ApplicationAccount (password, confirmation_code, confirmed, remember_token, is_staff, created_at, updated_at)
-        // then rewrite the CheckinController not to use Auth::login on users
+        // then rewrite the FacebookController not to use Auth::login on users
         // and rewrite the app to use new models and leave User only to migrations and so forth
 
         Schema::create('people', function (Blueprint $table) {

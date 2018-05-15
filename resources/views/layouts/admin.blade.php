@@ -20,7 +20,10 @@
 
         <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
 
-        <link rel="stylesheet" href="{{ app_mix('css/app.css') }}" type="text/css">
+        {{ HTML::style('bower_components/bootstrap/dist/css/bootstrap.min.css') }}
+        {{ HTML::style('bower_components/font-awesome/css/font-awesome.min.css') }}
+
+        {{ HTML::style('admin-assets/css/main.css') }}
 
         @yield('extrahead')
     </head>
@@ -53,7 +56,7 @@
                         </a>
 
                         <ul class="dropdown-menu">
-                            <li><a href="{{ url('admin/wampiriada') }}"><i class="glyphicon glyphicon-signal"></i> {{ NZS\Wampiriada\Editions\EditionRepository::current()->getEditionNumber() }}. edycja</a></li>
+                            <li><a href="{{ url('admin/wampiriada') }}"><i class="glyphicon glyphicon-signal"></i> {{ NZS\Wampiriada\Editions\Edition::current()->number }}. edycja</a></li>
                             <li><a href="{{ url('admin/wampiriada/list') }}"><i class="glyphicon glyphicon-list"></i> Wszystkie edycje</a></li>
                             <li role="separator" class="divider"></li>
 
@@ -94,20 +97,32 @@
         </div>
 
         <div class="container">
-            {!! Breadcrumbs::render() !!}
+            {!! Breadcrumbs::renderIfExists() !!}
         </div>
 
         <section class="container" role="main"  id="application">
             @yield('content')
         </section>
 
-        <script type="text/javascript" src="{{ app_mix('js/app.js') }}"></script>
+        {{ HTML::script('bower_components/jquery/dist/jquery.min.js') }}
+
+        <script type="text/javascript">
+            $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+            });
+        </script>
 
         @section('data')
             <script type="text/javascript">
                 data = {}
             </script>
         @show
+
+        <script type="text/javascript" src="{{ asset(elixir_dist('js/app.js')) }}"></script>
+
+        {{ HTML::script('admin-assets/js/main.js') }}
 
         @yield('script')
     </body>

@@ -4,12 +4,12 @@ use NZS\Wampiriada\ActionDay;
 use NZS\Wampiriada\PrizeType;
 use NZS\Wampiriada\Editions\Edition;
 
-Breadcrumbs::register('admin-home', function($breadcrumbs) {
+Breadcrumbs::register('admin', function($breadcrumbs) {
     $breadcrumbs->push('Administracja', route('admin-home'));
 });
 
 Breadcrumbs::register('admin-wampiriada-list', function($breadcrumbs) {
-    $breadcrumbs->parent('admin-home');
+    $breadcrumbs->parent('admin');
     $breadcrumbs->push('Wampiriada', route('admin-wampiriada-list'));
 });
 
@@ -25,14 +25,20 @@ Breadcrumbs::register('admin-wampiriada-show', function($breadcrumbs, $number) {
 
 Breadcrumbs::register('admin-wampiriada-edit', function($breadcrumbs, $id) {
     $action_day = ActionDay::findOrFail($id);
+    $edition = Edition::findOrFail($action_day->edition_id);
 
-    $breadcrumbs->parent('admin-wampiriada-show', $action_day->edition->number);
+    $breadcrumbs->parent('admin-wampiriada-show', $edition->number);
     $breadcrumbs->push($action_day->created_at->format('d.m'), route('admin-wampiriada-edit', $id));
 });
 
 Breadcrumbs::register('admin-wampiriada-settings', function($breadcrumbs, $number) {
     $breadcrumbs->parent('admin-wampiriada-show', $number);
     $breadcrumbs->push('Ustawienia', route('admin-wampiriada-settings', $number));
+});
+
+Breadcrumbs::register('admin-wampiriada-connections', function($breadcrumbs, $number) {
+    $breadcrumbs->parent('admin-wampiriada-show', $number);
+    $breadcrumbs->push('Połączenia', route('admin-wampiriada-connections', $number));
 });
 
 Breadcrumbs::register('admin-prize-list', function($breadcrumbs) {

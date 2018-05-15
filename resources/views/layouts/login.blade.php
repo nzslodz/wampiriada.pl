@@ -11,8 +11,6 @@
         </title>
         <meta name="viewport" content="width=device-width">
 
-        <meta name="csrf-token" content="{{ csrf_token() }}">
-
         <script type="text/javascript">
             function path(url) {
                 return '{{ url() }}/' + url
@@ -21,15 +19,17 @@
 
         <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
 
-        <link rel="stylesheet" href="{{ app_mix('css/app.css') }}" type="text/css">
-
+        {{ HTML::style('bower_components/bootstrap/dist/css/bootstrap.min.css') }}
+        {{ HTML::style('css/main.css') }}
     </head>
     <body>
         <section class="container" role="main">
             @yield('content')
         </section>
 
-        <script src="{{ app_mix('js/app.js') }}"></script>
+        {{ HTML::script('bower_components/jquery/dist/jquery.min.js') }}
+        {{ HTML::script('bower_components/bootstrap/dist/js/bootstrap.min.js') }}
+        {{ HTML::script('js/main.js') }}
 
         @yield('script')
     </body>

@@ -1,7 +1,6 @@
 <?php namespace NZS\Wampiriada;
 use Illuminate\Support\Collection;
 
-// XXX would be wise to refactor it a little bit for clarity
 class PrizeAggregator {
     protected $collection;
 

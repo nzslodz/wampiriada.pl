@@ -80,11 +80,13 @@
                     <tr class="">
                         <th>{{ $iterator += 1 }}</th>
                         <th>
-                            @if($prize->checkin->user->getFullName() != ' ')
-                                {{ $prize->checkin->user->getFullName() }}
-                            @else
-                                {{ $prize->checkin->name }}
-                            @endif
+                            <a data-card="{{ $prize->checkin->user_id }}" href="{{ url('admin/activity/profile/' . $prize->checkin->user_id )}}">
+                                @if($prize->checkin->user->getFullName() != ' ')
+                                    {{ $prize->checkin->user->getFullName() }}
+                                @else
+                                    {{ $prize->checkin->name }}
+                                @endif
+                            </a>
 
                             @if($prize->checkin->user->facebook_user_id)
                                 <small><a href="https://facebook.com/{{ $prize->checkin->user->facebook_user_id }}">facebook</a></small>

@@ -6,7 +6,6 @@ use NZS\Wampiriada\Checkins\Checkin;
 use NZS\Wampiriada\Checkins\FirstTimeDonatingActivityClass;
 use NZS\Core\Activity;
 
-// XXX will fail
 class InsertFirstTimeDonationActivities extends Migration
 {
     /**

@@ -28,8 +28,8 @@
 
 @foreach($actions as $action)
 <p style="font-size: 13px; font-family: Arial, sans-serif; color: #3D3D3D !important; margin-top: 0; margin-left: 0; margin-bottom: 2px; line-height: 1.4;">
-    <strong style="width: 400px; display: inline-block;"><span style="background-color: {{ $color($action->present()->school_short) }}; color:white; padding: 1px 2px; border-radius: 2px;">{{ $action->created_at->format('d.m') }}</span>
-    {{ $action->present()->place }} <a style="font-size: 11px" href="{{ url('reminder/' . $action->id) }}">przypomnij</a>
+    <strong style="width: 400px; display: inline-block;"><span style="background-color: {{ $color($action->school_short) }}; color:white; padding: 1px 2px; border-radius: 2px;">{{ $action->day->format('d.m') }}</span>
+    {{ $action->place }} <a style="font-size: 11px" href="{{ $repository->getRedirect('reminder-' . $action->id) }}&amp;r=t">przypomnij</a>
     </strong>
     {{ $action->start->format('H:i') }} - {{ $action->end->format('H:i') }}
     @if($action->marrow) <span style="background-color: #fff200; padding: 1px 2px; border-radius: 2px; font-size: 11px; font-weight: bold">+ SZPIK TO ME</span> @endif

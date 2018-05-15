@@ -10,8 +10,6 @@
         <meta name="description" content="@yield('meta-description')">
         <meta name="viewport" content="width=device-width">
 
-        <meta name="csrf-token" content="{{ csrf_token() }}">
-
         <link rel="apple-touch-icon" sizes="57x57" href="{{ url('img/icons/apple-touch-icon-57x57.png') }}?v=allLWkmAnX">
         <link rel="apple-touch-icon" sizes="60x60" href="{{ url('img/icons/apple-touch-icon-60x60.png') }}?v=allLWkmAnX">
         <link rel="apple-touch-icon" sizes="72x72" href="{{ url('img/icons/apple-touch-icon-72x72.png') }}?v=allLWkmAnX">
@@ -35,7 +33,11 @@
 
         <meta name="og:image" content="{{ url('img/wampir-logo-2.png') }}">
 
-        <link rel="stylesheet" href="{{ app_mix('css/main.css') }}">
+        <link rel="stylesheet" href="{{ url('bower_components/font-awesome/css/font-awesome.min.css') }}">
+        <link rel="stylesheet" href="{{ url('bower_components/bootstrap/dist/css/bootstrap.min.css') }}" ?>
+        <link href='http://fonts.googleapis.com/css?family=Alegreya+Sans:100,300,400,700&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" href="{{ url('css/main.css') }}?r=6">
+        <script src="{{ url('js/vendor/modernizr-2.6.2.min.js') }}"></script>
         <script type="text/javascript">
             function path(url) {
                 return '{{ url('') }}/' + url
@@ -68,17 +70,22 @@ window.fbAsyncInit = function() {
 
         @yield('content')
 
-		<!--skrypty z map google-->
-        <script src="{{ app_mix('js/main.js') }}"></script>
+        <!-- Part of the layout file. Feel free to change the lines below -->
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+        <script>window.jQuery || document.write('<script src="{{ url('js/vendor/jquery-1.9.1.min.js') }}"><\/script>')</script>
+        <script src="{{ url('js/plugins.js') }}"></script>
 
-		<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true&key=AIzaSyCL7ZBHNxksuMm90Rua5BXpeu4yEze3P8I"></script>
+		<!--skrypty z map google-->
+		<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script>
 		<script type="text/javascript" src="{{ url('bower_components/gmaps/gmaps.min.js') }}"></script>
+		<script type="text/javascript" src="{{ url('bower_components/bootstrap/dist/js/bootstrap.min.js') }}"></script>
         <script type="text/javascript" src="{{ url('bower_components/isotope/dist/isotope.pkgd.min.js') }}"></script>
         <script type="text/javascript" src="{{ url('bower_components/jquery.scrollTo/jquery.scrollTo.min.js') }}"></script>
         <script type="text/javascript" src="{{ url('bower_components/handlebars/handlebars.min.js') }}"></script>
         <script type="text/javascript" src="{{ url('js/vendor/canvasjs/canvasjs.min.js') }}"></script>
         <script type="text/javascript" src="{{ url('bower_components/responsive-bootstrap-toolkit/dist/bootstrap-toolkit.min.js') }}"></script>
 
+        <script src="{{ url('js/main.js') }}"></script>
         <script src="http://accept-cookie.cdn.lambdadelta.pl/jquery.accept-cookie.js"></script>
 
         @yield('extrajs')

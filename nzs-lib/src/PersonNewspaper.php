@@ -3,14 +3,12 @@
 use Illuminate\Database\Eloquent\Model as Model;
 
 use Storage;
-use NZS\Wampiriada\Donor;
 
-// XXX refactor
 class PersonNewspaper extends Model {
-    protected $table = 'wampiriada_promo_newspapers';
+    protected $table = 'person_newspapers';
 
     public function user() {
-        return $this->belongsTo(Donor::class, 'id');
+        return $this->belongsTo(Person::class, 'id');
     }
 
     public function generateFilename() {

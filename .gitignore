@@ -2,8 +2,6 @@
 /node_modules
 Homestead.yaml
 Homestead.json
-npm-debug.log
-yarn-error.log
 .env
 .DS_Store
 /public/bower_components
@@ -12,16 +10,3 @@ yarn-error.log
 /public/css/app.css.map
 /public/js/app.js
 env
-/node_modules
-/public/hot
-/public/storage
-/public/local
-/storage/*.key
-/vendor
-/.idea
-/.vagrant
-Homestead.json
-Homestead.yaml
-npm-debug.log
-yarn-error.log
-.env

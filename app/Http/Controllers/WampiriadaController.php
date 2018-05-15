@@ -6,6 +6,7 @@ use NZS\Core\Redirects\DatabaseRedirectRepository;
 use NZS\Core\Redirects\CompositeRedirectRepository;
 use App\Libraries\PartnerRow;
 use NZS\Wampiriada\Option;
+use NZS\Wampiriada\Action;
 use NZS\Wampiriada\Checkins\Checkin;
 use NZS\Wampiriada\Redirect;
 use NZS\Wampiriada\Editions\Edition;
@@ -15,18 +16,22 @@ use NZS\Wampiriada\Mailing\Campaigns\EmailCampaignResult;
 use NZS\Wampiriada\Redirects\WampiriadaRedirectRepository;
 use Illuminate\Http\Request;
 
+use NZS\Wampiriada\Redirects\AwareRedirectRepository;
+
 use NZS\Core\Polls\Poll;
 use NZS\Core\Polls\UsesPolls;
 use NZS\Wampiriada\Polls\ThankYou\WampiriadaThankYouPollFormRequest;
 use NZS\Wampiriada\Reminders\Reminder;
-use NZS\Wampiriada\Donor;
-use NZS\Wampiriada\ActionDay;
+
+use NZS\Core\Person;
 
 class WampiriadaController extends Controller {
     use UsesPolls;
 
     public function showIndex() {
-        $repository = EditionRepository::current();
+        $edition = Option::get('wampiriada.edition', 28);
+
+        $repository = new EditionRepository($edition);
 
         $event_redirect = $repository->getRedirect('facebook-event');
 
@@ -42,7 +47,7 @@ class WampiriadaController extends Controller {
         }
 
         try {
-            $last_year_edition = EditionRepository::fromPreviousYear($repository);
+            $last_year_edition = new EditionRepository($repository->getEditionNumber() - 2);
             $overall_difference = $repository->getOverallDifference($last_year_edition) * 0.45;
         } catch(ObjectDoesNotExist $e) {
             $overall_difference = false;
@@ -125,12 +130,57 @@ class WampiriadaController extends Controller {
         ]);
     }
 
+    public function getRedirectByName(Request $request, $name) {
+        $repository = new DatabaseRedirectRepository;
+
+        $redirect_url = $repository->resolveRedirect($name);
+
+        if(!$redirect_url) {
+            abort(404);
+        }
+
+        $aware_repository = AwareRedirectRepository::fromRequest($request, $repository);
+        if($aware_repository) {
+            $aware_repository->saveEmailCampaignInfo($name);
+
+            // remember flag
+            if($request->input('r') == 't') {
+                $request->session()->flash('redirect_user_id', $aware_repository->getUser()->id);
+            }
+        }
+
+        return redirect($redirect_url);
+    }
+
+    public function getRedirect(Request $request, $edition_number, $name) {
+        $edition_repository = new EditionRepository($edition_number);
+        $repository = $edition_repository->getRedirectRepository();
+
+        $redirect_url = $repository->resolveRedirect($name);
+
+        if(!$redirect_url) {
+            abort(404);
+        }
+
+        $aware_repository = AwareRedirectRepository::fromRequest($request, $repository);
+        if($aware_repository) {
+            $aware_repository->saveEmailCampaignInfo($name);
+
+            // remember flag
+            if($request->input('r') == 't') {
+                $request->session()->flash('redirect_user_id', $aware_repository->getUser()->id);
+            }
+        }
+
+        return redirect($redirect_url);
+    }
+
     public function getReminder(Request $request, $action_day_id) {
-        $action = ActionDay::findOrFail($action_day_id);
-        $user = Donor::find($request->session()->get('redirect_user_id'));
+        $action = Action::findOrFail($action_day_id);
+        $user = Person::find($request->session()->get('redirect_user_id'));
 
         if(!$user) {
-            $user = new Donor;
+            $user = new Person;
         }
 
         return view('wampiriada.reminder', [
@@ -140,11 +190,11 @@ class WampiriadaController extends Controller {
     }
 
     public function postReminder(Request $request, $action_day_id) {
-        $action = ActionDay::findOrFail($action_day_id);
-        $user = Donor::find($request->input('user_id'));
+        $action = Action::findOrFail($action_day_id);
+        $user = Person::find($request->input('user_id'));
 
         if(!$user) {
-            $user = Donor::firstOrNew(['email' => $request->email]);
+            $user = Person::firstOrNew(['email' => $request->email]);
             $user->first_name = $request->first_name;
             $user->last_name = $request->last_name;
             $user->save();

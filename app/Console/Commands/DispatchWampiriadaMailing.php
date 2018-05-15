@@ -7,10 +7,9 @@ use Illuminate\Foundation\Inspiring;
 use NZS\Wampiriada\Editions\EditionRepository;
 use NZS\Wampiriada\Mailing\WampiriadaMailingComposer;
 use NZS\Wampiriada\Checkins\Checkin;
-use NZS\Wampiriada\Option;
-use NZS\Wampiriada\Donor;
 use NZS\Core\Mailing\MailingRepository;
 use NZS\Core\Contracts\MailingComposer;
+use NZS\Core\Person;
 
 use Carbon\Carbon;
 
@@ -58,12 +57,7 @@ class DispatchWampiriadaMailing extends Command
             return 1;
         }
 
-        $number = $this->option('edition');
-        if($number === null) {
-            $number = Option::get('wampiriada.edition', 28);
-        }
-
-        $repository = EditionRepository::fromNumber($number);
+        $repository = new EditionRepository($this->option('edition'));
 
         $mailing = $this->resolveMailing($repository, $this->argument('mailing'));
 
@@ -116,7 +110,7 @@ class DispatchWampiriadaMailing extends Command
 
     protected function constructRecipientListFromArray($users) {
         return collect($users)->transform(function($user_email) {
-            $user = Donor::whereEmail($user_email)->first();
+            $user = Person::whereEmail($user_email)->first();
 
             if($user === null) {
                 $this->warn(sprintf("User with e-mail %s not found in database", $user_email));
@@ -156,6 +150,10 @@ class DispatchWampiriadaMailing extends Command
                 continue;
             }
             
+            if($user->email == 'joannagapinska@outlook.com') {
+                continue; // dirty hack XXX TODO
+            }
+
             $job = $composer->getJobInstance($user);
 
             $delay = "immediately";

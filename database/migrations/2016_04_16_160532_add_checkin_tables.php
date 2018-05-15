@@ -3,6 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
+use NZS\Wampiriada\BloodType;
 use NZS\Wampiriada\ShirtSize;
 
 class AddCheckinTables extends Migration {
@@ -19,7 +20,7 @@ class AddCheckinTables extends Migration {
     ];
 
     protected $shirt_sizes = [ 'XS', 'S', 'M', 'L', 'XL', 'XXL' ];
-
+    
     /**
      * Run the migrations.
      *
@@ -36,10 +37,12 @@ class AddCheckinTables extends Migration {
         });
 
         foreach($this->blood_types as $key => $name) {
-            DB::table('blood_types')->insert([
-                'key' => $key,
-                'name' => $name,
-            ]);
+            $blood_type = new BloodType();
+
+            $blood_type->key = $key;
+            $blood_type->name = $name;
+
+            $blood_type->save();
         }
 
         Schema::create('shirt_sizes', function(Blueprint $table) {
@@ -64,7 +67,7 @@ class AddCheckinTables extends Migration {
             $table->foreign('id')->references('id')->on('users')->onDelete('cascade');
 
             $table->string('current_name');
-
+            
             $table->integer('default_size_id')->unsigned();
             $table->foreign('default_size_id')->references('id')->on('shirt_sizes');
 

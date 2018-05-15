@@ -14,6 +14,8 @@ use App\Http\Middleware\AdminMiddleware;
 */
 
 Route::get('/', 'WampiriadaController@showIndex');
+Route::get('/redirect/{name}', 'WampiriadaController@getRedirectByName');
+Route::get('/redirect/{edition_number}/{name}', 'WampiriadaController@getRedirect');
 Route::get('/krew', 'WampiriadaController@getKrew');
 Route::get('/szpik', 'WampiriadaController@getSzpik');
 
@@ -27,26 +29,31 @@ Route::get('/dziekujemy/ankieta', 'WampiriadaController@showThankYouMailingPoll'
 Route::post('/dziekujemy/ankieta', 'WampiriadaController@saveThankYouMailingPoll');
 */
 
-Route::get('/facebook/login', 'CheckinController@getLoginPage');
-Route::post('/facebook/login', 'CheckinController@postLoginViaEmailPage');
-Route::get('/facebook/callback', 'CheckinController@getCallback');
-Route::get('/facebook/callback/{to}', 'CheckinController@getCallback');
-Route::get('/privacy_policy', 'CheckinController@getPrivacyPolicy');
+Route::get('/facebook/login', 'FacebookController@getLoginPage');
+Route::post('/facebook/login', 'FacebookController@postLoginViaEmailPage');
+Route::get('/facebook/callback', 'FacebookController@getCallback');
+Route::get('/facebook/callback/{to}', 'FacebookController@getCallback');
+Route::get('/privacy_policy', 'FacebookController@getPrivacyPolicy');
 
-Route::group(['middleware' => 'auth.checkin'], function() {
-    Route::get('/facebook/checkin', 'CheckinController@getCheckin');
-    Route::post('/facebook/checkin', 'CheckinController@postCheckin');
-    Route::get('/facebook/complete', 'CheckinController@getComplete');
+Route::group(['middleware' => 'auth.facebook'], function() {
+    Route::get('/facebook/checkin', 'FacebookController@getCheckin');
+    Route::post('/facebook/checkin', 'FacebookController@postCheckin');
+    //Route::get('/facebook/raffle', 'FacebookController@getRaffle');
+    //Route::post('/facebook/raffle', 'FacebookController@postRaffle');
+    //Route::get('/facebook/finish', 'FacebookController@getFinish');
+    Route::get('/facebook/complete', 'FacebookController@getComplete');
 });
 
 Route::get('/nzs', 'FacebookNewspaperController@getPage');
 Route::post('/nzs/poll_image', 'FacebookNewspaperController@postPollImage');
 Route::get('/nzs/callback', 'FacebookNewspaperController@getCallback');
 
+
+// mobile controller
+//Route::get('data/overall', 'MobileController@getOverall');
+
 // newsletter controller - remove yourself from newsletter,
-Route::get('newsletter/remove', 'NewsletterController@getRemove');
-Route::post('newsletter/remove', 'NewsletterController@postRemove');
-Route::get('newsletter/removed', 'NewsletterController@getRemoveSuccess');
+//Route::get('newsletter/remove', 'NewsletterController@getRemove');
 
 Route::group(['prefix' => 'admin'], function() {
 	// Login/forgot_password/reset_password
@@ -68,6 +75,7 @@ Route::group(['prefix' => 'admin'], function() {
 	    Route::post('wampiriada/results', 'WampiriadaBackendController@postResults');
 	    Route::get('wampiriada/settings/{number}', ['as' => 'admin-wampiriada-settings', 'uses' => 'WampiriadaBackendController@getSettings']);
 	    Route::post('wampiriada/settings/{number}', 'WampiriadaBackendController@postSettings');
+	    Route::get('wampiriada/connections/{number}', ['as' => 'admin-wampiriada-connections', 'uses' => 'WampiriadaBackendController@getFacebookConnections']);
 
         Route::post('wampiriada/prize/{checkin}', 'WampiriadaBackendController@postPrize');
         Route::get('wampiriada/prize/summary/{number}', [ 'as' =>'admin-wampiriada-prize-summary', 'uses' => 'WampiriadaBackendController@prizeSummary'] );

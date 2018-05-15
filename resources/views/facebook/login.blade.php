@@ -1,4 +1,4 @@
-@extends('layouts.checkin')
+@extends('layouts.master')
 
 @section('content')
 

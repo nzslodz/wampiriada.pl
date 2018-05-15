@@ -2,6 +2,7 @@
 
 use NZS\Core\CollectionAggregator;
 use NZS\Wampiriada\Option;
+use NZS\Wampiriada\Action;
 use NZS\Wampiriada\ActionData;
 use NZS\Wampiriada\FacebookConncection;
 use NZS\Wampiriada\Editions\Edition;
@@ -21,7 +22,6 @@ use Storage;
 use Illuminate\Http\Request;
 use Illuminate\Contracts\Filesystem\FileNotFoundException;
 
-// XXX probably drop sync xhr
 class ActivityController extends Controller {
     public function getProfile(Person $user) {
         $activities = Activity::whereUserId($user->id)->orderBy('created_at')->get();
