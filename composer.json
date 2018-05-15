@@ -37,7 +37,8 @@
             "NZS\\Core\\": "nzs-lib/src/"
         },
         "files": [
-            "nzs-lib/src/Storyboards/functions.php"
+            "nzs-lib/src/Storyboards/functions.php",
+            "app/Support/helpers.php"
         ]
     },
     "autoload-dev": {

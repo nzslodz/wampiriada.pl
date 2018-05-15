@@ -12,7 +12,6 @@
 
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
-
         <link rel="apple-touch-icon" sizes="57x57" href="{{ url('img/icons/apple-touch-icon-57x57.png') }}?v=allLWkmAnX">
         <link rel="apple-touch-icon" sizes="60x60" href="{{ url('img/icons/apple-touch-icon-60x60.png') }}?v=allLWkmAnX">
         <link rel="apple-touch-icon" sizes="72x72" href="{{ url('img/icons/apple-touch-icon-72x72.png') }}?v=allLWkmAnX">
@@ -36,7 +35,8 @@
 
         <meta name="og:image" content="{{ url('img/wampir-logo-2.png') }}">
 
-        <link rel="stylesheet" href="{{ app_mix('css/main.css') }}">
+        <link rel="stylesheet" href="{{ app_mix('css/checkin.css') }}?r=6">
+        <script src="{{ url('js/vendor/modernizr-2.6.2.min.js') }}"></script>
         <script type="text/javascript">
             function path(url) {
                 return '{{ url('') }}/' + url
@@ -68,9 +68,9 @@ window.fbAsyncInit = function() {
 </script>
 
         @yield('content')
-
+        
 		<!--skrypty z map google-->
-        <script src="{{ app_mix('js/main.js') }}"></script>
+        <script src="{{ app_mix('js/checkin.js') }}"></script>
 
 		<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true&key=AIzaSyCL7ZBHNxksuMm90Rua5BXpeu4yEze3P8I"></script>
 		<script type="text/javascript" src="{{ url('bower_components/gmaps/gmaps.min.js') }}"></script>

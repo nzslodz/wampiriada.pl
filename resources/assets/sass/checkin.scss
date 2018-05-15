@@ -1,0 +1,753 @@
+// @import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
+
+// Fonts
+@import url("https://fonts.googleapis.com/css?family=Alegreya+Sans:100,300,400,700&subset=latin,latin-ext");
+
+// Variables
+@import "variables";
+
+// Bootstrap
+@import "~bootstrap-sass/assets/stylesheets/bootstrap";
+
+// Font Awesome
+@import "~font-awesome/scss/font-awesome";
+
+
+html, body {
+    height: 100%;
+    background-color: #5b1510;
+    font-size: 1.025em;
+}
+
+section {
+    position: relative;
+}
+
+h1, h2, h3 {
+}
+
+a.button {
+    color: #fff;
+    display: block;
+    position: absolute;
+    background-color: rgba(0,0,0,0.1);
+    border-radius: 4px;
+    bottom: 2em;
+    left: 50%;
+    margin-left: -100px;
+    width: 200px;
+    text-align: center;
+    border: none;
+    padding: 0.5em 1em;
+
+    transition: 0.2s all ease-in-out;
+    text-decoration: none;
+}
+
+a.button:hover {
+    background-color: rgba(0,0,0,0.3);
+}
+
+#intro {
+   color: #fff;
+   min-height: 0;
+}
+
+#map {
+	height:500px;
+}
+
+.overall {
+    position: relative;
+    height: 460px;
+    text-align:right;
+}
+
+.overall .big {
+    font-family: Arial, sans-serif;
+    font-size: 140px;
+    position: absolute;
+    top: 22px;
+    font-weight: bold;
+    width: 100%;
+}
+.overall .small {
+    font-size: 24px;
+    position: absolute;
+    top: 172px;
+    width: 100%;
+}
+
+
+.overall .note {
+    font-size: 60px;
+    font-family: Arial, sans-serif;
+
+    position: absolute;
+    top: 290px;
+    width: 100%;
+}
+
+.smallfont .big {
+    font-size: 100px;
+}
+
+.smallfont .small {
+    top: 132px;
+}
+
+.overall .foot {
+    font-size: 24px;
+
+    position: absolute;
+    top: 358px;
+    width: 100%;
+
+}
+
+#schedule {
+    margin-top: -10vw;
+
+    color: #e8e0e0;
+}
+
+#schedule .sorting {
+   color: rgb(202, 156, 128);
+   font-size: 0.9em;
+   margin-bottom: 2em;
+}
+
+#schedule .sorting a {
+    color: rgb(202, 156, 128);
+    border-radius: 4px;
+    display: inline-block;
+    border: 1px solid rgba(255,255,255,0.1);
+    padding: 2px 6px;
+    text-decoration: none;
+}
+
+#schedule .sorting a:hover, #schedule .sorting a:active {
+    background-color: rgba(0,0,0,0.1);
+    color: #e1c1b2;
+
+}
+#schedule .sorting .active {
+    background-color: rgba(0,0,0,0.1);
+}
+
+#dontforget .row {
+}
+
+#dontforget .row h3 {
+    margin-bottom: 0;
+}
+
+#dontforget .row h3 + p {
+    margin-top: 0;
+}
+
+#dontforget h2 {
+    margin-top: 0;
+}
+
+#dontforget .grid {
+    padding-top: 4em;
+    padding-bottom: 6em;
+}
+
+#schedule ul {
+list-style-type: none;
+margin: 0;
+padding: 0;
+}
+
+#schedule .grid {
+    margin-top: 4em;
+    margin-bottom: 6em;
+}
+
+
+
+#schedule li p, #schedule .legend p {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+#schedule li {
+	cursor:pointer;
+    padding: 0.5em 0;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+}
+
+#schedule li:hover, li:active {
+    background-color: rgba(0,0,0,0.1);
+    color: #fff;
+}
+#schedule li.active {
+    background-color: rgba(0,0,0,0.1);
+    color: #fff;
+}
+
+
+.legend {
+    font-weight: bold;
+    padding: 0.5em 0;
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+}
+
+h2 {
+    font-size: 3em;
+    margin-bottom: 0;
+}
+
+header p {
+
+    margin-top: 0;
+}
+header .date {
+    text-align: right;
+}
+
+h3 {
+    font-size: 1.8em;
+}
+
+.center {
+    text-align: center;
+}
+
+
+#dontforget {
+    background: white;
+    color: #444;
+
+    margin-top: -10vw;
+    position: relative;
+
+    z-index: 8;
+}
+
+#dontforget a {
+   color: rgb(33, 103, 192);
+}
+
+#dontforget a:hover, #dontforget a:active {
+    color: rgb(28, 88, 163);
+}
+
+.date span {
+    border-bottom: 5px solid #c14d8f;
+}
+
+.ul .date span {
+    border-bottom: 5px solid #c2812c;
+}
+
+.pl .date span {
+    border-bottom: 5px solid #b72b2a;
+}
+
+
+.um .date span {
+    border-bottom: 5px solid #71953d;
+}
+
+.kol .date span {
+    border-bottom: 5px solid rgb(28, 107, 18);
+    font-weight: 400;
+}
+
+
+#schedule li p.date, #schedule .legend .date {
+    width:80px;
+    padding-left: 20px;
+}
+
+.lordis {
+    padding: 30px 0;
+}
+
+#who {
+    background-color: #fff;
+
+    color: #444;
+
+}
+
+
+#partners a.button {
+    color: #222;
+}
+
+#partners p.image {
+    text-align: center;
+}
+
+.like-h3 {
+    margin-top: 1.8em;
+}
+
+.appstore {
+    margin: 1.8em 15%;
+}
+
+.mobile {
+    padding-bottom: 1.8em;
+
+    border-radius: 8px;
+
+    color: #fff;
+
+    -webkit-box-shadow: inset 0px 1px 0px 0px rgba(255,255,255, 0.3), 0px 1px 0 0 rgba(0,0,0,0.3);
+box-shadow: inset 0px 1px 0px 0px rgba(255,255,255, 0.3), 0px 1px 0 0 rgba(0,0,0,0.3);
+
+background-image: linear-gradient(to top, rgb(102,16,16) 1%, rgb(143,19,19) 51%, rgb(143,7,7) 76%);
+background-image: -o-linear-gradient(to top, rgb(102,16,16) 1%, rgb(143,19,19) 51%, rgb(143,7,7) 76%);
+background-image: -moz-linear-gradient(to top, rgb(102,16,16) 1%, rgb(143,19,19) 51%, rgb(143,7,7) 76%);
+background-image: -webkit-linear-gradient(to top, rgb(102,16,16) 1%, rgb(143,19,19) 51%, rgb(143,7,7) 76%);
+background-image: -ms-linear-gradient(to top, rgb(102,16,16) 1%, rgb(143,19,19) 51%, rgb(143,7,7) 76%);
+
+background-image: -webkit-gradient(
+    linear,
+    left bottom,
+    left top,
+    color-stop(0.01, rgb(102,16,16)),
+    color-stop(0.51, rgb(143,19,19)),
+    color-stop(0.76, rgb(143,7,7))
+);
+}
+
+.secondary .mobile h3 {
+    color: #fff;
+}
+
+.mobile .slot-0-1-2-3 {
+    text-align: right;
+}
+
+.mobile h3 {
+    margin-bottom: 0;
+}
+
+.mobile p {
+    margin-bottom: 0.5em;
+    padding-left: 0.5em;
+}
+
+.thanks {
+    font-size: 1.2em;
+}
+
+.itsbig {
+    font-size: 3em;
+    margin: 0;
+    text-align: center;
+}
+
+.row img {
+    max-width: 100%;
+}
+
+.movie {
+    background: black;
+
+    padding: 40px 0;
+}
+
+.movie h2 {
+    color: #333;
+    margin: 0 0 40px;
+    text-align: center;
+}
+
+.movie .box {
+    margin: 0 auto;
+    width: 853px;
+}
+
+.mojrow {
+	width:700px;
+}
+
+html, body {
+    font-family: "Alegreya Sans", sans-serif;
+
+    color: #fff;
+}
+
+#teaser h1 {
+    font-size: 25em;
+    margin: 0;
+
+    text-align: center;
+
+    font-weight: 100;
+}
+
+#teaser h1 a {
+    color: #fff;
+
+
+    text-decoration: none;
+}
+
+#teaser .footnote {
+    position: absolute;
+    bottom: 40px;
+    margin: auto;
+
+    left: 50%;
+
+    margin-left: -100px;
+    width: 200px;
+    text-align: center;
+}
+
+/* new styles */
+
+.gm-style {
+    font-family: "Alegreya Sans" !important;
+    color: #333;
+}
+
+.gm-style h3 {
+    margin-top: 0;
+}
+
+.isotope .row {
+    width: 100%;
+}
+
+
+.nopadding, .nopadding .row {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+}
+
+section header {
+    text-align: right;
+    float: left;
+}
+
+section {
+    padding-bottom: 60px;
+}
+
+#intro {
+    background: #5b1510 url('../img/layout/karta2-top.jpg') top center no-repeat;
+    background-size: contain;
+    padding-top: 50vw;
+    min-height:0;
+}
+
+.accept-cookie-message  {
+    border-radius: 0 !important;
+    height: auto !important;
+    color: #666;
+    border-top:0 !important;
+    border-left:0 !important;
+    border-right:0 !important;
+    position: static !important;
+}
+
+.fancyphoto {
+    border: 9px solid white;
+    -webkit-transform: rotate(-1deg);
+    -moz-transform: rotate(-1deg);
+    -ms-transform: rotate(-1deg);
+    -o-transform: rotate(-1deg);
+    transform: rotate(-1deg);
+}
+
+.description.with-results {
+    background-color: rgba(0,0,0,0.2);
+}
+
+.description a {
+    color: rgb(255, 142, 64);
+}
+
+.description a:hover, .description a:active {
+    color: rgb(255, 186, 133);
+}
+
+.second-background {
+    background: #fff url('../img/layout/karta2-bottom.jpg') top center no-repeat;
+    background-size: contain;
+
+    padding-bottom: 15vw;
+    min-height:0;
+    z-index:5;
+    position: relative;
+}
+
+.second-background img {
+    max-width: 100%;
+}
+
+.second-background .przyjacielwampira {
+    position: relative;
+    z-index: 2;
+    top: -20px;
+}
+
+#results {
+    color: #e8e0e0;
+}
+
+.secondary {
+    background: white;
+    color: #444;
+}
+
+
+.secondary h1, .secondary h2, .secondary h3 {
+    color: #cc0000;
+}
+
+@media only screen and (min-width : 768px) {
+    .mobile {
+        text-align: center;
+    }
+}
+
+@media only screen and (max-width: 767px) {
+    .overall, #results header, #results header .date {
+        text-align: center;
+    }
+}
+
+.icon {
+    font-size: 3em;
+    text-align: center;
+
+    width: 80px;
+    margin: auto;
+    height: 80px;
+    border: 1px solid #000;
+    padding:7px;
+
+    border-radius: 40px;
+    margin: 10px auto;
+}
+
+.contest {
+    background-color: #fafafa;
+    box-shadow: 0 2px 3px rgba(0,0,0,0.3);
+    padding: 0px 0 12px;
+}
+
+.padding-top {
+    margin-top: 40px;
+}
+
+.bigga h3 {
+}
+
+.bigga nav a {
+    font-size: 1.7em;
+    font-weight: 300;
+    display: block;
+
+}
+
+.bigga {
+    text-align: center;
+}
+
+.bigga ul {
+    padding:0;
+    list-style-type: none;
+}
+
+#dontforget h3 {
+    border-left: 30px solid #cc0000;
+    padding-left: 10px;
+}
+
+#dontforget .mobile h3 {
+    border-left: 0;
+    padding-left: 0;
+}
+
+.bigga nav {
+    margin: 1em 0;
+}
+
+
+#who {
+    background-color: #f7f7f7;
+}
+
+#who .col-xs-6, #who .col-md-4 {
+    text-align: center;
+}
+
+.bigga nav a {
+}
+
+.cooperation {
+    margin: 27px 0;
+    font-size: 1.5em;
+    font-weight: 300;
+}
+
+.top-27 {
+    margin-top: 27px;
+}
+
+.flex-row {
+    display: -ms-flexbox;
+    display: -moz-box;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+
+    -ms-flex-flow: row nowrap;
+    -webkit-flex-flow: row nowrap;
+    -moz-flex-flow: row nowrap;
+    flex-flow: row nowrap;
+
+    -ms-justify-content: space-between;
+    -webkit-justify-content: space-between;
+    -moz-justify-content: space-between;
+    justify-content: space-between;
+
+    -ms-align-items: center;
+    -webkit-align-items: center;
+    -moz-align-items: center;
+    align-items: center;
+}
+
+.flex-item {
+    -moz-flex: 1 1 auto;
+    -moz-box-flex: 1 1 auto;
+    -ms-flex: 1 1 auto;
+    -webkit-flex: 1 1 0;
+    flex: 1 1 0;
+    max-width: 25%;
+}
+
+.fb-page {
+    margin-bottom: 30px;
+}
+
+.col-md-push-4 .gallery-image {
+    border: 9px solid white;
+    -webkit-transform: rotate(-2deg);
+    -moz-transform: rotate(-2deg);
+    -ms-transform: rotate(-2deg);
+    -o-transform: rotate(-2deg);
+    transform: rotate(-2deg);
+}
+
+.col-md-push-0 .gallery-image {
+    border: 9px solid white;
+    -webkit-transform: rotate(2deg);
+    -moz-transform: rotate(2deg);
+    -ms-transform: rotate(2deg);
+    -o-transform: rotate(2deg);
+    transform: rotate(2deg);
+}
+
+.gallery {
+    background-color: #5b1510;
+
+   color: #fff;
+}
+
+.gallery h1, .gallery h2, .gallery h3 {
+    color: #fff;
+}
+
+.gallery .row {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+#coming-soon header {
+    float: none;
+    text-align: center;
+    font-size: 2em;
+}
+
+@media screen and (max-width: 767px) {
+    #coming-soon header {
+        font-size: 1em;
+    }
+}
+
+.achievement {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 1em auto;
+    max-width: 40em;
+    border: 1px solid rgba(0,0,0,0.2);
+    border-radius: 25px;
+
+/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#4e100c+0,440a0a+100 */
+background: #4e100c; /* Old browsers */
+background: -moz-linear-gradient(top,  #4e100c 0%, #440a0a 100%); /* FF3.6-15 */
+background: -webkit-linear-gradient(top,  #4e100c 0%,#440a0a 100%); /* Chrome10-25,Safari5.1-6 */
+background: linear-gradient(to bottom,  #4e100c 0%,#440a0a 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4e100c', endColorstr='#440a0a',GradientType=0 ); /* IE6-9 */
+
+}
+
+
+.achievement.locked {
+    color: rgba(150, 150, 150, 0.5);
+}
+
+.achievement-number, .achievement-lock {
+   line-height: 1.2;
+   font-size: 4em;
+   margin-right: 0.4em;
+   text-align: center;
+
+
+}
+.achievement-number {
+    min-width: 2em;
+
+    padding-bottom: 11px;
+}
+
+.achievement-lock {
+    position: relative;
+    top: 7px;
+
+}
+
+.imagegrid img {
+    width: 100%;
+}
+
+.logo-container img {
+    max-height: 150px;
+}
+
+.well {
+    color: #000;
+}
+
+.form-control {
+    font-size: 13px;
+}
+
+
+.imagegrid {
+    padding-bottom :0;
+}
+
+.imagegrid img {
+    margin-bottom: 0;
+}
+
+.imagegrid + section {
+    padding-top: 120px;
+}
