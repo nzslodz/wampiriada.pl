@@ -7,6 +7,7 @@ use Illuminate\Foundation\Inspiring;
 use NZS\Wampiriada\Editions\EditionRepository;
 use NZS\Wampiriada\Mailing\WampiriadaMailingComposer;
 use NZS\Wampiriada\Checkins\Checkin;
+use NZS\Wampiriada\Option;
 use NZS\Wampiriada\Donor;
 use NZS\Core\Mailing\MailingRepository;
 use NZS\Core\Contracts\MailingComposer;
@@ -57,7 +58,12 @@ class DispatchWampiriadaMailing extends Command
             return 1;
         }
 
-        $repository = EditionRepository::fromNumber($this->option('edition'));
+        $number = $this->option('edition');
+        if($number === null) {
+            $number = Option::get('wampiriada.edition', 28);
+        }
+
+        $repository = EditionRepository::fromNumber($number);
 
         $mailing = $this->resolveMailing($repository, $this->argument('mailing'));
 
