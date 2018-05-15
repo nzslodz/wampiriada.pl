@@ -36,7 +36,6 @@
         <meta name="og:image" content="{{ url('img/wampir-logo-2.png') }}">
 
         <link rel="stylesheet" href="{{ app_mix('css/checkin.css') }}?r=6">
-        <script src="{{ url('js/vendor/modernizr-2.6.2.min.js') }}"></script>
         <script type="text/javascript">
             function path(url) {
                 return '{{ url('') }}/' + url
@@ -68,7 +67,7 @@ window.fbAsyncInit = function() {
 </script>
 
         @yield('content')
-        
+
 		<!--skrypty z map google-->
         <script src="{{ app_mix('js/checkin.js') }}"></script>
 

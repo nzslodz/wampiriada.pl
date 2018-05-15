@@ -12,7 +12,6 @@
 
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
-
         <link rel="apple-touch-icon" sizes="57x57" href="{{ url('img/icons/apple-touch-icon-57x57.png') }}?v=allLWkmAnX">
         <link rel="apple-touch-icon" sizes="60x60" href="{{ url('img/icons/apple-touch-icon-60x60.png') }}?v=allLWkmAnX">
         <link rel="apple-touch-icon" sizes="72x72" href="{{ url('img/icons/apple-touch-icon-72x72.png') }}?v=allLWkmAnX">

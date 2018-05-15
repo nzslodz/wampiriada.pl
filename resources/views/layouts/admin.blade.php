@@ -20,10 +20,14 @@
 
         <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
 
+        <!--
         {{ HTML::style('bower_components/bootstrap/dist/css/bootstrap.min.css') }}
         {{ HTML::style('bower_components/font-awesome/css/font-awesome.min.css') }}
 
         {{ HTML::style('admin-assets/css/main.css') }}
+        -->
+
+        <link rel="stylesheet" href="{{ app_mix('css/app.css') }}" type="text/css">
 
         @yield('extrahead')
     </head>
@@ -104,25 +108,13 @@
             @yield('content')
         </section>
 
-        {{ HTML::script('bower_components/jquery/dist/jquery.min.js') }}
-
-        <script type="text/javascript">
-            $.ajaxSetup({
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    }
-            });
-        </script>
+        <script type="text/javascript" src="{{ app_mix('js/app.js') }}"></script>
 
         @section('data')
             <script type="text/javascript">
                 data = {}
             </script>
         @show
-
-        <script type="text/javascript" src="{{ mix('js/app.js') }}"></script>
-
-        {{ HTML::script('admin-assets/js/main.js') }}
 
         @yield('script')
     </body>
