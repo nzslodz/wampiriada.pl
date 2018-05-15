@@ -62,7 +62,7 @@ a:hover#ff { background-color: #6CF !important; text-decoration: none !important
                                 e-mail: <a href="mailto:nzs@nzs.lodz.pl">nzs@nzs.lodz.pl</a><br>
                                 www: <a href="{{ $repository->getRedirect('nzs') }}">nzs.lodz.pl</a><br>
                                 fb: <a href="{{ $repository->getRedirect('facebook-nzs') }}">facebook.com/NZSRegionuLodzkiego</a><br>
-                                <small><a href="http://backend.wampiriada.pl/newsletter/remove?email={{ urlencode($user->email) }}">Jeśli nie chcesz otrzymywać takich informacji, kliknij tutaj</a></small>
+                                <small><a href="{{ url('newsletter/remove?email=' . urlencode($user->email)) }}">Jeśli nie chcesz otrzymywać takich informacji, kliknij tutaj</a></small>
                                 </p></center>
                             </td></tr>
                         </table>

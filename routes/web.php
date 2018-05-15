@@ -46,6 +46,7 @@ Route::get('/nzs/callback', 'FacebookNewspaperController@getCallback');
 // newsletter controller - remove yourself from newsletter,
 Route::get('newsletter/remove', 'NewsletterController@getRemove');
 Route::post('newsletter/remove', 'NewsletterController@postRemove');
+Route::get('newsletter/removed', 'NewsletterController@getRemoveSuccess');
 
 Route::group(['prefix' => 'admin'], function() {
 	// Login/forgot_password/reset_password
