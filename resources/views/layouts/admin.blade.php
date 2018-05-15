@@ -20,13 +20,6 @@
 
         <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
 
-        <!--
-        {{ HTML::style('bower_components/bootstrap/dist/css/bootstrap.min.css') }}
-        {{ HTML::style('bower_components/font-awesome/css/font-awesome.min.css') }}
-
-        {{ HTML::style('admin-assets/css/main.css') }}
-        -->
-
         <link rel="stylesheet" href="{{ app_mix('css/app.css') }}" type="text/css">
 
         @yield('extrahead')
