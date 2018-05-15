@@ -20,6 +20,7 @@ use NZS\Core\Polls\UsesPolls;
 use NZS\Wampiriada\Polls\ThankYou\WampiriadaThankYouPollFormRequest;
 use NZS\Wampiriada\Reminders\Reminder;
 use NZS\Wampiriada\Donor;
+use NZS\Wampiriada\ActionDay;
 
 class WampiriadaController extends Controller {
     use UsesPolls;

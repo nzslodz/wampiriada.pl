@@ -18,15 +18,13 @@ use NZS\Wampiriada\ActionDay;
 
 class DispatchReminderEmails extends Command
 {
-
-    protected $hours = 0.5;
-
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'wampiriada:dispatch-reminder-emails';
+    protected $signature = 'wampiriada:dispatch-reminder-emails
+        {--hours=0.5 : distribute recipients over time in hours (can be set to 0 to dispatch immediately)}';
 
     /**
      * The console command description.
@@ -57,7 +55,9 @@ class DispatchReminderEmails extends Command
 
                 $job = $composer->getJobInstance($reminder->user);
 
-                $delay = Carbon::now()->addSeconds(rand(0, $this->hours * 3600));
+                $hours = (float) $this->option('hours');
+
+                $delay = Carbon::now()->addSeconds(rand(0, $hours * 3600));
 
                 $job->delay($delay);
 
