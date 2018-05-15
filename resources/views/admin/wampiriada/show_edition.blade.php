@@ -36,7 +36,7 @@
             @forelse($actions as $action)
                 <tr>
                     <th><a href="{{ url('admin/wampiriada/edit/' . $action->id) }}">{{ $action->short_description }}</a></th>
-                    <td class="info"><strong>{{ $action->data->getOverall() }}</strong></td>
+                    <td class="info"><strong>{{ $action->data->overall }}</strong></td>
                     <td>{{ $action->data->first_time }}</td>
                     <td>{{ $action->data->a_plus }}</td>
                     <td>{{ $action->data->a_minus }}</td>
@@ -111,9 +111,7 @@
                     <tr class="@if($reminder->hasCheckin()) success @elseif($reminder->hasAnyCheckin()) warning @elseif($action->inPast()) danger @endif">
                         <td>{{ $iterator += 1 }} / {{ $loop->iteration }}</td>
                         <th>
-                            <a data-card="{{ $reminder->user_id }}" href="{{ url('admin/activity/profile/' . $reminder->user_id )}}">
                             {{ $reminder->user->getFullName() }}
-                            </a>
                         </th>
                         <td>
                             {{ $reminder->created_at }}

@@ -50,6 +50,7 @@ class WampiriadaRedirectRepository extends BaseRedirectRepository {
         return $this->loadRedirect($name);
     }
 
+    // XXX does not work, but is nowhere used so has a low priority
     public function registerRedirect($name, $url, $options=[]) {
         $redirect = Redirect::firstOrNew([
             'class_name' => get_class($this),

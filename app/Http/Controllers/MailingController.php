@@ -4,7 +4,6 @@ use NZS\Core\CollectionAggregator;
 use NZS\Core\Mailing\MailingManager;
 use NZS\Core\Mailing\MailingRepository;
 use NZS\Wampiriada\Option;
-use NZS\Wampiriada\Action;
 use NZS\Wampiriada\ActionData;
 use NZS\Wampiriada\Checkins\Prize\PrizeForCheckin;
 use NZS\Wampiriada\FacebookConncection;
@@ -22,6 +21,7 @@ use App\Http\Requests\PrizeForCheckinRequest;
 
 use Auth;
 
+// XXX find a good way to resolve Donor/User conflict 
 class MailingController extends Controller {
 	public function getIndex(MailingRepository $repository) {
 		$mailings = $repository->collect()->transform(function($class_name) {

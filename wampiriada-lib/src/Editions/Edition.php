@@ -8,8 +8,10 @@ use NZS\Wampiriada\Option;
 use NZS\Wampiriada\Checkins\Checkin;
 use NZS\Wampiriada\Editions\EditionData;
 
+// XXX refactor getStartDate() getEndDate() to $casts
+// XXX refactor number as id
 class Edition extends Model {
-	protected $table = 'editions';
+	protected $table = 'wampiriada_editions';
     protected $repository = null;
 
     public $timestamps = false;

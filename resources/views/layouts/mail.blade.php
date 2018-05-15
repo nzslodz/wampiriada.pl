@@ -29,7 +29,7 @@ a:hover#ff { background-color: #6CF !important; text-decoration: none !important
                             <tr>
 
                                 <td style="text-align: center">
-                                    <a href="{{ $repository->getRedirect('wampiriada') }}"><img src="{{ $repository->getRedirect('mailing-img') }}" alt="Wampiriada - {{ $edition->number }}. edycja"></a>
+                                    <a href="{{ $repository->getRedirect('wampiriada') }}"><img src="http://nzs.lodz.pl/newsletter/wampi28-mailing-official.jpg" alt="Wampiriada - {{ $edition->number }}. edycja"></a>
                                 </td>
                             </tr>
                         </table>
@@ -58,11 +58,11 @@ a:hover#ff { background-color: #6CF !important; text-decoration: none !important
                             <tr><td>
                                 <center><p style="font-size: 12px; letter-spacing: 1px; font-family: Arial, sans-serif; color: #9C9AA0 !important; margin-top: 0; margin-left: 0; margin-bottom: 25px; line-height: 1.4; text-align: center;">
                                 Niezależne Zrzeszenie Studentów Regionu Łódzkiego<br>
-                                90-254 Łódź, ul. Piramowicza 3<br>
+                                90-231 Łódź, ul. Matejki 21/23<br>
                                 e-mail: <a href="mailto:nzs@nzs.lodz.pl">nzs@nzs.lodz.pl</a><br>
                                 www: <a href="{{ $repository->getRedirect('nzs') }}">nzs.lodz.pl</a><br>
                                 fb: <a href="{{ $repository->getRedirect('facebook-nzs') }}">facebook.com/NZSRegionuLodzkiego</a><br>
-                                <small><a href="http://backend.wampiriada.pl/newsletter/remove?email={{ urlencode($user->email) }}">Jeśli nie chcesz otrzymywać takich informacji, kliknij tutaj</a></small>
+                                <small><a href="{{ url('newsletter/remove?email=' . urlencode($user->email)) }}">Jeśli nie chcesz otrzymywać takich informacji, kliknij tutaj</a></small>
                                 </p></center>
                             </td></tr>
                         </table>

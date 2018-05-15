@@ -1,7 +1,6 @@
 <?php namespace App\Http\Controllers;
 
 use NZS\Wampiriada\Option;
-use NZS\Wampiriada\Action;
 use NZS\Wampiriada\ActionData;
 use NZS\Wampiriada\Checkins\Prize\PrizeForCheckin;
 use NZS\Wampiriada\PrizeAggregator;
@@ -12,6 +11,7 @@ use NZS\Wampiriada\Editions\Edition;
 use NZS\Wampiriada\Checkins\Checkin;
 use NZS\Wampiriada\PrizeType;
 use NZS\Wampiriada\ShirtSize;
+use NZS\Wampiriada\ActionDay;
 use NZS\Core\Redirects\Redirect;
 use NZS\Wampiriada\Editions\EditionRepository;
 use NZS\Wampiriada\Redirects\WampiriadaRedirect;
@@ -51,8 +51,9 @@ class WampiriadaBackendController extends Controller {
 	 * @return Response
 	 */
 	public function getShow($number) {
-        $actions = Action::where('number', $number)->orderBy('day')->get();
 		$edition_object = Edition::whereNumber($number)->first();
+
+        $actions = ActionDay::whereEditionId($edition_object->id)->orderBy('created_at')->get();
 
         $actions_with_data = $actions->filter(function($action) {
             return (bool) $action->data;
@@ -81,7 +82,7 @@ class WampiriadaBackendController extends Controller {
 	 * @return Response
 	 */
 	public function getEdit(Request $request, $id) {
-        $action = Action::findOrFail($id);
+        $action = ActionDay::findOrFail($id);
 
         $action_data = $action->data;
         if(!$action_data) {
@@ -98,12 +99,12 @@ class WampiriadaBackendController extends Controller {
             'checkin_count' => $checkins->count(),
             'first_time_checkin_count' => $action_data->first_time,
             'first_time_checkin_count_percentage' => $action_data->getFirstTimePercentage(),
-            'missing_count' => $action_data->getOverall() - $checkins->count(),
+            'missing_count' => $action_data->overall - $checkins->count(),
         ));
 	}
 
     public function postEdit(Request $request, $id) {
-        $action = Action::findOrFail($id);
+        $action = ActionDay::findOrFail($id);
 
         $action_data = $action->data;
         if(!$action_data) {
@@ -153,7 +154,7 @@ class WampiriadaBackendController extends Controller {
 		$mapping['configuration'] = $repository->getConfiguration();
 		$mapping['edition_number'] = $number;
 		$mapping['checkboxes'] = $checkboxes;
-		$mapping['actions'] = Action::where('number', $number)->orderBy('day')->get();
+		$mapping['actions'] = ActionDay::whereEditionId($edition->id)->orderBy('created_at')->get();
 
         return view('admin.wampiriada.settings', $mapping->all());
     }
@@ -269,9 +270,6 @@ class WampiriadaBackendController extends Controller {
 
 		if($request->claimed && !$prize->claimed_at) {
 			$prize->claimed_at = Carbon::now();
-
-			$activity_class = new PrizeForCheckinClaimedActivityClass;
-			$activity_class->saveActivityInstance($prize);
 		}
 
 		$prize->save();

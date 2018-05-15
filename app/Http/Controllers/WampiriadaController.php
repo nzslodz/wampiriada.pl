@@ -6,7 +6,6 @@ use NZS\Core\Redirects\DatabaseRedirectRepository;
 use NZS\Core\Redirects\CompositeRedirectRepository;
 use App\Libraries\PartnerRow;
 use NZS\Wampiriada\Option;
-use NZS\Wampiriada\Action;
 use NZS\Wampiriada\Checkins\Checkin;
 use NZS\Wampiriada\Redirect;
 use NZS\Wampiriada\Editions\Edition;
@@ -20,8 +19,8 @@ use NZS\Core\Polls\Poll;
 use NZS\Core\Polls\UsesPolls;
 use NZS\Wampiriada\Polls\ThankYou\WampiriadaThankYouPollFormRequest;
 use NZS\Wampiriada\Reminders\Reminder;
-
-use NZS\Core\Person;
+use NZS\Wampiriada\Donor;
+use NZS\Wampiriada\ActionDay;
 
 class WampiriadaController extends Controller {
     use UsesPolls;
@@ -127,11 +126,11 @@ class WampiriadaController extends Controller {
     }
 
     public function getReminder(Request $request, $action_day_id) {
-        $action = Action::findOrFail($action_day_id);
-        $user = Person::find($request->session()->get('redirect_user_id'));
+        $action = ActionDay::findOrFail($action_day_id);
+        $user = Donor::find($request->session()->get('redirect_user_id'));
 
         if(!$user) {
-            $user = new Person;
+            $user = new Donor;
         }
 
         return view('wampiriada.reminder', [
@@ -141,11 +140,11 @@ class WampiriadaController extends Controller {
     }
 
     public function postReminder(Request $request, $action_day_id) {
-        $action = Action::findOrFail($action_day_id);
-        $user = Person::find($request->input('user_id'));
+        $action = ActionDay::findOrFail($action_day_id);
+        $user = Donor::find($request->input('user_id'));
 
         if(!$user) {
-            $user = Person::firstOrNew(['email' => $request->email]);
+            $user = Donor::firstOrNew(['email' => $request->email]);
             $user->first_name = $request->first_name;
             $user->last_name = $request->last_name;
             $user->save();

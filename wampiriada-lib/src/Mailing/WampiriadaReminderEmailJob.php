@@ -11,11 +11,11 @@ use NZS\Wampiriada\Editions\Edition;
 use Illuminate\Contracts\Mail\Mailer;
 use Exception;
 use Storage;
-use NZS\Core\Person;
 
 use NZS\Wampiriada\Mailing\WampiriadaThankYouMailingComposer;
 use NZS\Wampiriada\Editions\EditionRepository;
 use NZS\Wampiriada\Reminders\Reminder;
+use NZS\Wampiriada\Donor;
 use NZS\Wampiriada\ActionDay;
 use NZS\Core\Mailing\ComposerSender;
 
@@ -30,7 +30,7 @@ class WampiriadaReminderEmailJob extends Job implements ShouldQueue
      *
      * @return void
      */
-    public function __construct(ActionDay $action_day, Person $user, $composer_class) {
+    public function __construct(ActionDay $action_day, Donor $user, $composer_class) {
         $this->user = $user;
         $this->action_day = $action_day;
         $this->composer_class = $composer_class;

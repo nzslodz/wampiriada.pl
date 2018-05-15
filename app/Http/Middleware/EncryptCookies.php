@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Illuminate\Cookie\Middleware\EncryptCookies as Middleware;
 
+// XXX probably cookies for rodo interaction to be able to access them from JS
 class EncryptCookies extends Middleware
 {
     /**

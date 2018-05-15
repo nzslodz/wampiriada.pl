@@ -15,6 +15,7 @@ env
 /node_modules
 /public/hot
 /public/storage
+/public/local
 /storage/*.key
 /vendor
 /.idea

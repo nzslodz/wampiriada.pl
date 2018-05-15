@@ -5,16 +5,20 @@ use NZS\Core\Redirects\DatabaseRedirectRepository;
 use NZS\Core\Redirects\CompositeRedirectRepository;
 use NZS\Wampiriada\Editions\EmptyConfiguration;
 use NZS\Wampiriada\Redirects\WampiriadaRedirectRepository;
-use NZS\Wampiriada\OverallResult;
-use NZS\Wampiriada\Action;
+use NZS\Wampiriada\ActionDay;
+use NZS\Wampiriada\ActionData;
 use NZS\Wampiriada\Option;
+use NZS\Wampiriada\School;
 use Carbon\Carbon;
+use DB;
 
+// XXX should it be wise to drop caching and ObjectDoesNotExist?
 class EditionRepository {
     protected
         $edition = null,
-        $result,
+        $results,
         $actions,
+        $data,
         $future_actions,
         $redirects = array();
 
@@ -72,19 +76,33 @@ class EditionRepository {
 
     // dependent model getters
     public function getResults() {
-        if($this->result) {
-            return $this->result;
+        if($this->results) {
+            return $this->results;
         }
 
-        $this->result = OverallResult::where('year', $this->getEditionYear())
-            ->where('edition_type', $this->getEditionType())
-            ->first();
+        $this->results = $this->internalGetResults();
 
-        if(!$this->result) {
+        if(!$this->results) {
             throw new ObjectDoesNotExist("There are no results for edition {$this->getEditionNumber()}.");
         }
 
-        return $this->result;
+        return $this->results;
+    }
+
+    public function getResultsForSchool(School $school) {
+        return $this->internalGetResults($school);
+    }
+
+    protected function internalGetResults(School $school = null) {
+        return ActionData::whereHas('action_day', function($q) use($school) {
+            $q->whereEditionId($this->edition->id);
+
+            if($school) {
+                $q->whereHas('place', function($q) use($school) {
+                    $q->whereSchoolId($school->id);
+                });
+            }
+        })->orderBy('id')->get();
     }
 
     public function getData() {
@@ -106,9 +124,10 @@ class EditionRepository {
             return $this->actions;
         }
 
-        $this->actions = Action::where('number', $this->getEditionNumber())
+        $this->actions = ActionDay::with(['place.school'])
+            ->whereEditionId($this->edition->id)
             ->whereHidden(false)
-            ->orderBy('day')
+            ->orderBy('created_at')
             ->get();
 
         if($this->actions->isEmpty()) {
@@ -118,15 +137,25 @@ class EditionRepository {
         return $this->actions;
     }
 
-    public function getFutureActions() {
+    public function getFutureActions($include_today=false) {
         if($this->future_actions) {
             return $this->actions;
         }
 
-        $this->future_actions = Action::where('number', $this->getEditionNumber())
+        $this->future_actions = ActionDay::with(['place.school'])
+            ->whereEditionId($this->edition->id)
             ->whereHidden(false)
-            ->where('day', '>', Carbon::now())
-            ->orderBy('day')
+            ->where(function($q) use($include_today) {
+                $q->where('created_at', '>', Carbon::now());
+
+                if($include_today) {
+                    $q->orWhere(function($query) {
+                        $query->where(DB::raw('DATE(created_at)'), '=', DB::raw('CURRENT_DATE()'))
+                            ->where('end', '>',  DB::raw('ADDTIME(CURRENT_TIME(), "01:00")'));
+                    });
+                }
+            })
+            ->orderBy('created_at')
             ->get();
 
         if($this->future_actions->isEmpty()) {
@@ -153,7 +182,7 @@ class EditionRepository {
     }
 
     public function getOverall() {
-        return $this->getResults()->overall;
+        return $this->getResults()->sum('overall');
     }
 
     public function safeGetOverall() {

@@ -10,25 +10,21 @@ use NZS\Wampiriada\Checkins\Checkin;
 use NZS\Wampiriada\Reminders\Reminder;
 use NZS\Core\Mailing\MailingRepository;
 use NZS\Core\Contracts\MailingComposer;
-use NZS\Core\Person;
 
 use Carbon\Carbon;
 
-use NZS\Wampiriada\Action;
 use NZS\Wampiriada\ActionDay;
 
 
 class DispatchReminderEmails extends Command
 {
-
-    protected $hours = 0.5;
-
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'wampiriada:dispatch-reminder-emails';
+    protected $signature = 'wampiriada:dispatch-reminder-emails
+        {--hours=0.5 : distribute recipients over time in hours (can be set to 0 to dispatch immediately)}';
 
     /**
      * The console command description.
@@ -45,7 +41,7 @@ class DispatchReminderEmails extends Command
     public function handle()
     {
 
-        $actions = ActionDay::where('created_at', '<', Carbon::now()->addDays(2))->get();
+        $actions = ActionDay::where('created_at', '<', Carbon::now()->addDays(3))->get();
 
         foreach($actions as $action) {
             $composer = new WampiriadaReminderMailingComposer($action);
@@ -56,15 +52,18 @@ class DispatchReminderEmails extends Command
                 if($reminder->hasAnyCheckin()) {
                     continue;
                 }
-                
+
                 $job = $composer->getJobInstance($reminder->user);
 
-                $delay = Carbon::now()->addSeconds(rand(0, $this->hours * 3600));
+                $hours = (float) $this->option('hours');
+
+                $delay = Carbon::now()->addSeconds(rand(0, $hours * 3600));
 
                 $job->delay($delay);
 
                 dispatch($job);
 
+                // XXX here?
                 $reminder->sent = true;
                 $reminder->save();
             }

@@ -28,9 +28,9 @@
             <ul class="isotope">
 
                 @foreach($actions as $action)
-                <li class="row {{ $get_class($action->school_short) }}" data-lat="{{ $action->lat }}" data-lng="{{ $action->lng }}">
-                    <p class="col-xs-2 date"><span>{{ $action->day->format('d/m') }}</span></p>
-                    <p class="col-xs-5 place {{ $get_class($action->school_short) }}" data-sort="{{ $action->school_short }}" data-address="{{ $action->address }}">{{ $action->place }} <a href="{{ url('reminder/' . $action->id)}}">przypomnij</a></p>
+                <li class="row {{ $get_class($action->present()->school_short) }}" data-lat="{{ $action->present()->lat }}" data-lng="{{ $action->present()->lng }}">
+                    <p class="col-xs-2 date"><span>{{ $action->created_at->format('d/m') }}</span></p>
+                    <p class="col-xs-5 place {{ $get_class($action->present()->school_short) }}" data-sort="{{ $action->present()->school_short }}" data-address="{{ $action->present()->address }}">{{ $action->present()->place }} <a href="{{ url('reminder/' . $action->id)}}">przypomnij</a></p>
                     <p class="col-xs-2 time">{{ $action->start->format('H') }} - {{ $action->end->format('H') }}</p>
                     <p class="col-xs-2 marrow text-center">@if($action->marrow)<i class="fa fa-check"></i>@endif</p>
                 </li>
