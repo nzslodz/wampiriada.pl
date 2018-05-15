@@ -13,7 +13,6 @@ use NZS\Wampiriada\EditionRepository;
 
 use Storage;
 use NZS\Core\PersonNewspaper;
-use NZS\Core\Person;
 
 use Symfony\Component\Process\Process;
 use Symfony\Component\Process\Exception\ProcessFailedException;
@@ -30,7 +29,7 @@ class ThenMakeGraphics extends Job implements ShouldQueue
      *
      * @return void
      */
-    public function __construct(Person $user){
+    public function __construct($user){
         $this->user = $user;
     }
 

@@ -2,10 +2,7 @@
 use NZS\Core\Mailing\BaseMailingComposer;
 use NZS\Wampiriada\Editions\EditionRepository;
 
-use NZS\Core\Person;
-
 use NZS\Wampiriada\Editions\Edition;
-use NZS\Wampiriada\Redirects\AwareRedirectRepository;
 use NZS\Wampiriada\Mailing\BaseWampiriadaMailingComposer;
 
 class WampiriadaAnnouncementMailingComposer extends BaseWampiriadaMailingComposer {
@@ -14,7 +11,7 @@ class WampiriadaAnnouncementMailingComposer extends BaseWampiriadaMailingCompose
 
     protected $view_prefix = 'emails.wampiriada.announcements';
 
-    public function getSubject(Person $user) {
+    public function getSubject($user) {
         if($this->edition->number == 30) {
             return "Majówka z Wampirem + Terminy 30. edycji Wampiriady!";
         }
@@ -22,7 +19,8 @@ class WampiriadaAnnouncementMailingComposer extends BaseWampiriadaMailingCompose
         return "{$this->edition->number}. edycja Wampiriady - poznaj terminy akcji :)";
     }
 
-    public function getContext(Person $user) {
+    // XXX color function
+    public function getContext($user) {
         $context = parent::getContext($user);
 
         try {
