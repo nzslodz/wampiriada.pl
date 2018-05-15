@@ -155,11 +155,7 @@ class DispatchWampiriadaMailing extends Command
                 $this->warn(sprintf('{%d}: %s (%d) omitted - no email address', $index, $user->getFullName(), $user->id));
                 continue;
             }
-
-            if($user->email == 'joannagapinska@outlook.com') {
-                continue; // dirty hack XXX TODO
-            }
-
+            
             $job = $composer->getJobInstance($user);
 
             $delay = "immediately";
