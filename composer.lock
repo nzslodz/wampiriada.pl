@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e52b80a4e13e4b78f8aebc9c3452b522",
+    "content-hash": "d1661fb25b317dd594df1e93561cd5e2",
     "packages": [
         {
             "name": "davejamesmiller/laravel-breadcrumbs",

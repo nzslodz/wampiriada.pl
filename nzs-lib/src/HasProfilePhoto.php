@@ -1,5 +1,7 @@
 <?php namespace NZS\Core;
 
+use Storage;
+
 trait HasProfilePhoto {
     public function getFacebookProfileImagePath() {
         if($this->facebook_user_id && Storage::has("fb-images/$this->facebook_user_id.jpg")) {

@@ -11,7 +11,7 @@
             <div class="form-group {{ $errors->has('blood_type') ? 'has-error' : '' }}">
                 {{ Form::label('blood_type', 'Grupa krwi', ['class' => 'control-label col-sm-2']) }}
                 <div class="col-sm-6">
-                    {{ Form::select('blood_type', $blood_types, '', ['class' => 'form-control']) }}
+                    {{ Form::select('blood_type', ['' => '---', 'a_plus' => 'A+', 'a_minus' => 'A-', 'b_plus' => 'B+', 'b_minus' => 'B-', 'ab_plus' => 'AB+', 'ab_minus' => 'AB-', 'zero_plus' => '0+', 'zero_minus' => '0-', 'unknown' => 'Nie wiem'], '', ['class' => 'form-control']) }}
                 </div>
                 <div class="col-sm-4">
                     {{ $errors->first('blood_type') }}

@@ -17,7 +17,8 @@
         "stevenmaguire/trello-php": "^0.4.0",
         "guilhermegonzaga/presenter": "^1.0",
         "laracasts/flash": "^3.0",
-        "fideloper/proxy": "^4.0"
+        "fideloper/proxy": "^4.0",
+        "symfony/process": "^4.0"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

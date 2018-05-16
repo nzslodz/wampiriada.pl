@@ -15,7 +15,6 @@ use Storage;
 
 use Symfony\Component\Process\Process;
 use Symfony\Component\Process\Exception\ProcessFailedException;
-use Symfony\Component\Process\ProcessBuilder;
 
 class RegenerateTileImage extends Job implements ShouldQueue
 {
@@ -47,17 +46,17 @@ class RegenerateTileImage extends Job implements ShouldQueue
         $python_path = base_path('image_grid/env/bin/python');
         $command_path = base_path('image_grid/create_image_grid.py');
 
-        $builder = new ProcessBuilder([$python_path, $command_path]);
+        $command = [$python_path, $command_path];
 
         foreach($options as $key => $value) {
-            $builder->add("--$key=$value");
+            $command[] = "--$key=$value";
         }
 
         foreach($arguments as $value) {
-            $builder->add($value);
+            $command[] = $value;
         }
 
-        $process = $builder->getProcess();
+        $process = new Process($command);
         echo $process->getCommandLine();
 
         $repository = EditionRepository::current();

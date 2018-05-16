@@ -48,8 +48,8 @@ class CheckinRequest extends Request
     public function rules() {
         return [
             'first_time' => 'boolean',
-            'size' => 'exists:shirt_sizes,id|required',
-            'blood_type' => 'exists:blood_types,id|required',
+            'size' => 'exists:wampiriada_shirtsizes,id|required',
+            'blood_type' => 'in:a_plus,a_minus,b_plus,b_minus,ab_plus,ab_minus,zero_plus,zero_minus,unknown',
             'name' => 'string|min:5|required',
         ];
     }
