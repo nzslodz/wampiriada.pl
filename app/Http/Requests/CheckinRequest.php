@@ -59,6 +59,8 @@ class CheckinRequest extends Request
             'required' => 'Pole jest wymagane',
             'exists' => 'Wybierz poprawną opcję',
             'min' => 'Wartość zbyt krótka (minimum :min znaków)',
+            'string' => 'Wpisz więcej znaków',
+            'in' => 'Podaj właściwą grupę krwi',
         ];
     }
 }
