@@ -41,7 +41,7 @@ class DispatchReminderEmails extends Command
     public function handle()
     {
 
-        $actions = ActionDay::where('created_at', '<', Carbon::now()->addDays(3))->get();
+        $actions = ActionDay::where('created_at', '<=', Carbon::now()->addDays(3))->get();
 
         foreach($actions as $action) {
             $composer = new WampiriadaReminderMailingComposer($action);
