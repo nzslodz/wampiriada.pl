@@ -50,7 +50,7 @@
         <strong style="width: 400px; display: inline-block;"><span style="background-color: {{ $color($new_action->present()->school_short) }}; color:white; padding: 1px 2px; border-radius: 2px;">{{ $new_action->created_at->format('d.m') }}</span>
         {{ $new_action->present()->place }}
         @if($new_action->created_at > $action_day->created_at)
-            <a style="font-size: 11px" href="{{ url('reminder/' . $action->id) }}">przypomnij</a>
+            <a style="font-size: 11px" href="{{ url('reminder/' . $action_day->id) }}">przypomnij</a>
         @endif
         </strong>
         {{ $new_action->start->format('H:i') }} - {{ $new_action->end->format('H:i') }}
