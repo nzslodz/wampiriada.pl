@@ -8,14 +8,17 @@ use Facebook\GraphNodes\GraphUser;
 use NZS\Core\ApplicationUser;
 use NZS\Core\HR\Member;
 use NZS\Core\Contracts\FBProfileDownloaderSchema;
+use NZS\Core\HasProfilePhoto;
 
 use Illuminate\Notifications\Notifiable;
 
+// XXX should we move updateGender to like another object?
 class Person extends Model {
     use SyncableGraphNodeTrait;
     use Notifiable;
+    use HasProfilePhoto;
 
-    protected $table = 'people';
+    protected $table = 'nzs_people';
 
     protected $fillable = [
         'first_name', 'last_name', 'email', 'gender',
@@ -27,20 +30,6 @@ class Person extends Model {
 
     public function getFullName() {
         return "$this->first_name $this->last_name";
-    }
-
-    public function getFacebookProfileImagePath(FBProfileDownloaderSchema $schema=null) {
-        if(!$schema) {
-            $schema = app('fb.downloader.default');
-        }
-
-        if($path = $schema->getImagePath($this)) {
-            return $path;
-        }
-
-        $image_id = crc32($this->facebook_user_id . $this->email) % 32;
-
-        return "default-images/$image_id.png";
     }
 
     public function application_user() {

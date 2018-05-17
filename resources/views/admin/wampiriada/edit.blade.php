@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
 @section('title')
-    {{ $action->getShortDescriptionAttribute() }} &mdash; edycja
+    {{ $action->short_description }} &mdash; edycja
 @stop
 
 @section('content')
@@ -21,13 +21,13 @@
     @endif
 
     <div class="page-header">
-        <h1>{{ $action->getShortDescriptionAttribute() }} &mdash; edycja</h1>
+        <h1>{{ $action->short_description }} &mdash; edycja</h1>
     </div>
 
     <div class="row input-second">
         <div class="col-md-3">
             <div class="card">
-            <strong>{{ $data->getOverall() }}</strong>
+            <strong>{{ $data->overall }}</strong>
             oddało krew
             </div>
         </div>
@@ -127,7 +127,7 @@
             <div class="form-group">
             {{ Form::label('overall', 'Razem', ['class' => 'control-label col-sm-2']) }}
             <div class="col-sm-10">
-            {{ Form::number('overall', $data->getOverall(), ['class' => 'form-control', 'data-calculate' => 'overall', 'readonly' => 'true']) }}
+            {{ Form::number('overall', $data->overall, ['class' => 'form-control', 'data-calculate' => 'overall', 'readonly' => 'true']) }}
             </div>
             </div>
             <div class="form-group">
@@ -149,8 +149,6 @@
                 <td>E-mail</td>
                 <td>Godzina wpisu</td>
                 <td>Rozmiar koszulki</td>
-                <td>Grupa krwi</td>
-                <td>Pierwszy raz</td>
                 <td>Nagroda</td>
             </tr>
         </thead>
@@ -159,14 +157,11 @@
                 <tr>
                     <th>{{ $key + 1 }}</th>
                     <th>
-
-                        <a data-card="{{ $checkin->user_id }}" href="{{ url('admin/activity/profile/' . $checkin->user_id )}}">
-                            @if($checkin->user->getFullName() != ' ')
-                                {{ $checkin->user->getFullName() }}
-                            @else
-                                {{ $checkin->name }}
-                            @endif
-                        </a>
+                        @if($checkin->user->getFullName() != ' ')
+                            {{ $checkin->user->getFullName() }}
+                        @else
+                            {{ $checkin->name }}
+                        @endif
 
                         @if($checkin->user->facebook_user_id)
                             <small><a href="https://facebook.com/{{ $checkin->user->facebook_user_id }}">facebook</a></small>
@@ -180,12 +175,6 @@
                     @else
                     <td></td>
                     @endif
-                    <td>{{ $checkin->blood_type->name }}</td>
-                    <td>
-                        @if($checkin->first_time)
-                        <span class="glyphicon glyphicon-check"></span>
-                        @endif
-                    </td>
                     <td>
                         <button
                                 class="btn btn-sm btn-default @if(!$checkin->prize) visible-on-hover @endif"

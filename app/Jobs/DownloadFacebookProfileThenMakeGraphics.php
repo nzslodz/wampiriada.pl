@@ -7,14 +7,12 @@ use App\Jobs\DownloadFacebookProfile;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
-use NZS\Core\Person;
 use NZS\Core\Contracts\FBProfileDownloaderSchema;
 use NZS\Core\Facebook\NewspaperProfileDownloaderSchema;
 use Storage;
 
 use Symfony\Component\Process\Process;
 use Symfony\Component\Process\Exception\ProcessFailedException;
-use Symfony\Component\Process\ProcessBuilder;
 
 use NZS\Core\PersonNewspaper;
 
@@ -29,7 +27,7 @@ class DownloadFacebookProfileThenMakeGraphics extends Job implements ShouldQueue
      *
      * @return void
      */
-    public function __construct(Person $user){
+    public function __construct($user){
         $this->user = $user;
     }
 
@@ -56,15 +54,13 @@ class DownloadFacebookProfileThenMakeGraphics extends Job implements ShouldQueue
         $python_path = base_path('image_grid/env/bin/python');
         $command_path = base_path('image_grid/create_image_newspaper.py');
 
-        $builder = new ProcessBuilder([$python_path, $command_path]);
+        $command = [$python_path, $command_path];
 
         foreach($options as $key => $value) {
-            $builder->add("--$key=$value");
+            $command[] = "--$key=$value";
         }
 
-        $builder->setWorkingDirectory(base_path('image_grid'));
-
-        $process = $builder->getProcess();
+        $process = new Process($command, base_path('image_grid'));
         echo $process->getCommandLine();
 
         $newspaper = PersonNewspaper::findOrNew($this->user->id);

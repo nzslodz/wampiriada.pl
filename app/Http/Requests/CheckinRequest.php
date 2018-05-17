@@ -3,13 +3,14 @@
 namespace App\Http\Requests;
 
 use App\Http\Requests\Request;
-use NZS\Core\Person;
 
 use NZS\Wampiriada\Checkins\Checkin;
 use NZS\Wampiriada\Option;
 use NZS\Wampiriada\Editions\Edition;
+use NZS\Wampiriada\Donor;
 use Session;
 
+// XXX probably make a trait for messages that could be extended in some way
 class CheckinRequest extends Request
 {
     /**
@@ -31,7 +32,7 @@ class CheckinRequest extends Request
 
     public function extraValidation($validator) {
         $validator->sometimes('email', 'email|required', function($input) {
-            $user = Person::find(Session::get('checkin_user_id'));
+            $user = Donor::find(Session::get('checkin_user_id'));
 
             return empty($user->email);
         });
@@ -47,8 +48,8 @@ class CheckinRequest extends Request
     public function rules() {
         return [
             'first_time' => 'boolean',
-            'size' => 'exists:shirt_sizes,id|required',
-            'blood_type' => 'exists:blood_types,id|required',
+            'size' => 'exists:wampiriada_shirtsizes,id|required',
+            'blood_type' => 'in:a_plus,a_minus,b_plus,b_minus,ab_plus,ab_minus,zero_plus,zero_minus,unknown',
             'name' => 'string|min:5|required',
         ];
     }
@@ -58,6 +59,8 @@ class CheckinRequest extends Request
             'required' => 'Pole jest wymagane',
             'exists' => 'Wybierz poprawną opcję',
             'min' => 'Wartość zbyt krótka (minimum :min znaków)',
+            'string' => 'Wpisz więcej znaków',
+            'in' => 'Podaj właściwą grupę krwi',
         ];
     }
 }

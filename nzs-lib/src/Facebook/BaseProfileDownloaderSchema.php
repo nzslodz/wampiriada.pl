@@ -1,7 +1,6 @@
 <?php namespace NZS\Core\Facebook;
 use NZS\Core\Facebook\ProfileDownloader;
 use NZS\Core\Contracts\FBProfileDownloaderSchema;
-use NZS\Core\Person;
 use Storage;
 
 abstract class BaseProfileDownloaderSchema implements FBProfileDownloaderSchema {
@@ -32,7 +31,7 @@ abstract class BaseProfileDownloaderSchema implements FBProfileDownloaderSchema 
         return $downloader;
     }
 
-    public function getImagePath(Person $user) {
+    public function getImagePath($user) {
         if(!$user->facebook_user_id) {
             return null;
         }

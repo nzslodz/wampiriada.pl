@@ -22,7 +22,7 @@ Oficjalna strona akcji honorowego krwiodawstwa Wampiriada w Łodzi, organizowane
 
             <div class="row">
                 <div class="col-xs-12">
-                    <p>Poniżej znajduje się <a download="szpiktome.pdf" href="{{ url('materialy/szpiktome.pdf') }}">elektroniczna wersja ulotki Szpik to Me</a> informującej o zostaniu honorowym dawcą szpiku kostnego. Zapraszamy do zapoznania się z nią oraz do kontaktu z nami osobiście, jeśli interesuje Cię ten temat: <a href="mailto:nzs@nzs.lodz.pl">nzs@nzs.lodz.pl</a>.</p>
+                    <p>Poniżej znajduje się <a download="szpiktome.pdf" href="{{ url('materialy/szpiktome-11.pdf') }}">elektroniczna wersja ulotki Szpik to Me</a> informującej o zostaniu honorowym dawcą szpiku kostnego. Zapraszamy do zapoznania się z nią oraz do kontaktu z nami osobiście, jeśli interesuje Cię ten temat: <a href="mailto:nzs@nzs.lodz.pl">nzs@nzs.lodz.pl</a>.</p>
                 </div>
             </div>
 
@@ -30,8 +30,8 @@ Oficjalna strona akcji honorowego krwiodawstwa Wampiriada w Łodzi, organizowane
 
     </section>
 
-    <object type="application/pdf" data="{{ url('materialy/szpiktome.pdf') }}" width="100%" height="100%">
-        <p><a download="krewplus.pdf" href="{{ url('materialy/szpiktome.pdf') }}">Pobierz ulotkę Szpik to Me</a>.</p>
+    <object type="application/pdf" data="{{ url('materialy/szpiktome-11.pdf') }}" width="100%" height="100%">
+        <p><a download="krewplus.pdf" href="{{ url('materialy/szpiktome-11.pdf') }}">Pobierz ulotkę Szpik to Me</a>.</p>
     </object>
 
 @stop

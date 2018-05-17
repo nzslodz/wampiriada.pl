@@ -3,7 +3,6 @@
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
-use NZS\Core\Person;
 use NZS\Core\ApplicationUser;
 
 class DeleteUsers extends Migration
@@ -25,7 +24,7 @@ class DeleteUsers extends Migration
      */
     public function down()
     {
-        foreach(Person::all() as $person) {
+        foreach(DB::table('people')->all() as $person) {
             if(ApplicationUser::find($person->id)) {
                 continue;
             }

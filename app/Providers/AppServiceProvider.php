@@ -25,7 +25,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-
+        //
     }
 
     /**
@@ -47,6 +47,7 @@ class AppServiceProvider extends ServiceProvider
             return $trello;
         });
 
+        // XXX app()->getLocale() ?
         Carbon::setLocale('pl');
 
         $this->app->singleton('fb.downloader.default', function() {

@@ -55,7 +55,7 @@ return [
     |
     */
 
-    'from' => ['address' => 'nzs@nzs.lodz.pl', 'name' => 'NZS Regionu Łódzkiego'],
+    'from' => ['address' => 'powiadomienia@wampiriada.pl', 'name' => 'Wampiriada NZS Regionu Łódzkiego'],
 
     /*
     |--------------------------------------------------------------------------

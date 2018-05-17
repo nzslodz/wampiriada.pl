@@ -1,4 +1,4 @@
-@extends('layouts.master')
+@extends('layouts.checkin')
 
 @section('content')
     <div class="container">
@@ -11,7 +11,7 @@
             <div class="form-group {{ $errors->has('blood_type') ? 'has-error' : '' }}">
                 {{ Form::label('blood_type', 'Grupa krwi', ['class' => 'control-label col-sm-2']) }}
                 <div class="col-sm-6">
-                    {{ Form::select('blood_type', $blood_types, $profile->blood_type_id, ['class' => 'form-control']) }}
+                    {{ Form::select('blood_type', ['' => '---', 'a_plus' => 'A+', 'a_minus' => 'A-', 'b_plus' => 'B+', 'b_minus' => 'B-', 'ab_plus' => 'AB+', 'ab_minus' => 'AB-', 'zero_plus' => '0+', 'zero_minus' => '0-', 'unknown' => 'Nie wiem'], '', ['class' => 'form-control']) }}
                 </div>
                 <div class="col-sm-4">
                     {{ $errors->first('blood_type') }}
@@ -20,7 +20,7 @@
             <div class="form-group {{ $errors->has('size') ? 'has-error' : '' }}">
                 {{ Form::label('size', 'Rozmiar koszulki', ['class' => 'control-label col-sm-2']) }}
                 <div class="col-sm-6">
-                    {{ Form::select('size', $sizes, $profile->default_size_id, ['class' => 'form-control']) }}
+                    {{ Form::select('size', $sizes, '', ['class' => 'form-control']) }}
                 </div>
                 <div class="col-sm-4">
                     {{ $errors->first('size') }}
@@ -29,7 +29,7 @@
             <div class="form-group {{ $errors->has('name') ? 'has-error' : '' }}">
                 {{ Form::label('name', 'Imię i nazwisko', ['class' => 'control-label col-sm-2']) }}
                 <div class="col-sm-6">
-                    {{ Form::text('name', $profile->current_name ? $profile->current_name : $user->getFullName(), ['class' => 'form-control']) }}
+                    {{ Form::text('name', '', ['class' => 'form-control']) }}
                 </div>
                 <div class="col-sm-4">
                     {{ $errors->first('name') }}

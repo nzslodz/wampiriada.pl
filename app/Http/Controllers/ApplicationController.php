@@ -1,10 +1,8 @@
 <?php namespace App\Http\Controllers;
 
 use NZS\Wampiriada\School;
-use NZS\Wampiriada\OverallSchools;
 use NZS\Wampiriada\Editions\Edition;
 use NZS\Wampiriada\ActionDay;
-use NZS\Wampiriada\OverallResult;
 
 use DB;
 use Input;
@@ -12,6 +10,7 @@ use Input;
 use DateTime;
 use Illuminate\Http\Request;
 
+// XXX todo?
 class ApplicationController extends Controller {
 
     protected function postNewApplication(Request $request) {

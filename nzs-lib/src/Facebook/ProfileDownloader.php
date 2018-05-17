@@ -1,5 +1,4 @@
 <?php namespace NZS\Core\Facebook;
-use NZS\Core\Person;
 
 use Storage;
 
@@ -30,7 +29,7 @@ class ProfileDownloader {
         }
     }
 
-    public function downloadProfilePicture(Person $user) {
+    public function downloadProfilePicture($user) {
         if(!$user->facebook_user_id) {
             return false;
         }

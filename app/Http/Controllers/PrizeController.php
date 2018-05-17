@@ -3,12 +3,9 @@
 use NZS\Core\CollectionAggregator;
 use NZS\Core\Storyboards\DjangoAdminStyleStoryboard;
 use NZS\Wampiriada\Option;
-use NZS\Wampiriada\Action;
 use NZS\Wampiriada\ActionData;
 use NZS\Wampiriada\Checkins\Prize\PrizeForCheckin;
 use NZS\Wampiriada\FacebookConncection;
-use NZS\Wampiriada\Checkins\Prize\PrizeForCheckinActivityClass;
-use NZS\Wampiriada\Checkins\Prize\PrizeForCheckinClaimedActivityClass;
 use NZS\Wampiriada\Editions\Edition;
 use NZS\Wampiriada\Checkins\Checkin;
 use NZS\Wampiriada\ShirtSize;
@@ -47,7 +44,7 @@ class PrizeController extends Controller {
 	public function postEdit(PrizeTypeRequest $request, $id=null) {
 		$type = PrizeType::findOrNew($id);
 
-		$type->active = $request->has('active');
+		$type->active = $request->filled('active');
 		$type->description = $request->description;
 		$type->name = $request->name;
 

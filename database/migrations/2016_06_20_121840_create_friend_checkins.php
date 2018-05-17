@@ -8,6 +8,7 @@ use NZS\Wampiriada\Checkins\Friend\FriendCheckinActivityClass;
 use NZS\Wampiriada\Checkins\Checkin;
 use NZS\Core\Activity;
 
+// XXX wont work
 class CreateFriendCheckins extends Migration
 {
     /**
