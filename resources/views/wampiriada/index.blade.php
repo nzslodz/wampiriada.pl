@@ -67,7 +67,7 @@ Oficjalna strona akcji honorowego krwiodawstwa Wampiriada w Łodzi, organizowane
                 <p>Jeśli:</p>
                 <ul>
                     <li>chorujesz,</li>
-                    <li>jesteś do 48 godzin po spożyciu alhokolu,</li>
+                    <li>jesteś do 48 godzin po spożyciu alkoholu,</li>
                     <li>lub bierzesz leki,</li>
                 </ul>
                 <p>warto wstrzymać się z uczestnictwem w akcji Wampiriady. Wybierz jedną z akcji w późniejszym terminie, albo zgłoś się do Regionalnego Centrum Kriodawstwa i Krwiolecznictwa w dogodnym dla Ciebie momencie.</p>
