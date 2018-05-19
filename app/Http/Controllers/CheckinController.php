@@ -55,10 +55,14 @@ class CheckinController extends Controller {
             $login_url = null;
         }
 
+        $shirt_sizes = ShirtSize::orderBy('id')->pluck('name', 'id');
+
         // XXX RESTYLE THIS
         return view('facebook.login', [
             'login_url' => $login_url,
             'is_facebook_login_enabled' => $is_facebook_login_enabled,
+            'sizes' => $shirt_sizes,
+            'user' => null,
         ]);
     }
 
