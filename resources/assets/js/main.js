@@ -7,6 +7,8 @@
 
 require('./bootstrap');
 
+require('jquery.scrollto')
+
 $(function() {
     $('a.button').click(function() {
         $.scrollTo($($(this).attr('href')), 500);//przewijanie do nastepnej sekcji
