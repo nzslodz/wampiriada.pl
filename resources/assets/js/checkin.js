@@ -16,6 +16,27 @@ import { mapState } from 'vuex'
 Vue.use(Vuelidate)
 Vue.use(Vuex)
 
+// reload page after minutes of inactivity (for keeping fresh PHP Facebook SDK nonces)
+var idleTime = 0;
+var minutesOfInactivity = 5;
+var idleInterval = setInterval(timerIncrement, 60000); // 1 minute
+
+document.addEventListener('mousemove', function() {
+    idleTime = 0;
+});
+
+document.addEventListener('keypress', function() {
+    idleTime = 0;
+});
+
+function timerIncrement() {
+    idleTime = idleTime + 1;
+    if (idleTime > minutesOfInactivity) {
+        window.location.reload();
+    }
+};
+
+// main datastore and view declarations
 const store = new Vuex.Store({
     state: {
         'currentView': 0,
@@ -70,22 +91,3 @@ const app = new Vue({
         'currentView',
     ])
 });
-
-/*$(function() {
-    var $views = $('.views')
-
-    $views.find('section').each(function() {
-        var $view = $(this)
-
-        $view.find('[data-progress]').click(function() {
-            var current_view = parseInt($views.attr('data-view'));
-
-            console.log(current_view)
-
-            $views.attr('data-view', $(this).data('progress') == 'next' ? current_view + 1 : current_view - 1);
-
-            return false;
-        })
-    })
-});
-*/
