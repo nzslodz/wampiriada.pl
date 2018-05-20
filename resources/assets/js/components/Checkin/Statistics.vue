@@ -1,7 +1,6 @@
 <template>
     <section class="statistics">
         <div class="content">
-            <h3>Dane statystyczne</h3>
             <div class="form-group">
                 <label for="">Oddaję (pierwszy raz/kolejny raz)</label>
                 <button type="button" :class="['btn', 'btn-lg', 'btn-toggle', {'active': firstTime}]" v-bind:aria-pressed="firstTime ? 'true' : 'false'" autocomplete="off" @click="setFirstTime()">
@@ -25,10 +24,12 @@
                     <option v-for="(name, id) in staticShirtSizes" :value="id">{{ name }}</option>
                 </select>
                 <p class="help-block" v-if="!$v.shirtSize.required && $v.shirtSize.$error">To pole jest wymagane</p>
-             </div>
-            <button type="button" class="btn btn-default btn-primary" :disabled="$v.$invalid" v-on:click="nextStep()">
-                {{ $v.$invalid ? 'Wypełnij wszystkie pola': 'Przejdź dalej' }}
-            </button>
+            </div>
+            <div class="form-group text-center">
+                <button type="button" class="btn btn-default btn-primary btn-margin" :disabled="$v.$invalid" v-on:click="nextStep()">
+                    {{ $v.$invalid ? 'Wypełnij wszystkie pola': 'Przejdź dalej' }}
+                </button>
+            </div>
         </div>
     </section>
 </template>

@@ -93,6 +93,14 @@ $view_num: 5;
             display: flex;
             align-items: center;
             justify-content: center;
+
+            .content {
+                padding: 0 25px;
+            }
+
+            .btn-margin {
+                margin-top: 15px;
+            }
         }
     }
 }
