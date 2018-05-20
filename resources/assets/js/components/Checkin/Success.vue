@@ -1,7 +1,7 @@
 <template>
     <section>
         Trwa wysyłanie - SUKCES
-        <button v-on:click="nextStep()" type="button">yo</button>
+        <a href="">Dzięki!</a>
     </section>
 </template>
 

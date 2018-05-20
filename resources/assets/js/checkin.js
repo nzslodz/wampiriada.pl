@@ -52,7 +52,22 @@ const store = new Vuex.Store({
                 'zero_plus': '0+',
                 'zero_minus': '0-',
                 'unknown': 'Nie wiem'
-            }
+            },
+            'year': (new Date()).getFullYear(),
+            'viewTitles': [
+                'Rozpocznij',
+                'Dane statystyczne',
+                'Prywatność',
+                'Twoje dane',
+                'Wysyłanie danych',
+            ],
+            'previousStepVisibility': [
+                false,
+                false,
+                true,
+                true,
+                false,
+            ]
         },
         'userInput': {
             'bloodType': null,
@@ -83,6 +98,8 @@ Vue.component('section-agreements', require('./components/Checkin/Agreements.vue
 Vue.component('section-login-confirm', require('./components/Checkin/Login.vue'));
 Vue.component('section-statistics', require('./components/Checkin/Statistics.vue'));
 Vue.component('section-success', require('./components/Checkin/Success.vue'));
+Vue.component('meta-component', require('./components/Checkin/Meta.vue'));
+
 
 const app = new Vue({
     el: '#application',

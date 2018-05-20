@@ -24,34 +24,77 @@ html, body {
 
 $view_num: 5;
 
-.views {
-    transition: all 0.25s ease-in-out;
-
-    @for $i from 0 to $view_num {
-        &[data-view="#{$i}"] {
-            left: -($i * 100vw);
-        }
-    }
-
-    width: $view_num * 100vw;
-    position: relative;
-
-    section {
-        height: 100vh;
-        width: 100vw;
-        float: left;
-
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-}
-
-.frame {
+#application {
     height: 100vh;
     width: 100vw;
 
     overflow:hidden;
+
+    header, footer, .bar {
+        position: absolute;
+    }
+
+    [data-hidable] {
+        transition: all 0.25s ease-in-out;
+        opacity: 1;
+
+        &.invisible {
+            opacity: 0;
+        }
+    }
+
+    header {
+        width: 100%;
+        top:4px;
+        text-align: center;
+
+        h1, a {
+            margin-top: 11px;
+        }
+    }
+
+    footer {
+        width: 100%;
+        bottom: 0;
+
+        text-align: center;
+    }
+
+    .bar {
+        top: 0;
+        left: 0;
+        height: 3px;
+        background: $brand-primary;
+    }
+
+    @for $i from 0 to $view_num {
+        &[data-view="#{$i}"] {
+            .views {
+                left: -($i * 100vw);
+            }
+
+            .bar {
+                width: $i /($view_num - 1) * 100vw;
+            }
+        }
+    }
+
+    .views {
+        transition: all 0.25s ease-in-out;
+
+        width: $view_num * 100vw;
+        position: relative;
+
+        section {
+            height: 100vh;
+            width: 100vw;
+            float: left;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    }
 }
 
 h1, h2, h3 {
