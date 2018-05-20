@@ -15,7 +15,7 @@
 		<section-begin></section-begin>
 		<section-statistics></section-statistics>
 		<section-agreements></section-agreements>
-		<section-login-confirm></section-login-confirm>
+		<section-login-confirm v-if="!loginStepDisabled"></section-login-confirm>
 		<section-success></section-success>
 	</div>
 

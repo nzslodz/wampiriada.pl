@@ -39,10 +39,13 @@ function timerIncrement() {
 // main datastore and view declarations
 const store = new Vuex.Store({
     state: {
-        'currentView': 0,
-        'staticData': {
-            'shirtSizes': shirtSizes,
-            'bloodTypes': {
+        currentView: 0,
+        loginStepDisabled: false,
+        extendedAgreementsView: false,
+
+        staticData: {
+            shirtSizes: shirtSizes,
+            bloodTypes: {
                 'a_plus': 'A+',
                 'a_minus': 'A-',
                 'b_plus': 'B+',
@@ -53,15 +56,15 @@ const store = new Vuex.Store({
                 'zero_minus': '0-',
                 'unknown': 'Nie wiem'
             },
-            'year': (new Date()).getFullYear(),
-            'viewTitles': [
+            year: (new Date()).getFullYear(),
+            viewTitles: [
                 'Rozpocznij',
                 'Dane statystyczne',
                 'Prywatność',
                 'Twoje dane',
                 'Wysyłanie danych',
             ],
-            'previousStepVisibility': [
+            previousStepVisibility: [
                 false,
                 false,
                 true,
@@ -69,10 +72,16 @@ const store = new Vuex.Store({
                 false,
             ]
         },
-        'userInput': {
-            'bloodType': null,
-            'chosenSize': null,
-            'firstTime': false,
+        userInput: {
+            bloodType: null,
+            chosenSize: null,
+            firstTime: false,
+
+            agreements: {
+                dataProcessing: false,
+                emailWampiriada: false,
+                emailNZS: false,
+            }
         }
     },
     mutations: {
@@ -90,6 +99,48 @@ const store = new Vuex.Store({
         setFirstTime(state, value) {
             state.userInput.firstTime = value
         },
+
+        consentToAll(state) {
+            state.userInput.agreements = {
+                dataProcessing: true,
+                emailWampiriada: true,
+                emailNZS: true,
+            }
+
+            state.currentView++
+        },
+
+        consentToSelected(state, payload) {
+            state.userInput.agreements[payload.key] = payload.value
+
+            if(payload.key == 'dataProcessing') {
+                state.loginStepDisabled = !payload.value
+
+                if(payload.value === false) {
+                    state.userInput.agreements.emailNZS = false
+                    state.userInput.agreements.emailWampiriada = false
+                }
+            } else if(payload.value === true) {
+                state.userInput.agreements.dataProcessing = true
+                state.loginStepDisabled = false
+            }
+        },
+
+        consentToNone(state) {
+            state.userInput.agreements = {
+                dataProcessing: false,
+                emailWampiriada: false,
+                emailNZS: false,
+            }
+
+            state.loginStepDisabled = true
+            state.currentView++
+        },
+
+        extendAgreementsView(state) {
+            state.extendedAgreementsView = true;
+            state.userInput.agreements.dataProcessing = true;
+        },
     }
 });
 
@@ -106,5 +157,6 @@ const app = new Vue({
     store,
     computed: mapState([
         'currentView',
+        'loginStepDisabled',
     ])
 });

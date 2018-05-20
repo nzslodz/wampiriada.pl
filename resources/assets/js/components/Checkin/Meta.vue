@@ -27,7 +27,8 @@
             ]),
             ...mapState({
                 currentYear: state => state.staticData.year,
-                currentTitleView: state => state.staticData.viewTitles[state.currentView]
+                // XXX HACK
+                currentTitleView: state => state.staticData.viewTitles[state.currentView + state.loginStepDisabled]
             }),
 
             previousStepClasses() {

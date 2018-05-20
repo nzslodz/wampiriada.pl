@@ -98,8 +98,31 @@ $view_num: 5;
                 padding: 0 25px;
             }
 
+            .content-60 {
+                width: 60%;
+            }
+
             .btn-margin {
                 margin-top: 15px;
+            }
+        }
+
+        .section-agreements {
+            .container {
+                position: relative;
+
+                .row-first {
+                    padding-bottom: 60px;
+                }
+
+                .col-sm-4 {
+                    position: static;
+                }
+
+                .snap-to-bottom {
+                    position: absolute;
+                    bottom: 60px;
+                }
             }
         }
     }
