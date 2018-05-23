@@ -93,6 +93,12 @@ $view_num: 20;
         }
     }
 
+    .btn-transparent {
+        color: $brand-primary;
+        border:0;
+        background: transparent;
+    }
+
     .views {
         transition: all 0.25s ease-in-out;
 
@@ -132,6 +138,14 @@ $view_num: 20;
                     position: absolute;
                     bottom: 60px;
                 }
+            }
+
+            .btn-main {
+                font-weight: bold;
+            }
+
+            .btn-extend {
+                color: rgba(255,255,255, 0.7);
             }
         }
     }

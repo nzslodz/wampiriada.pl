@@ -11,14 +11,14 @@
                 </ol>
                 <p>Możesz też zalogować się Facebookiem. Twoje dane pobierzemy automatycznie.</p>
 
-                <div class="text-center">
+                <div class="text-center btn-margin">
                     <div class="btn-group" role="group">
-                        <button class="btn btn-default btn-primary" type="button" @click="consentToAll()">Akceptuję</button>
-                        <button type="button" class="btn btn-default btn-primary" @click="extendAgreementsView()"><i class="fa fa-cog"></i> Zarządzaj</button>
+                        <button class="btn btn-default btn-main btn-primary" type="button" @click="consentToAll()"><i class="fa fa-check"></i> Zgadzam się</button>
+                        <button type="button" class="btn btn-default btn-extend btn-primary" @click="extendAgreementsView()"><i class="fa fa-cog"></i> Zarządzaj</button>
                     </div>
                 </div>
-                <div class="text-center">
-                    <button type="button" @click="consentToNone()">Nie, dziękuję</button>
+                <div class="text-center btn-margin">
+                    <button type="button" class="btn btn-transparent" @click="consentToNone()">Nie, dziękuję</button>
                 </div>
             </div>
             <div v-else class="container">
