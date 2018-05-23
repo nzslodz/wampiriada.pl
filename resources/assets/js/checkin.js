@@ -11,7 +11,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import Vuelidate from 'vuelidate'
 
-import { mapState } from 'vuex'
+import { mapState, mapGetters } from 'vuex'
 
 Vue.use(Vuelidate)
 Vue.use(Vuex)
@@ -39,7 +39,7 @@ function timerIncrement() {
 // main datastore and view declarations
 const store = new Vuex.Store({
     state: {
-        currentView: 0,
+        currentSlide: 0,
         loginStepDisabled: false,
         extendedAgreementsView: false,
 
@@ -57,6 +57,7 @@ const store = new Vuex.Store({
                 'unknown': 'Nie wiem'
             },
             year: (new Date()).getFullYear(),
+
             viewTitles: [
                 'Rozpocznij',
                 'Dane statystyczne',
@@ -84,9 +85,36 @@ const store = new Vuex.Store({
             }
         }
     },
+
+    getters: {
+        currentView(state) {
+            if(state.loginStepDisabled && state.currentSlide >= 3) {
+                return state.currentSlide + 1;
+            }
+
+            return state.currentSlide;
+        },
+
+        viewLength(state) {
+            if(state.loginStepDisabled) {
+                return 4;
+            }
+
+            return 5;
+        },
+
+        currentViewTitle(state, getters) {
+            return state.staticData.viewTitles[getters.currentView];
+        },
+
+        currentViewPreviousStepVisibility(state, getters) {
+            return state.staticData.previousStepVisibility[getters.currentView];
+        },
+    },
+
     mutations: {
-        'nextStep': state => state.currentView++,
-        'previousStep': state => state.currentView--,
+        'nextStep': state => state.currentSlide++,
+        'previousStep': state => state.currentSlide--,
 
         setShirtSize(state, value) {
             state.userInput.chosenSize = value
@@ -107,7 +135,7 @@ const store = new Vuex.Store({
                 emailNZS: true,
             }
 
-            state.currentView++
+            state.currentSlide++
         },
 
         consentToSelected(state, payload) {
@@ -134,7 +162,7 @@ const store = new Vuex.Store({
             }
 
             state.loginStepDisabled = true
-            state.currentView++
+            state.currentSlide++
         },
 
         extendAgreementsView(state) {
@@ -155,8 +183,16 @@ Vue.component('meta-component', require('./components/Checkin/Meta.vue'));
 const app = new Vue({
     el: '#application',
     store,
-    computed: mapState([
-        'currentView',
-        'loginStepDisabled',
-    ])
+    computed: {
+         ...mapState([
+             'loginStepDisabled',
+             'currentSlide',
+         ]),
+
+         viewsWidth() {
+             return {
+                 width: (this.$store.getters.viewLength * 100) + 'vw',
+             };
+         }
+    },
 });

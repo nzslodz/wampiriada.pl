@@ -10,8 +10,8 @@
 
 --}}
 
-<div class="frame form-horizontal" id="application" v-bind:data-view="currentView">
-	<div class="views">
+<div class="frame form-horizontal" id="application" v-bind:data-view="currentSlide">
+	<div class="views" :style="viewsWidth">
 		<section-begin></section-begin>
 		<section-statistics></section-statistics>
 		<section-agreements></section-agreements>
