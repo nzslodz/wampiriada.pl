@@ -41,3 +41,7 @@ TODO - totally rewrite fb login, może nawet skorzystaj ze storyboardu
 1) dodać stronę, dzięki której usuwanie jest możliwe z formularzem
 2) strona jest dostępna tylko dla człowieka, który ma mail z hashem
 3) zablokować wysyłanie e-maili na podstawie strony
+
+- przestylować Login
+- zrobić marginy, żeby .content nie wchodził na footer/header
+- politykę prywatności ustawić jako zamykalny modal z pobraniem danych z linku
