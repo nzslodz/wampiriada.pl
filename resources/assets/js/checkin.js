@@ -42,6 +42,7 @@ const store = new Vuex.Store({
         currentSlide: 0,
         loginStepDisabled: false,
         extendedAgreementsView: false,
+        chosenDataProvider: false,
 
         staticData: {
             shirtSizes: shirtSizes,
@@ -77,6 +78,8 @@ const store = new Vuex.Store({
             bloodType: null,
             chosenSize: null,
             firstTime: false,
+            name: null,
+            email: null,
 
             agreements: {
                 dataProcessing: false,
@@ -169,6 +172,18 @@ const store = new Vuex.Store({
             state.extendedAgreementsView = true;
             state.userInput.agreements.dataProcessing = true;
         },
+
+        setEmail(state, payload) {
+            state.userInput.email = payload;
+        },
+
+        setName(state, payload) {
+            state.userInput.name = payload;
+        },
+
+        chooseDataProvider(state, payload) {
+            state.chosenDataProvider = payload;
+        }
     }
 });
 

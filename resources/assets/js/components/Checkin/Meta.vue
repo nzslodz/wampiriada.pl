@@ -9,7 +9,7 @@
         <div class="bar" :style="barSize"></div>
 
         <footer>
-            <p>Copyright &copy; 2014 - {{ currentYear }} <a href="http://nzs.lodz.pl">NZS Regionu Łódzkiego</a>. <a href="/facebook/privacy_policy">Polityka prywatności</a>.</p>
+            <p>Copyright &copy; 2014 - {{ currentYear }} NZS Regionu Łódzkiego. <a href="/facebook/privacy_policy">Polityka prywatności</a>.</p>
         </footer>
     </div>
 </template>
