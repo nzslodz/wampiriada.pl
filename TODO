@@ -45,3 +45,4 @@ TODO - totally rewrite fb login, może nawet skorzystaj ze storyboardu
 - przestylować Login
 - zrobić marginy, żeby .content nie wchodził na footer/header
 - politykę prywatności ustawić jako zamykalny modal z pobraniem danych z linku
+- przemyśleć co clearować w state jeśli wracamy z kroku 4 do kroku 3

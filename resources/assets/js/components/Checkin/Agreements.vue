@@ -33,7 +33,7 @@
                         </ul>
 
                         <div class="text-center snap-to-bottom">
-                            <button type="button" :class="['btn', 'btn-lg', 'btn-toggle', {'active': consentDataProcessing}]" v-bind:aria-pressed="consentDataProcessing ? 'true' : 'false'" autocomplete="off" @click="consentTo('dataProcessing')">
+                            <button type="button" :class="['btn', 'btn-lg', 'btn-toggle', {'active': consentDataProcessing}]" v-bind:aria-pressed="consentDataProcessing ? 'true' : 'false'" autocomplete="off" @click="consentTo('DataProcessing')">
                                 <div class="handle"></div>
                             </button>
 
@@ -48,7 +48,7 @@
                         </ul>
 
                         <div class="text-center snap-to-bottom">
-                            <button type="button" :class="['btn', 'btn-lg', 'btn-toggle', {'active': consentEmailWampiriada}]" v-bind:aria-pressed="consentEmailWampiriada ? 'true' : 'false'" autocomplete="off" @click="consentTo('emailWampiriada')">
+                            <button type="button" :class="['btn', 'btn-lg', 'btn-toggle', {'active': consentEmailWampiriada}]" v-bind:aria-pressed="consentEmailWampiriada ? 'true' : 'false'" autocomplete="off" @click="consentTo('EmailWampiriada')">
                                 <div class="handle"></div>
                             </button>
                         </div>
@@ -63,7 +63,7 @@
                         <p>Obiecujemy nie wysyłać zbyt wiele takich e-maili (nie więcej niż 2 w miesiącu).</p>
 
                         <div class="text-center snap-to-bottom">
-                            <button type="button" :class="['btn', 'btn-lg', 'btn-toggle', {'active': consentEmailNZS}]" v-bind:aria-pressed="consentEmailNZS ? 'true' : 'false'" autocomplete="off" @click="consentTo('emailNZS')">
+                            <button type="button" :class="['btn', 'btn-lg', 'btn-toggle', {'active': consentEmailNZS}]" v-bind:aria-pressed="consentEmailNZS ? 'true' : 'false'" autocomplete="off" @click="consentTo('EmailNZS')">
                                 <div class="handle"></div>
                             </button>
                         </div>
@@ -93,9 +93,9 @@
             ]),
 
             ...mapState({
-                consentDataProcessing: state => state.userInput.agreements.dataProcessing,
-                consentEmailWampiriada: state => state.userInput.agreements.emailWampiriada,
-                consentEmailNZS: state => state.userInput.agreements.emailNZS,
+                consentDataProcessing: state => state.userInput.agreementDataProcessing,
+                consentEmailWampiriada: state => state.userInput.agreementEmailWampiriada,
+                consentEmailNZS: state => state.userInput.agreementEmailNZS,
             }),
         },
 
@@ -109,7 +109,7 @@
             consentTo(key) {
                 this.$store.commit('consentToSelected', {
                     key,
-                    value: !this.$store.state.userInput.agreements[key]
+                    value: !this.$store.state.userInput['agreement' + key]
                 });
             }
         },

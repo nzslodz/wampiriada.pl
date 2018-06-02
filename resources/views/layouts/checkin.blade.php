@@ -49,6 +49,8 @@
 
         <script src="{{ app_mix('js/checkin.js') }}"></script>
 
+        @include('layouts.templates.fb')
+
         @yield('extrajs')
     </body>
 </html>

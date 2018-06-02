@@ -36,6 +36,60 @@ function timerIncrement() {
     }
 };
 
+function waitPromise(time) {
+    return new Promise((resolve) => {
+        setTimeout(() => {
+            resolve()
+        }, time)
+    });
+}
+
+window.FBPromises = {
+    getLoginStatus() {
+        return new Promise((resolve) => {
+            FB.getLoginStatus((response) => {
+                console.log("FB.getLoginStatus");
+                console.log(response);
+
+                resolve(response);
+            });
+        });
+    },
+
+    logout() {
+        return new Promise((resolve) => {
+            FB.logout((response) => {
+                console.log("FB.logout");
+                console.log(response);
+                resolve(response);
+            })
+        })
+    },
+
+    login() {
+        return new Promise((resolve) => {
+            FB.login(function(response) {
+                console.log('FB.login')
+                console.log(response)
+                resolve(response);
+            }, {
+                scope: 'email'
+            });
+        })
+    },
+
+    getProfileData() {
+        return new Promise((resolve) => {
+            FB.api('/me', { locale: 'pl_PL', fields: 'name,email,first_name,last_name' }, function(response) {
+                console.log('FB.api /me')
+                console.log(response)
+
+                resolve(response)
+            });
+        })
+    }
+}
+
 // main datastore and view declarations
 const store = new Vuex.Store({
     state: {
@@ -43,6 +97,20 @@ const store = new Vuex.Store({
         loginStepDisabled: false,
         extendedAgreementsView: false,
         chosenDataProvider: false,
+
+        sendingState: {
+            'upload': false,
+            'upload_done': false,
+            'logging_out': false,
+            'logging_out_done': false,
+            'logging_out_failed': false,
+            'redirecting': false,
+        },
+
+        facebook: {
+            waitingForProfileData: false,
+            showManualLogoutButton: false,
+        },
 
         staticData: {
             shirtSizes: shirtSizes,
@@ -80,12 +148,11 @@ const store = new Vuex.Store({
             firstTime: false,
             name: null,
             email: null,
+            facebook_id: null,
 
-            agreements: {
-                dataProcessing: false,
-                emailWampiriada: false,
-                emailNZS: false,
-            }
+            agreementDataProcessing: false,
+            agreementEmailWampiriada: false,
+            agreementEmailNZS: false,
         }
     },
 
@@ -132,37 +199,33 @@ const store = new Vuex.Store({
         },
 
         consentToAll(state) {
-            state.userInput.agreements = {
-                dataProcessing: true,
-                emailWampiriada: true,
-                emailNZS: true,
-            }
+            state.userInput.agreementEmailNZS = true
+            state.userInput.agreementDataProcessing = true
+            state.userInput.agreementEmailWampiriada = true
 
             state.currentSlide++
         },
 
         consentToSelected(state, payload) {
-            state.userInput.agreements[payload.key] = payload.value
+            state.userInput['agreement' + payload.key] = payload.value
 
-            if(payload.key == 'dataProcessing') {
+            if(payload.key == 'DataProcessing') {
                 state.loginStepDisabled = !payload.value
 
                 if(payload.value === false) {
-                    state.userInput.agreements.emailNZS = false
-                    state.userInput.agreements.emailWampiriada = false
+                    state.userInput.agreementEmailNZS = false
+                    state.userInput.agreementEmailWampiriada = false
                 }
             } else if(payload.value === true) {
-                state.userInput.agreements.dataProcessing = true
+                state.userInput.agreementDataProcessing = true
                 state.loginStepDisabled = false
             }
         },
 
         consentToNone(state) {
-            state.userInput.agreements = {
-                dataProcessing: false,
-                emailWampiriada: false,
-                emailNZS: false,
-            }
+            state.userInput.agreementEmailNZS = false
+            state.userInput.agreementDataProcessing = false
+            state.userInput.agreementEmailWampiriada = false
 
             state.loginStepDisabled = true
             state.currentSlide++
@@ -170,7 +233,7 @@ const store = new Vuex.Store({
 
         extendAgreementsView(state) {
             state.extendedAgreementsView = true;
-            state.userInput.agreements.dataProcessing = true;
+            state.userInput.agreementDataProcessing = true;
         },
 
         setEmail(state, payload) {
@@ -182,7 +245,103 @@ const store = new Vuex.Store({
         },
 
         chooseDataProvider(state, payload) {
+            if(payload == 'manual' && state.chosenDataProvider == 'facebook') {
+                state.facebook.showManualLogoutButton = true;
+            }
+
             state.chosenDataProvider = payload;
+
+            if(payload == 'facebook') {
+                state.facebook.waitingForProfileData = true;
+            }
+        },
+
+        gotDataFromFacebook(state, payload) {
+            state.facebook.waitingForProfileData = false;
+
+            state.userInput.email = payload.email;
+            state.userInput.name = payload.name;
+            state.userInput.facebook_id = payload.id;
+        },
+
+        showManualLogoutButton(state, payload) {
+            state.facebook.showManualLogoutButton = true;
+        },
+
+        pushSendingState(state, payload) {
+            state.sendingState[payload] = true
+        }
+    },
+
+    actions: {
+        async initializeFacebook({ dispatch, commit }) {
+            const loginResponse = await FBPromises.getLoginStatus();
+
+            if(!loginResponse.authResponse) {
+                if(loginResponse.status == 'not_authorized') {
+                    commit('showManualLogoutButton')
+                }
+
+                return;
+            }
+
+            await FBPromises.logout();
+        },
+
+        async send({ commit, state }) {
+            commit('pushSendingState', 'upload')
+
+            const response = await axios.post('/api/wampiriada/v1/checkin', state.userInput)
+
+            commit('pushSendingState', 'upload_done')
+
+            await waitPromise(500);
+
+            commit('pushSendingState', 'logging_out')
+
+            if(!state.facebook.showManualLogoutButton) {
+                await FBPromises.logout();
+
+                commit('pushSendingState', 'logging_out_done')
+
+                await waitPromise(500);
+
+                commit('pushSendingState', 'redirecting')
+
+                let seconds = 10;
+
+                commit('setRedirectCount', seconds)
+
+                for(let i = seconds; i >= 0; i--) {
+
+                    await waitPromise(1000)
+
+                    commit('setRedirectCount', i)
+                }
+
+                window.location.reload();
+
+            } else {
+                await waitPromise(100);
+
+                commit('pushSendingState', 'logging_out_failed')
+            }
+        },
+
+        async doFacebookLogin({ commit }) {
+            commit('chooseDataProvider', 'facebook')
+
+            const loginResponse = await FBPromises.login()
+
+            if(!loginResponse.authResponse) {
+                commit('showManualLogoutButton')
+
+                return;
+            }
+
+            const profileResponse = await FBPromises.getProfileData()
+
+            store.commit('gotDataFromFacebook', profileResponse)
         }
     }
 });
@@ -194,6 +353,9 @@ Vue.component('section-statistics', require('./components/Checkin/Statistics.vue
 Vue.component('section-success', require('./components/Checkin/Success.vue'));
 Vue.component('meta-component', require('./components/Checkin/Meta.vue'));
 
+window.fbHasLoaded = function() {
+    store.dispatch('initializeFacebook')
+}
 
 const app = new Vue({
     el: '#application',

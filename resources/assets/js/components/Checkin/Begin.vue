@@ -1,6 +1,12 @@
 <template>
     <section class="section-begin">
-        <a class="btn btn-primary btn-lg btn-rozpocznij" v-on:click="nextStep()" href="#">Rozpocznij</a>
+        <div v-if="facebookLoginNeedsReload">
+            Wygląda na to, że nie mogliśmy wylogować Cię automatycznie.
+            <a target="_blank" href="https://facebook.com" class="btn btn-primary btn-large">Przejdź na Facebooka</a>
+        </div>
+        <div v-else>
+            <a class="btn btn-primary btn-lg btn-rozpocznij" v-on:click="nextStep()" href="#">Rozpocznij</a>
+        </div>
     </section>
 </template>
 
@@ -9,6 +15,12 @@
 
     export default {
         mixins: [mixins],
+
+        computed: {
+            facebookLoginNeedsReload() {
+                return this.$store.state.facebook.loginStatus == 'not_authorized'
+            }
+        },
 
         mounted() {
             console.log('Component ready.')

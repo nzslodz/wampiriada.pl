@@ -25,3 +25,9 @@ Route::group(['prefix' => 'zapier'], function() {
         Route::post('application', 'ApplicationController@postNewApplication');
     });
 });
+
+Route::group(['prefix' => 'wampiriada'], function() {
+    Route::group(['prefix' => 'v1'], function() {
+        Route::post('checkin', 'CheckinController@postCheckin');
+    });
+});

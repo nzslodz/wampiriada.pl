@@ -43,28 +43,7 @@
         </script>
     </head>
     <body class="@yield('classes')">
-
- <div id="fb-root"></div>
-<script>
-window.fbAsyncInit = function() {
-    FB.init({
-      appId      : '830027050436250',
-      xfbml      : true,
-      version    : 'v2.6'
-    });
-
-    @yield('extrafb')
-  };
-
-  (function(d, s, id){
-     var js, fjs = d.getElementsByTagName(s)[0];
-     if (d.getElementById(id)) {return;}
-     js = d.createElement(s); js.id = id;
-     js.src = "//connect.facebook.net/en_US/sdk.js";
-     fjs.parentNode.insertBefore(js, fjs);
-   }(document, 'script', 'facebook-jssdk'));
-
-</script>
+        @include('layouts.templates.fb')
 
         @yield('content')
 
