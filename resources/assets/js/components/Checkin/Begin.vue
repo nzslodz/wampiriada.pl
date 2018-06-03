@@ -1,29 +1,27 @@
 <template>
     <section class="section-begin">
-        <div v-if="facebookLoginNeedsReload">
-            Wygląda na to, że nie mogliśmy wylogować Cię automatycznie.
-            <a target="_blank" href="https://facebook.com" class="btn btn-primary btn-large">Przejdź na Facebooka</a>
+        <div v-if="waitingForInitialization" class="loading text-center">
+            Ładowanie...
         </div>
+        <manual-logout v-else-if="showManualLogoutButton"></manual-logout>
         <div v-else>
-            <a class="btn btn-primary btn-lg btn-rozpocznij" v-on:click="nextStep()" href="#">Rozpocznij</a>
+            <button class="btn btn-primary btn-lg btn-rozpocznij" v-on:click="nextStep()" type="button">Rozpocznij</button>
         </div>
     </section>
 </template>
 
 <script>
     import { default as mixins } from './mixins';
+    import { mapState, mapMutations } from 'vuex';
 
     export default {
         mixins: [mixins],
 
         computed: {
-            facebookLoginNeedsReload() {
-                return this.$store.state.facebook.loginStatus == 'not_authorized'
-            }
+            ...mapState({
+                waitingForInitialization: state => state.facebook.waitingForInitialization,
+                showManualLogoutButton: state => state.facebook.showManualLogoutButton,
+            }),
         },
-
-        mounted() {
-            console.log('Component ready.')
-        }
     }
 </script>

@@ -1,19 +1,19 @@
 <template>
     <section class="section-login-confirm">
         <div class="content">
-            <div v-if="!chosenDataProvider">
-                    <div class="top">
-                        <button class="btn btn-facebook" type="button" @click="doFacebookLogin()">Kontynuuj z Facebookiem</button>
-                    </div>
-                    <!-- do not display on xs -->
-                    <div class="or">lub</div>
-
-                    <div class="bottom"><a class="btn btn-transparent" @click="chooseManualDataProvider()">Podaj dane ręcznie</a></div>
-            </div>
-            <div v-else-if="waitingForProfileData">
-                <div class="loading text-center">
-                    Ładowanie...
+            <div v-if="showLoginOptionsScreen">
+                <div class="top">
+                    <button class="btn btn-facebook" type="button" @click="doFacebookLogin()">Kontynuuj z Facebookiem</button>
                 </div>
+
+                <div class="or">lub</div>
+
+                <div class="bottom">
+                    <button type="button" class="btn btn-transparent" @click="chooseManualDataProvider()">Podaj dane ręcznie</button>
+                </div>
+            </div>
+            <div v-else-if="waitingForProfileData" class="loading text-center">
+                Ładowanie...
             </div>
             <div v-else>
                 <p v-if="chosenDataProvider == 'facebook'">
@@ -47,7 +47,7 @@
 
 <script>
     import { default as mixins } from './mixins';
-    import { mapState, mapActions } from 'vuex'
+    import { mapState, mapActions, mapGetters } from 'vuex'
     import { required, email } from 'vuelidate/lib/validators'
 
     export default {
@@ -56,11 +56,14 @@
         computed: {
             ...mapState([
                 'chosenDataProvider',
-                'needsDataFromFacebook',
+            ]),
+
+            ...mapGetters([
+                'showLoginOptionsScreen'
             ]),
 
             ...mapState({
-                waitingForProfileData: (state) => state.facebook.waitingForProfileData
+                waitingForProfileData: (state) => state.facebook.waitingForProfileData,
             }),
 
             email: {

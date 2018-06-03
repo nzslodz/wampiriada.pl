@@ -1,10 +1,9 @@
 <template>
-    <section>
+    <section class="section-success">
         Trwa wysyłanie - SUKCES
         <a href="">Dzięki!</a>
 
-        <div v-if="showManualLogoutButton">
-        </div>
+        <manual-logout v-if="showManualLogoutButton"></manual-logout>
     </section>
 </template>
 
@@ -19,10 +18,6 @@
             ...mapState({
                 showManualLogoutButton: (state) => state.facebook.showManualLogoutButton
             })
-        },
-
-        mounted() {
-            console.log('Component ready.')
         }
     }
 </script>

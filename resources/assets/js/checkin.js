@@ -97,6 +97,12 @@ const store = new Vuex.Store({
         loginStepDisabled: false,
         extendedAgreementsView: false,
         chosenDataProvider: false,
+        clickedOnFacebookLogout: false,
+
+        counters: {
+            manualLogout: 60,
+            success: 10,
+        },
 
         sendingState: {
             'upload': false,
@@ -108,8 +114,10 @@ const store = new Vuex.Store({
         },
 
         facebook: {
+            waitingForInitialization: true,
             waitingForProfileData: false,
             showManualLogoutButton: false,
+            loginStatus: null,
         },
 
         staticData: {
@@ -180,6 +188,18 @@ const store = new Vuex.Store({
         currentViewPreviousStepVisibility(state, getters) {
             return state.staticData.previousStepVisibility[getters.currentView];
         },
+
+        showLoginOptionsScreen(state) {
+            if(state.chosenDataProvider == 'manual') {
+                return false;
+            }
+
+            if(state.facebook.loginStatus == 'connected') {
+                return false;
+            }
+
+            return true;
+        }
     },
 
     mutations: {
@@ -245,15 +265,13 @@ const store = new Vuex.Store({
         },
 
         chooseDataProvider(state, payload) {
+            // when logged in to API you can still get the unknown response
+            // so just make a fallback if someone does not complete the process
             if(payload == 'manual' && state.chosenDataProvider == 'facebook') {
                 state.facebook.showManualLogoutButton = true;
             }
 
             state.chosenDataProvider = payload;
-
-            if(payload == 'facebook') {
-                state.facebook.waitingForProfileData = true;
-            }
         },
 
         gotDataFromFacebook(state, payload) {
@@ -264,12 +282,34 @@ const store = new Vuex.Store({
             state.userInput.facebook_id = payload.id;
         },
 
-        showManualLogoutButton(state, payload) {
-            state.facebook.showManualLogoutButton = true;
+        facebookLoginFinishedWithStatus(state, payload) {
+            state.facebook.loginStatus = payload;
+
+            if(payload == 'connected') {
+                state.facebook.waitingForProfileData = true;
+            } else if(payload == 'not_authorized') {
+                state.facebook.showManualLogoutButton = true;
+            }
         },
 
         pushSendingState(state, payload) {
             state.sendingState[payload] = true
+        },
+
+        facebookInitializationFinishedWithStatus(state, payload) {
+            state.facebook.waitingForInitialization = false;
+
+            if(payload == 'not_authorized') {
+                state.facebook.showManualLogoutButton = true;
+            }
+        },
+
+        setClickedOnFacebookLogout(state) {
+            state.clickedOnFacebookLogout = true;
+        },
+
+        decrementCounter(state, payload) {
+            state.counters[payload]--
         }
     },
 
@@ -277,18 +317,24 @@ const store = new Vuex.Store({
         async initializeFacebook({ dispatch, commit }) {
             const loginResponse = await FBPromises.getLoginStatus();
 
-            if(!loginResponse.authResponse) {
-                if(loginResponse.status == 'not_authorized') {
-                    commit('showManualLogoutButton')
-                }
+            commit('facebookInitializationFinishedWithStatus', loginResponse.status);
 
+            if(!loginResponse.authResponse) {
                 return;
             }
 
             await FBPromises.logout();
         },
 
-        async send({ commit, state }) {
+        async waitOnCounter({ commit, state }, payload) {
+            while(state.counters[payload] > 0) {
+                await waitPromise(1000)
+
+                commit('decrementCounter', payload)
+            }
+        },
+
+        async send({ commit, state, dispatch }) {
             commit('pushSendingState', 'upload')
 
             const response = await axios.post('/api/wampiriada/v1/checkin', state.userInput)
@@ -308,16 +354,7 @@ const store = new Vuex.Store({
 
                 commit('pushSendingState', 'redirecting')
 
-                let seconds = 10;
-
-                commit('setRedirectCount', seconds)
-
-                for(let i = seconds; i >= 0; i--) {
-
-                    await waitPromise(1000)
-
-                    commit('setRedirectCount', i)
-                }
+                await dispatch('waitOnCounter', 'success')
 
                 window.location.reload();
 
@@ -333,15 +370,24 @@ const store = new Vuex.Store({
 
             const loginResponse = await FBPromises.login()
 
-            if(!loginResponse.authResponse) {
-                commit('showManualLogoutButton')
+            commit('facebookLoginFinishedWithStatus', loginResponse.status)
 
+            if(!loginResponse.authResponse) {
                 return;
             }
 
             const profileResponse = await FBPromises.getProfileData()
 
             store.commit('gotDataFromFacebook', profileResponse)
+        },
+
+        async allowLogoutThenReload({ commit, dispatch }) {
+            commit('setClickedOnFacebookLogout')
+
+            await dispatch('waitOnCounter', 'manualLogout')
+
+            window.location.reload();
+
         }
     }
 });
@@ -352,6 +398,7 @@ Vue.component('section-login-confirm', require('./components/Checkin/Login.vue')
 Vue.component('section-statistics', require('./components/Checkin/Statistics.vue'));
 Vue.component('section-success', require('./components/Checkin/Success.vue'));
 Vue.component('meta-component', require('./components/Checkin/Meta.vue'));
+Vue.component('manual-logout', require('./components/Checkin/ManualLogout.vue'));
 
 window.fbHasLoaded = function() {
     store.dispatch('initializeFacebook')
