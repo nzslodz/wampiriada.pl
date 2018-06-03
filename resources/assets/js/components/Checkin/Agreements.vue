@@ -82,7 +82,7 @@
 
 <script>
     import { default as mixins } from './mixins';
-    import { mapMutations, mapState } from 'vuex'
+    import { mapMutations, mapState, mapActions } from 'vuex'
 
     export default {
         mixins: [mixins],
@@ -101,9 +101,12 @@
 
         methods: {
             ...mapMutations([
-                'consentToNone',
                 'consentToAll',
                 'extendAgreementsView',
+            ]),
+
+            ...mapActions([
+                'consentToNone',
             ]),
 
             consentTo(key) {

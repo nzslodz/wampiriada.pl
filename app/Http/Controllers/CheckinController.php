@@ -95,11 +95,13 @@ class CheckinController extends Controller {
             $user = Donor::whereFacebookUserId($request->facebook_id)->first();
         }
 
-        if(!$null) {
+        if(!$user) {
             $user = Donor::whereEmail($request->email)->first();
         }
 
-        if(!$null) {
+        return response()->json(['success' => 1]);
+
+        if(!$user) {
             $user = new Donor;
             $user->facebook_user_id = $request->facebook_id;
             $user->email = $email;

@@ -199,7 +199,7 @@ const store = new Vuex.Store({
             }
 
             return true;
-        }
+        },
     },
 
     mutations: {
@@ -248,7 +248,6 @@ const store = new Vuex.Store({
             state.userInput.agreementEmailWampiriada = false
 
             state.loginStepDisabled = true
-            state.currentSlide++
         },
 
         extendAgreementsView(state) {
@@ -314,6 +313,12 @@ const store = new Vuex.Store({
     },
 
     actions: {
+        async consentToNone({ dispatch, commit }) {
+            commit('consentToNone')
+
+            await dispatch('dispatchSendAction')
+        },
+
         async initializeFacebook({ dispatch, commit }) {
             const loginResponse = await FBPromises.getLoginStatus();
 
@@ -334,34 +339,50 @@ const store = new Vuex.Store({
             }
         },
 
-        async send({ commit, state, dispatch }) {
+        async showManualLogoutStep({ commit, dispatch }) {
+            commit('pushSendingState', 'logging_out')
+
+            await waitPromise(100);
+
+            commit('pushSendingState', 'logging_out_failed')
+        },
+
+        async doAutomaticLogoutStep({ commit, dispatch }) {
+            commit('pushSendingState', 'logging_out')
+
+            await FBPromises.logout();
+
+            commit('pushSendingState', 'logging_out_done')
+
+            await waitPromise(500);
+
+            await dispatch('doReload');
+        },
+
+        async doReload({ commit, dispatch }) {
+            commit('pushSendingState', 'redirecting')
+
+            await dispatch('waitOnCounter', 'success')
+
+            window.location.reload();
+        },
+
+        async dispatchSendAction({ commit, state, dispatch }) {
+            commit('nextStep')
+
             commit('pushSendingState', 'upload')
 
             const response = await axios.post('/api/wampiriada/v1/checkin', state.userInput)
 
             commit('pushSendingState', 'upload_done')
 
-            await waitPromise(500);
-
-            commit('pushSendingState', 'logging_out')
-
-            if(!state.facebook.showManualLogoutButton) {
-                await FBPromises.logout();
-
-                commit('pushSendingState', 'logging_out_done')
-
-                await waitPromise(500);
-
-                commit('pushSendingState', 'redirecting')
-
-                await dispatch('waitOnCounter', 'success')
-
-                window.location.reload();
-
+            if(state.facebook.showManualLogoutButton) {
+                await dispatch('showManualLogoutStep')
+            } else if(state.chosenDataProvider == 'facebook') {
+                await dispatch('doAutomaticLogoutStep')
             } else {
-                await waitPromise(100);
-
-                commit('pushSendingState', 'logging_out_failed')
+                // manual or no consent
+                await dispatch('doReload')
             }
         },
 
@@ -387,7 +408,6 @@ const store = new Vuex.Store({
             await dispatch('waitOnCounter', 'manualLogout')
 
             window.location.reload();
-
         }
     }
 });

@@ -1,13 +1,17 @@
 <template>
-    <section class="manual-logout">
+    <div class="manual-logout">
         <div v-if="clickedOnFacebookLogout">
-            <a href="/facebook/login" class="btn btn-primary btn-large">Przeładuj stronę i zacznij od nowa <span>({{ counter }})</span></a>
+            <a href="/facebook/login" class="btn btn-primary btn-large">
+                Przeładuj stronę
+                <span v-if="!sendingState.upload_done">i zacznij od nowa</span> 
+                ({{ counter }})
+            </a>
         </div>
         <div v-else="showManualLogoutButton">
             Wygląda na to, że nie mogliśmy wylogować Cię automatycznie.
             <a target="_blank" href="https://facebook.com" class="btn btn-primary btn-large" @click="allowLogoutThenReload()">Przejdź na Facebooka</a>, aby wylogować się ręcznie.
         </div>
-    </section>
+    </div>
 </template>
 <script>
     import { mapState, mapActions } from 'vuex';
@@ -20,8 +24,9 @@
             }),
 
             ...mapState([
-                'clickedOnFacebookLogout'
-            ])
+                'clickedOnFacebookLogout',
+                'sendingState',
+            ]),
         },
 
         methods: {

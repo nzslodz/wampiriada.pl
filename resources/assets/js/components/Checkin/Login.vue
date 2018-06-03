@@ -27,8 +27,9 @@
                 </div>
                 <div :class="['form-group', {'has-error': $v.name.$error}]">
                     <label class="control-label" for="name">Imię i nazwisko</label>
-                    <input autocomplete="off" class="form-control" v-model="name" @input="$v.name.$touch()" id="name" name="name">
+                    <input autocomplete="off" class="form-control" v-model="name" @blur="$v.name.$touch()" id="name" name="name">
                     <p class="help-block" v-if="!$v.name.required && $v.name.$error">To pole jest wymagane</p>
+                    <p class="help-block" v-if="!$v.name.minLength && $v.name.$error">Wpisz minimum 5 znaków</p>
                 </div>
                 <hr>
                 <div class="form-group">
@@ -36,7 +37,7 @@
                     <input autocomplete="off" class="form-control" :value="displayChosenSize" id="size-reprise" disabled>
                 </div>
                 <div class="form-group text-center">
-                    <button type="button" class="btn btn-default btn-primary btn-margin" :disabled="$v.$invalid" v-on:click="nextStep()">
+                    <button type="button" class="btn btn-default btn-primary btn-margin" :disabled="$v.$invalid" v-on:click="dispatchSendAction()">
                         {{ $v.$invalid ? 'Wypełnij wszystkie pola': 'Przejdź dalej' }}
                     </button>
                 </div>
@@ -48,7 +49,7 @@
 <script>
     import { default as mixins } from './mixins';
     import { mapState, mapActions, mapGetters } from 'vuex'
-    import { required, email } from 'vuelidate/lib/validators'
+    import { required, email, minLength } from 'vuelidate/lib/validators'
 
     export default {
         mixins: [mixins],
@@ -92,6 +93,7 @@
         validations: {
             name: {
                 required,
+                minLength: minLength(5),
             },
             email: {
                 required,
@@ -105,7 +107,8 @@
             },
 
             ...mapActions([
-                'doFacebookLogin'
+                'doFacebookLogin',
+                'dispatchSendAction'
             ])
         },
     }
