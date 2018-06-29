@@ -23,6 +23,10 @@ class ActionData extends Model {
     }
 
     public function getFirstTimePercentage() {
+        if(!$this->donated) {
+            return 0;
+        }
+
         return round(100 * $this->first_time / $this->donated);
     }
 
