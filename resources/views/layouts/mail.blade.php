@@ -8,6 +8,18 @@ a:hover { color: #09F !important; text-decoration: underline !important; }
 a:hover#vw { background-color: #CCC !important; text-decoration: none !important; color:#000 !important; }
 a:hover#ff { background-color: #6CF !important; text-decoration: none !important; color:#FFF !important; }
 </style>
+
+{{--
+
+This template requires the following variables:
+    $user - an user with email attribute.
+    $repository - at least a DatabaseRedirectRepository to gain access to URLs
+
+Optionally you can provide:
+    $edition - current edition
+
+--}}
+
 @inject('mailing', 'NZS\Core\Mailing\MailingManager')
 
 @if($mailing->isInPreviewMode())
@@ -29,7 +41,7 @@ a:hover#ff { background-color: #6CF !important; text-decoration: none !important
                             <tr>
 
                                 <td style="text-align: center">
-                                    <a href="{{ $repository->getRedirect('wampiriada') }}"><img src="http://nzs.lodz.pl/newsletter/wampi28-mailing-official.jpg" alt="Wampiriada - {{ $edition->number }}. edycja"></a>
+                                    <a href="{{ $repository->getRedirect('wampiriada') }}"><img src="http://nzs.lodz.pl/newsletter/wampi28-mailing-official.jpg" alt="@if(isset($edition))Wampiriada - {{ $edition->number  }}. edycja @else Wampiriada @endif"></a>
                                 </td>
                             </tr>
                         </table>

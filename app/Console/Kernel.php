@@ -18,6 +18,7 @@ class Kernel extends ConsoleKernel
          Commands\RemoveOldActivities::class,
          Commands\TryToDetermineGender::class,
          Commands\DispatchReminderEmails::class,
+         Commands\DispatchMailing::class,
     ];
 
     protected function commands()
