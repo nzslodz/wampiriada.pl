@@ -8,7 +8,7 @@
 			<h2>Polityka prywatności</h2>
 
 			<h3>Podstawowe informacje</h3>
-			<p>Administratorem danych osobowych, których zasady przetwarzania opisujemy w tym dokumencie, jest Niezależne zrzeszenie Studentów Regionu Łódzkiego (dalej: NZS RŁ lub Stowarzyszenie) z siedzibą w Łodzi.</p>
+			<p>Administratorem danych osobowych, których zasady przetwarzania opisujemy w tym dokumencie, jest Niezależne Zrzeszenie Studentów Regionu Łódzkiego (dalej: NZS RŁ lub Stowarzyszenie) z siedzibą w Łodzi.</p>
 			<p>Aby się z nami skontaktować, należy wysłać wiadomość na adres e-mailowy: <a href="mailto:nzs@nzs.lodz.pl">nzs@nzs.lodz.pl</a> lub poprzez wiadomość prywatną do fanpage'a <a href="https://www.facebook.com/NZSRegionuLodzkiego">NZSRegionuLodzkiego</a>.</p>
 			<p>W Polityce prywatności są najważniejsze informacje dotyczące zasad przetwarzania danych osobowych w naszej organizacji. Wyjaśniamy, w jakich celach przechowujemy dane i na jak długo. Informujemy również, o prawach przysługujących osobom, których dane przetwarzamy.</p>
 			<h3>Gdzie i w jaki sposób przetwarzamy dane</h3>
