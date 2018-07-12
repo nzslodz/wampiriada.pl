@@ -1,7 +1,6 @@
 <?php namespace NZS\Core;
 
 use Illuminate\Database\Eloquent\Model as Model;
-use SammyK\LaravelFacebookSdk\SyncableGraphNodeTrait;
 use Storage;
 use GuzzleHttp\Client;
 use Facebook\GraphNodes\GraphUser;
@@ -13,7 +12,6 @@ use Illuminate\Notifications\Notifiable;
 
 // XXX should we move updateGender to like another object?
 class Person extends Model {
-    use SyncableGraphNodeTrait;
     use Notifiable;
     use HasProfilePhoto;
 
@@ -21,10 +19,6 @@ class Person extends Model {
 
     protected $fillable = [
         'first_name', 'last_name', 'email', 'gender',
-    ];
-
-    protected static $graph_node_field_aliases = [
-        'id' => 'facebook_user_id',
     ];
 
     public function getFullName() {

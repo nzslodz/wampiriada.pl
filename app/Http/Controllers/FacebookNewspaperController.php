@@ -1,7 +1,5 @@
 <?php namespace App\Http\Controllers;
 
-use SammyK\LaravelFacebookSdk\LaravelFacebookSdk;
-use Facebook\Exceptions\FacebookSDKException;
 use Session;
 use NZS\Core\PersonNewspaper;
 use App\Http\Requests\CheckinRequest;
@@ -43,6 +41,8 @@ use Storage;
  * After logging in and generating the image they are able to share
  * (through javascript FB SDK) the image to their wall.
  */
+
+// XXX remove - use JS for that
 
 class FacebookNewspaperController extends Controller {
     const SESSION_ACCESS_TOKEN = 'nn_fb_user_access_token';

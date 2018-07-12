@@ -137,7 +137,6 @@ return [
         /*
          * Application Service Providers...
          */
-        SammyK\LaravelFacebookSdk\LaravelFacebookSdkServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
         DaveJamesMiller\Breadcrumbs\BreadcrumbsServiceProvider::class,
         App\Providers\AppServiceProvider::class,

@@ -3,7 +3,6 @@
 namespace NZS\Core\HR;
 
 use Illuminate\Database\Eloquent\Model as Model;
-use SammyK\LaravelFacebookSdk\SyncableGraphNodeTrait;
 use Storage;
 use NZS\Core\Person;
 use NZS\Core\HR\MemberPresenter;

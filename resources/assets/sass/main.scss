@@ -18,6 +18,10 @@ html, body {
     height: 100%;
     background-color: #5b1510;
     font-size: 1.025em;
+
+    font-family: "Alegreya Sans", sans-serif;
+
+    color: #fff;
 }
 
 section {
@@ -43,10 +47,10 @@ a.button {
 
     transition: 0.2s all ease-in-out;
     text-decoration: none;
-}
 
-a.button:hover {
-    background-color: rgba(0,0,0,0.3);
+    &:hover {
+        background-color: rgba(0,0,0,0.3);
+    }
 }
 
 #intro {
@@ -57,139 +61,6 @@ a.button:hover {
 #map {
 	height:500px;
 }
-
-.overall {
-    position: relative;
-    height: 460px;
-    text-align:right;
-}
-
-.overall .big {
-    font-family: Arial, sans-serif;
-    font-size: 140px;
-    position: absolute;
-    top: 22px;
-    font-weight: bold;
-    width: 100%;
-}
-.overall .small {
-    font-size: 24px;
-    position: absolute;
-    top: 172px;
-    width: 100%;
-}
-
-
-.overall .note {
-    font-size: 60px;
-    font-family: Arial, sans-serif;
-
-    position: absolute;
-    top: 290px;
-    width: 100%;
-}
-
-.smallfont .big {
-    font-size: 100px;
-}
-
-.smallfont .small {
-    top: 132px;
-}
-
-.overall .foot {
-    font-size: 24px;
-
-    position: absolute;
-    top: 358px;
-    width: 100%;
-
-}
-
-#schedule {
-    margin-top: -10vw;
-
-    color: #e8e0e0;
-}
-
-#schedule .sorting {
-   color: rgb(202, 156, 128);
-   font-size: 0.9em;
-   margin-bottom: 2em;
-}
-
-#schedule .sorting a {
-    color: rgb(202, 156, 128);
-    border-radius: 4px;
-    display: inline-block;
-    border: 1px solid rgba(255,255,255,0.1);
-    padding: 2px 6px;
-    text-decoration: none;
-}
-
-#schedule .sorting a:hover, #schedule .sorting a:active {
-    background-color: rgba(0,0,0,0.1);
-    color: #e1c1b2;
-
-}
-#schedule .sorting .active {
-    background-color: rgba(0,0,0,0.1);
-}
-
-#dontforget .row {
-}
-
-#dontforget .row h3 {
-    margin-bottom: 0;
-}
-
-#dontforget .row h3 + p {
-    margin-top: 0;
-}
-
-#dontforget h2 {
-    margin-top: 0;
-}
-
-#dontforget .grid {
-    padding-top: 4em;
-    padding-bottom: 6em;
-}
-
-#schedule ul {
-list-style-type: none;
-margin: 0;
-padding: 0;
-}
-
-#schedule .grid {
-    margin-top: 4em;
-    margin-bottom: 6em;
-}
-
-
-
-#schedule li p, #schedule .legend p {
-    margin-top: 0;
-    margin-bottom: 0;
-}
-
-#schedule li {
-	cursor:pointer;
-    padding: 0.5em 0;
-    border-top: 1px solid rgba(255,255,255,0.1);
-    border-bottom: 1px solid rgba(0,0,0,0.1);
-}
-
-#schedule li:hover, li:active {
-    background-color: rgba(0,0,0,0.1);
-    color: #fff;
-}
-#schedule li.active {
-    background-color: rgba(0,0,0,0.1);
-    color: #fff;
-}
-
 
 .legend {
     font-weight: bold;
@@ -203,9 +74,9 @@ h2 {
 }
 
 header p {
-
     margin-top: 0;
 }
+
 header .date {
     text-align: right;
 }
@@ -218,6 +89,142 @@ h3 {
     text-align: center;
 }
 
+.overall {
+    position: relative;
+    height: 460px;
+    text-align:right;
+
+    .big {
+        font-family: Arial, sans-serif;
+        font-size: 140px;
+        position: absolute;
+        top: 22px;
+        font-weight: bold;
+        width: 100%;
+    }
+
+    .small {
+       font-size: 24px;
+       position: absolute;
+       top: 172px;
+       width: 100%;
+   }
+
+   .note {
+       font-size: 60px;
+       font-family: Arial, sans-serif;
+
+       position: absolute;
+       top: 290px;
+       width: 100%;
+   }
+
+   .foot {
+       font-size: 24px;
+
+       position: absolute;
+       top: 358px;
+       width: 100%;
+
+   }
+
+   &.smallfont {
+       .big {
+           font-size: 100px;
+       }
+
+        .small {
+           top: 132px;
+       }
+   }
+}
+
+#schedule {
+    margin-top: -10vw;
+
+    color: #e8e0e0;
+
+    .sorting {
+        color: rgb(202, 156, 128);
+        font-size: 0.9em;
+        margin-bottom: 2em;
+
+        a {
+            color: rgb(202, 156, 128);
+            border-radius: 4px;
+            display: inline-block;
+            border: 1px solid rgba(255,255,255,0.1);
+            padding: 2px 6px;
+            text-decoration: none;
+
+            &:hover, &:active {
+                background-color: rgba(0,0,0,0.1);
+                color: #e1c1b2;
+            }
+
+            &.active {
+                background-color: rgba(0,0,0,0.1);
+            }
+        }
+    }
+}
+
+#dontforget .row {
+    h3 {
+        margin-bottom: 0;
+
+        + p {
+            margin-top: 0;
+        }
+    }
+
+    h2 {
+        margin-top: 0;
+    }
+
+    .grid {
+        padding-top: 4em;
+        padding-bottom: 6em;
+    }
+}
+
+#schedule {
+    ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    .grid {
+        margin-top: 4em;
+        margin-bottom: 6em;
+    }
+
+    li, .legend {
+        p {
+            margin-top: 0;
+            margin-bottom: 0;
+        }
+
+        p.date, .date {
+            width:80px;
+            padding-left: 20px;
+        }
+    }
+
+    li {
+    	cursor:pointer;
+        padding: 0.5em 0;
+        border-top: 1px solid rgba(255,255,255,0.1);
+        border-bottom: 1px solid rgba(0,0,0,0.1);
+
+        &:hover, &:active, &.active {
+            background-color: rgba(0,0,0,0.1);
+            color: #fff;
+        }
+    }
+
+}
 
 #dontforget {
     background: white;
@@ -227,43 +234,37 @@ h3 {
     position: relative;
 
     z-index: 8;
-}
 
-#dontforget a {
-   color: rgb(33, 103, 192);
-}
+    a {
+       color: rgb(33, 103, 192);
 
-#dontforget a:hover, #dontforget a:active {
-    color: rgb(28, 88, 163);
+       &:hover, &:active {
+           color: rgb(28, 88, 163);
+       }
+    }
 }
 
 .date span {
     border-bottom: 5px solid #c14d8f;
+
+    .ul & {
+        border-bottom: 5px solid #c2812c;
+    }
+
+    .pl & {
+        border-bottom: 5px solid #b72b2a;
+    }
+
+    .um & {
+        border-bottom: 5px solid #71953d;
+    }
+
+    .kol & {
+        border-bottom: 5px solid rgb(28, 107, 18);
+        font-weight: 400;
+    }
 }
 
-.ul .date span {
-    border-bottom: 5px solid #c2812c;
-}
-
-.pl .date span {
-    border-bottom: 5px solid #b72b2a;
-}
-
-
-.um .date span {
-    border-bottom: 5px solid #71953d;
-}
-
-.kol .date span {
-    border-bottom: 5px solid rgb(28, 107, 18);
-    font-weight: 400;
-}
-
-
-#schedule li p.date, #schedule .legend .date {
-    width:80px;
-    padding-left: 20px;
-}
 
 .lordis {
     padding: 30px 0;
@@ -273,16 +274,17 @@ h3 {
     background-color: #fff;
 
     color: #444;
-
 }
 
 
-#partners a.button {
-    color: #222;
-}
+#partners {
+    a.button {
+        color: #222;
+    }
 
-#partners p.image {
-    text-align: center;
+    p.image {
+        text-align: center;
+    }
 }
 
 .like-h3 {
@@ -369,12 +371,6 @@ background-image: -webkit-gradient(
 
 .mojrow {
 	width:700px;
-}
-
-html, body {
-    font-family: "Alegreya Sans", sans-serif;
-
-    color: #fff;
 }
 
 #teaser h1 {

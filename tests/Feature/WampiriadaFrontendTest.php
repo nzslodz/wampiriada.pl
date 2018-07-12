@@ -5,8 +5,10 @@ namespace Tests\Feature;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
-class ExampleTest extends TestCase
+class WampiriadaFrontendTest extends TestCase
 {
+    //use RefreshDatabase;
+
     /**
      * A basic test example.
      *
@@ -14,8 +16,13 @@ class ExampleTest extends TestCase
      */
     public function testBasicTest()
     {
-        $response = $this->get('/');
+        $this->get('/')
+            ->assertStatus(200);
 
-        $response->assertStatus(200);
+        //
+
+        $this->get('/reminder/283')
+            ->assertStatus(200);
+
     }
 }

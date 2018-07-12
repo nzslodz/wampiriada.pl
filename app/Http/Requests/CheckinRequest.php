@@ -19,10 +19,6 @@ class CheckinRequest extends Request
      * @return bool
      */
     public function authorize() {
-        if(!Session::get('checkin_user_id')) {
-            return false;
-        }
-
         return true;
     }
 
@@ -30,27 +26,23 @@ class CheckinRequest extends Request
         return trim(preg_replace('/\s+/u', ' ', $name));
     }
 
-    public function extraValidation($validator) {
-        $validator->sometimes('email', 'email|required', function($input) {
-            $user = Donor::find(Session::get('checkin_user_id'));
-
-            return empty($user->email);
-        });
-
-        return $validator;
-    }
-
     /**
+     *
      * Get the validation rules that apply to the request.
      *
      * @return array
      */
     public function rules() {
         return [
-            'first_time' => 'boolean',
-            'size' => 'exists:wampiriada_shirtsizes,id|required',
-            'blood_type' => 'in:a_plus,a_minus,b_plus,b_minus,ab_plus,ab_minus,zero_plus,zero_minus,unknown',
-            'name' => 'string|min:5|required',
+            'firstTime' => 'boolean',
+            'chosenSize' => 'exists:wampiriada_shirtsizes,id|required',
+            'bloodType' => 'in:a_plus,a_minus,b_plus,b_minus,ab_plus,ab_minus,zero_plus,zero_minus,unknown',
+            'name' => 'nullable|string|min:5',
+            'email' => 'nullable|email',
+            'facebook_id' => 'nullable|numeric',
+            'agreementDataProcessing' => 'boolean|required',
+            'agreementEmailNZS' => 'boolean|required',
+            'agreementDataProcessing' => 'boolean|required',
         ];
     }
 

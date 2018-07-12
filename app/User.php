@@ -3,7 +3,6 @@
 namespace App;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use SammyK\LaravelFacebookSdk\SyncableGraphNodeTrait;
 use Storage;
 use NZS\Core\HasProfilePhoto;
 
@@ -11,7 +10,6 @@ use Illuminate\Notifications\Notifiable;
 
 // XXX should be removed?
 class User extends Authenticatable {
-    use SyncableGraphNodeTrait;
     use Notifiable;
     use HasProfilePhoto;
 
@@ -22,10 +20,6 @@ class User extends Authenticatable {
      */
     protected $fillable = [
         'name', 'email', 'password',
-    ];
-
-    protected static $graph_node_field_aliases = [
-        'id' => 'facebook_user_id',
     ];
 
     /**
