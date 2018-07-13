@@ -19,6 +19,8 @@ class ComposerSender {
         $this->mailer->send($composer->getView(), $composer->getContext($user), function($m) use($user, $composer) {
                 $m->to($user->email, $user->getFullName());
                 $m->subject($composer->getSubject($user));
+
+                $composer->mangle($m);
             }
         );
     }

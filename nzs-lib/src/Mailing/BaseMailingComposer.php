@@ -9,6 +9,8 @@ abstract class BaseMailingComposer implements MailingComposer {
     protected $campaign_key;
     protected $campaign_name;
 
+    protected $from;
+
     protected $job_class = SimpleEmailJob::class;
 
     public function getView() {
@@ -39,5 +41,8 @@ abstract class BaseMailingComposer implements MailingComposer {
 
     public function getSampleContext($user) {
         return $this->getContext($user);
+    }
+
+    public function mangle($message) {
     }
 }

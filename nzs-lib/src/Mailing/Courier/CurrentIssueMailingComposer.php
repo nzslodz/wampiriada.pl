@@ -51,4 +51,8 @@ class CurrentIssueMailingComposer extends BaseMailingComposer {
             'repository' => new DatabaseRedirectRepository,
         ];
     }
+
+    public function mangle($message) {
+        $message->from('nzs@nzs.lodz.pl', 'NZS Regionu Łódzkiego');
+    }
 }
