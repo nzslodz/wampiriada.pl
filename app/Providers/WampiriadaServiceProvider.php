@@ -10,6 +10,7 @@ use NZS\Wampiriada\Mailing\WampiriadaThankYouMailingComposer;
 use NZS\Wampiriada\Mailing\WampiriadaReminderMailingComposer;
 use NZS\Wampiriada\Mailing\WampiriadaAnnouncementMailingComposer;
 use NZS\Wampiriada\Mailing\PrivacyPolicyUpdateMailingComposer;
+use NZS\Wampiriada\Editions\EditionRepository;
 use NZS\Core\Mailing\Courier\CurrentIssueMailingComposer;
 use Illuminate\Database\Migrations\MigrationRepositoryInterface;
 use NZS\Core\ActivityRepository;
@@ -29,5 +30,11 @@ class WampiriadaServiceProvider extends ServiceProvider
             PrivacyPolicyUpdateMailingComposer::class,
             CurrentIssueMailingComposer::class,
         ]);
+    }
+
+    public function register() {
+        $this->app->singleton(EditionRepository::class, function($app) {
+            return EditionRepository::current();
+        });
     }
 }

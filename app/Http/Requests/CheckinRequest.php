@@ -10,9 +10,25 @@ use NZS\Wampiriada\Editions\Edition;
 use NZS\Wampiriada\Donor;
 use Session;
 
+/*
+userInput: {
+    bloodType: null,
+    chosenSize: null,
+    firstTime: false,
+    name: null,
+    email: null,
+    facebook_id: null,
+
+    agreementDataProcessing: false,
+    agreementEmailWampiriada: false,
+    agreementEmailNZS: false,
+}
+ */
+
 // XXX probably make a trait for messages that could be extended in some way
 class CheckinRequest extends Request
 {
+
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -24,6 +40,56 @@ class CheckinRequest extends Request
 
     public function sanitizeName($name) {
         return trim(preg_replace('/\s+/u', ' ', $name));
+    }
+
+    public function getNameAsPair() {
+        $list = explode(' ', $this->name);
+
+        if(count($list) != 2) {
+            return [null, null];
+        }
+
+        return $list;
+    }
+
+    /**
+     * Get an unsaved Donor instance from request. Update name, fb_id and email.
+     * @return [Donor|null] Specified donor or null if user didn't agree to data processing.
+     */
+    public function getDonor() {
+        if(!$this->agreementDataProcessing) {
+            return null;
+        }
+
+        $donor = $this->getDonorByFacebookId()
+            ?: $this->getDonorByEmail()
+            ?: new Donor;
+
+        return $this->decorateDonorInstance($donor);
+    }
+
+    protected function getDonorByFacebookId() {
+        if(!$this->facebook_id) {
+            return null;
+        }
+
+        return Donor::whereFacebookUserId($this->facebook_id)->first();
+    }
+
+    protected function getDonorByEmail() {
+        if(!$this->email) {
+            return null;
+        }
+
+        return Donor::whereEmail($this->email)->first();
+    }
+
+    protected function decorateDonorInstance(Donor $user) {
+        $user->facebook_user_id = $this->facebook_id;
+        $user->email = $this->email;
+        list($user->first_name, $user->last_name) = $this->getNameAsPair();
+
+        return $user;
     }
 
     /**
