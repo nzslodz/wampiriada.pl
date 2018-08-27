@@ -48,7 +48,11 @@ class CheckinController extends Controller {
 
     public function postCheckin(CheckinRequest $request, EditionRepository $repository) {
         if(!$repository->currentAction()) {
-            return abort(403, "Today the process is not available");
+            return response()->json([
+                'status' => 'forbidden',
+                'str_code' => 'CHECKIN_NOT_AVAILABLE',
+                'message' => 'Today the checkin process is not available'
+            ], 403);
         }
 
         $user = $request->getDonor();
@@ -60,7 +64,8 @@ class CheckinController extends Controller {
 
             if($checkin) {
                 return response()->json([
-                    'status' => 'Forbidden',
+                    'status' => 'forbidden',
+                    'str_code' => 'MULTIPLE_CHECKIN',
                     'message' => 'You cannot donate blood two times in the same edition'
                 ], 403);
             }

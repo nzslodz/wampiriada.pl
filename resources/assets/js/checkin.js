@@ -99,18 +99,23 @@ const store = new Vuex.Store({
         chosenDataProvider: false,
         clickedOnFacebookLogout: false,
 
+        error: {
+            message: null,
+        },
+
         counters: {
             manualLogout: 60,
             success: 10,
         },
 
         sendingState: {
-            'upload': false,
-            'upload_done': false,
-            'logging_out': false,
-            'logging_out_done': false,
-            'logging_out_failed': false,
-            'redirecting': false,
+            upload: false,
+            upload_done: false,
+            upload_failed: false,
+            logging_out: false,
+            logging_out_done: false,
+            logging_out_failed: false,
+            redirecting: false,
         },
 
         facebook: {
@@ -295,6 +300,10 @@ const store = new Vuex.Store({
             state.sendingState[payload] = true
         },
 
+        namedNonRecoverableError(state, { message }) {
+            state.error.message = message
+        },
+
         facebookInitializationFinishedWithStatus(state, payload) {
             state.facebook.waitingForInitialization = false;
 
@@ -372,9 +381,36 @@ const store = new Vuex.Store({
 
             commit('pushSendingState', 'upload')
 
-            const response = await axios.post('/api/wampiriada/v1/checkin', state.userInput)
+            try {
+                const response = await axios.post('/api/wampiriada/v1/checkin', state.userInput)
 
-            commit('pushSendingState', 'upload_done')
+                commit('pushSendingState', 'upload_done')
+
+            } catch(err) {
+                if(err.response && err.response.data && err.response.data.str_code) {
+                    switch(err.response.data.str_code) {
+                        case 'MULTIPLE_CHECKIN':
+                            commit('namedNonRecoverableError', {
+                                message: 'Już raz oddano krew w tej edycji z użyciem Twojego adresu e-mail. Jeśli to pomyłka, ponów proces jeszcze raz.'
+                            })
+
+                            break;
+
+                        case 'CHECKIN_NOT_AVAILABLE':
+                            commit('namedNonRecoverableError', {
+                                message: 'Dziś nie ma żadnej zaplanowanej akcji krwiodawstwa.'
+                            })
+
+                            break;
+                    }
+                } else {
+                    commit('namedNonRecoverableError', {
+                        message: 'Wystąpił nieoczekiwany błąd. Przeładuj stronę. Przepraszamy za problemy.'
+                    })
+                }
+
+                commit('pushSendingState', 'upload_failed')
+            }
 
             if(state.facebook.showManualLogoutButton) {
                 await dispatch('showManualLogoutStep')
