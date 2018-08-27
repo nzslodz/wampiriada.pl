@@ -251,18 +251,16 @@ class EditionRepository {
             throw new LogicException("There is no action for today");
         }
 
-        // save checkin model
-        $checkin = new Checkin();
-        $checkin->size_id = $request->chosenSize;
-        $checkin->name = $request->name;
-        $checkin->action_day_id = $current_action->id;
-        $checkin->edition_id = $current_action->edition_id;
-
         if($user) {
+            // save checkin model
+            $checkin = new Checkin();
+            $checkin->size_id = $request->chosenSize;
+            $checkin->name = $request->name;
+            $checkin->action_day_id = $current_action->id;
+            $checkin->edition_id = $current_action->edition_id;
             $checkin->user_id = $user->id;
+            $checkin->save();
         }
-
-        $checkin->save();
 
         // Update ActionData
         $action_data = ActionData::firstOrNew(['id' => $current_action->id]);
