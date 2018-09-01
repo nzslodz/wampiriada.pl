@@ -391,7 +391,7 @@ const store = new Vuex.Store({
                     switch(err.response.data.str_code) {
                         case 'MULTIPLE_CHECKIN':
                             commit('namedNonRecoverableError', {
-                                message: 'Już raz oddano krew w tej edycji z użyciem Twojego adresu e-mail. Jeśli to pomyłka, ponów proces jeszcze raz.'
+                                message: 'Już raz oddano krew w tej edycji z użyciem Twojego adresu e-mail. Jeśli to pomyłka, spróbuj z użyciem innego e-maila.'
                             })
 
                             break;
