@@ -1,21 +1,5 @@
 
 
-
-szczegółowe kroki:
-[ ] ograniczyc zbieranie danych marketingowych do minimum
-[x] dropnac zalozenie, ze bedziemy uzywac backendu w celach rekrutacyjnych/analizy
-[x] dropnac wyświetlanie activity dla wampiriady
-[x] dropnąć tworzenie profili userów przy checkinach (nie chcemy miec modelu Person)
-[x] dac appke ktora bedzie po prostu dzialac
-[x] activity classes są chujowe (podpadają pod tracking behavioralny)
-[x] podobnie redirecty nie mają większego sensu (poza oryginalnym założeniem, że można zdefiniować link do pliku X, bez trackingu)
-    [ ] sprawdzić czy się to gdzieś nie wywala
-[x] checkiny są do wyrzucenia (?) - nie, ale zrobić lightweight model osoby z Wampiriady (e-mail, imię, nazwisko, fb id) + checkiny?
-[ ] logowanie Facebookiem przy oddawaniu krwi zostawiamy jako opcję - alternatywnie e-mail, alternatywnie nic (?)
-[x] potrzebne nam imię i nazwisko? tak
-[ ] logowanie Facebookiem dla akcji promocyjnych
-    [x] lista przyjaciół Facebooka - to już prędzej jest to do przejścia przy akcji promocyjnej - z drugiej strony... po co?
-
 Terms:
     A. LISTA KRWIODAWCÓW
 
@@ -50,4 +34,4 @@ TODO - totally rewrite fb login, może nawet skorzystaj ze storyboardu
 
 COURIER:
 
-- dodać mechanizm automatyzacji do pushowania/syncowania plików na remote server (nzs.lodz.pl/wampiriada.pl) 
+- dodać mechanizm automatyzacji do pushowania/syncowania plików na remote server (nzs.lodz.pl/wampiriada.pl)
