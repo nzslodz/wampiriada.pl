@@ -1,37 +1,11 @@
-
-
-Terms:
-    A. LISTA KRWIODAWCÓW
-
-    B. PRZYPOMNIENIA
-
-    C. PROMOWANIE, NETWORKING
-
-    D. LOSOWANIE NAGRÓD
-
-Jak osoba się loguje na stronie, to powinna:
-a. mieć możliwość wyrazić (loguję się FB | podaję e-mail - i imię nazwisko? | nie podaję danych osobowych) zgodę
-b. drugi ekran - dla celów statystycznych - oddałem/am krew, grupa krwi, to mój pierwszy raz (anonimizowane)
-c. trzeci ekran - wyrażam zgodę:
- c1. chcę otrzymywać e-maile o nowych edycjach Wampiriady oraz o potrzebnej krwi
- c2. chcę się dowiedzieć więcej o NZS Regionu Łódzkiego
- c3. chcę pomóc Wampiriadzie dotrzeć do większej ilości krwiodawców
-
- Google Analytics
-
-Usuwanie danych
-
-TODO - totally rewrite fb login, może nawet skorzystaj ze storyboardu
-1) dodać stronę, dzięki której usuwanie jest możliwe z formularzem
-2) strona jest dostępna tylko dla człowieka, który ma mail z hashem
-3) zablokować wysyłanie e-maili na podstawie strony
-
-- przestylować Login
-- zrobić marginy, żeby .content nie wchodził na footer/header
-- politykę prywatności ustawić jako zamykalny modal z pobraniem danych z linku
-- przemyśleć co clearować w state jeśli wracamy z kroku 4 do kroku 3
-- przerobić state na action send i obsłużyć handlery
+TODO:
+1) add processing of agreements
+2) style buttons (continue with facebook)
+3) style success component
+4) Google Analytics - add consent plugin on main page? checkin does not need it.
+5) Data deletion - with captcha? and email?
+6) margins for .content to not overlap header and footer
+7) should we clear some state when going back to step 3?
 
 COURIER:
-
-- dodać mechanizm automatyzacji do pushowania/syncowania plików na remote server (nzs.lodz.pl/wampiriada.pl)
+1) add automation to send files to a server (nzs.lodz.pl/wampiriada.pl)
