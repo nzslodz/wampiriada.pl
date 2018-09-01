@@ -9,8 +9,18 @@
         <div class="bar" :style="barSize"></div>
 
         <footer>
-            <p>Copyright &copy; 2014 - {{ currentYear }} NZS Regionu Łódzkiego. <a href="/facebook/privacy_policy">Polityka prywatności</a>.</p>
+            <p>Copyright &copy; 2014 - {{ currentYear }} NZS Regionu Łódzkiego. <a @click.prevent="showPrivacyPolicy" href="/privacy_policy">Polityka prywatności</a>.</p>
         </footer>
+
+        <div class="privacy-policy-overlay" v-show="privacyPolicyVisible">
+            <div class="close">
+                <a class="btn btn-navigation-back" @click="hidePrivacyPolicy">&times;</a>
+            </div>
+
+            <div class="privacy-policy-contents">
+                <slot name="privacy-policy"></slot>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -20,6 +30,12 @@
 
     export default {
         mixins: [mixins],
+
+        data() {
+            return {
+                privacyPolicyVisible: false,
+            }
+        },
 
         computed: {
             ...mapGetters([
@@ -45,8 +61,14 @@
             }
         },
 
-        mounted() {
-            console.log('Component ready.')
+        methods: {
+            showPrivacyPolicy() {
+                this.privacyPolicyVisible = true
+            },
+
+            hidePrivacyPolicy() {
+                this.privacyPolicyVisible = false
+            }
         }
     }
 </script>
