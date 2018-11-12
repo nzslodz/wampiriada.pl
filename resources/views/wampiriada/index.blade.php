@@ -229,9 +229,9 @@ Oficjalna strona akcji honorowego krwiodawstwa Wampiriada w Łodzi, organizowane
                 <li><a href="{{ $event_redirect }}">oficjalny event {{ $repository->getEditionNumber() }}. edycji Wampiriady</a></li>
                 @endif
                 <li><a href="{{ $repository->getRedirect('facebook') }}">facebook.com/&shy;wampiriada.nzs.rl</a></li>
-                <li><a href="{{ $repository->getRedirect('nzs') }}">Organizator - NZS Regionu Łódzkiego</a></li>
                 <li><a href="{{ $repository->getRedirect('facebook-nzs') }}">facebook.com/&shy;NZSRegionuLodzkiego</a></li>
-                <li><a href="{{ $repository->getRedirect('twitter-nzs') }}">@nzslodz - nasz twitter</a></li>
+                <li><a href="{{ $repository->getRedirect('nzs') }}">Organizator - NZS Regionu Łódzkiego</a></li>
+                <!--<li><a href="{{ $repository->getRedirect('twitter-nzs') }}">@nzslodz - nasz twitter</a></li>-->
                 <li><a href="mailto:nzs@nzs.lodz.pl">Masz pytanie? Napisz do nas: nzs@nzs.lodz.pl</a></li>
                 </nav>
                 </div>
