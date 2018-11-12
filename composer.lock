@@ -4,8 +4,57 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "7b56aff68c5a920749089a5c040ef46c",
+    "content-hash": "e9ca866276b9a1ba1db18fa14250f9a5",
     "packages": [
+        {
+            "name": "czim/with-blade-directive",
+            "version": "1.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/czim/with-blade-directive.git",
+                "reference": "a81d718abe82794c01d69fb7d20b2f1bea26c8d0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/czim/with-blade-directive/zipball/a81d718abe82794c01d69fb7d20b2f1bea26c8d0",
+                "reference": "a81d718abe82794c01d69fb7d20b2f1bea26c8d0",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4.0"
+            },
+            "require-dev": {
+                "orchestra/testbench": "~3.0",
+                "phpunit/phpunit": "4.*",
+                "scrutinizer/ocular": "~1.1"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Czim\\WithBladeDirective\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Coen Zimmerman",
+                    "email": "coen@pixelindustries.com",
+                    "homepage": "http://www.pixelindustries.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "@with blade directive",
+            "homepage": "https://github.com/czim/with-blade-directive",
+            "keywords": [
+                "Dutch",
+                "pluralize",
+                "singularize"
+            ],
+            "time": "2016-09-27T19:09:12+00:00"
+        },
         {
             "name": "davejamesmiller/laravel-breadcrumbs",
             "version": "5.1.0",

@@ -149,6 +149,7 @@ return [
         Illuminate\Database\MigrationServiceProvider::class,
         NZS\Core\Storyboards\StoryboardServiceProvider::class,
         Laracasts\Flash\FlashServiceProvider::class,
+        Czim\WithBladeDirective\WithBladeDirectiveServiceProvider::class,
     ],
 
     /*

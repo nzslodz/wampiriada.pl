@@ -36,6 +36,9 @@ class ReminderRequest extends Request
             'required' => 'Pole jest wymagane',
             'email' => 'To nie jest poprawny adres e-mail.',
             'recaptcha' => 'Spróbuj ponownie za jakiś czas.',
+            'required_with' => 'To pole jest wymagane.',
+            'string' => 'To pole jest wymagane.',
+            'required_without' => 'To pole jest wymagane.',
         ];
     }
 }
