@@ -144,7 +144,7 @@ Oficjalna strona akcji honorowego krwiodawstwa Wampiriada w Łodzi, organizowane
 
             </div>
             <div class="col-md-12">
-            <p>Za wygraną w konkursie otrzymasz nagrody w postaci kuponów na pizzę Fiero, biletów teatralnych, gadżetow Uniwersytetu Łódzkiego, Politechniki Łódzkiej, Uniwersytetu Medycznego w Łodzi, Regionalnego Centrum Krwiodawstwa i wiele innych.</p>
+            <p>Za wygraną w konkursie otrzymasz wiele atrakcyjnych nagród od naszych partnerów.</p>
 
             <p>Więcej o konkursach na stronie {!! $event_redirect->asTag("oficjalnego eventu {$repository->getEditionNumber()}. edycji Wampiriady") !!}.</p>
             </div>
@@ -152,12 +152,14 @@ Oficjalna strona akcji honorowego krwiodawstwa Wampiriada w Łodzi, organizowane
             </div>
         </div>
     <div class="row padding-top">
-        <div class="col-md-8">
-            <div  data-width="500" class="fb-page" data-href="https://www.facebook.com/wampiriada.nzs.rl" data-hide-cover="false" data-show-facepile="true" data-show-posts="true"><div class="fb-xfbml-parse-ignore"><blockquote cite="https://www.facebook.com/wampiriada.nzs.rl"><a href="https://www.facebook.com/wampiriada.nzs.rl">Wampiriada NZS RŁ</a></blockquote></div></div>
+        <div class="col-md-2">
+        </div>
+        <div class="col-md-8 text-center">
+            <div data-width="500" class="fb-page" data-href="https://www.facebook.com/wampiriada.nzs.rl" data-hide-cover="false" data-show-facepile="true" data-show-posts="true"><div class="fb-xfbml-parse-ignore"><blockquote cite="https://www.facebook.com/wampiriada.nzs.rl"><a href="https://www.facebook.com/wampiriada.nzs.rl">Wampiriada NZS RŁ</a></blockquote></div></div>
 
 
         </div>
-        <div class="col-md-4">
+        <!--<div class="col-md-4">
                 <div class="row mobile">
                     <div class="col-xs-8 col-md-12">
                         <h3>Aplikacja mobilna Wampiriady</h3>
@@ -174,7 +176,7 @@ Oficjalna strona akcji honorowego krwiodawstwa Wampiriada w Łodzi, organizowane
                         </p>
                     </div>
                 </div>
-        </div>
+        </div>-->
     </div>
     </div>
 </section>
@@ -227,9 +229,9 @@ Oficjalna strona akcji honorowego krwiodawstwa Wampiriada w Łodzi, organizowane
                 <li><a href="{{ $event_redirect }}">oficjalny event {{ $repository->getEditionNumber() }}. edycji Wampiriady</a></li>
                 @endif
                 <li><a href="{{ $repository->getRedirect('facebook') }}">facebook.com/&shy;wampiriada.nzs.rl</a></li>
-                <li><a href="{{ $repository->getRedirect('nzs') }}">Organizator - NZS Regionu Łódzkiego</a></li>
                 <li><a href="{{ $repository->getRedirect('facebook-nzs') }}">facebook.com/&shy;NZSRegionuLodzkiego</a></li>
-                <li><a href="{{ $repository->getRedirect('twitter-nzs') }}">@nzslodz - nasz twitter</a></li>
+                <li><a href="{{ $repository->getRedirect('nzs') }}">Organizator - NZS Regionu Łódzkiego</a></li>
+                <!--<li><a href="{{ $repository->getRedirect('twitter-nzs') }}">@nzslodz - nasz twitter</a></li>-->
                 <li><a href="mailto:nzs@nzs.lodz.pl">Masz pytanie? Napisz do nas: nzs@nzs.lodz.pl</a></li>
                 </nav>
                 </div>
