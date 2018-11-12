@@ -9,3 +9,19 @@ TODO:
 
 COURIER:
 1) add automation to send files to a server (nzs.lodz.pl/wampiriada.pl)
+
+----
+remaining
+
+
+
+app/Http/Controllers/FacebookNewspaperController.php
+
+(poll removal for now)
+app/Http/Controllers/WampiriadaController.php
+
+(rodo -> manage privacy)
+app/Http/Controllers/NewsletterController.php
+
+(EditionData ActionData additions)
+app/Http/Controllers/WampiriadaBackendController.php
