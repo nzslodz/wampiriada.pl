@@ -53,11 +53,7 @@ Oficjalna strona akcji honorowego krwiodawstwa Wampiriada w Łodzi, organizowane
                             @with('email' as $field)
                             <div class="form-group{{ $errors->has($field) ? ' has-error' : '' }}">
                                 <label for="email">E-mail</label>
-<<<<<<< HEAD
                                 <input type="email" class="form-control" name="{{ $field }}" id="{{ $field }}" value="{{ old($field) }}">
-=======
-                                <input type="email" class="form-control" name="{{ $field }}" id="{{ $field }}">
->>>>>>> ad35899c0708d2e9f3d15ff064513eb0f33a9189
                                 @if ($errors->has($field))
                                     <span class="help-block">
                                         <strong>{{ $errors->first($field) }}</strong>
@@ -68,11 +64,7 @@ Oficjalna strona akcji honorowego krwiodawstwa Wampiriada w Łodzi, organizowane
                             @with('first_name' as $field)
                             <div class="form-group{{ $errors->has($field) ? ' has-error' : '' }}">
                                 <label for="email">Imię</label>
-<<<<<<< HEAD
                                 <input type="text" class="form-control" name="{{ $field }}" id="{{ $field }}" value="{{ old($field) }}">
-=======
-                                <input type="text" class="form-control" name="{{ $field }}" id="{{ $field }}">
->>>>>>> ad35899c0708d2e9f3d15ff064513eb0f33a9189
                                 @if ($errors->has($field))
                                     <span class="help-block">
                                         <strong>{{ $errors->first($field) }}</strong>
@@ -83,11 +75,7 @@ Oficjalna strona akcji honorowego krwiodawstwa Wampiriada w Łodzi, organizowane
                             @with('last_name' as $field)
                             <div class="form-group{{ $errors->has($field) ? ' has-error' : '' }}">
                                 <label for="email">Nazwisko</label>
-<<<<<<< HEAD
                                 <input type="text" class="form-control" name="{{ $field }}" id="{{ $field }}" value="{{ old($field) }}">
-=======
-                                <input type="text" class="form-control" name="{{ $field }}" id="{{ $field }}">
->>>>>>> ad35899c0708d2e9f3d15ff064513eb0f33a9189
                                 @if ($errors->has($field))
                                     <span class="help-block">
                                         <strong>{{ $errors->first($field) }}</strong>
