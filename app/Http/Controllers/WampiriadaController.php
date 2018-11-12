@@ -14,6 +14,7 @@ use NZS\Wampiriada\Polls\WampiriadaPoll;
 use NZS\Wampiriada\Mailing\Campaigns\EmailCampaignResult;
 use NZS\Wampiriada\Redirects\WampiriadaRedirectRepository;
 use Illuminate\Http\Request;
+use App\Http\Requests\ReminderRequest;
 
 use NZS\Core\Polls\Poll;
 use NZS\Core\Polls\UsesPolls;
@@ -139,7 +140,7 @@ class WampiriadaController extends Controller {
         ]);
     }
 
-    public function postReminder(Request $request, $action_day_id) {
+    public function postReminder(ReminderRequest $request, $action_day_id) {
         $action = ActionDay::findOrFail($action_day_id);
         $user = Donor::find($request->input('user_id'));
 

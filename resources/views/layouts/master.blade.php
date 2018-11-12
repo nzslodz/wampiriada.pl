@@ -41,6 +41,9 @@
                 return '{{ url('') }}/' + url
             }
         </script>
+
+        @yield('extrahead')
+        @yield('extrahead-recaptcha')
     </head>
     <body class="@yield('classes')">
         @include('layouts.templates.fb')

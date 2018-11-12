@@ -63,6 +63,8 @@ Oficjalna strona akcji honorowego krwiodawstwa Wampiriada w Łodzi, organizowane
                             </div>
                         @endif
 
+                        @include('recaptcha', ['action' => 'remind'])                      
+
                         <button class="btn btn-default" type="submit">Ustaw przypomnienie</button>
                     </form>
 

@@ -9,6 +9,8 @@ use GuzzleHttp\Client;
 
 use Carbon\Carbon;
 
+use Validator;
+
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -18,7 +20,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        Validator::extend('recaptcha', 'NZS\Core\Utils\Recaptcha@validate');
     }
 
     /**

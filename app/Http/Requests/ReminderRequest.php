@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use App\Http\Requests\Request;
 
-class NewsletterRemoveRequest extends Request
+class ReminderRequest extends Request
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,8 +23,11 @@ class NewsletterRemoveRequest extends Request
      */
     public function rules() {
         return [
-            'email' => 'email|required',
-            'g-recaptcha-response' => 'recaptcha|required'
+            'g-recaptcha-response' => 'recaptcha|required',
+            'user_id' => 'required_without_all:first_name,last_name,email|numeric',
+            'email' => 'required_without:user_id|email',
+            'first_name' => 'required_with:email|string',
+            'last_name' => 'required_with:email|string',
         ];
     }
 
