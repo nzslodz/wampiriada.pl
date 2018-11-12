@@ -49,21 +49,51 @@ Oficjalna strona akcji honorowego krwiodawstwa Wampiriada w Łodzi, organizowane
                         @if($user->id)
                         <input type="hidden" name="user_id" value="{{ $user->id }}">
                         @else
-                            <div class="form-group">
+
+                            @with('email' as $field)
+                            <div class="form-group{{ $errors->has($field) ? ' has-error' : '' }}">
                                 <label for="email">E-mail</label>
-                                <input type="text" class="form-control" name="email" id="email">
+                                <input type="email" class="form-control" name="{{ $field }}" id="{{ $field }}">
+                                @if ($errors->has($field))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first($field) }}</strong>
+                                    </span>
+                                @endif
                             </div>
-                            <div class="form-group">
-                                <label for="first_name">Imię</label>
-                                <input type="text" class="form-control" name="first_name" id="first_name">
+
+                            @with('first_name' as $field)
+                            <div class="form-group{{ $errors->has($field) ? ' has-error' : '' }}">
+                                <label for="email">Imię</label>
+                                <input type="text" class="form-control" name="{{ $field }}" id="{{ $field }}">
+                                @if ($errors->has($field))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first($field) }}</strong>
+                                    </span>
+                                @endif
                             </div>
-                            <div class="form-group">
-                                <label for="last_name">Nazwisko</label>
-                                <input type="text" class="form-control" name="last_name" id="last_name">
+
+                            @with('last_name' as $field)
+                            <div class="form-group{{ $errors->has($field) ? ' has-error' : '' }}">
+                                <label for="email">Nazwisko</label>
+                                <input type="text" class="form-control" name="{{ $field }}" id="{{ $field }}">
+                                @if ($errors->has($field))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first($field) }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+
+                            @with('g-recaptcha-response' as $field)
+                            <div class="form-group{{ $errors->has($field) ? ' has-error' : '' }}">
+                                @if ($errors->has($field))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first($field) }}</strong>
+                                    </span>
+                                @endif
                             </div>
                         @endif
 
-                        @include('recaptcha', ['action' => 'remind'])                      
+                        @include('recaptcha', ['action' => 'remind'])
 
                         <button class="btn btn-default" type="submit">Ustaw przypomnienie</button>
                     </form>
