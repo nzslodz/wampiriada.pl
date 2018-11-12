@@ -344,3 +344,68 @@ $toggle-default-font-size: .75rem;
         margin: 20px auto;
     }
 }
+
+.section-login-confirm {
+    .btn-facebook {
+        background-color: #3b5998;
+        border-color: #dfe3ee;
+
+        &:hover, &:active {
+            background-color: darken(#3b5998, 3%);
+            color: #dfe3ee;
+        }
+
+        big {
+            display: inline-block;
+            margin-right: 6px;
+        }
+    }
+
+    .or {
+        margin-top: 14px;
+
+        text-align: center;
+
+        position: relative;
+
+        &:before, &:after {
+            content: " ";
+            width: 100px;
+            border-bottom: 1px solid #753a3a;
+            display: block;
+            position: absolute;
+            top: 0.8em;
+        }
+
+        &:before {
+            left: -3em;
+        }
+
+        &:after {
+            right: -3em;
+        }
+    }
+
+    .bottom {
+        text-align: center;
+    }
+
+    hr {
+        margin-bottom: 3px;
+        border-top-color: #753a3a;
+    }
+
+    label[for="size-reprise"] {
+        opacity: 0.6;
+    }
+
+    input {
+        min-width: 400px;
+    }
+
+    input[disabled] {
+        background-color: rgba(255, 255, 255, 0.1);
+        border-color: rgba(255, 255, 255, 0.1);
+        color: rgba(255,255,255, 0.5);
+    }
+}
