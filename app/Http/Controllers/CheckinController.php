@@ -62,7 +62,7 @@ class CheckinController extends Controller {
                 ->whereEditionId($repository->getEdition()->id)
                 ->first();
 
-            if($checkin) {
+            if($checkin && !app()->environment('local')) {
                 return response()->json([
                     'status' => 'forbidden',
                     'str_code' => 'MULTIPLE_CHECKIN',

@@ -87,6 +87,10 @@ class CheckinRequest extends Request
     protected function decorateDonorInstance(Donor $user) {
         $user->facebook_user_id = $this->facebook_id;
         $user->email = $this->email;
+
+        $user->consent_email_nzs = $this->agreementEmailNZS;
+        $user->consent_email_wampiriada = $this->agreementEmailWampiriada;
+
         list($user->first_name, $user->last_name) = $this->getNameAsPair();
 
         return $user;
