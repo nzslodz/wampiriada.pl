@@ -145,7 +145,7 @@ const store = new Vuex.Store({
                 'Dane statystyczne',
                 'Prywatność',
                 'Twoje dane',
-                'Wysyłanie danych',
+                '',
             ],
             previousStepVisibility: [
                 false,
@@ -351,7 +351,7 @@ const store = new Vuex.Store({
         async showManualLogoutStep({ commit, dispatch }) {
             commit('pushSendingState', 'logging_out')
 
-            await waitPromise(100);
+            await waitPromise(1000);
 
             commit('pushSendingState', 'logging_out_failed')
         },
@@ -359,11 +359,12 @@ const store = new Vuex.Store({
         async doAutomaticLogoutStep({ commit, dispatch }) {
             commit('pushSendingState', 'logging_out')
 
-            await FBPromises.logout();
+            await Promise.all([
+                FBPromises.logout(),
+                waitPromise(1500)
+            ]);
 
             commit('pushSendingState', 'logging_out_done')
-
-            await waitPromise(500);
 
             await dispatch('doReload');
         },
@@ -382,7 +383,10 @@ const store = new Vuex.Store({
             commit('pushSendingState', 'upload')
 
             try {
-                const response = await axios.post('/api/wampiriada/v1/checkin', state.userInput)
+                await Promise.all([
+                    axios.post('/api/wampiriada/v1/checkin', state.userInput),
+                    waitPromise(1500)
+                ])
 
                 commit('pushSendingState', 'upload_done')
 
@@ -405,12 +409,14 @@ const store = new Vuex.Store({
                     }
                 } else {
                     commit('namedNonRecoverableError', {
-                        message: 'Wystąpił nieoczekiwany błąd. Przeładuj stronę. Przepraszamy za problemy.'
+                        message: 'Wystąpił nieoczekiwany błąd. Przeładuj proszę stronę. Przepraszamy za problemy.'
                     })
                 }
 
                 commit('pushSendingState', 'upload_failed')
             }
+
+            await waitPromise(750);
 
             if(state.facebook.showManualLogoutButton) {
                 await dispatch('showManualLogoutStep')

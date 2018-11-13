@@ -1,9 +1,8 @@
 TODO:
 3) style success component
-4) Google Analytics - add consent plugin on main page? checkin does not need it.
-6) margins for .content to not overlap header and footer
-7) should we clear some state when going back to step 3?
-8) Add HTTPS
+//4) Google Analytics - add consent plugin on main page? checkin does not need it.
+//6) margins for .content to not overlap header and footer
+//7) should we clear some state when going back to step 3?
 
 COURIER:
 1) add automation to send files to a server (nzs.lodz.pl/wampiriada.pl)
