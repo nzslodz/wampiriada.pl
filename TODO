@@ -1,49 +1,24 @@
+TODO:
+3) style success component
+//4) Google Analytics - add consent plugin on main page? checkin does not need it.
+//6) margins for .content to not overlap header and footer
+//7) should we clear some state when going back to step 3?
+
+COURIER:
+1) add automation to send files to a server (nzs.lodz.pl/wampiriada.pl)
+
+----
+remaining
 
 
 
-szczegółowe kroki:
-[ ] ograniczyc zbieranie danych marketingowych do minimum
-[x] dropnac zalozenie, ze bedziemy uzywac backendu w celach rekrutacyjnych/analizy
-[x] dropnac wyświetlanie activity dla wampiriady
-[x] dropnąć tworzenie profili userów przy checkinach (nie chcemy miec modelu Person)
-[x] dac appke ktora bedzie po prostu dzialac
-[x] activity classes są chujowe (podpadają pod tracking behavioralny)
-[x] podobnie redirecty nie mają większego sensu (poza oryginalnym założeniem, że można zdefiniować link do pliku X, bez trackingu)
-    [ ] sprawdzić czy się to gdzieś nie wywala
-[x] checkiny są do wyrzucenia (?) - nie, ale zrobić lightweight model osoby z Wampiriady (e-mail, imię, nazwisko, fb id) + checkiny?
-[ ] logowanie Facebookiem przy oddawaniu krwi zostawiamy jako opcję - alternatywnie e-mail, alternatywnie nic (?)
-[x] potrzebne nam imię i nazwisko? tak
-[ ] logowanie Facebookiem dla akcji promocyjnych
-    [x] lista przyjaciół Facebooka - to już prędzej jest to do przejścia przy akcji promocyjnej - z drugiej strony... po co?
+app/Http/Controllers/FacebookNewspaperController.php
 
-Terms:
-    A. LISTA KRWIODAWCÓW
+(poll removal for now)
+app/Http/Controllers/WampiriadaController.php
 
-    B. PRZYPOMNIENIA
+(rodo -> manage privacy)
+app/Http/Controllers/NewsletterController.php
 
-    C. PROMOWANIE, NETWORKING
-
-    D. LOSOWANIE NAGRÓD
-
-Jak osoba się loguje na stronie, to powinna:
-a. mieć możliwość wyrazić (loguję się FB | podaję e-mail - i imię nazwisko? | nie podaję danych osobowych) zgodę
-b. drugi ekran - dla celów statystycznych - oddałem/am krew, grupa krwi, to mój pierwszy raz (anonimizowane)
-c. trzeci ekran - wyrażam zgodę:
- c1. chcę otrzymywać e-maile o nowych edycjach Wampiriady oraz o potrzebnej krwi
- c2. chcę się dowiedzieć więcej o NZS Regionu Łódzkiego
- c3. chcę pomóc Wampiriadzie dotrzeć do większej ilości krwiodawców
-
- Google Analytics
-
-Usuwanie danych
-
-TODO - totally rewrite fb login, może nawet skorzystaj ze storyboardu
-1) dodać stronę, dzięki której usuwanie jest możliwe z formularzem
-2) strona jest dostępna tylko dla człowieka, który ma mail z hashem
-3) zablokować wysyłanie e-maili na podstawie strony
-
-- przestylować Login
-- zrobić marginy, żeby .content nie wchodził na footer/header
-- politykę prywatności ustawić jako zamykalny modal z pobraniem danych z linku
-- przemyśleć co clearować w state jeśli wracamy z kroku 4 do kroku 3
-- przerobić state na action send i obsłużyć handlery
+(EditionData ActionData additions)
+app/Http/Controllers/WampiriadaBackendController.php

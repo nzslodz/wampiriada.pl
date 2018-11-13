@@ -12,12 +12,13 @@
         "doctrine/dbal": "*",
         "predis/predis": "*",
         "davejamesmiller/laravel-breadcrumbs": "^5.0",
-        "jwage/purl": "dev-master",
         "stevenmaguire/trello-php": "^0.4.0",
         "guilhermegonzaga/presenter": "^1.0",
         "laracasts/flash": "^3.0",
         "fideloper/proxy": "^4.0",
-        "symfony/process": "^4.0"
+        "symfony/process": "^4.0",
+        "jwage/purl": "^0.0.10",
+        "czim/with-blade-directive": "^1.1"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

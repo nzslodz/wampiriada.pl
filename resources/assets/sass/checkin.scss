@@ -315,3 +315,169 @@ $toggle-default-font-size: .75rem;
   }
 
 }
+
+.privacy-policy-overlay {
+    position: absolute;
+
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+
+    background-color: #5b1510;
+
+    overflow: scroll;
+
+    .close {
+        position: fixed;
+
+        top: 0px;
+
+        font-size: 2em;
+        font-weight: bold;
+
+        left: 0px;
+    }
+
+    .privacy-policy-contents {
+        width: 80%;
+        margin: 20px auto;
+    }
+}
+
+.section-login-confirm {
+    .btn-facebook {
+        background-color: #3b5998;
+        border-color: #dfe3ee;
+
+        &:hover, &:active {
+            background-color: darken(#3b5998, 3%);
+            color: #dfe3ee;
+        }
+
+        big {
+            display: inline-block;
+            margin-right: 6px;
+        }
+    }
+
+    .or {
+        margin-top: 14px;
+
+        text-align: center;
+
+        position: relative;
+
+        &:before, &:after {
+            content: " ";
+            width: 100px;
+            border-bottom: 1px solid #753a3a;
+            display: block;
+            position: absolute;
+            top: 0.8em;
+        }
+
+        &:before {
+            left: -3em;
+        }
+
+        &:after {
+            right: -3em;
+        }
+    }
+
+    .bottom {
+        text-align: center;
+    }
+
+    hr {
+        margin-bottom: 3px;
+        border-top-color: #753a3a;
+    }
+
+    label[for="size-reprise"] {
+        opacity: 0.6;
+    }
+
+    input {
+        min-width: 400px;
+    }
+
+    input[disabled] {
+        background-color: rgba(255, 255, 255, 0.1);
+        border-color: rgba(255, 255, 255, 0.1);
+        color: rgba(255,255,255, 0.5);
+    }
+}
+
+.section-success {
+    .row {
+        height: 300px;
+        width: 400px;
+    }
+
+    hr {
+        border-top-color: #753a3a;
+    }
+
+    .manual-logout {
+        width: 400px;
+    }
+
+    .info {
+        overflow: hidden;
+        font-size: 1.2em;
+
+        dt {
+            clear:both;
+            float:left;
+            width: 80%;
+
+            transition: 0.2s color ease-in-out;
+        }
+
+        dd {
+            width: 20%;
+            float:right;
+            text-align: right;
+        }
+
+        .ellipsis-anim span {
+            opacity: 0;
+            animation: ellipsis-dot 0.75s infinite;
+        }
+
+        .ellipsis-anim span:nth-child(1) {
+            animation-delay: 0.0s;
+        }
+        .ellipsis-anim span:nth-child(2) {
+            animation-delay: 0.1s;
+        }
+        .ellipsis-anim span:nth-child(3) {
+            animation-delay: 0.2s;
+        }
+
+        .success, .error {
+            animation: makegreen 0.75s 1;
+        }
+    }
+
+    .success {
+        color: green;
+    }
+
+    .error {
+        color: red;
+    }
+}
+
+@keyframes ellipsis-dot {
+      0% { opacity: 0; }
+     50% { opacity: 1; }
+    100% { opacity: 0; }
+}
+
+@keyframes makegreen {
+    0% { transform: scale(0); }
+    100% { transform: scale(1); }
+}

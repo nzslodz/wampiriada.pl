@@ -3,7 +3,7 @@
         <div class="content">
             <div v-if="showLoginOptionsScreen">
                 <div class="top">
-                    <button class="btn btn-facebook" type="button" @click="doFacebookLogin()">Kontynuuj z Facebookiem</button>
+                    <button class="btn btn-facebook" type="button" @click="doFacebookLogin()"><big><i class="fa fa-facebook-square"></i></big> Kontynuuj z Facebookiem</button>
                 </div>
 
                 <div class="or">lub</div>

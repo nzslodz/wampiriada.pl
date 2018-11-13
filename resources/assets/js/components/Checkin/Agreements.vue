@@ -60,7 +60,7 @@
                             <li>Otrzymasz e-maile o innych działaniach NZSu.</li>
                         </ul>
 
-                        <p>Obiecujemy nie wysyłać zbyt wiele takich e-maili (nie więcej niż 2 w miesiącu).</p>
+                        <p>Obiecujemy nie wysyłać zbyt wiele takich e-maili (ok. 1 miesięcznie).</p>
 
                         <div class="text-center snap-to-bottom">
                             <button type="button" :class="['btn', 'btn-lg', 'btn-toggle', {'active': consentEmailNZS}]" v-bind:aria-pressed="consentEmailNZS ? 'true' : 'false'" autocomplete="off" @click="consentTo('EmailNZS')">

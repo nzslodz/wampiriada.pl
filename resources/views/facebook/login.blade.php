@@ -19,7 +19,11 @@
 		<section-success></section-success>
 	</div>
 
-	<meta-component></meta-component>
+	<meta-component>
+		<template slot="privacy-policy">
+			@include('facebook.privacy_policy_contents')
+		</template>
+	</meta-component>
 </div>
 @stop
 

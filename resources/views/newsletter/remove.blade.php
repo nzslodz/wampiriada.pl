@@ -5,8 +5,8 @@ Wypisanie z powiadomień mailowych Wampiriady
 @stop
 
 
-@section('content')
 
+@section('content')
     <section>
 
         <div class="container">
@@ -25,6 +25,8 @@ Wypisanie z powiadomień mailowych Wampiriady
                             <label for="email">E-mail</label>
                             <input type="text" class="form-control" name="email" id="email" value="{{ $email }}">
                         </div>
+
+                        @include('recaptcha', ['action' => 'remove'])                      
 
                         <button class="btn btn-default" type="submit">Wypisz z powiadomień Wampiriady</button>
                     </form>

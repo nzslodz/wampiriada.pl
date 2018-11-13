@@ -24,6 +24,7 @@ class NewsletterRemoveRequest extends Request
     public function rules() {
         return [
             'email' => 'email|required',
+            'g-recaptcha-response' => 'recaptcha|required'
         ];
     }
 
@@ -31,6 +32,7 @@ class NewsletterRemoveRequest extends Request
         return [
             'required' => 'Pole jest wymagane',
             'email' => 'To nie jest poprawny adres e-mail.',
+            'recaptcha' => 'Spróbuj ponownie za jakiś czas.',
         ];
     }
 }

@@ -62,6 +62,12 @@ class EditionRepository {
         return static::fromNumber($repository->getEditionNumber() - 2);
     }
 
+    public function currentAction() {
+        return ActionDay::whereDate('created_at', '=', Carbon::today())
+            ->whereEditionId($this->edition->id)
+            ->first();
+    }
+
     // edition getters
     public function getEdition() {
         return $this->edition;
@@ -224,52 +230,49 @@ class EditionRepository {
         return $wampiriada_repository->registerRedirect($key, $url);
     }
 
-    public function checkin(Donor $user, Request $request) {
-        $current_action = ActionDay::whereDate('created_at', '=', Carbon::today())->first();
+    /*
+    userInput: {
+        bloodType: null,
+        chosenSize: null,
+        firstTime: false,
+        name: null,
+        email: null,
+        facebook_id: null,
+
+        agreementDataProcessing: false,
+        agreementEmailWampiriada: false,
+        agreementEmailNZS: false,
+    }
+     */
+
+    public function checkin(?Donor $user, Request $request) {
+        $current_action = $this->currentAction();
         if(!$current_action) {
             throw new LogicException("There is no action for today");
         }
 
-        // save checkin model
-        $checkin = new Checkin();
-        $checkin->size_id = $request->size;
-        $checkin->name = $request->name;
-        $checkin->action_day_id = $current_action->id;
-        $checkin->edition_id = $current_action->edition_id;
-        $checkin->user_id = $user->id;
-
-        $checkin->save();
+        if($user) {
+            // save checkin model
+            $checkin = new Checkin();
+            $checkin->size_id = $request->chosenSize;
+            $checkin->name = $request->name;
+            $checkin->action_day_id = $current_action->id;
+            $checkin->edition_id = $current_action->edition_id;
+            $checkin->user_id = $user->id;
+            $checkin->save();
+        }
 
         // Update ActionData
         $action_data = ActionData::firstOrNew(['id' => $current_action->id]);
         $action_data->donated += 1;
-        $action_data->{$request->blood_type} += 1;
-        $action_data->first_time += (int) $request->filled('first_time');
+        $action_data->{$request->bloodType} += 1;
+        $action_data->first_time += (int) $request->filled('firstTime');
         $action_data->save();
 
         // Update EditionData
         $edition_data = EditionData::firstOrNew(['id' => $this->getEdition()->id]);
         $edition_data->donated += 1;
-        $edition_data->first_time += (int) $request->filled('first_time');
+        $edition_data->first_time += (int) $request->filled('firstTime');
         $edition_data->save();
-
-        // update Donor
-        $user_has_changed = false;
-
-        $list = explode(' ', $checkin->name);
-
-        if(count($list) == 2) {
-            list($user->first_name, $user->last_name) = $list;
-            $user_has_changed = true;
-        }
-
-        if(!$user->email) {
-            $user->email = $request->email;
-            $user_has_changed = true;
-        }
-
-        if($user_has_changed) {
-            $user->save();
-        }
     }
 }

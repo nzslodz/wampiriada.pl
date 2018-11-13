@@ -99,18 +99,23 @@ const store = new Vuex.Store({
         chosenDataProvider: false,
         clickedOnFacebookLogout: false,
 
+        error: {
+            message: null,
+        },
+
         counters: {
             manualLogout: 60,
             success: 10,
         },
 
         sendingState: {
-            'upload': false,
-            'upload_done': false,
-            'logging_out': false,
-            'logging_out_done': false,
-            'logging_out_failed': false,
-            'redirecting': false,
+            upload: false,
+            upload_done: false,
+            upload_failed: false,
+            logging_out: false,
+            logging_out_done: false,
+            logging_out_failed: false,
+            redirecting: false,
         },
 
         facebook: {
@@ -140,7 +145,7 @@ const store = new Vuex.Store({
                 'Dane statystyczne',
                 'Prywatność',
                 'Twoje dane',
-                'Wysyłanie danych',
+                '',
             ],
             previousStepVisibility: [
                 false,
@@ -295,6 +300,10 @@ const store = new Vuex.Store({
             state.sendingState[payload] = true
         },
 
+        namedNonRecoverableError(state, { message }) {
+            state.error.message = message
+        },
+
         facebookInitializationFinishedWithStatus(state, payload) {
             state.facebook.waitingForInitialization = false;
 
@@ -342,7 +351,7 @@ const store = new Vuex.Store({
         async showManualLogoutStep({ commit, dispatch }) {
             commit('pushSendingState', 'logging_out')
 
-            await waitPromise(100);
+            await waitPromise(1000);
 
             commit('pushSendingState', 'logging_out_failed')
         },
@@ -350,11 +359,12 @@ const store = new Vuex.Store({
         async doAutomaticLogoutStep({ commit, dispatch }) {
             commit('pushSendingState', 'logging_out')
 
-            await FBPromises.logout();
+            await Promise.all([
+                FBPromises.logout(),
+                waitPromise(1500)
+            ]);
 
             commit('pushSendingState', 'logging_out_done')
-
-            await waitPromise(500);
 
             await dispatch('doReload');
         },
@@ -372,9 +382,41 @@ const store = new Vuex.Store({
 
             commit('pushSendingState', 'upload')
 
-            const response = await axios.post('/api/wampiriada/v1/checkin', state.userInput)
+            try {
+                await Promise.all([
+                    axios.post('/api/wampiriada/v1/checkin', state.userInput),
+                    waitPromise(1500)
+                ])
 
-            commit('pushSendingState', 'upload_done')
+                commit('pushSendingState', 'upload_done')
+
+            } catch(err) {
+                if(err.response && err.response.data && err.response.data.str_code) {
+                    switch(err.response.data.str_code) {
+                        case 'MULTIPLE_CHECKIN':
+                            commit('namedNonRecoverableError', {
+                                message: 'Już raz oddano krew w tej edycji z użyciem Twojego adresu e-mail. Jeśli to pomyłka, spróbuj z użyciem innego e-maila.'
+                            })
+
+                            break;
+
+                        case 'CHECKIN_NOT_AVAILABLE':
+                            commit('namedNonRecoverableError', {
+                                message: 'Dziś nie ma żadnej zaplanowanej akcji krwiodawstwa.'
+                            })
+
+                            break;
+                    }
+                } else {
+                    commit('namedNonRecoverableError', {
+                        message: 'Wystąpił nieoczekiwany błąd. Przeładuj proszę stronę. Przepraszamy za problemy.'
+                    })
+                }
+
+                commit('pushSendingState', 'upload_failed')
+            }
+
+            await waitPromise(750);
 
             if(state.facebook.showManualLogoutButton) {
                 await dispatch('showManualLogoutStep')

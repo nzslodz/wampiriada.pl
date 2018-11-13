@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use App\Http\Requests\Request;
 
-class EmailLoginRequest extends Request
+class ReminderRequest extends Request
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,7 +23,11 @@ class EmailLoginRequest extends Request
      */
     public function rules() {
         return [
-            'email' => 'email|required',
+            'g-recaptcha-response' => 'recaptcha|required',
+            'user_id' => 'required_without_all:first_name,last_name,email|numeric',
+            'email' => 'required_without:user_id|email',
+            'first_name' => 'required_with:email|string',
+            'last_name' => 'required_with:email|string',
         ];
     }
 
@@ -31,6 +35,10 @@ class EmailLoginRequest extends Request
         return [
             'required' => 'Pole jest wymagane',
             'email' => 'To nie jest poprawny adres e-mail.',
+            'recaptcha' => 'Spróbuj ponownie za jakiś czas.',
+            'required_with' => 'To pole jest wymagane.',
+            'string' => 'To pole jest wymagane.',
+            'required_without' => 'To pole jest wymagane.',
         ];
     }
 }
