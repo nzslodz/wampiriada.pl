@@ -39,7 +39,9 @@ class CheckinController extends Controller {
             return view('facebook.login_forbidden');
         }
 
-        $shirt_sizes = ShirtSize::orderBy('id')->pluck('name', 'id');
+        $shirt_sizes = ShirtSize::orderBy('id')
+            ->where('active', true)
+            ->pluck('name', 'id');
 
         return view('facebook.login', [
             'sizes' => $shirt_sizes,
