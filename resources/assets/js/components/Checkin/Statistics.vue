@@ -2,7 +2,7 @@
     <section class="statistics">
         <div class="content">
             <div class="form-group">
-                <label for="">Oddaję (pierwszy raz/kolejny raz)</label>
+                <label for="">Czy oddajesz pierwszy raz?</label>
                 <button type="button" :class="['btn', 'btn-lg', 'btn-toggle', {'active': firstTime}]" v-bind:aria-pressed="firstTime ? 'true' : 'false'" autocomplete="off" @click="setFirstTime()">
                     <div class="handle"></div>
                 </button>
