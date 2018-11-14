@@ -266,13 +266,13 @@ class EditionRepository {
         $action_data = ActionData::firstOrNew(['id' => $current_action->id]);
         $action_data->donated += 1;
         $action_data->{$request->bloodType} += 1;
-        $action_data->first_time += (int) $request->filled('firstTime');
+        $action_data->first_time += (int) $request->firstTime;
         $action_data->save();
 
         // Update EditionData
         $edition_data = EditionData::firstOrNew(['id' => $this->getEdition()->id]);
         $edition_data->donated += 1;
-        $edition_data->first_time += (int) $request->filled('firstTime');
+        $edition_data->first_time += (int) $request->firstTime;
         $edition_data->save();
     }
 }
