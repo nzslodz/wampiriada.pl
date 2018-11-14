@@ -22,3 +22,7 @@ mix.js('resources/assets/js/app.js', 'js')
    .sass('resources/assets/sass/main.scss', 'css')
    .sass('resources/assets/sass/checkin.scss', 'css')
    .sass('resources/assets/sass/app.scss', 'css')
+
+if (isProduction) {
+    mix.version();
+}
