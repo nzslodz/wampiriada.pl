@@ -412,7 +412,7 @@ class WampiriadaController extends Controller {
             'wrotkarnia' => [
                 'title' => 'Wrotkarnia KołoWrotki',
                 'link' => 'http://www.kolowrotki.com.pl/',
-                'image' => 'img/partnerzy/wrotkania.png',
+                'image' => 'img/partnerzy/wrotkarnia.png',
             ],
             'tulodz' => [
                 'title' => 'TuŁódź.com',
