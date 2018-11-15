@@ -324,7 +324,7 @@ class WampiriadaController extends Controller {
             'mlodziwlodzi' => [
                 'title' => 'Młodzi w Łodzi',
                 'link' => 'https://mlodziwlodzi.pl/',
-                'image' => 'img/partnerzy/mlodziwlodzi.jpg',
+                'image' => 'img/partnerzy/mlodziwlodzi.png',
             ],
 
             'goudaworks' => [
@@ -399,15 +399,41 @@ class WampiriadaController extends Controller {
                 'link' => 'https://www.filmschool.lodz.pl/',
                 'image' => 'img/partnerzy/szkolafilmowa.jpg',
             ],
+            'tkalniazagadek' => [
+                'title' => 'Tkalnia Zagadek',
+                'link' => 'https://tkalniazagadek.pl/',
+                'image' => 'img/partnerzy/tkalniazagadek.png',
+            ],
+            'doktormarchewka' => [
+                'title' => 'Doktor Marchewka',
+                'link' => 'https://doktormarchewka.com/',
+                'image' => 'img/partnerzy/doktormarchewka.png',
+            ],
+            'wrotkarnia' => [
+                'title' => 'Wrotkarnia KołoWrotki',
+                'link' => 'http://www.kolowrotki.com.pl/',
+                'image' => 'img/partnerzy/wrotkania.png',
+            ],
+            'tulodz' => [
+                'title' => 'TuŁódź.com',
+                'link' => 'https://tupolska.com/',
+                'image' => 'img/partnerzy/tulodz.png',
+            ],
+            'radiolodz' => [
+                'title' => 'Radio Łódź',
+                'link' => 'https://www.radiolodz.pl/',
+                'image' => 'img/partnerzy/radiolodz.png',
+            ],
+
 
         ];
 
         $structure = [
             [ 'lodz-kreuje',  'wl-lodzkie', 'wl-main', ],
-            [ 'mz', 'nck', 'kghm', 'uml-zdrowie' ],
+            [ 'mz', 'nck', 'tkalniazagadek', 'wrotkarnia' ],
             [ 'ul', 'pl', 'um', 'szkolafilmowa', 'wsiu' ],
-            [ 'teatr-wielki', 'teatr-nowy', 'teatr-muzyczny', 'bodo' ],
-            [ 'fiero', 'saltos', 'musicschool', 'krolkul' ],
+            [ 'teatr-wielki', 'teatr-nowy', 'teatr-muzyczny', 'doktormarchewka' ],
+            [ 'fiero', 'radiolodz', 'musicschool', 'tulodz' ],
             [ 'mlodziwlodzi', 'makimo', 'eska', 'plaster'],
             [ 'infostudent', 'zak', 'studentlodz'],
         ];
