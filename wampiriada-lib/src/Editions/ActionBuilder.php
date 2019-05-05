@@ -35,8 +35,6 @@ class ActionBuilder {
 
         $action_day->start = "10:00:00";
 
-        var_dump($action_day->start);
-
         if(!$action_day->start) {
             $action_day->start = "10:00:00";
         }
