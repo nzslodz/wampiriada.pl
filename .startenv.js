@@ -3,7 +3,7 @@
 // project name automatically for you.
 
 /*
- * Created for v3.makimo.pl.
+ * Created for wampiriada.pl.
  *
  * Run this with:
  *      startenv intspk-database [-w]
