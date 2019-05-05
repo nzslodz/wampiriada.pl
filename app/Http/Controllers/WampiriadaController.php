@@ -173,7 +173,7 @@ class WampiriadaController extends Controller {
             'wl-main' => [
                 'title' => 'Urząd Wojewódzki w Łodzi',
                 'link' => 'http://lodzkie.pl',
-                'image' => 'img/partnerzy/02.jpg',
+                'image' => 'img/partnerzy/02.png',
             ],
             'uml-zdrowie' => [
                 'title' => 'Wydział Zdrowia Urzędu Miasta Łodzi',
@@ -252,7 +252,7 @@ class WampiriadaController extends Controller {
             'infostudent' => [
                 'title' => 'InfoStudent',
                 'link' => 'http://www.infosgroup.pl/infostudent/',
-                'image' => 'img/partnerzy/26.jpg',
+                'image' => 'img/partnerzy/infostudent.png',
             ],
 
             'studentnews' => [
@@ -425,16 +425,72 @@ class WampiriadaController extends Controller {
                 'image' => 'img/partnerzy/radiolodz.png',
             ],
 
+            'filharmonia' => [
+                'title' =>  'Filharmonia Łódzka im. Artura Rubinsteina',
+                'link' => 'https://filharmonia.lodz.pl/',
+                'image' => 'img/partnerzy/filharmonia.png',
+            ],
+
+            'jump-world' => [
+                'title' =>  'Park Trampolin JumpWorld Łódź',
+                'link' => 'https://www.jumpworld.pl/lodz',
+                'image' => 'img/partnerzy/jump-world.png',
+            ],
+
+            'laser-game' => [
+                'title' =>  'Alfa Laser Game Łódź',
+                'link' => 'https://alfalaser.pl/',
+                'image' => 'img/partnerzy/laser-game.png',
+            ],
+
+            'nordea' => [
+                'title' =>  'Grupa Nordea',
+                'link' => 'https://nordea.pl',
+                'image' => 'img/partnerzy/nordea.png',
+            ],
+
+            'paczka' => [
+                'title' =>  'Paczka Centrum Artystyczne - Agnieszka Cygan',
+                'link' => 'https://paczkacentrumartystyczne.pl/',
+                'image' => 'img/partnerzy/paczka.png',
+            ],
+
+            'plaster-nowy' => [
+                'title' =>  'Plaster Łódzki',
+                'link' => 'https://plasterlodzki.pl',
+                'image' => 'img/partnerzy/plaster.png',
+            ],
+
+            'rollin-barrel' => [
+                'title' =>  'The Rollin\' Barrel',
+                'link' => 'https://www.facebook.com/TRBarrel/',
+                'image' => 'img/partnerzy/rollin-barrel.png',
+            ],
+
+            'karta-rabatowa' => [
+                'title' =>  'Studencka Karta Rabatowa',
+                'link' => 'https://play.google.com/store/apps/details?id=com.altconnect.android.skr&hl=pl',
+                'image' => 'img/partnerzy/studencka-karta-rabatowa.png',
+            ],
+
+            'teofilow' => [
+                'title' =>  'Teofilów S.A.',
+                'link' => 'http://www.teofilow.com.pl/',
+                'image' => 'img/partnerzy/teofilow.png',
+            ],
+
 
         ];
 
         $structure = [
             [ 'lodz-kreuje',  'wl-lodzkie', 'wl-main', ],
-            [ 'mz', 'nck', 'tkalniazagadek', 'wrotkarnia' ],
-            [ 'ul', 'pl', 'um', 'szkolafilmowa', 'wsiu' ],
-            [ 'teatr-wielki', 'teatr-nowy', 'teatr-muzyczny', 'doktormarchewka' ],
-            [ 'fiero', 'radiolodz', 'musicschool', 'tulodz' ],
-            [ 'mlodziwlodzi', 'makimo', 'eska', 'plaster'],
+            [ 'mz', 'nck', 'nordea', 'paczka' ],
+            [ 'ul', 'pl', 'um', 'wsiu' ],
+            [ 'teatr-wielki', 'teatr-nowy', 'teatr-muzyczny', 'filharmonia' ],
+            [ 'fiero', 'musicschool', 'laser-game', 'tkalniazagadek'],
+
+            [ 'teofilow', 'jump-world', 'rollin-barrel', 'karta-rabatowa', ],
+            [ 'mlodziwlodzi', 'makimo', 'eska', 'plaster-nowy'],
             [ 'infostudent', 'zak', 'studentlodz'],
         ];
 

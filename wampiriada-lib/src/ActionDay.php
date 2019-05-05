@@ -42,10 +42,18 @@ class ActionDay extends Model {
 
 	// XXX casts?
 	public function getStartAttribute($attr) {
+        if(!$attr) {
+            return null;
+        }
+
         return Carbon::createFromFormat('H:i:s', $attr);
     }
 
     public function getEndAttribute($attr) {
+        if(!$attr) {
+            return null;
+        }
+
         return Carbon::createFromFormat('H:i:s', $attr);
     }
 
