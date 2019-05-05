@@ -279,6 +279,8 @@ Oficjalna strona akcji honorowego krwiodawstwa Wampiriada w Łodzi, organizowane
                 <div class="clearfix">
                     <h2>Partnerzy</h2>
                     <p>Serdecznie dziękujemy naszym partnerom za możliwość przeprowadzenia akcji Wampiriada w Łodzi.</p>
+
+                    <p>Zadanie "WAMPIRIADA - studenckie honorowe krwiodawstwo" jest realizowane dzięki dofinansowaniu z budżetu Miasta Łodzi.</p>
                 </div>
             </div>
 
