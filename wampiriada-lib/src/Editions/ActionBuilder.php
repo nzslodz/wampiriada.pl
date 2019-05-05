@@ -33,8 +33,6 @@ class ActionBuilder {
     public function getActionDay(Edition $edition) {
         $action_day = $this->action_day;
 
-        $action_day->start = "10:00:00";
-
         if(!$action_day->start) {
             $action_day->start = "10:00:00";
         }
