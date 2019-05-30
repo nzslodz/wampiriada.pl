@@ -53,7 +53,7 @@ Ekipa Wampiriady i członkowie oraz sympatycy NZS Regionu Łódzkiego :)
 </p>
 
 <p style="font-size: 13px; letter-spacing: 1px; font-family: Arial, sans-serif; color: #3D3D3D !important; margin-top: 0; margin-left: 0; margin-bottom: 25px; line-height: 1.4; text-align: center">
-    <a href="{{ $repository->getRedirect('nzs') }}"><img src="http://nzs.lodz.pl/newsletter/nzs-logo.png"></a>
+    <a href="{{ $repository->getRedirect('nzs') }}"><img src="https://wampiriada.pl/img/nzs-logo.png"></a>
 </p>
 
 @stop
