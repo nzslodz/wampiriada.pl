@@ -11,5 +11,17 @@ class WampiriadaPartyMailingComposer extends BaseWampiriadaMailingComposer {
 
     protected $view_prefix = 'emails.wampiriada.party';
 
-    protected $subject = "Wampirparty - weź udział w imprezie VR w Virtual House";
+
+    public function getSubject($user) {
+        if($this->edition->number == 30) {
+            return "Wampirparty - weź udział w imprezie VR w Virtual House";
+        }
+
+        if($this->edition->number == 34) {
+            return "Wampirparty - ODWYK po Wampiriadzie!";
+        }
+
+        return "{$this->edition->number}. edycja Wampiriady - czas na Wampirparty!";
+    }
+
 }
