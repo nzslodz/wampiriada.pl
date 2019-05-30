@@ -41,7 +41,7 @@ Optionally you can provide:
                             <tr>
 
                                 <td style="text-align: center">
-                                    <a href="{{ $repository->getRedirect('wampiriada') }}"><img src="http://wampiriada.pl/img/wampi28-mailing-official.jpg" alt="@if(isset($edition))Wampiriada - {{ $edition->number  }}. edycja @else Wampiriada @endif"></a>
+                                    <a href="{{ $repository->getRedirect('wampiriada') }}"><img src="https://wampiriada.pl/img/wampi28-mailing-official.jpg" alt="@if(isset($edition))Wampiriada - {{ $edition->number  }}. edycja @else Wampiriada @endif"></a>
                                 </td>
                             </tr>
                         </table>
