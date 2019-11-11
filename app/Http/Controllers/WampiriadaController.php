@@ -6,7 +6,6 @@ use NZS\Core\Redirects\DatabaseRedirectRepository;
 use NZS\Core\Redirects\CompositeRedirectRepository;
 use App\Libraries\PartnerRow;
 use NZS\Wampiriada\Option;
-use NZS\Wampiriada\Action;
 use NZS\Wampiriada\Checkins\Checkin;
 use NZS\Wampiriada\Redirect;
 use NZS\Wampiriada\Editions\Edition;
@@ -15,23 +14,20 @@ use NZS\Wampiriada\Polls\WampiriadaPoll;
 use NZS\Wampiriada\Mailing\Campaigns\EmailCampaignResult;
 use NZS\Wampiriada\Redirects\WampiriadaRedirectRepository;
 use Illuminate\Http\Request;
-
-use NZS\Wampiriada\Redirects\AwareRedirectRepository;
+use App\Http\Requests\ReminderRequest;
 
 use NZS\Core\Polls\Poll;
 use NZS\Core\Polls\UsesPolls;
 use NZS\Wampiriada\Polls\ThankYou\WampiriadaThankYouPollFormRequest;
 use NZS\Wampiriada\Reminders\Reminder;
-
-use NZS\Core\Person;
+use NZS\Wampiriada\Donor;
+use NZS\Wampiriada\ActionDay;
 
 class WampiriadaController extends Controller {
     use UsesPolls;
 
     public function showIndex() {
-        $edition = Option::get('wampiriada.edition', 28);
-
-        $repository = new EditionRepository($edition);
+        $repository = EditionRepository::current();
 
         $event_redirect = $repository->getRedirect('facebook-event');
 
@@ -47,7 +43,7 @@ class WampiriadaController extends Controller {
         }
 
         try {
-            $last_year_edition = new EditionRepository($repository->getEditionNumber() - 2);
+            $last_year_edition = EditionRepository::fromPreviousYear($repository);
             $overall_difference = $repository->getOverallDifference($last_year_edition) * 0.45;
         } catch(ObjectDoesNotExist $e) {
             $overall_difference = false;
@@ -130,57 +126,12 @@ class WampiriadaController extends Controller {
         ]);
     }
 
-    public function getRedirectByName(Request $request, $name) {
-        $repository = new DatabaseRedirectRepository;
-
-        $redirect_url = $repository->resolveRedirect($name);
-
-        if(!$redirect_url) {
-            abort(404);
-        }
-
-        $aware_repository = AwareRedirectRepository::fromRequest($request, $repository);
-        if($aware_repository) {
-            $aware_repository->saveEmailCampaignInfo($name);
-
-            // remember flag
-            if($request->input('r') == 't') {
-                $request->session()->flash('redirect_user_id', $aware_repository->getUser()->id);
-            }
-        }
-
-        return redirect($redirect_url);
-    }
-
-    public function getRedirect(Request $request, $edition_number, $name) {
-        $edition_repository = new EditionRepository($edition_number);
-        $repository = $edition_repository->getRedirectRepository();
-
-        $redirect_url = $repository->resolveRedirect($name);
-
-        if(!$redirect_url) {
-            abort(404);
-        }
-
-        $aware_repository = AwareRedirectRepository::fromRequest($request, $repository);
-        if($aware_repository) {
-            $aware_repository->saveEmailCampaignInfo($name);
-
-            // remember flag
-            if($request->input('r') == 't') {
-                $request->session()->flash('redirect_user_id', $aware_repository->getUser()->id);
-            }
-        }
-
-        return redirect($redirect_url);
-    }
-
     public function getReminder(Request $request, $action_day_id) {
-        $action = Action::findOrFail($action_day_id);
-        $user = Person::find($request->session()->get('redirect_user_id'));
+        $action = ActionDay::findOrFail($action_day_id);
+        $user = Donor::find($request->session()->get('redirect_user_id'));
 
         if(!$user) {
-            $user = new Person;
+            $user = new Donor;
         }
 
         return view('wampiriada.reminder', [
@@ -189,12 +140,12 @@ class WampiriadaController extends Controller {
         ]);
     }
 
-    public function postReminder(Request $request, $action_day_id) {
-        $action = Action::findOrFail($action_day_id);
-        $user = Person::find($request->input('user_id'));
+    public function postReminder(ReminderRequest $request, $action_day_id) {
+        $action = ActionDay::findOrFail($action_day_id);
+        $user = Donor::find($request->input('user_id'));
 
         if(!$user) {
-            $user = Person::firstOrNew(['email' => $request->email]);
+            $user = Donor::firstOrNew(['email' => $request->email]);
             $user->first_name = $request->first_name;
             $user->last_name = $request->last_name;
             $user->save();
@@ -222,7 +173,7 @@ class WampiriadaController extends Controller {
             'wl-main' => [
                 'title' => 'Urząd Wojewódzki w Łodzi',
                 'link' => 'http://lodzkie.pl',
-                'image' => 'img/partnerzy/02.jpg',
+                'image' => 'img/partnerzy/02.png',
             ],
             'uml-zdrowie' => [
                 'title' => 'Wydział Zdrowia Urzędu Miasta Łodzi',
@@ -301,7 +252,7 @@ class WampiriadaController extends Controller {
             'infostudent' => [
                 'title' => 'InfoStudent',
                 'link' => 'http://www.infosgroup.pl/infostudent/',
-                'image' => 'img/partnerzy/26.jpg',
+                'image' => 'img/partnerzy/infostudent.png',
             ],
 
             'studentnews' => [
@@ -373,7 +324,7 @@ class WampiriadaController extends Controller {
             'mlodziwlodzi' => [
                 'title' => 'Młodzi w Łodzi',
                 'link' => 'https://mlodziwlodzi.pl/',
-                'image' => 'img/partnerzy/mlodziwlodzi.jpg',
+                'image' => 'img/partnerzy/mlodziwlodzi.png',
             ],
 
             'goudaworks' => [
@@ -448,16 +399,98 @@ class WampiriadaController extends Controller {
                 'link' => 'https://www.filmschool.lodz.pl/',
                 'image' => 'img/partnerzy/szkolafilmowa.jpg',
             ],
+            'tkalniazagadek' => [
+                'title' => 'Tkalnia Zagadek',
+                'link' => 'https://tkalniazagadek.pl/',
+                'image' => 'img/partnerzy/tkalniazagadek.png',
+            ],
+            'doktormarchewka' => [
+                'title' => 'Doktor Marchewka',
+                'link' => 'https://doktormarchewka.com/',
+                'image' => 'img/partnerzy/doktormarchewka.png',
+            ],
+            'wrotkarnia' => [
+                'title' => 'Wrotkarnia KołoWrotki',
+                'link' => 'http://www.kolowrotki.com.pl/',
+                'image' => 'img/partnerzy/wrotkarnia.png',
+            ],
+            'tulodz' => [
+                'title' => 'TuŁódź.com',
+                'link' => 'https://tupolska.com/',
+                'image' => 'img/partnerzy/tulodz.png',
+            ],
+            'radiolodz' => [
+                'title' => 'Radio Łódź',
+                'link' => 'https://www.radiolodz.pl/',
+                'image' => 'img/partnerzy/radiolodz.png',
+            ],
+
+            'filharmonia' => [
+                'title' =>  'Filharmonia Łódzka im. Artura Rubinsteina',
+                'link' => 'https://filharmonia.lodz.pl/',
+                'image' => 'img/partnerzy/filharmonia.png',
+            ],
+
+            'jump-world' => [
+                'title' =>  'Park Trampolin JumpWorld Łódź',
+                'link' => 'https://www.jumpworld.pl/lodz',
+                'image' => 'img/partnerzy/jump-world.png',
+            ],
+
+            'laser-game' => [
+                'title' =>  'Alfa Laser Game Łódź',
+                'link' => 'https://alfalaser.pl/',
+                'image' => 'img/partnerzy/laser-game.png',
+            ],
+
+            'nordea' => [
+                'title' =>  'Grupa Nordea',
+                'link' => 'https://nordea.pl',
+                'image' => 'img/partnerzy/nordea.png',
+            ],
+
+            'paczka' => [
+                'title' =>  'Paczka Centrum Artystyczne - Agnieszka Cygan',
+                'link' => 'https://paczkacentrumartystyczne.pl/',
+                'image' => 'img/partnerzy/paczka.png',
+            ],
+
+            'plaster-nowy' => [
+                'title' =>  'Plaster Łódzki',
+                'link' => 'https://plasterlodzki.pl',
+                'image' => 'img/partnerzy/plaster.png',
+            ],
+
+            'rollin-barrel' => [
+                'title' =>  'The Rollin\' Barrel',
+                'link' => 'https://www.facebook.com/TRBarrel/',
+                'image' => 'img/partnerzy/rollin-barrel.png',
+            ],
+
+            'karta-rabatowa' => [
+                'title' =>  'Studencka Karta Rabatowa',
+                'link' => 'https://play.google.com/store/apps/details?id=com.altconnect.android.skr&hl=pl',
+                'image' => 'img/partnerzy/studencka-karta-rabatowa.png',
+            ],
+
+            'teofilow' => [
+                'title' =>  'Teofilów S.A.',
+                'link' => 'http://www.teofilow.com.pl/',
+                'image' => 'img/partnerzy/teofilow.png',
+            ],
+
 
         ];
 
         $structure = [
             [ 'lodz-kreuje',  'wl-lodzkie', 'wl-main', ],
-            [ 'mz', 'nck', 'kghm', 'uml-zdrowie' ],
-            [ 'ul', 'pl', 'um', 'szkolafilmowa', 'wsiu' ],
-            [ 'teatr-wielki', 'teatr-nowy', 'teatr-muzyczny', 'bodo' ],
-            [ 'fiero', 'saltos', 'musicschool', 'krolkul' ],
-            [ 'mlodziwlodzi', 'makimo', 'eska', 'plaster'],
+            [ 'mz', 'nck', 'nordea', 'paczka' ],
+            [ 'ul', 'pl', 'um', 'wsiu' ],
+            [ 'teatr-wielki', 'teatr-nowy', 'teatr-muzyczny', 'filharmonia' ],
+            [ 'fiero', 'musicschool', 'laser-game', 'tkalniazagadek'],
+
+            [ 'teofilow', 'jump-world', 'rollin-barrel', 'karta-rabatowa', ],
+            [ 'mlodziwlodzi', 'makimo', 'eska', 'plaster-nowy'],
             [ 'infostudent', 'zak', 'studentlodz'],
         ];
 

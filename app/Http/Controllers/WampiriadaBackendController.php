@@ -1,16 +1,12 @@
 <?php namespace App\Http\Controllers;
 
 use NZS\Wampiriada\Option;
-use NZS\Wampiriada\Action;
 use NZS\Wampiriada\ActionData;
 use NZS\Wampiriada\Checkins\Prize\PrizeForCheckin;
 use NZS\Wampiriada\PrizeAggregator;
 use NZS\Wampiriada\FacebookConncection;
 use NZS\Wampiriada\ActionDataAggregator;
 use NZS\Wampiriada\Editions\EditionConfiguration;
-use NZS\Wampiriada\Checkins\Friend\FriendCheckinDecorator;
-use NZS\Wampiriada\Checkins\Prize\PrizeForCheckinActivityClass;
-use NZS\Wampiriada\Checkins\Prize\PrizeForCheckinClaimedActivityClass;
 use NZS\Wampiriada\Editions\Edition;
 use NZS\Wampiriada\Checkins\Checkin;
 use NZS\Wampiriada\PrizeType;
@@ -55,8 +51,9 @@ class WampiriadaBackendController extends Controller {
 	 * @return Response
 	 */
 	public function getShow($number) {
-        $actions = Action::where('number', $number)->orderBy('day')->get();
 		$edition_object = Edition::whereNumber($number)->first();
+
+        $actions = ActionDay::whereEditionId($edition_object->id)->orderBy('created_at')->get();
 
         $actions_with_data = $actions->filter(function($action) {
             return (bool) $action->data;
@@ -85,7 +82,7 @@ class WampiriadaBackendController extends Controller {
 	 * @return Response
 	 */
 	public function getEdit(Request $request, $id) {
-        $action = Action::findOrFail($id);
+        $action = ActionDay::findOrFail($id);
 
         $action_data = $action->data;
         if(!$action_data) {
@@ -94,30 +91,20 @@ class WampiriadaBackendController extends Controller {
 
         $checkins = Checkin::whereActionDayId($id)->orderBy('created_at')->get();
 
-        $first_time_checkin_count = $checkins->filter(function($checkin) {
-            return $checkin->first_time;
-        })->count();
-
-		if($action_data->getOverall() > 0) {
-			$first_time_checkin_count_percentage = round(100 * $first_time_checkin_count / $action_data->getOverall());
-		} else {
-			$first_time_checkin_count_percentage = 0;
-		}
-
         return view('admin.wampiriada.edit', array(
             'action' => $action,
             'data' => $action_data,
             'checkins' => $checkins,
 			'prize_types' => PrizeType::whereActive(true)->pluck('name', 'id'),
             'checkin_count' => $checkins->count(),
-            'first_time_checkin_count' => $first_time_checkin_count,
-            'first_time_checkin_count_percentage' => $first_time_checkin_count_percentage,
-            'missing_count' => $action_data->getOverall() - $checkins->count(),
+            'first_time_checkin_count' => $action_data->first_time,
+            'first_time_checkin_count_percentage' => $action_data->getFirstTimePercentage(),
+            'missing_count' => $action_data->overall - $checkins->count(),
         ));
 	}
 
     public function postEdit(Request $request, $id) {
-        $action = Action::findOrFail($id);
+        $action = ActionDay::findOrFail($id);
 
         $action_data = $action->data;
         if(!$action_data) {
@@ -168,7 +155,7 @@ class WampiriadaBackendController extends Controller {
 		$mapping['edition_number'] = $number;
 		$mapping['checkboxes'] = $checkboxes;
 		$mapping['exists'] = true;
-		$mapping['actions'] = Action::where('number', $number)->orderBy('day')->get();
+		$mapping['actions'] = ActionDay::whereEditionId($edition->id)->orderBy('created_at')->get();
 
         return view('admin.wampiriada.settings', $mapping->all());
     }
@@ -230,9 +217,9 @@ class WampiriadaBackendController extends Controller {
 			$configuration->id = $edition->id;
 		}
 
-		$configuration->display_faces = $request->has('display_faces');
-		$configuration->display_actions = $request->has('display_actions');
-		$configuration->display_results = $request->has('display_results');
+		$configuration->display_faces = $request->filled('display_faces');
+		$configuration->display_actions = $request->filled('display_actions');
+		$configuration->display_results = $request->filled('display_results');
 
 		$configuration->save();
 
@@ -349,9 +336,6 @@ class WampiriadaBackendController extends Controller {
 
 		if($request->claimed && !$prize->claimed_at) {
 			$prize->claimed_at = Carbon::now();
-
-			$activity_class = new PrizeForCheckinClaimedActivityClass;
-			$activity_class->saveActivityInstance($prize);
 		}
 
 		$prize->save();
@@ -360,26 +344,6 @@ class WampiriadaBackendController extends Controller {
 
 		return redirect()->back();
 	}
-
-    public function getFacebookConnections(Request $request, $number) {
-        $edition = Edition::whereNumber($number)->firstOrFail();
-
-        $checkins = Checkin::with('user', 'friend_checkins.checkin.user')
-			->whereEditionId($edition->id)
-			->get()
-			->transform(function($checkin) {
-				return new FriendCheckinDecorator($checkin);
-			});
-
-        return view('admin.wampiriada.facebook_connections', [
-            'connections' => $checkins->sortByDesc(function($decorator) {
-				return $decorator->getScore();
-			}),
-			'connections_by_action' => $checkins->groupBy(function($decorator) {
-				return $decorator->getCheckin()->actionDay->created_at->timestamp;
-			}),
-        ]);
-    }
 
 	public function prizeSummary($number) {
 		$edition = Edition::whereNumber($number)->firstOrFail();

@@ -4,7 +4,6 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
 use NZS\Wampiriada\Checkins\Checkin;
-use NZS\Wampiriada\Profile;
 use App\User;
 
 class CleanSpacesFromCheckins extends Migration
@@ -14,6 +13,17 @@ class CleanSpacesFromCheckins extends Migration
      *
      * @return void
      */
+
+     protected function getNameAsPair($current_name) {
+         $list = explode(' ', $current_name);
+
+         if(count($list) != 2) {
+             return [null, null];
+         }
+
+         return $list;
+     }
+
     public function up()
     {
         foreach(Checkin::all() as $checkin) {
@@ -21,17 +31,30 @@ class CleanSpacesFromCheckins extends Migration
             $checkin->save();
         }
 
-        foreach(Profile::all() as $profile) {
-            $profile->current_name = trim(preg_replace('/\s+/u', ' ', $profile->current_name));
-            $profile->save();
+        foreach(DB::table('wampiriada_profile')->get() as $profile) {
+            $current_name = trim(preg_replace('/\s+/u', ' ', $profile->current_name));
 
-            if($profile->user->first_name || $profile->user->last_name) {
+            DB::table('wampiriada_profile')
+                ->where('id', $profile->id)
+                ->update([
+                    'current_name' => $current_name,
+                ]);
+
+
+            $user = DB::table('users')->where('id', $profile->id)->first();
+
+            if($user->first_name || $user->last_name) {
                 continue;
             }
 
-            list($profile->user->first_name, $profile->user->last_name) = $profile->getNameAsPair();
+            list($first_name, $last_name) = $this->getNameAsPair($profile->current_name);
 
-            $profile->user->save();
+            DB::table('users')
+                ->where('id', $profile->id)
+                ->update([
+                    'first_name' => $first_name,
+                    'last_name' => $last_name,
+                ]);
         }
     }
 

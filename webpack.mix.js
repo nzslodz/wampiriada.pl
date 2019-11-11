@@ -11,5 +11,18 @@ let mix = require('laravel-mix');
  |
  */
 
-mix.js('resources/assets/js/app.js', 'public/js')
-   .sass('resources/assets/sass/app.scss', 'public/css');
+ var isProduction = mix.inProduction()
+
+ mix.setPublicPath(isProduction ? 'public/dist' : 'public/local');
+ mix.setResourceRoot(isProduction ? '/dist/' : '/local/');
+
+mix.js('resources/assets/js/app.js', 'js')
+   .js('resources/assets/js/main.js', 'js')
+   .js('resources/assets/js/checkin.js', 'js')
+   .sass('resources/assets/sass/main.scss', 'css')
+   .sass('resources/assets/sass/checkin.scss', 'css')
+   .sass('resources/assets/sass/app.scss', 'css')
+
+if (isProduction) {
+    mix.version();
+}

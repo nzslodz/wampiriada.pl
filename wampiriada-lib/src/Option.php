@@ -3,6 +3,7 @@
 use Illuminate\Database\Eloquent\Model as Model;
 use Config;
 
+// XXX move me to NZS\Core namespace
 class Option extends Model {
     public $timestamps = false;
     protected $guarded = array();

@@ -1,0 +1,24 @@
+TODO:
+3) style success component
+//4) Google Analytics - add consent plugin on main page? checkin does not need it.
+//6) margins for .content to not overlap header and footer
+//7) should we clear some state when going back to step 3?
+
+COURIER:
+1) add automation to send files to a server (nzs.lodz.pl/wampiriada.pl)
+
+----
+remaining
+
+
+
+app/Http/Controllers/FacebookNewspaperController.php
+
+(poll removal for now)
+app/Http/Controllers/WampiriadaController.php
+
+(rodo -> manage privacy)
+app/Http/Controllers/NewsletterController.php
+
+(EditionData ActionData additions)
+app/Http/Controllers/WampiriadaBackendController.php

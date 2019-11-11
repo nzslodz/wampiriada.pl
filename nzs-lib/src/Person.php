@@ -1,41 +1,28 @@
 <?php namespace NZS\Core;
 
 use Illuminate\Database\Eloquent\Model as Model;
-use SammyK\LaravelFacebookSdk\SyncableGraphNodeTrait;
 use Storage;
 use GuzzleHttp\Client;
 use Facebook\GraphNodes\GraphUser;
 use NZS\Core\ApplicationUser;
 use NZS\Core\HR\Member;
+use NZS\Core\HasProfilePhoto;
 
 use Illuminate\Notifications\Notifiable;
 
+// XXX should we move updateGender to like another object?
 class Person extends Model {
-    use SyncableGraphNodeTrait;
     use Notifiable;
+    use HasProfilePhoto;
 
-    protected $table = 'people';
+    protected $table = 'nzs_people';
 
     protected $fillable = [
         'first_name', 'last_name', 'email', 'gender',
     ];
 
-    protected static $graph_node_field_aliases = [
-        'id' => 'facebook_user_id',
-    ];
-
     public function getFullName() {
         return "$this->first_name $this->last_name";
-    }
-
-    public function getFacebookProfileImagePath() {
-        if($this->facebook_user_id && Storage::has("fb-images/$this->facebook_user_id.jpg")) {
-            return "fb-images/$this->facebook_user_id.jpg";
-        }
-
-        $image_id = crc32($this->facebook_user_id . $this->email) % 32;
-
-        return "default-images/$image_id.png";
     }
 
     public function application_user() {
@@ -45,7 +32,7 @@ class Person extends Model {
     public function member() {
         return $this->hasOne(Member::class, 'id');
     }
-    
+
     public function updateGender($something=null) {
         // raw input - e.g. from form
         if($something == 'male' || $something == 'female') {

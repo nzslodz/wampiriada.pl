@@ -9,13 +9,13 @@ use NZS\Wampiriada\Mailing\WampiriadaSummaryMailingComposer;
 use NZS\Wampiriada\Mailing\WampiriadaThankYouMailingComposer;
 use NZS\Wampiriada\Mailing\WampiriadaReminderMailingComposer;
 use NZS\Wampiriada\Mailing\WampiriadaAnnouncementMailingComposer;
+use NZS\Wampiriada\Mailing\PrivacyPolicyUpdateMailingComposer;
+use NZS\Wampiriada\Editions\EditionRepository;
+use NZS\Core\Mailing\Courier\CurrentIssueMailingComposer;
 use Illuminate\Database\Migrations\MigrationRepositoryInterface;
 use NZS\Core\ActivityRepository;
 use NZS\Core\DatabaseActivityRepository;
 use NZS\Core\Mailing\MailingRepository;
-use NZS\Wampiriada\Checkins\CheckinActivityClass;
-use NZS\Wampiriada\Checkins\Friend\FriendCheckinActivityClass;
-use NZS\Wampiriada\Checkins\Prize\PrizeForCheckinActivityClass;
 
 class WampiriadaServiceProvider extends ServiceProvider
 {
@@ -27,6 +27,14 @@ class WampiriadaServiceProvider extends ServiceProvider
             WampiriadaAnnouncementMailingComposer::class,
             WampiriadaReminderMailingComposer::class,
             WampiriadaPartyMailingComposer::class,
+            PrivacyPolicyUpdateMailingComposer::class,
+            CurrentIssueMailingComposer::class,
         ]);
+    }
+
+    public function register() {
+        $this->app->singleton(EditionRepository::class, function($app) {
+            return EditionRepository::current();
+        });
     }
 }

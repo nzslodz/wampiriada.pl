@@ -13,11 +13,9 @@ use NZS\Wampiriada\EditionRepository;
 
 use Storage;
 use NZS\Core\PersonNewspaper;
-use NZS\Core\Person;
 
 use Symfony\Component\Process\Process;
 use Symfony\Component\Process\Exception\ProcessFailedException;
-use Symfony\Component\Process\ProcessBuilder;
 
 class ThenMakeGraphics extends Job implements ShouldQueue
 {
@@ -30,7 +28,7 @@ class ThenMakeGraphics extends Job implements ShouldQueue
      *
      * @return void
      */
-    public function __construct(Person $user){
+    public function __construct($user){
         $this->user = $user;
     }
 
@@ -51,15 +49,13 @@ class ThenMakeGraphics extends Job implements ShouldQueue
         $python_path = base_path('image_grid/env/bin/python');
         $command_path = base_path('image_grid/create_image_newspaper.py');
 
-        $builder = new ProcessBuilder([$python_path, $command_path]);
+        $command = [$python_path, $command_path];
 
         foreach($options as $key => $value) {
-            $builder->add("--$key=$value");
+            $command[] = "--$key=$value";
         }
 
-        $builder->setWorkingDirectory(base_path('image_grid'));
-
-        $process = $builder->getProcess();
+        $process = new ComponentProcessProcess($command, base_path('image_grid'));
         echo $process->getCommandLine();
 
         $newspaper = PersonNewspaper::findOrNew($this->user->id);
