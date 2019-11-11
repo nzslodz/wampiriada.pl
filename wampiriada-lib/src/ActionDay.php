@@ -18,6 +18,8 @@ class ActionDay extends Model {
 
 	protected $dates = ['created_at'];
 
+	protected $appends = ['can_remove'];
+
 	protected $presenter = ActionDayPresenter::class;
 
 	public function data() {
@@ -30,6 +32,10 @@ class ActionDay extends Model {
 
 	public function checkins() {
 		return $this->hasMany(Checkin::class);
+	}
+
+	public function getCanRemoveAttribute() {
+		return $this->checkins->count() == 0;
 	}
 
 	public function edition() {

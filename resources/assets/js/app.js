@@ -7,7 +7,14 @@
 
 require('./bootstrap');
 
-window.Vue = require('vue');
+import Vue from 'vue';
+import List from './components/List.vue';
+
+import vSelect from 'vue-select';
+
+Vue.component('v-select', vSelect);
+
+window.Vue = Vue;
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -15,10 +22,13 @@ window.Vue = require('vue');
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-Vue.component('editionlist', require('./components/List.vue').default);
 
 const app = new Vue({
-    el: '#application'
+    el: '#application',
+
+    components: {
+        editionlist: List,
+    }
 });
 
 $(function() {

@@ -63,14 +63,14 @@
         </section>
 
         <div class="row">
-            <div class="container-xs-12">
+            <div class="container-xs-12 col-md-12">
                 <editionlist></editionlist>
             </div>
         </div>
 
         <div class="row">
-            <div class="col-md-12">
-                 {{ Form::submit('Zapisz', ['class' => 'btn btn-default']) }}
+            <div class="col-md-12 save-margin">
+                 {{ Form::submit('Zapisz ustawienia', ['class' => 'btn btn-default']) }}
             </div>
         </div>
     {{ Form::close() }}
@@ -84,5 +84,7 @@
         @else
         actionList = []
         @endif
+
+        placeList = {!! $places->toJson() !!}
     </script>
 @stop

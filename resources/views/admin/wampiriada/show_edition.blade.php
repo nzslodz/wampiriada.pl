@@ -60,7 +60,7 @@
             <tr class="active">
                 <th>Razem</th>
                 <td class="info"><strong>{{ $summary->sumData('overall') }}</strong></td>
-                <td>{{ $edition_object->data->first_time }}</td>
+                <td>{{ $edition_object->data ? $edition_object->data->first_time : 0 }}</td>
                 <td>{{ $summary->sumData('a_plus') }}</td>
                 <td>{{ $summary->sumData('a_minus') }}</td>
                 <td>{{ $summary->sumData('b_plus') }}</td>

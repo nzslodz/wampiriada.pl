@@ -101,13 +101,13 @@
             @yield('content')
         </section>
 
-        <script type="text/javascript" src="{{ app_mix('js/app.js') }}"></script>
-
         @section('data')
             <script type="text/javascript">
                 data = {}
             </script>
         @show
+
+        <script type="text/javascript" src="{{ app_mix('js/app.js') }}"></script>
 
         @yield('script')
     </body>
