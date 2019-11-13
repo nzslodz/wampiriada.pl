@@ -22,3 +22,5 @@ app/Http/Controllers/NewsletterController.php
 
 (EditionData ActionData additions)
 app/Http/Controllers/WampiriadaBackendController.php
+
+exception when removing reminder actions

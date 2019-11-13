@@ -13,6 +13,9 @@
 @import "~font-awesome/scss/font-awesome";
 
 
+@import "~vue-select/src/scss/vue-select.scss";
+
+
 .well dl {
     margin-bottom: 0;
 }
@@ -134,4 +137,12 @@ tr:hover .visible-on-hover {
 
     border: 1px solid #f0f0f0;
     overflow: hidden;
+}
+
+.delete-button {
+    margin-left: 40px;
+}
+
+.save-margin {
+    margin: 80px 0;
 }

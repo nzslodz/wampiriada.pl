@@ -27,8 +27,13 @@
             @forelse($editions as $edition)
                 <tr>
                     <th><a href="{{ url('admin/wampiriada/show/' . $edition->number) }}">{{ $edition->name }}</a></th>
-                    <td class="info"><strong>{{ $edition->data->donated }}</strong></td>
-                    <td>{{ $edition->data->first_time }}</td>
+                    @if($edition->data)
+                        <td class="info"><strong>{{ $edition->data->donated }}</strong></td>
+                        <td>{{ $edition->data->first_time }}</td>
+                    @else
+                        <td colspan="2"></td>
+                    @endif
+
                     <td>{{ $edition->getStartDate()->format('Y-m') }} &mdash; {{ $edition->getEndDate()->format('Y-m') }}</td>
 
                 </tr>
