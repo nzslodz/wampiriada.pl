@@ -28,6 +28,7 @@ const EMPTY_ACTION = {
     end: "16:00",
     marrow: true,
     hidden: null,
+    can_remove: true,
     created_at: null,
 };
 
