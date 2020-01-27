@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Foundation\Inspiring;
+use NZS\Wampiriada\Editions\Edition;
 use NZS\Wampiriada\Editions\EditionRepository;
 use NZS\Wampiriada\Mailing\WampiriadaMailingComposer;
 use NZS\Wampiriada\Checkins\Checkin;
@@ -32,6 +33,7 @@ class DispatchWampiriadaMailing extends Command
      */
     protected $signature = 'wampiriada:dispatch-mailing
         {--all : dispatch e-mails to all checked in people in the past}
+        {--from-edition= : dispatch e-mail to recipients in given edition and newer}
         {--production : dispatch e-mails instead of just printing recipients}
         {--edition= : dispatch mailing with specific edition, by default use current edition}
         {--hours=24 : distribute recipients over time in hours (can be set to 0 to dispatch immediately)}
@@ -77,6 +79,8 @@ class DispatchWampiriadaMailing extends Command
 
         if($this->option('all')) {
             $users = $this->constructRecipientListFromAllCheckins();
+        } elseif($from_edition = $this->option('from-edition')) {
+            $users = $this->constructRecientListFromEditionCollection(Edition::where('number', '>=', $from_edition));
         } elseif($array = $this->argument('user')) {
             // XXX: this wont work because of SerializesModels trait on Job that requires functional user in database
             $users = $this->constructRecipientListFromArray($array);
@@ -140,6 +144,12 @@ class DispatchWampiriadaMailing extends Command
         });
     }
 
+    protected function constructRecientListFromEditionCollection($editions) {
+        return Checkin::with('user')->whereIn('edition_id', $editions->pluck('id'))->get()->transform(function($checkin) {
+            return $checkin->user;
+        })->unique('id');
+    }
+
     protected function printRecipientList($users) {
         $this->comment('This mailing will be sent to the following users:');
 
@@ -155,7 +165,7 @@ class DispatchWampiriadaMailing extends Command
                 $this->warn(sprintf('{%d}: %s (%d) omitted - no email address', $index, $user->getFullName(), $user->id));
                 continue;
             }
-            
+
             $job = $composer->getJobInstance($user);
 
             $delay = "immediately";
