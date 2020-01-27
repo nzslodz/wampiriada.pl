@@ -10,6 +10,10 @@ class WampiriadaSummaryMailingComposer extends BaseWampiriadaMailingComposer {
     protected $campaign_name = 'Mail z podziękowaniem po zakończeniu edycji';
 
     public function getSubject($user) {
+        if ($this->edition->number == 35) {
+            return "Pomóż ulepszyć nam projekt Wampiriady! {$this->edition->number}. edycja Wampiriady - podsumowanie";
+        }
+
         return "Dziękujemy za udział w {$this->edition->number}. edycji Wampiriady!";
     }
 

@@ -9,8 +9,8 @@
 </p>
 
 <p style="font-size: 13px; letter-spacing: 1px; font-family: Arial, sans-serif; color: #3D3D3D !important; margin-top: 0; margin-left: 0; margin-bottom: 25px; line-height: 1.4;">
-    Wszystko co dobre kiedyś się kończy. Tak i jesienna edycja Wampiriady również dobiega końca. To jednak nie oznacza, że pomaganie również. NZS RŁ już rusza z przygotowaniami do kolejnej edycji. Tymczasem chcemy wiedzieć jak Ty oceniasz 35. edycję Wapiriady?
-    <br>Wypełnij ankietę i pomóż nam tworzyć ten projekt jeszcze lepiej.
+    Wszystko co dobre kiedyś się kończy. Tak i jesienna edycja Wampiriady również dobiega końca. To jednak nie oznacza, że pomaganie również. NZS RŁ już rusza z przygotowaniami do kolejnej edycji. Tymczasem chcemy wiedzieć, jak oceniasz projekt Wampiriady?
+    <br>Wypełnij ankietę i pomóż nam przygotować jeszcze lepszą, 36. edycję.
 </p>
 
 <h3 style="font-size: 24px; letter-spacing: 1px; font-family: Arial, sans-serif; color: #d33 !important; margin-top: 0; margin-left: 0; margin-bottom: 25px; font-weight: normal;">
