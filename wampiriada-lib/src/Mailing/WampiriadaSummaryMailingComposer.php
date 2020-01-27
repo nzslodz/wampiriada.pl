@@ -9,7 +9,9 @@ class WampiriadaSummaryMailingComposer extends BaseWampiriadaMailingComposer {
     protected $campaign_key = 'after-edition';
     protected $campaign_name = 'Mail z podziękowaniem po zakończeniu edycji';
 
-    protected $subject = 'Podziękowanie XXX TODO';
+    public function getSubject($user) {
+        return "Dziękujemy za udział w {$this->edition->number}. edycji Wampiriady!";
+    }
 
     protected $view_prefix = 'emails.wampiriada.summary';
 }
