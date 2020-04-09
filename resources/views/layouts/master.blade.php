@@ -53,7 +53,7 @@
 		<!--skrypty z map google-->
         <script src="{{ app_mix('js/main.js') }}"></script>
 
-		<script type="text/javascript" src="https://maps.google.com/maps/api/js?key=AIzaSyCL7ZBHNxksuMm90Rua5BXpeu4yEze3P8I"></script>
+		<script type="text/javascript" src="https://maps.google.com/maps/api/js?key=AIzaSyCivnS6dGC-p7yKzvwWFspLzxDpZKqX4Es"></script>
 		<script type="text/javascript" src="{{ url('bower_components/gmaps/gmaps.min.js') }}"></script>
         <script type="text/javascript" src="{{ url('bower_components/isotope/dist/isotope.pkgd.min.js') }}"></script>
         <script type="text/javascript" src="{{ url('bower_components/handlebars/handlebars.min.js') }}"></script>
