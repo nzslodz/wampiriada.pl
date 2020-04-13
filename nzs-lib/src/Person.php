@@ -95,7 +95,7 @@ class Person extends Model {
 
         static::creating(function ($model) {
             if(!$model->campaign_token) {
-                $model->campaign_token = md5($model->email);
+                //$model->campaign_token = md5($model->email);
             }
         });
     }

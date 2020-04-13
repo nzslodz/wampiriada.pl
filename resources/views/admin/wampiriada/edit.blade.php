@@ -55,38 +55,54 @@
         @endif
     </div>
 
-    {{ Form::open(array('url' => 'admin/wampiriada/edit/' . $action->id, 'class' => 'form-horizontal')) }}
+    <form action="/admin/wampiriada/edit/{{ $action->id }}" method="post" class="form-horizontal">
+        @csrf
         <div class="row">
         <div class="col-md-6">
             <div class="row">
             <div class="form-group">
-            {{ Form::label('a_plus', 'A+', ['class' => 'control-label col-sm-2']) }}
+            <label for="a_plus" class="control-label col-sm-2">
+                A+
+            </label>
             <div class="col-sm-10">
-            {{ Form::number('a_plus', $data->a_plus, ['class' => 'form-control', 'data-calculate' => 'source']) }}
+            <input type="number" id="a_plus" name="a_plus" class="form-control" data-calculate="source"
+                value="{{ $data->a_plus }}" />
             </div>
             </div>
             <div class="form-group">
-            {{ Form::label('a_minus', 'A-', ['class' => 'control-label col-sm-2']) }}
+            <label for="a_minus" class="control-label col-sm-2">
+                A-
+            </label>
             <div class="col-sm-10">
-            {{ Form::number('a_minus', $data->a_minus, ['class' => 'form-control', 'data-calculate' => 'source']) }}
+                <input type="number" id="a_minus" name="a_minus" class="form-control" data-calculate="source"
+                    value="{{ $data->a_minus }}" />
             </div>
             </div>
             <div class="form-group">
-            {{ Form::label('b_plus', 'B+', ['class' => 'control-label col-sm-2']) }}
+            <label for="b_plus" class="control-label col-sm-2">
+                B+
+            </label>
             <div class="col-sm-10">
-            {{ Form::number('b_plus', $data->b_plus, ['class' => 'form-control', 'data-calculate' => 'source']) }}
+                <input type="number" id="b_plus" name="b_plus" class="form-control" data-calculate="source"
+                    value="{{ $data->b_plus }}" />
             </div>
             </div>
             <div class="form-group">
-            {{ Form::label('b_minus', 'B-', ['class' => 'control-label col-sm-2']) }}
+            <label for="b_minus" class="control-label col-sm-2">
+                B-
+            </label>
             <div class="col-sm-10">
-            {{ Form::number('b_minus', $data->b_minus, ['class' => 'form-control', 'data-calculate' => 'source']) }}
+                <input type="number" id="b_minus" name="b_minus" class="form-control" data-calculate="source"
+                    value="{{ $data->b_minus }}" />
             </div>
             </div>
             <div class="form-group">
-            {{ Form::label('unknown', 'Nieznana', ['class' => 'control-label col-sm-2']) }}
+            <label for="unknown" class="control-label col-sm-2">
+                Nieznana
+            </label>
             <div class="col-sm-10">
-            {{ Form::number('unknown', $data->unknown, ['class' => 'form-control', 'data-calculate' => 'source']) }}
+                <input type="number" id="unknown" name="unknown" class="form-control" data-calculate="source"
+                    value="{{ $data->unknown }}" />
             </div>
             </div>
             </div>
@@ -94,27 +110,39 @@
         <div class="col-md-6">
             <div class="row">
             <div class="form-group">
-            {{ Form::label('ab_plus', 'AB+', ['class' => 'control-label col-sm-2']) }}
+            <label for="ab_plus" class="control-label col-sm-2">
+                AB+
+            </label>
             <div class="col-sm-10">
-            {{ Form::number('ab_plus', $data->ab_plus, ['class' => 'form-control', 'data-calculate' => 'source']) }}
+                <input type="number" id="ab_plus" name="ab_plus" class="form-control" data-calculate="source"
+                    value="{{ $data->ab_plus }}" />
             </div>
             </div>
             <div class="form-group">
-            {{ Form::label('ab_minus', 'AB-', ['class' => 'control-label col-sm-2']) }}
+            <label for="ab_minus" class="control-label col-sm-2">
+                AB-
+            </label>
             <div class="col-sm-10">
-            {{ Form::number('ab_minus', $data->ab_minus, ['class' => 'form-control', 'data-calculate' => 'source']) }}
+                <input type="number" id="ab_minus" name="ab_minus" class="form-control" data-calculate="source"
+                    value="{{ $data->ab_minus }}" />
             </div>
             </div>
             <div class="form-group">
-            {{ Form::label('zero_plus', '0+', ['class' => 'control-label col-sm-2']) }}
+            <label for="zero_plus" class="control-label col-sm-2">
+                0+
+            </label>
             <div class="col-sm-10">
-            {{ Form::number('zero_plus', $data->zero_plus, ['class' => 'form-control', 'data-calculate' => 'source']) }}
+                <input type="number" id="zero_plus" name="zero_plus" class="form-control" data-calculate="source"
+                    value="{{ $data->zero_plus }}" />
             </div>
             </div>
             <div class="form-group">
-            {{ Form::label('zero_minus', '0-', ['class' => 'control-label col-sm-2']) }}
+            <label for="zero_minus" class="control-label col-sm-2">
+                0-
+            </label>
             <div class="col-sm-10">
-            {{ Form::number('zero_minus', $data->zero_minus, ['class' => 'form-control', 'data-calculate' => 'source']) }}
+                <input type="number" id="zero_minus" name="zero_minus" class="form-control" data-calculate="source"
+                    value="{{ $data->zero_minus }}" />
             </div>
             </div>
             </div>
@@ -125,20 +153,25 @@
         <div class="col-md-6">
             <div class="row">
             <div class="form-group">
-            {{ Form::label('overall', 'Razem', ['class' => 'control-label col-sm-2']) }}
+            <label for="overall" class="control-label col-sm-2">
+                Razem
+            </label>
             <div class="col-sm-10">
-            {{ Form::number('overall', $data->overall, ['class' => 'form-control', 'data-calculate' => 'overall', 'readonly' => 'true']) }}
+            <input type="number" id="overall" name="overall" class="form-control" data-calculate="overall"
+                value="{{ $data->overall }}" readonly="true" />
             </div>
             </div>
             <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
-            {{ Form::submit('Zapisz', ['class' => 'btn btn-default']) }}
+                <button type="submit" class="btn btn-default">
+                    Zapisz
+                </button>
             </div>
             </div>
             </div>
             </div>
         </div>
-    {{ Form::close() }}
+    </form>
 
     <h3>Osoby, które oddały krew</h3>
     <table class="table table-striped table-bordered">
@@ -220,12 +253,17 @@
             <h4 class="modal-title" id="exampleModalLabel">Opisz nagrodę</h4>
           </div>
           <form method="post">
-              {{ csrf_field() }}
+              @csrf
           <div class="modal-body">
               <div class="form-group">
                  <label for="type-id" class="control-label">Nagroda</label>
 
-                 {{ Form::select('type[][id]', $prize_types, null, ['multiple' => 'multiple', 'class' => 'form-control', 'id' => 'type-id', 'style' => 'width: 100%']) }}
+                 <select name="type[][id]" id="type-id" class="form-control" style="width:100%" multiple="multiple">
+                     @foreach($prize_types as $value => $text)
+                         <option value="{{ $value }}">{{ $text }}</option>
+                     @endforeach
+                 </select>
+
               </div>
               <div class="form-group" data-claimed>
                   <i class="fa fa-check"></i> Nagroda została odebrana
@@ -249,11 +287,10 @@
 @stop
 
 @section('extrahead')
-    {{ HTML::style('bower_components/select2/dist/css/select2.min.css') }}
-    {{ HTML::style('bower_components/select2-bootstrap-theme/dist/select2-bootstrap.min.css') }}
-
+    <link type="text/css" href="/bower_components/select2/dist/css/select2.min.css" media="screen" />
+    <link type="text/css" href="/bower_components/select2-bootstrap-theme/dist/select2-bootstrap.min.css" media="screen" />
 @stop
 
 @section('script')
-    {{ HTML::script('bower_components/select2/dist/js/select2.min.js') }}
+    <script type="text/javascript" src="/bower_components/select2/dist/js/select2.min.js"></script>
 @stop

@@ -137,7 +137,6 @@ return [
         /*
          * Application Service Providers...
          */
-        Collective\Html\HtmlServiceProvider::class,
         DaveJamesMiller\Breadcrumbs\BreadcrumbsServiceProvider::class,
         App\Providers\AppServiceProvider::class,
         App\Providers\AuthServiceProvider::class,
@@ -198,10 +197,6 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
-        'Form' => Collective\Html\FormFacade::class,
-        'Html' => Collective\Html\HtmlFacade::class,
-        // XXX hack
-        'HTML' => Collective\Html\HtmlFacade::class,
 
     ],
 

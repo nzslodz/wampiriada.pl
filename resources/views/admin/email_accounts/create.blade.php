@@ -9,41 +9,51 @@
         <h1>Dodaj nowy adres e-mailowy</h1>
     </div>
 
-    {{ Form::open(array('url' => '/admin/email/create', 'class' => 'form-horizontal')) }}
+    <form action="/admin/email/create" method="post" class="form-horizontal">
+        @csrf
             <div class="form-group {{ $errors->has('email') ? 'has-error' : '' }}">
-                {{ Form::label('email', 'Adres w domenie nzs.lodz.pl', ['class' => 'control-label col-sm-2']) }}
+                <label for="email" class="control-label col-sm-2">
+                    Adres w domenie nzs.lodz.pl
+                </label>
+
                 <div class="col-sm-6">
-                    {{ Form::email('email', null, ['class' => 'form-control', 'placeholder' => 'jan.kowalski@nzs.lodz.pl']) }}
+                    <input type="email" name="email" id="email" class="form-control" placeholder="jan.kowalski@nzs.lodz.pl" />
                 </div>
                 <div class="col-sm-4">
                     {{ $errors->first('email') }}
                 </div>
             </div>
             <div class="form-group {{ $errors->has('password') ? 'has-error' : '' }}">
-                {{ Form::label('password', 'Hasło (8-32)', ['class' => 'control-label col-sm-2']) }}
+                <label for="password" class="control-label col-sm-2">
+                    Hasło (8-32)
+                </label>
                 <div class="col-sm-6">
-                    {{ Form::text('password', null, ['class' => 'form-control']) }}
+                    <input type="text" name="password" id="password" class="form-control" />
                 </div>
                 <div class="col-sm-4">
                     {{ $errors->first('password') }}
                 </div>
             </div>
             <div class="form-group {{ $errors->has('alias_email') ? 'has-error' : '' }}">
-                {{ Form::label('alias_email', 'Przekierowanie', ['class' => 'control-label col-sm-2']) }}
+                <label for="alias_email" class="control-label col-sm-2">
+                    Przekierowanie
+                </label>
                 <div class="col-sm-6">
-                    {{ Form::email('alias_email', null, ['class' => 'form-control', 'placeholder' => 'jkowalski@gmail.com']) }}
+                    <input type="email" id="alias_email" name="alias_email" class="form-control" placeholder="jkowalski@gmail.com" />
                 </div>
                 <div class="col-sm-4">
                     {{ $errors->first('alias_email') }}
                 </div>
             </div>
 
-           
+
             <div class="form-group">
                 <div class="col-sm-offset-2 col-sm-6">
-                    {{ Form::submit('Zapisz', ['class' => 'btn btn-default']) }}
+                    <button type="submit" class="btn btn-default">
+                        Zapisz
+                    </button>
                 </div>
             </div>
-        {{ Form::close() }}
-    
+        </form>
+
 @stop

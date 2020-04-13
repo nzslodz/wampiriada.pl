@@ -14,14 +14,16 @@
 
     <div class="container">
 
-        {{ Form::open(array('class' => 'form-horizontal')) }}
-
+        <form action="" method="post" class="form-horizontal">
+            @csrf
 
             <fieldset>
                 <legend>1A) Wybierz istniejącą osobę</legend>
 
                 <div class="form-group {{ $errors->has('id') ? 'has-error' : '' }}">
-                    {{ Form::label('id', 'Osoba', ['class' => 'control-label col-sm-2']) }}
+                    <label for="id" class="control-label col-sm-2">
+                        Osoba
+                    </label>
                     <div class="col-sm-6">
 
                         <select name="id" class="selector form-control"></select>
@@ -36,9 +38,11 @@
                 <legend>1B) Albo dodaj nową osobę</legend>
 
                 <div class="form-group {{ $errors->has('person.first_name') ? 'has-error' : '' }}">
-                    {{ Form::label('person[first_name]', 'Imię', ['class' => 'control-label col-sm-2']) }}
+                    <label for="person_first_name" class="control-label col-sm-2">
+                        Imię
+                    </label>
                     <div class="col-sm-6">
-                        {{ Form::text('person[first_name]', '', ['class' => 'form-control']) }}
+                        <input type="text" name="person[first_name]" id="person_first_name" class="form-control" />
                     </div>
                     <div class="col-sm-4">
                         {{ $errors->first('person.first_name') }}
@@ -46,9 +50,12 @@
                 </div>
 
                 <div class="form-group {{ $errors->has('person.last_name') ? 'has-error' : '' }}">
-                    {{ Form::label('person[last_name]', 'Nazwisko', ['class' => 'control-label col-sm-2']) }}
+                    <label for="person_last_name" class="control-label col-sm-2">
+                        Nazwisko
+                    </label>
                     <div class="col-sm-6">
-                        {{ Form::text('person[last_name]', '', ['class' => 'form-control']) }}
+                        <input type="text" name="person[last_name]" id="person_last_name" class="form-control" />
+
                     </div>
                     <div class="col-sm-4">
                         {{ $errors->first('person.last_name') }}
@@ -56,9 +63,14 @@
                 </div>
 
                 <div class="form-group {{ $errors->has('person.gender') ? 'has-error' : '' }}">
-                    {{ Form::label('person[gender]', 'Płeć', ['class' => 'control-label col-sm-2']) }}
+                    <label for="person_gender" class="control-label col-sm-2">
+                        Płeć
+                    </label>
                     <div class="col-sm-6">
-                        {{ Form::select('person[gender]', ['male' => 'Mężczyzna', 'female' => 'Kobieta'], '', ['class' => 'form-control']) }}
+                        <select id="person_gender" name="person[gender]" class="form-control">
+                            <option value="male">Mężczyzna</option>
+                            <option value="female">Kobieta</option>
+                        </select>
                     </div>
                     <div class="col-sm-4">
                         {{ $errors->first('person.gender') }}
@@ -66,9 +78,11 @@
                 </div>
 
                 <div class="form-group {{ $errors->has('person.email') ? 'has-error' : '' }}">
-                    {{ Form::label('person[email]', 'E-mail', ['class' => 'control-label col-sm-2']) }}
+                    <label for="person_email" class="control-label col-sm-2">
+                        E-mail
+                    </label>
                     <div class="col-sm-6">
-                        {{ Form::text('person[email]', '', ['class' => 'form-control']) }}
+                        <input type="email" name="person[email]" id="person_email" class="form-control" />
                     </div>
                     <div class="col-sm-4">
                         {{ $errors->first('person.email') }}
@@ -80,9 +94,17 @@
             <fieldset>
                 <legend>2) Opcje członka</legend>
                 <div class="form-group {{ $errors->has('status') ? 'has-error' : '' }}">
-                    {{ Form::label('status', 'Status', ['class' => 'control-label col-sm-2']) }}
+                    <label for="status" class="control-label col-sm-2">
+                        Status
+                    </label>
                     <div class="col-sm-6">
-                        {{ Form::select('status', NZS\Core\HR\Member::getStatusesAsChoices(), null, ['class' => 'form-control']) }}
+                        <select name="status" id="status" class="form-control">
+                            @foreach(NZS\Core\HR\Member::getStatusesAsChoices() as $value => $text)
+                                <option value="{{ $value }}">
+                                    {{ $text }}
+                                </option>
+                            @endforeach
+                        </select>
                     </div>
                     <div class="col-sm-4">
                         {{ $errors->first('status') }}
@@ -93,7 +115,7 @@
                     <div class="col-sm-6 col-sm-offset-2">
                         <div class="checkbox">
                             <label>
-                                {{ Form::checkbox('has_badge', '1', false, ['class' => '']) }} Czy osoba otrzymała przypinkę
+                                <input type="checkbox" value="1" name="has_badge" /> Czy osoba otrzymała przypinkę
                             </label>
                         </div>
                     </div>
@@ -103,16 +125,20 @@
                     <div class="col-sm-6 col-sm-offset-2">
                         <div class="checkbox">
                             <label>
-                                {{ Form::checkbox('is_member', '1', false, ['class' => '']) }} Czy osoba jest członkiem
+                                <input type="checkbox" name="is_member" value="1"  /> Czy osoba jest członkiem
                             </label>
                         </div>
                     </div>
                 </div>
 
                 <div class="form-group {{ $errors->has('member_since') ? 'has-error' : '' }}">
-                    {{ Form::label('member_since', 'Członek od', ['class' => 'control-label col-sm-2']) }}
+                    <label for="member_since" class="control-label col-sm-2">
+                        Członek od
+                    </label>
                     <div class="col-sm-6">
-                        {{ Form::text('member_since', '', ['class' => 'form-control datepicker']) }}
+                        <input type="text" name="member_since" id="member_since"
+                            class="form-control datepicker"
+                            />
                     </div>
                     <div class="col-sm-4">
                         {{ $errors->first('member_since') }}
@@ -120,9 +146,13 @@
                 </div>
 
                 <div class="form-group {{ $errors->has('member_to') ? 'has-error' : '' }}">
-                    {{ Form::label('member_since', 'Członek do', ['class' => 'control-label col-sm-2']) }}
+                    <label for="member_to" class="control-label col-sm-2">
+                        Członek do
+                    </label>
                     <div class="col-sm-6">
-                        {{ Form::text('member_to', '', ['class' => 'form-control datepicker']) }}
+                        <input type="text" name="member_to" id="member_to"
+                            class="form-control datepicker"
+                            />
                     </div>
                     <div class="col-sm-4">
                         {{ $errors->first('member_to') }}
@@ -137,7 +167,7 @@
                     @endforeach
                 </div>
             </div>
-        {{ Form::close() }}
+        </form>
 
     </div>
 
