@@ -77,14 +77,21 @@
     @if(count($choices) > 0)
         <h2>Dodaj nowe wyniki</h2>
         <div class="row">
-        {{ Form::open(['url' => 'admin/wampiriada/results', 'class' => 'col-md-4']) }}
+        <form action="/admin/wampiriada/results" method="post" class="col-md-4">
+            @csrf
             <div class="form-group">
-                {{ Form::label('id', 'Wybierz akcję') }}
-                {{ Form::select('id', $choices, null, ['class' => 'form-control']) }}
+                <label for="id">Wybierz akcję</label>
+                <select name="id" id="id" class="form-control">
+                    @foreach($choices as $value => $text)
+                        <option value="{{ $value }}">{{ $text }}</option>
+                    @endforeach
+                </select>
             </div>
 
-            {{ Form::submit('Dodaj', ['class' => 'btn btn-default']) }}
-        {{ Form::close() }}
+            <button type="submit" class="btn btn-default">
+                Dodaj
+            </button>
+        </form>
         </div>
     @endif
 

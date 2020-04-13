@@ -128,7 +128,7 @@ class WampiriadaBackendController extends Controller {
 
         $action_data->save();
 
-        return redirect('admin/wampiriada/show/' . $action->number);
+        return redirect('admin/wampiriada/edit/' . $id);
     }
 
     public function getSettings(Request $request, $number) {

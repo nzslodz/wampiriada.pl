@@ -9,28 +9,41 @@
         <h1>Edycja {{ $edition_number }}. &mdash; ustawienia</h1>
     </div>
 
-    {{ Form::open(array('url' => 'admin/wampiriada/settings/' . $edition_number)) }}
+    <form action="/admin/wampiriada/settings/{{ $edition_number }}" method="post" class="form-horizontal">
+        @csrf
         <section class="form-horizontal">
             <div class="row">
                 <div class="col-md-9">
                     <h3>Linki do stron</h3>
 
                     <div class="form-group">
-                        {{ Form::label('redirect_event', 'Event na Facebooku', ['class' => 'control-label col-sm-4']) }}
+                        <label for="redirect_event" class="control-label col-sm-4">
+                            Event na Facebooku
+                        </label>
                         <div class="col-sm-8">
-                        {{ Form::text('redirect_event', $redirect_event->url, ['class' => 'form-control']) }}
+                            <input type="text" name="redirect_event" id="redirect_event"
+                                value="{{ $redirect_event->url }}"
+                                class="form-control" />
                         </div>
                     </div>
                     <div class="form-group">
-                        {{ Form::label('redirect_koszulka', 'Zdjęcie koszulek (fb)', ['class' => 'control-label col-sm-4']) }}
+                        <label for="redirect_koszulka" class="control-label col-sm-4">
+                            Zdjęcie koszulek (fb)
+                        </label>
                         <div class="col-sm-8">
-                        {{ Form::text('redirect_koszulka', $redirect_koszulka->url, ['class' => 'form-control']) }}
+                            <input type="text" name="redirect_koszulka" id="redirect_koszulka"
+                                value="{{ $redirect_koszulka->url }}"
+                                class="form-control" />
                         </div>
                     </div>
                     <div class="form-group">
-                        {{ Form::label('redirect_plakat', 'Zdjęcie plakatu (fb)', ['class' => 'control-label col-sm-4']) }}
+                        <label for="redirect_plakat" class="control-label col-sm-4">
+                            Zdjęcie plakatu (fb)
+                        </label>
                         <div class="col-sm-8">
-                        {{ Form::text('redirect_plakat', $redirect_plakat->url, ['class' => 'form-control']) }}
+                            <input type="text" name="redirect_plakat" id="redirect_plakat"
+                                value="{{ $redirect_plakat->url }}"
+                                class="form-control" />
                         </div>
                     </div>
                 </div>
@@ -39,8 +52,14 @@
 
                     @foreach($checkboxes as $checkbox)
                     <div>
-                        {{ Form::checkbox("sizes[]", $checkbox->id, $checkbox->active, ['id' => "size_$checkbox->id"]) }}
-                        {{ Form::label("size_$checkbox->id", $checkbox->name) }}
+                        <label>
+                            <input type="checkbox" name="sizes[]" value="{{ $checkbox->id }}"
+                                @if($checkbox->active)
+                                    checked
+                                @endif
+                                />
+                            {{ $checkbox->name }}
+                        </label>
                     </div>
                     @endforeach
                 </div>
@@ -48,16 +67,35 @@
 
             <div class="row">
                 <div class="container-xs-12">
-                    {{ Form::checkbox("display_results", '1', $configuration->display_results) }}
-                    {{ Form::label("display_results", "Pokaż wykres z wynikami edycji na stronie głównej") }}
+
+                    <label>
+                        <input type="checkbox" name="display_results" value="1"
+                            @if($configuration->display_results)
+                                checked
+                            @endif
+                            />
+                        Pokaż wykres z wynikami edycji na stronie głównej
+                    </label>
                 </div>
                 <div class="container-xs-12">
-                    {{ Form::checkbox("display_actions", '1', $configuration->display_actions) }}
-                    {{ Form::label("display_actions", "Pokaż listę akcji na stronie głównej (jeśli odznaczone, pokaże się komunikat informujacy o tym, że lista będzie dostępna już niebawem)") }}
+                    <label>
+                        <input type="checkbox" name="display_actions" value="1"
+                            @if($configuration->display_results)
+                                checked
+                            @endif
+                            />
+                        Pokaż listę akcji na stronie głównej (jeśli odznaczone, pokaże się komunikat informujacy o tym, że lista będzie dostępna już niebawem)
+                    </label>
                 </div>
                 <div class="container-xs-12">
-                    {{ Form::checkbox("display_faces", '1', $configuration->display_faces) }}
-                    {{ Form::label("display_faces", "Pokaż grafikę 1000 twarzy Wampiriady na stronie głównej") }}
+                    <label>
+                        <input type="checkbox" name="display_faces" value="1"
+                            @if($configuration->display_results)
+                                checked
+                            @endif
+                            />
+                        Pokaż grafikę 1000 twarzy Wampiriady na stronie głównej
+                    </label>
                 </div>
             </div>
         </section>
@@ -70,11 +108,12 @@
 
         <div class="row">
             <div class="col-md-12 save-margin">
-                 {{ Form::submit('Zapisz ustawienia', ['class' => 'btn btn-default']) }}
+                 <button type="submit" class="btn btn-default">
+                     Zapisz ustawienia
+                 </button>
             </div>
         </div>
-    {{ Form::close() }}
-
+    </form>
 @stop
 
 @section('data')

@@ -155,7 +155,7 @@ $(function() {
         var sources = $('[data-calculate=source]')
 
         sources.change(function() {
-            sum = 0
+            var sum = 0
 
             sources.each(function() {
                 var val = parseInt($(this).val())

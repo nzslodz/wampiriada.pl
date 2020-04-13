@@ -21,20 +21,27 @@
 
     <div class="container">
 
-        {{ Form::open(array('class' => 'form-horizontal')) }}
+        <form action="" method="post" class="form-horizontal">
+            @csrf
             <div class="form-group {{ $errors->has('name') ? 'has-error' : '' }}">
-                {{ Form::label('name', 'Nazwa wewnętrzna', ['class' => 'control-label col-sm-2']) }}
+                <label for="name" class="control-label col-sm-2">
+                    Nazwa wewnętrzna
+                </label>
                 <div class="col-sm-6">
-                    {{ Form::text('name', $prize->name, ['class' => 'form-control']) }}
+                    <input type="text" name="name" id="name"
+                        value="{{ $prize->name }}"
+                        class="form-control" />
                 </div>
                 <div class="col-sm-4">
                     {{ $errors->first('name') }}
                 </div>
             </div>
             <div class="form-group {{ $errors->has('description') ? 'has-error' : '' }}">
-                {{ Form::label('description', 'Opis (dla otrzymującego)', ['class' => 'control-label col-sm-2']) }}
+                <label for="description" class="control-label col-sm-2">
+                    Opis (dla otrzymującego)
+                </label>
                 <div class="col-sm-6">
-                    {{ Form::textarea('description', $prize->name, ['class' => 'form-control']) }}
+                    <textarea id="description" name="description" class="form-control">{{ $prize->name }}</textarea>
                 </div>
                 <div class="col-sm-4">
                     {{ $errors->first('description') }}
@@ -45,7 +52,11 @@
                 <div class="col-sm-6 col-sm-offset-2">
                     <div class="checkbox">
                         <label>
-                            {{ Form::checkbox('active', '1', $prize->id ? $prize->active : true, ['class' => '']) }} Nagroda dostępna
+                            <input type="checkbox" name="active" value="1"
+                                @if(($prize->id && $prize->active) || !$prize->id)
+                                    checked
+                                @endif
+                                /> Nagroda dostępna
                         </label>
                     </div>
                 </div>
@@ -58,7 +69,7 @@
                     @endforeach
                 </div>
             </div>
-        {{ Form::close() }}
+        </form>
     </div>
 
 @stop

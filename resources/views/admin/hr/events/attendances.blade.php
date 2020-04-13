@@ -14,7 +14,8 @@
         <h2>{{ $event->name }}</h2>
     </div>
 
-    {{ Form::open(array('class' => 'form-horizontal')) }}
+    <form action="" method="post" class="form-horizontal">
+        @csrf
 
     <table class="table table-striped table-bordered">
         <thead>
@@ -56,7 +57,7 @@
         </div>
     </div>
 
-    {{ Form::close() }}
+    </form>
 
     XXX -> OSOBY SPOZA MEMBERÓW
 @stop

@@ -14,8 +14,8 @@
 
     <div class="container">
 
-        {{ Form::open(array('class' => 'form-horizontal')) }}
-
+        <form action="" method="post" class="form-horizontal">
+            @csrf
             <div class="form-group">
                 <div class="col-sm-offset-2 col-sm-6">
                     <button class="btn btn-default btn-large" name="gender" value="male"><i class="fa fa-male"></i> Mężczyzna</button>
@@ -26,10 +26,21 @@
 
             <div class="form-group">
                 <div class="col-sm-offset-2 col-sm-6">
-                    {{ Form::select('_next', storyboard()->choices('_next'), storyboard()->value('_next'), ['class' => 'form-control']) }}
+                    <select name="_next" class="form-control">
+                        @foreach(storyboard()->choices('_next') as $value => $text)
+                            <option
+                                value="{{ $value }}"
+                                @if($value == storyboard()->value('_next'))
+                                    selected
+                                @endif
+                                >
+                                {{ $text }}
+                            </option>
+                        @endforeach
+                    </select>
                 </div>
             </div>
-        {{ Form::close() }}
+        </form>
 
     </div>
 

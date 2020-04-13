@@ -14,8 +14,8 @@
 
     <div class="container">
 
-        {{ Form::open(array('class' => 'form-horizontal')) }}
-
+        <form action="" method="post" class="form-horizontal">
+            @csrf
             <h2>Czy na pewno usunąć?</h2>
 
             <div class="form-group">
@@ -25,7 +25,7 @@
                 </div>
             </div>
 
-        {{ Form::close() }}
+        </form>
 
     </div>
 

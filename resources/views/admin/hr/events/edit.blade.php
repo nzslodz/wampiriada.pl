@@ -22,12 +22,17 @@
 
     <div class="container">
 
-        {{ Form::open(array('class' => 'form-horizontal')) }}
+        <form action="" method="post" class="form-horizontal">
+            @csrf
 
             <div class="form-group {{ $errors->has('happened_at') ? 'has-error' : '' }}">
-                {{ Form::label('happened_at', 'Data wydarzenia', ['class' => 'control-label col-sm-2']) }}
+                <label for="happened_at" class="control-label col-sm-2">
+                    Data wydarzenia
+                </label>
                 <div class="col-sm-6">
-                    {{ Form::text('happened_at', $event->happened_at ? $event->happened_at->format('Y-m-d') : null, ['class' => 'form-control datepicker']) }}
+                    <input type="text" id="happened_at" name="happened_at"
+                        value="{{ $event->happened_at ? $event->happened_at->format('Y-m-d') : null }}"
+                        class="form-control datepicker" />
                 </div>
                 <div class="col-sm-4">
                     {{ $errors->first('happened_at') }}
@@ -35,9 +40,13 @@
             </div>
 
             <div class="form-group {{ $errors->has('name') ? 'has-error' : '' }}">
-                {{ Form::label('name', 'Nazwa', ['class' => 'control-label col-sm-2']) }}
+                <label for="name" class="control-label col-sm-2">
+                    Nazwa
+                </label>
                 <div class="col-sm-6">
-                    {{ Form::text('name', $event->name, ['class' => 'form-control']) }}
+                    <input type="text" name="name" id="name"
+                        value="{{ $event->name }}"
+                        class="form-control" />
                 </div>
                 <div class="col-sm-4">
                     {{ $errors->first('name') }}
@@ -45,9 +54,11 @@
             </div>
 
             <div class="form-group {{ $errors->has('description') ? 'has-error' : '' }}">
-                {{ Form::label('description', 'Krótki opis', ['class' => 'control-label col-sm-2']) }}
+                <label for="description" class="control-label col-sm-2">
+                    Krótki opis
+                </label>
                 <div class="col-sm-6">
-                    {{ Form::textarea('description', $event->description, ['class' => 'form-control']) }}
+                    <textarea id="description" name="description" class="form-control">{{ $event->description }}</textarea>
                 </div>
                 <div class="col-sm-4">
                     {{ $errors->first('description') }}
@@ -58,7 +69,11 @@
                 <div class="col-sm-6 col-sm-offset-2">
                     <div class="checkbox">
                         <label>
-                            {{ Form::checkbox('is_public', '1', $event->is_public, ['class' => '']) }} Czy wydarzenie jest publiczne
+                            <input type="checkbox" name="is_public" value="1"
+                                @if($event->is_public)
+                                    checked
+                                @endif
+                            /> Czy wydarzenie jest publiczne
                         </label>
                     </div>
                 </div>
@@ -71,7 +86,7 @@
                     @endforeach
                 </div>
             </div>
-        {{ Form::close() }}
+        </form>
 
     </div>
 

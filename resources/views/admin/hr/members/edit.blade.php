@@ -14,12 +14,25 @@
 
     <div class="container">
 
-        {{ Form::open(array('class' => 'form-horizontal')) }}
-
+        <form action="" method="post" class="form-horizontal">
+            @csrf
             <div class="form-group {{ $errors->has('status') ? 'has-error' : '' }}">
-                {{ Form::label('status', 'Status', ['class' => 'control-label col-sm-2']) }}
+                <label for="status" class="control-label col-sm-2">
+                    Status
+                </label>
                 <div class="col-sm-6">
-                    {{ Form::select('status', NZS\Core\HR\Member::getStatusesAsChoices(), $member->status, ['class' => 'form-control']) }}
+                    <select name="status" id="status" class="form-control">
+                        @foreach(NZS\Core\HR\Member::getStatusesAsChoices() as $value => $text)
+                            <option value="{{ $value }}"
+                                @if($value == $member->status)
+                                    selected
+                                @endif
+                                >
+                                {{ $text }}
+                            </option>
+                        @endforeach
+                    </select>
+
                 </div>
                 <div class="col-sm-4">
                     {{ $errors->first('status') }}
@@ -30,7 +43,11 @@
                 <div class="col-sm-6 col-sm-offset-2">
                     <div class="checkbox">
                         <label>
-                            {{ Form::checkbox('has_badge', '1', $member->has_badge, ['class' => '']) }} Czy osoba otrzymała przypinkę
+                            <input type="checkbox" value="1" name="has_badge"
+                                @if($member->has_badge)
+                                    checked
+                                @endif
+                                /> Czy osoba otrzymała przypinkę
                         </label>
                     </div>
                 </div>
@@ -40,16 +57,25 @@
                 <div class="col-sm-6 col-sm-offset-2">
                     <div class="checkbox">
                         <label>
-                            {{ Form::checkbox('is_member', '1', $member->is_member, ['class' => '']) }} Czy osoba jest członkiem
+                            <input type="checkbox" name="is_member" value="1"
+                                @if($member->is_member)
+                                    checked
+                                @endif
+                                /> Czy osoba jest członkiem
                         </label>
                     </div>
                 </div>
             </div>
 
             <div class="form-group {{ $errors->has('member_since') ? 'has-error' : '' }}">
-                {{ Form::label('member_since', 'Członek od', ['class' => 'control-label col-sm-2']) }}
+                <label for="member_since" class="control-label col-sm-2">
+                    Członek od
+                </label>
                 <div class="col-sm-6">
-                    {{ Form::text('member_since', $member->member_since ? $member->member_since->format('Y-m-d') : null, ['class' => 'form-control datepicker']) }}
+                    <input type="text" name="member_since" id="member_since"
+                        value="{{ $member->member_since ? $member->member_since->format('Y-m-d') : null }}"
+                        class="form-control datepicker"
+                        />
                 </div>
                 <div class="col-sm-4">
                     {{ $errors->first('member_since') }}
@@ -57,9 +83,14 @@
             </div>
 
             <div class="form-group {{ $errors->has('member_to') ? 'has-error' : '' }}">
-                {{ Form::label('member_since', 'Członek do', ['class' => 'control-label col-sm-2']) }}
+                <label for="member_to" class="control-label col-sm-2">
+                    Członek do
+                </label>
                 <div class="col-sm-6">
-                    {{ Form::text('member_to', $member->member_to ? $member->member_to->format('Y-m-d') : null, ['class' => 'form-control datepicker']) }}
+                    <input type="text" name="member_to" id="member_to"
+                        value="{{ $member->member_to ? $member->member_to->format('Y-m-d') : null }}"
+                        class="form-control datepicker"
+                        />
                 </div>
                 <div class="col-sm-4">
                     {{ $errors->first('member_to') }}
@@ -73,7 +104,7 @@
                     @endforeach
                 </div>
             </div>
-        {{ Form::close() }}
+        </form>
 
     </div>
 
