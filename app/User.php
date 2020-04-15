@@ -7,6 +7,8 @@ use Storage;
 use NZS\Core\HasProfilePhoto;
 
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
+
 
 // XXX should be removed?
 class User extends Authenticatable {

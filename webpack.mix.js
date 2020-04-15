@@ -16,12 +16,12 @@ let mix = require('laravel-mix');
  mix.setPublicPath(isProduction ? 'public/dist' : 'public/local');
  mix.setResourceRoot(isProduction ? '/dist/' : '/local/');
 
-mix.js('resources/assets/js/app.js', 'js')
-   .js('resources/assets/js/main.js', 'js')
-   .js('resources/assets/js/checkin.js', 'js')
-   .sass('resources/assets/sass/main.scss', 'css')
-   .sass('resources/assets/sass/checkin.scss', 'css')
-   .sass('resources/assets/sass/app.scss', 'css')
+mix.js('resources/js/app.js', 'js')
+   .js('resources/js/main.js', 'js')
+   .js('resources/js/checkin.js', 'js')
+   .sass('resources/sass/main.scss', 'css')
+   .sass('resources/sass/checkin.scss', 'css')
+   .sass('resources/sass/app.scss', 'css')
 
 if (isProduction) {
     mix.version();
