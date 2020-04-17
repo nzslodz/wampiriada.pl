@@ -1,6 +1,7 @@
 <?php namespace NZS\Core;
 
 use Illuminate\Database\Eloquent\Model as Model;
+use Illuminate\Support\Str;
 
 use Storage;
 use NZS\Wampiriada\Donor;
@@ -15,7 +16,7 @@ class PersonNewspaper extends Model {
 
     public function generateFilename() {
         if(!$this->filename) {
-            $this->filename = str_random(32);
+            $this->filename = Str::random(32);
         }
 
         return $this->filename;
