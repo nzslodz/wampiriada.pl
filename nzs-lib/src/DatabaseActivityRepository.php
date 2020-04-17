@@ -13,13 +13,13 @@ class DatabaseActivityRepository implements ActivityRepository {
         $this->migration_repository = $repository;
     }
 
-    public function append($class_names) {
-        if(!is_array($class_names)) {
-            $class_names = [$class_names];
-        }
+    public function append($activity_class) {
+        $this->activity_classes[$activity_class->getModel()] = $activity_class;
+    }
 
+    public function appendMany($class_names) {
         foreach($class_names as $activity_class) {
-            $this->activity_classes[$activity_class->getModel()] = $activity_class;
+            $this->append($activity_class);
         }
     }
 

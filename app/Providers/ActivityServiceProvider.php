@@ -20,7 +20,7 @@ class ActivityServiceProvider extends ServiceProvider
     public function boot()
     {
         $repository = $this->app[ActivityRepository::class];
-        $repository->append($this->app->tagged('activity.model_classes'));
+        $repository->appendMany($this->app->tagged('activity.model_classes'));
         $repository->registerActivityEvents();
     }
 
