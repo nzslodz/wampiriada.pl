@@ -5,7 +5,6 @@ use NZS\Wampiriada\Editions\Edition;
 use NZS\Wampiriada\ActionDay;
 
 use DB;
-use Input;
 
 use DateTime;
 use Illuminate\Http\Request;

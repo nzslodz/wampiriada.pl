@@ -7,7 +7,6 @@ use NZS\Wampiriada\Editions\EditionRepository;
 use NZS\Wampiriada\ActionDay;
 
 use DB;
-use Input;
 
 use DateTime;
 use NZS\Core\Exceptions\ObjectDoesNotExist;
