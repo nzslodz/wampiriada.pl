@@ -2,12 +2,13 @@
 
 namespace NZS\Core\Polls;
 
+use Illuminate\Support\Str;
 use Illuminate\Foundation\Http\FormRequest;
 use NZS\Core\Contracts\PollFormRequest as PollFormRequestContract;
 
 abstract class PollFormRequest extends FormRequest implements PollFormRequestContract {
     public function sanitize($value, $field) {
-        $method_name = camel_case("sanitize_$field");
+        $method_name = Str::camel("sanitize_$field");
 
         if(method_exists($this, $method_name)) {
             $value = $this->$method_name($value);

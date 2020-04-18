@@ -27,8 +27,11 @@
 	@foreach($_REQUEST as $key=>$value)
 		<div>
 			<dt style="display: inline; color: #a0a000; font-weight: bold">{{ $key }}</dt>
-			<dd style="display: inline">{{ $value }}</dd>
+            @if(is_array($value))
+                <dd style="display: inline">{{ print_r($value, true) }}</dd>
+            @else
+                <dd style="display: inline">{{ $value }}</dd>
+            @endif
 		</div>
 	@endforeach
 </dl>
-

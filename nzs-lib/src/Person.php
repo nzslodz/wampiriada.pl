@@ -8,6 +8,8 @@ use NZS\Core\ApplicationUser;
 use NZS\Core\HR\Member;
 use NZS\Core\HasProfilePhoto;
 
+use Illuminate\Support\Str;
+
 use Illuminate\Notifications\Notifiable;
 
 // XXX should we move updateGender to like another object?
@@ -74,7 +76,7 @@ class Person extends Model {
 
             // wild guess - only if there was no other option
             if($this->gender_probability == 0) {
-                if(ends_with($this->first_name, 'a')) {
+                if(Str::endsWith($this->first_name, 'a')) {
                     $this->gender = 'female';
                     $this->gender_probability = 0.01;
                 } else {

@@ -1,6 +1,6 @@
 <?php namespace NZS\Core;
 
-
+use Illuminate\Support\Str;
 use Stevenmaguire\Services\Trello\Client as TrelloClient;
 
 class TrelloRepository {
@@ -76,7 +76,7 @@ class TrelloRepository {
         return collect($lists)->mapWithKeys(function($item) {
             return [$item->id => $item];
         })->filter(function($list) {
-            return starts_with($list->name, "+");
+            return Str::startsWith($list->name, "+");
         });
     }
 
@@ -84,9 +84,6 @@ class TrelloRepository {
         $list = $this->client->addBoardList($this->getReleaseBoard()->id, [
             'name' => $name,
         ]);
-
-
-        $list = $list[0];
 
         foreach($cardIds as $cardId) {
             $this->client->updateCardIdList($cardId, ['value' => $list->id]);

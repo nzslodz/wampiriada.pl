@@ -2,6 +2,8 @@
 
 use DB;
 
+use Illuminate\Support\Str;
+
 class EmailRepository {
 	protected
 		$domain;
@@ -15,7 +17,7 @@ class EmailRepository {
 	}
 
 	public function add($email, $password, $alias_email=null) {
-		if(!ends_with($email, "@$this->domain")) {
+		if(!Str::endsWith($email, "@$this->domain")) {
 			throw new \LogicException("Email $email does not end with domain $this->domain");
 		}
 

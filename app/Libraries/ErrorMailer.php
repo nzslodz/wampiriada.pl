@@ -1,6 +1,6 @@
 <?php namespace App\Libraries;
 
-use Exception;
+use Throwable;
 use Mail;
 use App;
 
@@ -11,7 +11,7 @@ class ErrorMailer {
 		$this->dontReport = $dontReport;
 	}
 
-	public function mailException(Exception $e, array $context=null) {
+	public function mailException(Throwable $e, array $context=null) {
 		foreach($this->dontReport as $class_name) {
 			if ($e instanceof $class_name) {
 				return;
