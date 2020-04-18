@@ -2,6 +2,7 @@
 
 use RuntimeException;
 use Illuminate\Contracts\Support\Htmlable;
+use Illuminate\Support\Str;
 
 class FontAwesomeIcon implements Htmlable {
     protected $icon_class;
@@ -55,7 +56,7 @@ class FontAwesomeIcon implements Htmlable {
     }
 
     public function __call($method_name_text, $params) {
-        $method_name = explode('_', snake_case($method_name_text));
+        $method_name = explode('_', Str::snake($method_name_text));
 
         if(count($method_name) !== 3 || $method_name[1] !== 'or') {
             throw new RuntimeException("Invalid method $method_name_text.");
