@@ -24,7 +24,7 @@
   "dependencies": {
     "font-awesome": "^4.7.0",
     "jquery.scrollto": "^2.1.2",
-    "moment": "^2.24.0",
+    "moment": "^2.29.2",
     "vue-select": "^3.2.0",
     "vuedraggable": "^2.23.2",
     "vuelidate": "^0.6.2",
