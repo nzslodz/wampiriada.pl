@@ -12,7 +12,7 @@
   "devDependencies": {
     "ajv": "^6.12.3",
     "axios": "^0.21",
-    "bootstrap-sass": "^3.3.7",
+    "bootstrap-sass": "^3.4.1",
     "cross-env": "^5.2.0",
     "imagemin": "^5.3.1",
     "jquery": "^3.5",
